@@ -4,12 +4,11 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    public interface IServiceBase<TEntity, TId>
+    public interface IServiceBase<TEntity>
     {
-        TEntity GetById(TId id, params Expression<Func<TEntity, object>>[] includes);
+        TEntity GetById(long id, params Expression<Func<TEntity, object>>[] includes);
 
         IEnumerable<TEntity> GetAll(int page, params Expression<Func<TEntity, object>>[] includes);
-
 
         IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes);
 
@@ -19,7 +18,8 @@
 
         void Remove(TEntity entity);
 
-        void SaveOrUpdate(TEntity entity);
+        bool SaveOrUpdate(TEntity entity);
 
-        void SaveOrUpdate(List<TEntity> entities);
+        bool SaveOrUpdate(List<TEntity> entities);
     }
+}
