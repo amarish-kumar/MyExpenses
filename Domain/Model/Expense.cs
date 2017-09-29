@@ -5,11 +5,11 @@
 
     public class Expense
     {
-        public long ID;
+        public long Id { get; set; }
 
         public string Name { get; set; }
 
-        public string Value { get; set; }
+        public float Value { get; set; }
 
         public DateTime Date { get; set; }
 
