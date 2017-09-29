@@ -35,7 +35,7 @@
                 Console.WriteLine(expense.Name);
             }
 
-            Application.Run(new Form1());
+            Application.Run(new Main());
         }
     }
 }
