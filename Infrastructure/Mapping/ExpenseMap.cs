@@ -23,7 +23,7 @@ namespace Infrastructure.Mapping
             //    .WithMany()
             //    .Map(m => m.MapKey("ID"));
 
-            ToTable("EXPENSE");
+            ToTable("Expenses");
         }
     }
 }
