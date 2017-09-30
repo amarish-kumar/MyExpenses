@@ -1,4 +1,10 @@
-﻿namespace Infrastructure.Repositories
+﻿/* 
+*   Project: MyBaseSolution
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*/
+
+namespace Infrastructure.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;

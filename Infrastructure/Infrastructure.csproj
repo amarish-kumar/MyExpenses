@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,7 +26,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -53,17 +53,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="LocalDataBase\MyLocalDatabaseDataSet.xsc">
-      <DependentUpon>MyLocalDatabaseDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="LocalDataBase\MyLocalDatabaseDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MyLocalDatabaseDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="LocalDataBase\MyLocalDatabaseDataSet.xss">
-      <DependentUpon>MyLocalDatabaseDataSet.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -96,11 +85,6 @@
     <Compile Include="Context\MyContext.cs" />
     <Compile Include="Mapping\ExpenseMap.cs" />
     <Compile Include="Modules\MyModule.cs" />
-    <Compile Include="LocalDataBase\MyLocalDatabaseDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MyLocalDatabaseDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -109,6 +93,7 @@
     <Compile Include="Repositories\ExpenseRepo.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Services\MyKernelService.cs" />
+    <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCutting\CrossCutting.csproj">

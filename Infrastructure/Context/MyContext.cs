@@ -1,6 +1,11 @@
-﻿namespace Infrastructure.Context
+﻿/* 
+*   Project: MyBaseSolution
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*/
+
+namespace Infrastructure.Context
 {
-    using System.Data.Common;
     using System.Data.Entity;
 
     using Domain.Model;
@@ -9,7 +14,7 @@
 
     public class MyContext : DbContext
     {
-        public MyContext(string connectionString) : base(connectionString)
+        public MyContext() : base("name=MyLocalDatabaseConnectionString")
         {
         }
 
@@ -18,6 +23,8 @@
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ExpenseMap());
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

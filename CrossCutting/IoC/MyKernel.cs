@@ -1,4 +1,10 @@
-﻿namespace CrossCutting.IoC
+﻿/* 
+*   Project: MyBaseSolution
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*/
+
+namespace CrossCutting.IoC
 {
     using Ninject;
     using Ninject.Modules;

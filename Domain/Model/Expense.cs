@@ -1,4 +1,10 @@
-﻿namespace Domain.Model
+﻿/* 
+*   Project: MyBaseSolution
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*/
+
+namespace Domain.Model
 {
     using System;
     using System.Collections.Generic;

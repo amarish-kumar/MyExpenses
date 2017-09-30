@@ -1,4 +1,10 @@
-﻿namespace Domain.Interfaces.UnitOfWork
+﻿/* 
+*   Project: MyBaseSolution
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*/
+
+namespace Domain.Interfaces.UnitOfWork
 {
     public interface IUnitOfWork
     {

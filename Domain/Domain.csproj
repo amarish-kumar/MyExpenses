@@ -45,9 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\Repositories\IExpenseRepo.cs" />
-    <Compile Include="Interfaces\Repositories\IExpenseRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
-    <Compile Include="Interfaces\Repositories\ITagRepository.cs" />
     <Compile Include="Interfaces\Services\IServiceBase.cs" />
     <Compile Include="Interfaces\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Model\Expense.cs" />

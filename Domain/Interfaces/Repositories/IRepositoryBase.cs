@@ -1,4 +1,10 @@
-﻿namespace Domain.Interfaces.Repositories
+﻿/* 
+*   Project: MyBaseSolution
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*/
+
+namespace Domain.Interfaces.Repositories
 {
     using System;
     using System.Collections.Generic;

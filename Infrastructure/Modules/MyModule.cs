@@ -1,11 +1,19 @@
-﻿namespace Infrastructure.Modules
+﻿/* 
+*   Project: MyBaseSolution
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*/
+
+namespace Infrastructure.Modules
 {
     using System.Configuration;
 
     using Domain.Interfaces.Repositories;
+    using Domain.Interfaces.UnitOfWork;
 
     using Infrastructure.Context;
     using Infrastructure.Repositories;
+    using Infrastructure.UnitOfWork;
 
     using Ninject.Modules;
 
@@ -17,8 +25,10 @@
             Bind<IExpenseRepo>().To<ExpenseRepo>().InSingletonScope();
 
             // Context
-            Bind<MyContext>().ToSelf().InSingletonScope()
-                .WithConstructorArgument("connectionString", ConfigurationManager.ConnectionStrings["MyLocalDataBase"].ConnectionString);
+            Bind<MyContext>().ToSelf().InSingletonScope();
+
+            // Unit of work
+            Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }
