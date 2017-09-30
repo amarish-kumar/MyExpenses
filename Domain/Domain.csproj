@@ -49,6 +49,7 @@
     <Compile Include="Interfaces\Services\IServiceBase.cs" />
     <Compile Include="Interfaces\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Model\Expense.cs" />
+    <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\Tag.cs" />
   </ItemGroup>
   <ItemGroup>
