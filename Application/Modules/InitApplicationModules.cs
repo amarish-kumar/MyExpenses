@@ -4,11 +4,11 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Application.Modules
+namespace MyExpenses.Application.Modules
 {
-    using CrossCutting.IoC;
-
     using Infrastructure.Modules;
+
+    using MyExpenses.CrossCutting.IoC;
 
     public static class InitApplicationModules
     {

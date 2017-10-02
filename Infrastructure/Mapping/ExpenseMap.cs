@@ -4,10 +4,11 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Infrastructure.Mapping
+namespace MyExpenses.Infrastructure.Mapping
 {
     using System.Data.Entity.ModelConfiguration;
-    using Domain.Model;
+
+    using MyExpenses.Domain.Models;
 
     public class ExpenseMap : EntityTypeConfiguration<Expense>
     {

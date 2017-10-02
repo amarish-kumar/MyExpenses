@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Infrastructure.Interfaces
+namespace MyExpenses.Infrastructure.Interfaces
 {
     public interface IUnitOfWork
     {

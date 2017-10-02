@@ -4,12 +4,12 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Infrastructure.Modules
+namespace MyExpenses.Infrastructure.Modules
 {
-    using Infrastructure.Context;
-    using Infrastructure.Interfaces;
-    using Infrastructure.Repositories;
-    using Infrastructure.UnitOfWork;
+    using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Infrastructure.Interfaces;
+    using MyExpenses.Infrastructure.Repositories;
+    using MyExpenses.Infrastructure.UnitOfWork;
 
     using Ninject.Modules;
 

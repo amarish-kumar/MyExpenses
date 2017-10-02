@@ -4,17 +4,16 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Application.Services
+namespace MyExpenses.Application.Services
 {
     using System.Collections.Generic;
     using System.Linq;
 
-    using Application.DataTransferObject;
-    using Application.Interfaces;
-
-    using Domain.Model;
-
     using Infrastructure.Interfaces;
+
+    using MyExpenses.Application.DataTransferObject;
+    using MyExpenses.Application.Interfaces;
+    using MyExpenses.Domain.Models;
 
     public class ExpensesAppService : AppServiceBase, IExpensesAppService
     {

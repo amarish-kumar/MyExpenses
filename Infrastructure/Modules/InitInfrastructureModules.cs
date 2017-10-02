@@ -4,9 +4,9 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Infrastructure.Modules
+namespace MyExpenses.Infrastructure.Modules
 {
-    using CrossCutting.IoC;
+    using MyExpenses.CrossCutting.IoC;
 
     public static class InitInfrastructureModules
     {

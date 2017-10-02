@@ -4,13 +4,12 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Infrastructure.Context
+namespace MyExpenses.Infrastructure.Context
 {
     using System.Data.Entity;
 
-    using Domain.Model;
-
-    using Infrastructure.Mapping;
+    using MyExpenses.Domain.Models;
+    using MyExpenses.Infrastructure.Mapping;
 
     public class MyContext : DbContext
     {
@@ -22,7 +21,7 @@ namespace Infrastructure.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Configurations.Add(new ExpenseMap());
+            modelBuilder.Configurations.Add(new ExpenseMap());
 
             base.OnModelCreating(modelBuilder);
         }

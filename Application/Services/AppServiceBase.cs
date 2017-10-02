@@ -4,9 +4,9 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Application.Services
+namespace MyExpenses.Application.Services
 {
-    using Application.Interfaces;
+    using MyExpenses.Application.Interfaces;
 
     public class AppServiceBase : IAppServiceBase
     {

@@ -4,14 +4,18 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Application.Interfaces
+namespace MyExpenses.Application.Interfaces
 {
     using System.Collections.Generic;
 
-    using Application.DataTransferObject;
+    using MyExpenses.Application.DataTransferObject;
 
     public interface IExpensesAppService
     {
+        /// <summary>
+        /// Get all expenses available
+        /// </summary>
+        /// <returns>All expenses</returns>
         List<ExpensesDto> GetAllExpenses();
     }
 }

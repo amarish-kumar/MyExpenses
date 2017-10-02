@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Application.Interfaces
+namespace MyExpenses.Application.Interfaces
 {
     public interface IAppServiceBase
     {

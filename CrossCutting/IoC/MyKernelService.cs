@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace CrossCutting.IoC
+namespace MyExpenses.CrossCutting.IoC
 {
     using Ninject.Modules;
 

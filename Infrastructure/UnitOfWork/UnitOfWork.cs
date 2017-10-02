@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Infrastructure.UnitOfWork
+namespace MyExpenses.Infrastructure.UnitOfWork
 {
     using System;
     using System.Data.Entity;
@@ -12,8 +12,8 @@ namespace Infrastructure.UnitOfWork
     using System.Data.Entity.Infrastructure;
     using System.Linq;
 
-    using Infrastructure.Context;
-    using Infrastructure.Interfaces;
+    using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Infrastructure.Interfaces;
 
     public class UnitOfWork : IUnitOfWork
     {

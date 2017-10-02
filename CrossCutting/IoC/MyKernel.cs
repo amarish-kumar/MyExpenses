@@ -4,11 +4,12 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace CrossCutting.IoC
+namespace MyExpenses.CrossCutting.IoC
 {
+    using System.Linq;
+
     using Ninject;
     using Ninject.Modules;
-    using System.Linq;
 
     public static class MyKernel
     {

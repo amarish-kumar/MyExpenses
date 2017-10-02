@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Application.DataTransferObject
+namespace MyExpenses.Application.DataTransferObject
 {
     using System;
 

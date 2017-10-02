@@ -4,10 +4,10 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Application.Modules
+namespace MyExpenses.Application.Modules
 {
-    using Application.Interfaces;
-    using Application.Services;
+    using MyExpenses.Application.Interfaces;
+    using MyExpenses.Application.Services;
 
     using Ninject.Modules;
 

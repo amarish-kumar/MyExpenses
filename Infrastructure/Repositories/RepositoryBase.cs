@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Infrastructure.Repositories
+namespace MyExpenses.Infrastructure.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -12,9 +12,9 @@ namespace Infrastructure.Repositories
     using System.Linq;
     using System.Linq.Expressions;
 
-    using Domain.Model;
-    using Infrastructure.Context;
-    using Infrastructure.Interfaces;
+    using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Infrastructure.Interfaces;
 
     public class RepositoryBase<TEntity>: IRepositoryBase<TEntity> where TEntity : class, IEntity
     {

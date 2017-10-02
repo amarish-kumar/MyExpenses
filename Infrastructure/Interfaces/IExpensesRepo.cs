@@ -4,9 +4,9 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace Infrastructure.Interfaces
+namespace MyExpenses.Infrastructure.Interfaces
 {
-    using Domain.Model;
+    using MyExpenses.Domain.Models;
 
     public interface IExpensesRepo : IRepositoryBase<Expense>
     {
