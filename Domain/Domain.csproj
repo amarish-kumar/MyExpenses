@@ -44,16 +44,14 @@
     <Folder Include="Validator\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\Repositories\IExpenseRepo.cs" />
-    <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
     <Compile Include="Interfaces\Services\IServiceBase.cs" />
-    <Compile Include="Interfaces\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Model\Expense.cs" />
     <Compile Include="Model\IEntity.cs" />
     <Compile Include="Model\Tag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

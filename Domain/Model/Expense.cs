@@ -8,27 +8,35 @@ namespace Domain.Model
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("Expenses")]
     public sealed class Expense : IEntity
     {
         /// <summary>
         /// ID column
         /// </summary>
+        [Key]
+        [Required]
         public long Id { get; set; }
 
         /// <summary>
         /// NAME column
         /// </summary>
+        [Column("NAME")]
         public string Name { get; set; }
 
         /// <summary>
         /// VALUE column
         /// </summary>
+        [Column("VALUE")]
         public float Value { get; set; }
 
         /// <summary>
         /// DATE column
         /// </summary>
+        [Column("DATE")]
         public DateTime Date { get; set; }
 
         public ICollection<Tag> Tags { get; set; }
@@ -38,6 +46,7 @@ namespace Domain.Model
         /// </summary>
         public Expense()
         {
+            Id = -1;
             Tags = new HashSet<Tag>();
         }
 

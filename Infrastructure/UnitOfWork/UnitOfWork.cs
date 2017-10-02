@@ -12,9 +12,8 @@ namespace Infrastructure.UnitOfWork
     using System.Data.Entity.Infrastructure;
     using System.Linq;
 
-    using Domain.Interfaces.UnitOfWork;
-
     using Infrastructure.Context;
+    using Infrastructure.Interfaces;
 
     public class UnitOfWork : IUnitOfWork
     {

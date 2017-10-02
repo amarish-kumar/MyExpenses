@@ -22,7 +22,7 @@ namespace Infrastructure.Context
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new ExpenseMap());
+            //modelBuilder.Configurations.Add(new ExpenseMap());
 
             base.OnModelCreating(modelBuilder);
         }

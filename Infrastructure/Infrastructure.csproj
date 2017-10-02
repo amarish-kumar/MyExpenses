@@ -82,16 +82,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\MyContext.cs" />
+    <Compile Include="Interfaces\IExpensesRepo.cs" />
+    <Compile Include="Interfaces\IRepositoryBase.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Mapping\ExpenseMap.cs" />
-    <Compile Include="Modules\MyModule.cs" />
+    <Compile Include="Modules\InitInfrastructureModules.cs" />
+    <Compile Include="Modules\MyInfrastructureModule.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\ExpenseRepo.cs" />
+    <Compile Include="Repositories\ExpensesRepo.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
-    <Compile Include="Services\MyKernelService.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
