@@ -4,9 +4,9 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace MyExpenses.WinForm.Interfaces
+namespace MyExpenses.WinForm.Mvp.Interfaces
 {
-    using MyExpenses.WinForm.View;
+    using MyExpenses.WinForm.Mvp.View;
 
     public interface IPresenter
     {

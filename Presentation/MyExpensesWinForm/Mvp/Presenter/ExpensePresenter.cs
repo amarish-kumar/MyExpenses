@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace MyExpenses.WinForm.Presenter
+namespace MyExpenses.WinForm.Mvp.Presenter
 {
     using System;
     using System.Collections.Generic;
@@ -13,8 +13,8 @@ namespace MyExpenses.WinForm.Presenter
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
     using MyExpenses.CrossCutting.Results;
-    using MyExpenses.WinForm.Interfaces;
-    using MyExpenses.WinForm.Model;
+    using MyExpenses.WinForm.Mvp.Interfaces;
+    using MyExpenses.WinForm.Mvp.Model;
 
     public class ExpensePresenter : PresenterBase
     {

@@ -12,6 +12,7 @@ namespace MyExpenses.Infrastructure.UnitOfWork
     using System.Data.Entity.Infrastructure;
     using System.Linq;
 
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Interfaces;
 

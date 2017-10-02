@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.WinForm.Presenter {
+namespace MyExpenses.WinForm.Mvp.Presenter {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MyExpenses.WinForm.Presenter {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.WinForm.Presenter.PresenterStrings", typeof(PresenterStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.WinForm.Mvp.Presenter.PresenterStrings", typeof(PresenterStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

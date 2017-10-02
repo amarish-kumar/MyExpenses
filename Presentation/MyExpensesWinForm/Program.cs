@@ -12,7 +12,7 @@ namespace MyExpenses.WinForm
     using MyExpenses.Application.Modules;
     using MyExpenses.CrossCutting.IoC;
     using MyExpenses.WinForm.Modules;
-    using MyExpenses.WinForm.Presenter;
+    using MyExpenses.WinForm.Mvp.Presenter;
 
     internal static class Program
     {

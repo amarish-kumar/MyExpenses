@@ -14,6 +14,7 @@ namespace MyExpenses.Application.Services
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
     using MyExpenses.CrossCutting.Results;
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Models;
 
     public class ExpensesAppService : AppServiceBase, IExpensesAppService

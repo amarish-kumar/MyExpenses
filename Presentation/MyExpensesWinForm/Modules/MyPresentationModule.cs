@@ -6,9 +6,9 @@
 
 namespace MyExpenses.WinForm.Modules
 {
-    using MyExpenses.WinForm.Interfaces;
-    using MyExpenses.WinForm.Presenter;
-    using MyExpenses.WinForm.View;
+    using MyExpenses.WinForm.Mvp.Interfaces;
+    using MyExpenses.WinForm.Mvp.Presenter;
+    using MyExpenses.WinForm.Mvp.View;
 
     using Ninject.Modules;
 

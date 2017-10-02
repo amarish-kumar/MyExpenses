@@ -4,14 +4,14 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace MyExpenses.WinForm.Presenter
+namespace MyExpenses.WinForm.Mvp.Presenter
 {
     using System;
     using System.Windows.Forms;
 
     using MyExpenses.CrossCutting.Results;
-    using MyExpenses.WinForm.Interfaces;
-    using MyExpenses.WinForm.View;
+    using MyExpenses.WinForm.Mvp.Interfaces;
+    using MyExpenses.WinForm.Mvp.View;
 
     public class PresenterBase : IPresenter
     {

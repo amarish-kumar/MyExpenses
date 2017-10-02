@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace MyExpenses.WinForm.Model
+namespace MyExpenses.WinForm.Mvp.Model
 {
     using System;
 

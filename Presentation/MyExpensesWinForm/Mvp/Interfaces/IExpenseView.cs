@@ -4,13 +4,13 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace MyExpenses.WinForm.Interfaces
+namespace MyExpenses.WinForm.Mvp.Interfaces
 {
     using System;
     using System.Collections.Generic;
 
-    using MyExpenses.WinForm.Model;
-    using MyExpenses.WinForm.View;
+    using MyExpenses.WinForm.Mvp.Model;
+    using MyExpenses.WinForm.Mvp.View;
 
     public interface IExpenseView : IView
     {

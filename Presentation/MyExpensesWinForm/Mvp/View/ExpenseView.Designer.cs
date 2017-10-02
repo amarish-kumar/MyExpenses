@@ -1,4 +1,4 @@
-﻿namespace MyExpenses.WinForm.View
+﻿namespace MyExpenses.WinForm.Mvp.View
 {
     partial class ExpenseView
     {

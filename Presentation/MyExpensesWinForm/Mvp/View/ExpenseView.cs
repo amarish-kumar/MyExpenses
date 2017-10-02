@@ -4,14 +4,14 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace MyExpenses.WinForm.View
+namespace MyExpenses.WinForm.Mvp.View
 {
     using System;
     using System.Collections.Generic;
     using System.Windows.Forms;
 
-    using MyExpenses.WinForm.Interfaces;
-    using MyExpenses.WinForm.Model;
+    using MyExpenses.WinForm.Mvp.Interfaces;
+    using MyExpenses.WinForm.Mvp.Model;
 
     public partial class ExpenseView : Form, IExpenseView
     {

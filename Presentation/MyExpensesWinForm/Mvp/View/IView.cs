@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace MyExpenses.WinForm.View
+namespace MyExpenses.WinForm.Mvp.View
 {
     public interface IView
     {

@@ -6,6 +6,7 @@
 
 namespace MyExpenses.Infrastructure.Modules
 {
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Interfaces;
     using MyExpenses.Infrastructure.Repositories;
