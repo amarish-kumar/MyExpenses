@@ -19,11 +19,17 @@ namespace MyExpenses.WinForm.View
         {
             InitializeComponent();
             InitEvents();
+
+            txtId.Enabled = false;
         }
 
         public ICollection<ExpenseModel> Expenses { get; set; }
 
         public ExpenseModel SelectedExpense { get; set; }
+
+        public event EventHandler UpdateEvent;
+        public event EventHandler AddEvent;
+        public event EventHandler DeleteEvent;
 
         public void UpdateView()
         {
@@ -39,11 +45,15 @@ namespace MyExpenses.WinForm.View
         private void InitEvents()
         {
             dgvExpenses.SelectionChanged += DgvExpensesSelectionChanged;
+            btnUpdate.Click += BtnUpdateClicked;
+            btnAdd.Click += BtnAddClicked;
+            btnDelete.Click += BtnDeleteClicked;
         }
 
         private void UpdateGrid()
         {
             dgvExpenses.DataSource = Expenses;
+            dgvExpenses.Columns[0].Visible = false;
         }
 
         private void UpdateSelected()
@@ -62,6 +72,17 @@ namespace MyExpenses.WinForm.View
             // Method intentionally left empty.
         }
 
+        private ExpenseModel ConvertViewToModel(bool ignoreId = false)
+        {
+            return new ExpenseModel
+            {
+                Id = ignoreId ? -1 : Convert.ToInt16(txtId.Text),
+                Name = txtName.Text,
+                Value = (float)Convert.ToDouble(txtValue.Text),
+                Date = Convert.ToDateTime(txtDate.Text)
+            };
+        }
+
         private void DgvExpensesSelectionChanged(object sender, EventArgs e)
         {
             if (dgvExpenses.SelectedRows.Count <= 0)
@@ -69,6 +90,24 @@ namespace MyExpenses.WinForm.View
 
             SelectedExpense = (ExpenseModel)dgvExpenses.SelectedRows[0].DataBoundItem;
             UpdateSelected();
+        }
+
+        private void BtnAddClicked(object sender, EventArgs e)
+        {
+            SelectedExpense = ConvertViewToModel(true);
+            AddEvent?.Invoke(sender, e);
+        }
+
+        private void BtnUpdateClicked(object sender, EventArgs e)
+        {
+            SelectedExpense = ConvertViewToModel();
+            UpdateEvent?.Invoke(sender, e);
+        }
+
+        private void BtnDeleteClicked(object sender, EventArgs e)
+        {
+            SelectedExpense = ConvertViewToModel();
+            DeleteEvent?.Invoke(sender, e);
         }
     }
 }

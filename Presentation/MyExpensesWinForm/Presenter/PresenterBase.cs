@@ -6,6 +6,11 @@
 
 namespace MyExpenses.WinForm.Presenter
 {
+    using System;
+    using System.Windows.Forms;
+
+    using MyExpenses.CrossCutting.Results;
+    using MyExpenses.WinForm.Interfaces;
     using MyExpenses.WinForm.View;
 
     public class PresenterBase : IPresenter
@@ -20,6 +25,28 @@ namespace MyExpenses.WinForm.Presenter
         public IView GetView()
         {
             return _view;
+        }
+
+        public void ShowResults(MyResults results)
+        {
+            if (results.Type == MyResultsType.Ok)
+            {
+                MessageBox.Show(
+                    (Form)_view,
+                    String.Format(PresenterStrings.ActionAndSuccess, results.Action),
+                    PresenterStrings.ResultsTitle, 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(
+                    (Form)_view, 
+                    String.Format(PresenterStrings.ActionAndMessage, results.Action, results.Message), 
+                    PresenterStrings.ResultsTitle, 
+                    MessageBoxButtons.OK,
+                    results.Type == MyResultsType.Error ? MessageBoxIcon.Error : MessageBoxIcon.Warning);
+            }
         }
     }
 }

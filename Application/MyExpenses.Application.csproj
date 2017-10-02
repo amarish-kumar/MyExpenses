@@ -41,7 +41,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataTransferObject\ExpensesDTO.cs" />
+    <Compile Include="DataTransferObject\ExpenseDto.cs" />
     <Compile Include="Interfaces\IAppServiceBase.cs" />
     <Compile Include="Interfaces\IExpensesAppService.cs" />
     <Compile Include="Modules\InitApplicationModules.cs" />

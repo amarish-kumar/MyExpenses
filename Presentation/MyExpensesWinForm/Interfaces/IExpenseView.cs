@@ -28,5 +28,9 @@ namespace MyExpenses.WinForm.Interfaces
         /// Update view
         /// </summary>
         void UpdateView();
+
+        event EventHandler AddEvent;
+        event EventHandler UpdateEvent;
+        event EventHandler DeleteEvent;
     }
 }

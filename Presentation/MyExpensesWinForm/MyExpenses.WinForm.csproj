@@ -62,8 +62,13 @@
     <Compile Include="Modules\InitPresentationModules.cs" />
     <Compile Include="Modules\MyPresentationModule.cs" />
     <Compile Include="Presenter\ExpensePresenter.cs" />
-    <Compile Include="Presenter\IPresenter.cs" />
+    <Compile Include="Interfaces\IPresenter.cs" />
     <Compile Include="Presenter\PresenterBase.cs" />
+    <Compile Include="Presenter\PresenterStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PresenterStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="View\ExpenseView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +78,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\IView.cs" />
+    <EmbeddedResource Include="Presenter\PresenterStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PresenterStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ExpenseView.resx">
       <DependentUpon>ExpenseView.cs</DependentUpon>
     </EmbeddedResource>

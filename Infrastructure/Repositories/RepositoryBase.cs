@@ -12,6 +12,7 @@ namespace MyExpenses.Infrastructure.Repositories
     using System.Linq;
     using System.Linq.Expressions;
 
+    using MyExpenses.CrossCutting.Results;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Interfaces;
@@ -58,13 +59,20 @@ namespace MyExpenses.Infrastructure.Repositories
             return set.FirstOrDefault();
         }
 
-        public TEntity Remove(TEntity entity)
+        public MyResults Remove(TEntity entity)
         {
-            TEntity set = _context.Set<TEntity>().Remove(entity);
-            return set;
+            string action = String.Format(RepoStrings.Action_Removing, entity.GetType().Name);
+            TEntity existEntity = _context.Set<TEntity>().Find(entity.Id);
+            if (existEntity == null)
+            {
+                return new MyResults(MyResultsType.Error, action, RepoStrings.Error_RemoveInvalidObject);
+            }
+
+            _context.Set<TEntity>().Remove(existEntity);
+            return new MyResults(MyResultsType.Ok, action);
         }
 
-        public TEntity SaveOrUpdate(TEntity entity)
+        public MyResults SaveOrUpdate(TEntity entity)
         {
             // Update
             if (entity.Id > 0)
@@ -73,12 +81,13 @@ namespace MyExpenses.Infrastructure.Repositories
                 if (existEntity != null)
                 {
                     existEntity.Copy(entity);
-                    return existEntity;
+                    return new MyResults(MyResultsType.Ok, String.Format(RepoStrings.Action_Updating, entity.GetType().Name));
                 }
             }
 
             // Save Add
-            return _context.Set<TEntity>().Add(entity);
+            _context.Set<TEntity>().Add(entity);
+            return new MyResults(MyResultsType.Ok, String.Format(RepoStrings.Action_Adding, entity.GetType().Name));
         }
     }
 }

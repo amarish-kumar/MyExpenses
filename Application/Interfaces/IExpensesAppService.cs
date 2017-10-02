@@ -9,6 +9,7 @@ namespace MyExpenses.Application.Interfaces
     using System.Collections.Generic;
 
     using MyExpenses.Application.DataTransferObject;
+    using MyExpenses.CrossCutting.Results;
 
     public interface IExpensesAppService
     {
@@ -16,6 +17,20 @@ namespace MyExpenses.Application.Interfaces
         /// Get all expenses available
         /// </summary>
         /// <returns>All expenses</returns>
-        List<ExpensesDto> GetAllExpenses();
+        List<ExpenseDto> GetAllExpenses();
+
+        /// <summary>
+        /// Save or update a expense
+        /// </summary>
+        /// <param name="expenseDto">Expense to be save or updated</param>
+        /// <returns>Result of the operation</returns>
+        MyResults SaveOrUpdateExpense(ExpenseDto expenseDto);
+
+        /// <summary>
+        /// Remove expense
+        /// </summary>
+        /// <param name="expenseDto">Expense to be removed</param>
+        /// <returns>Result of the operation</returns>
+        MyResults RemoveExpense(ExpenseDto expenseDto);
     }
 }

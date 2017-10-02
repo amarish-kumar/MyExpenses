@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="IoC\MyKernel.cs" />
     <Compile Include="IoC\MyKernelService.cs" />
+    <Compile Include="Results\MyResults.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />

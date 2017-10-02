@@ -13,30 +13,45 @@ namespace MyExpenses.Application.Services
 
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
+    using MyExpenses.CrossCutting.Results;
     using MyExpenses.Domain.Models;
 
     public class ExpensesAppService : AppServiceBase, IExpensesAppService
     {
         private readonly IExpensesRepo _repo;
 
-        public ExpensesAppService(IExpensesRepo repo)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public ExpensesAppService(IExpensesRepo repo, IUnitOfWork unitOfWork)
         {
             _repo = repo;
+            _unitOfWork = unitOfWork;
         }
 
-        public List<ExpensesDto> GetAllExpenses()
+        public List<ExpenseDto> GetAllExpenses()
         {
             List<Expense> expensesDomain = _repo.GetAll().ToList();
-            List<ExpensesDto> expensesDto = expensesDomain.Select(
-                x => new ExpensesDto
-                         {
-                             Id = x.Id,
-                             Name = x.Name,
-                             Value = x.Value,
-                             Date = x.Date
-                         }).ToList();
+            List<ExpenseDto> expensesDto = expensesDomain.Select(x => new ExpenseDto(x)).ToList();
 
             return expensesDto;
+        }
+
+        public MyResults SaveOrUpdateExpense(ExpenseDto expenseDto)
+        {
+            _unitOfWork.BeginTransaction();
+            MyResults results = _repo.SaveOrUpdate(expenseDto.ConvertToDomain());
+            _unitOfWork.Commit();
+
+            return results;
+        }
+
+        public MyResults RemoveExpense(ExpenseDto expenseDto)
+        {
+            _unitOfWork.BeginTransaction();
+            MyResults result = _repo.Remove(expenseDto.ConvertToDomain());
+            _unitOfWork.Commit();
+
+            return result;
         }
     }
 }
