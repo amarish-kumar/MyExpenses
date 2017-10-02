@@ -66,7 +66,7 @@
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tlpMain.Size = new System.Drawing.Size(762, 559);
+            this.tlpMain.Size = new System.Drawing.Size(762, 420);
             this.tlpMain.TabIndex = 0;
             // 
             // dgvExpenses
@@ -77,8 +77,9 @@
             this.dgvExpenses.MultiSelect = false;
             this.dgvExpenses.Name = "dgvExpenses";
             this.dgvExpenses.ReadOnly = true;
+            this.dgvExpenses.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvExpenses.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvExpenses.Size = new System.Drawing.Size(756, 388);
+            this.dgvExpenses.Size = new System.Drawing.Size(756, 249);
             this.dgvExpenses.TabIndex = 0;
             // 
             // tlpDetails
@@ -95,7 +96,7 @@
             this.tlpDetails.Controls.Add(this.txtValue, 1, 2);
             this.tlpDetails.Controls.Add(this.txtDate, 1, 3);
             this.tlpDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpDetails.Location = new System.Drawing.Point(0, 394);
+            this.tlpDetails.Location = new System.Drawing.Point(0, 255);
             this.tlpDetails.Margin = new System.Windows.Forms.Padding(0);
             this.tlpDetails.Name = "tlpDetails";
             this.tlpDetails.RowCount = 4;
@@ -195,7 +196,7 @@
             this.tlpFooter.Controls.Add(this.btnDelete, 3, 0);
             this.tlpFooter.Controls.Add(this.picIcon, 0, 0);
             this.tlpFooter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tlpFooter.Location = new System.Drawing.Point(3, 522);
+            this.tlpFooter.Location = new System.Drawing.Point(3, 383);
             this.tlpFooter.Name = "tlpFooter";
             this.tlpFooter.RowCount = 1;
             this.tlpFooter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -247,7 +248,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(762, 559);
+            this.ClientSize = new System.Drawing.Size(762, 420);
             this.Controls.Add(this.tlpMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ExpenseView";

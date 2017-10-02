@@ -6,8 +6,6 @@
 
 namespace MyExpenses.Application.Modules
 {
-    using Infrastructure.Modules;
-
     using MyExpenses.CrossCutting.IoC;
 
     public static class InitApplicationModules
@@ -15,8 +13,11 @@ namespace MyExpenses.Application.Modules
         public static void Init()
         {
             MyKernelService.AddModule(new MyApplicationModule());
+        }
 
-            InitInfrastructureModules.Init();
+        public static void InitInfrastructureModules()
+        {
+            Infrastructure.Modules.InitInfrastructureModules.Init();
         }
     }
 }

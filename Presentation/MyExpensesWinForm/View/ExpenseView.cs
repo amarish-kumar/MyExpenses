@@ -6,6 +6,7 @@
 
 namespace MyExpenses.WinForm.View
 {
+    using System;
     using System.Collections.Generic;
     using System.Windows.Forms;
 
@@ -17,6 +18,7 @@ namespace MyExpenses.WinForm.View
         public ExpenseView()
         {
             InitializeComponent();
+            InitEvents();
         }
 
         public ICollection<ExpenseModel> Expenses { get; set; }
@@ -34,6 +36,11 @@ namespace MyExpenses.WinForm.View
          *  PRIVATE METHODS
         */
 
+        private void InitEvents()
+        {
+            dgvExpenses.SelectionChanged += DgvExpensesSelectionChanged;
+        }
+
         private void UpdateGrid()
         {
             dgvExpenses.DataSource = Expenses;
@@ -46,13 +53,22 @@ namespace MyExpenses.WinForm.View
 
             txtId.Text = SelectedExpense.Id.ToString();
             txtName.Text = SelectedExpense.Name;
-            txtValue.Text = SelectedExpense.Value.ToString("D");
+            txtValue.Text = $"{SelectedExpense.Value:0.00}";
             txtDate.Text = SelectedExpense.Date.ToShortDateString();
         }
 
         private void UpdateFooter()
         {
             // Method intentionally left empty.
+        }
+
+        private void DgvExpensesSelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvExpenses.SelectedRows.Count <= 0)
+                return;
+
+            SelectedExpense = (ExpenseModel)dgvExpenses.SelectedRows[0].DataBoundItem;
+            UpdateSelected();
         }
     }
 }

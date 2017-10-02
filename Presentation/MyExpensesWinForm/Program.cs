@@ -29,6 +29,7 @@ namespace MyExpenses.WinForm
             MyKernelService.Init();
             InitPresentationModules.Init();
             InitApplicationModules.Init();
+            InitApplicationModules.InitInfrastructureModules();
 
             ExpensePresenter expensePresenter = MyKernelService.GetInstance<ExpensePresenter>();
             Application.Run((Form)expensePresenter.GetView());

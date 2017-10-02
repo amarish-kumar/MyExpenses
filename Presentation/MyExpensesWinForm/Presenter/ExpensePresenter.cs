@@ -6,6 +6,7 @@
 
 namespace MyExpenses.WinForm.Presenter
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -29,6 +30,10 @@ namespace MyExpenses.WinForm.Presenter
             InitEvents();
         }
 
+        /*       
+         *  PRIVATE METHODS
+        */
+
         private void Binding()
         {
             List<ExpensesDto> expensesDto = _appService.GetAllExpenses();
@@ -49,7 +54,6 @@ namespace MyExpenses.WinForm.Presenter
 
         private void InitEvents()
         {
-            // Method intentionally left empty.
         }
     }
 }
