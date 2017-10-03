@@ -7,8 +7,8 @@
 namespace MyExpenses.Infrastructure.Modules
 {
     using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Infrastructure.Context;
-    using MyExpenses.Infrastructure.Interfaces;
     using MyExpenses.Infrastructure.Repositories;
     using MyExpenses.Infrastructure.UnitOfWork;
 

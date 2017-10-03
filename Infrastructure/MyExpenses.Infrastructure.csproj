@@ -118,8 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\MyContext.cs" />
-    <Compile Include="Interfaces\IExpensesRepo.cs" />
-    <Compile Include="Interfaces\IRepositoryBase.cs" />
     <Compile Include="Mapping\ExpenseMap.cs" />
     <Compile Include="Modules\InitInfrastructureModules.cs" />
     <Compile Include="Modules\MyInfrastructureModule.cs" />

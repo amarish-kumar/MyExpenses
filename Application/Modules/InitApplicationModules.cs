@@ -14,10 +14,5 @@ namespace MyExpenses.Application.Modules
         {
             MyKernelService.AddModule(new MyApplicationModule());
         }
-
-        public static void InitInfrastructureModules()
-        {
-            Infrastructure.Modules.InitInfrastructureModules.Init();
-        }
     }
 }

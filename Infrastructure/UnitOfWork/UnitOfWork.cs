@@ -14,7 +14,6 @@ namespace MyExpenses.Infrastructure.UnitOfWork
 
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
-    using MyExpenses.Infrastructure.Interfaces;
 
     public class UnitOfWork : IUnitOfWork
     {

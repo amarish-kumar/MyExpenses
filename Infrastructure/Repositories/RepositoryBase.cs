@@ -14,8 +14,8 @@ namespace MyExpenses.Infrastructure.Repositories
 
     using MyExpenses.CrossCutting.Results;
     using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Infrastructure.Context;
-    using MyExpenses.Infrastructure.Interfaces;
 
     public class RepositoryBase<TEntity>: IRepositoryBase<TEntity> where TEntity : class, IEntity
     {

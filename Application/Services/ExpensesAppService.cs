@@ -9,12 +9,11 @@ namespace MyExpenses.Application.Services
     using System.Collections.Generic;
     using System.Linq;
 
-    using Infrastructure.Interfaces;
-
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
     using MyExpenses.CrossCutting.Results;
     using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
 
     public class ExpensesAppService : AppServiceBase, IExpensesAppService

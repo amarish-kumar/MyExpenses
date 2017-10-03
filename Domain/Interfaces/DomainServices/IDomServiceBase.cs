@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyBaseSolution
 */
 
-namespace MyExpenses.Domain.Interfaces.Services
+namespace MyExpenses.Domain.Interfaces.DomainServices
 {
     using System;
     using System.Collections.Generic;

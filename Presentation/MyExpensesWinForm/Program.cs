@@ -11,6 +11,10 @@ namespace MyExpenses.WinForm
 
     using MyExpenses.Application.Modules;
     using MyExpenses.CrossCutting.IoC;
+    using MyExpenses.Domain.Models;
+    using MyExpenses.Infrastructure.Modules;
+    using MyExpenses.Infrastructure.Repositories;
+    using MyExpenses.Infrastructure.UnitOfWork;
     using MyExpenses.WinForm.Modules;
     using MyExpenses.WinForm.Mvp.Presenter;
 
@@ -29,7 +33,7 @@ namespace MyExpenses.WinForm
             MyKernelService.Init();
             InitPresentationModules.Init();
             InitApplicationModules.Init();
-            InitApplicationModules.InitInfrastructureModules();
+            InitInfrastructureModules.Init();
 
             ExpensePresenter expensePresenter = MyKernelService.GetInstance<ExpensePresenter>();
             Application.Run((Form)expensePresenter.GetView());
