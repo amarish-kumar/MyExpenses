@@ -7,14 +7,13 @@
 namespace MyExpenses.WinForm
 {
     using System;
+    using System.Configuration;
     using System.Windows.Forms;
 
     using MyExpenses.Application.Modules;
     using MyExpenses.CrossCutting.IoC;
-    using MyExpenses.Domain.Models;
+    using MyExpenses.CrossCutting.Modules;
     using MyExpenses.Infrastructure.Modules;
-    using MyExpenses.Infrastructure.Repositories;
-    using MyExpenses.Infrastructure.UnitOfWork;
     using MyExpenses.WinForm.Modules;
     using MyExpenses.WinForm.Mvp.Presenter;
 
@@ -29,14 +28,25 @@ namespace MyExpenses.WinForm
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Loads only necessary modules
-            MyKernelService.Init();
-            InitPresentationModules.Init();
-            InitApplicationModules.Init();
-            InitInfrastructureModules.Init();
+            string connectionString = ConfigurationManager.ConnectionStrings["MyLocalDatabaseConnectionString"].ConnectionString;
 
-            ExpensePresenter expensePresenter = MyKernelService.GetInstance<ExpensePresenter>();
-            Application.Run((Form)expensePresenter.GetView());
+            try
+            {
+                // Loads only necessary modules
+                MyKernelService.Init();
+                InitPresentationModules.Init();
+                InitApplicationModules.Init();
+                InitInfrastructureModules.Init();
+                InitCrossCuttingModules.Init(connectionString);
+
+                ExpensePresenter expensePresenter = MyKernelService.GetInstance<ExpensePresenter>();
+                Application.Run((Form)expensePresenter.GetView());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
     }
 }
