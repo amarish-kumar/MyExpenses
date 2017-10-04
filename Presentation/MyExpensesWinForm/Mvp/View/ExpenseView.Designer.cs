@@ -235,7 +235,7 @@
             // 
             // picIcon
             // 
-            this.picIcon.BackgroundImage = global::MyExpenses.WinForm.Properties.Resources._32x32;
+            this.picIcon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picIcon.BackgroundImage")));
             this.picIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picIcon.Location = new System.Drawing.Point(0, 0);
             this.picIcon.Margin = new System.Windows.Forms.Padding(0);
