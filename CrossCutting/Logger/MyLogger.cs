@@ -17,14 +17,12 @@ namespace MyExpenses.CrossCutting.Logger
 
     public class MyLogger : IMyLogger
     {
-        private static List<KeyValuePair<MyLoggerLevel, string>> _stackLog;
+        private static readonly List<KeyValuePair<MyLoggerLevel, string>> _stackLog = new List<KeyValuePair<MyLoggerLevel, string>>();;
 
         private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public MyLogger(string connectionString)
         {
-            _stackLog = new List<KeyValuePair<MyLoggerLevel, string>>();
-
             // Configura o XML do log4net. Atenção, como a ConnectionString não está configurada,
             // sempre irá gerar um erro de conexão.
             log4net.Config.XmlConfigurator.Configure();
