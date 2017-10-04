@@ -76,11 +76,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="Validator\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\DomainServices\IDomServiceBase.cs" />
     <Compile Include="Interfaces\Repositories\IExpensesRepo.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
