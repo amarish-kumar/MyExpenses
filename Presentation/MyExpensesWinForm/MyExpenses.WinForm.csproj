@@ -89,7 +89,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -208,7 +208,7 @@
     <None Include="Resources\Image5.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Icon.ico" />
+    <Content Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
