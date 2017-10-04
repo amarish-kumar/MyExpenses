@@ -10,7 +10,6 @@ namespace MyExpenses.WinForm.Mvp.Interfaces
     using System.Collections.Generic;
 
     using MyExpenses.WinForm.Mvp.Model;
-    using MyExpenses.WinForm.Mvp.View;
 
     public interface IExpenseView : IView
     {

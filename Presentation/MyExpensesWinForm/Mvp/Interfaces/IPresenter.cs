@@ -6,8 +6,6 @@
 
 namespace MyExpenses.WinForm.Mvp.Interfaces
 {
-    using MyExpenses.WinForm.Mvp.View;
-
     public interface IPresenter
     {
         /// <summary>

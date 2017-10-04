@@ -11,7 +11,6 @@ namespace MyExpenses.WinForm.Mvp.Presenter
 
     using MyExpenses.CrossCutting.Results;
     using MyExpenses.WinForm.Mvp.Interfaces;
-    using MyExpenses.WinForm.Mvp.View;
     using MyExpenses.WinForm.Properties;
 
     public class PresenterBase : IPresenter
