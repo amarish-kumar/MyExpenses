@@ -18,7 +18,7 @@ namespace MyExpenses.Infrastructure.Modules
     {
         public override void Load()
         {
-            // TODO add services, applications and repositories
+            // Repositories
             Bind<IExpensesRepo>().To<ExpensesRepo>().InSingletonScope();
 
             // Context

@@ -59,7 +59,9 @@ namespace MyExpenses.WinForm.Mvp.View
         private void UpdateSelected()
         {
             if (SelectedExpense == null)
+            { 
                 return;
+            }
 
             txtId.Text = SelectedExpense.Id.ToString();
             txtName.Text = SelectedExpense.Name;
@@ -86,7 +88,9 @@ namespace MyExpenses.WinForm.Mvp.View
         private void DgvExpensesSelectionChanged(object sender, EventArgs e)
         {
             if (dgvExpenses.SelectedRows.Count <= 0)
+            { 
                 return;
+            }
 
             SelectedExpense = (ExpenseModel)dgvExpenses.SelectedRows[0].DataBoundItem;
             UpdateSelected();
