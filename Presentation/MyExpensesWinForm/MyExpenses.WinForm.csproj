@@ -89,8 +89,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -147,18 +146,17 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -192,25 +190,25 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\16x16.png" />
+    <None Include="Resources\Image0.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\32x32.png" />
+    <None Include="Resources\Image1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\64x64.png" />
+    <None Include="Resources\Image2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\128x128.png" />
+    <None Include="Resources\Image3.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\256x256.png" />
+    <None Include="Resources\Image4.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\512x512.png" />
+    <None Include="Resources\Image5.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\ico.ico" />
+    <Content Include="Resources\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
