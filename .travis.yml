@@ -3,3 +3,7 @@ solution: MyExpenses.sln
 install:
   - sudo apt-get install -y gtk-sharp2
   - nuget restore MyExpenses.sln
+notifications:
+  email:
+    on_success: never # default: change
+    on_failure: never # default: always
