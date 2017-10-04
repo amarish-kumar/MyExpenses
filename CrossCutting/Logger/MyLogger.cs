@@ -55,26 +55,35 @@ namespace MyExpenses.CrossCutting.Logger
             //Salva a mensagem de log
             switch (myLooLevel)
             {
-                case MyLoggerLevel.Debug: _log.Debug(message); break;
-                case MyLoggerLevel.Error: _log.Error(message); break;
-                case MyLoggerLevel.Warn: _log.Warn(message); break;
-                case MyLoggerLevel.Fatal: _log.Fatal(message, ex); break;
-
-                default: _log.Info(message); break;
+                case MyLoggerLevel.Debug:
+                    _log.Debug(message);
+                    break;
+                case MyLoggerLevel.Error:
+                    _log.Error(message);
+                    break;
+                case MyLoggerLevel.Warn:
+                    _log.Warn(message);
+                    break;
+                case MyLoggerLevel.Fatal:
+                    _log.Fatal(message, ex);
+                    break;
+                default:
+                    _log.Info(message);
+                    break;
             }
         }
 
-        public void AppendLog(MyLoggerLevel levelLog, string action, string path, string obs)
+        public void AppendLog(MyLoggerLevel myLooLevel, string action, string path, string obs)
         {
             string msg = string.Concat("[", action, "] ", "[", path, "]");
             if (obs.Length > 0)
             {
                 msg = string.Concat(msg, " - ", obs);
             }
-            AppendLog(levelLog, msg);
+            AppendLog(myLooLevel, msg);
         }
 
-        public void AddStackLog(MyLoggerLevel levelLog, string action, string path, string obs)
+        public void AddStackLog(MyLoggerLevel myLooLevel, string action, string path, string obs)
         {
             string msg = string.Concat("[", action, "] ", "[", path, "]");
             if (obs.Length > 0)
@@ -82,7 +91,7 @@ namespace MyExpenses.CrossCutting.Logger
                 msg = string.Concat(msg, " - ", obs);
             }
 
-            _stackLog.Add(new KeyValuePair<MyLoggerLevel, string>(levelLog, msg));
+            _stackLog.Add(new KeyValuePair<MyLoggerLevel, string>(myLooLevel, msg));
         }
 
         public void ClearStackLog()

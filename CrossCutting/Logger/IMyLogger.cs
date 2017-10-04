@@ -10,11 +10,11 @@ namespace MyExpenses.CrossCutting.Logger
 
     public interface IMyLogger
     {
-        void AppendLog(MyLoggerLevel logLevel, string message, Exception ex = null);
+        void AppendLog(MyLoggerLevel myLooLevel, string message, Exception ex = null);
      
-        void AppendLog(MyLoggerLevel logLevel, string action, string path, string obs = "");
+        void AppendLog(MyLoggerLevel myLooLevel, string action, string path, string obs = "");
      
-        void AddStackLog(MyLoggerLevel logLevel, string action, string path, string obs = "");
+        void AddStackLog(MyLoggerLevel myLooLevel, string action, string path, string obs = "");
      
         void SaveStackLog();
      
