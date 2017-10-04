@@ -15,3 +15,8 @@ build:
   publish_nuget_symbols: true
   include_nuget_references: true
   verbosity: normal
+notifications:
+  - provider: Email
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true
