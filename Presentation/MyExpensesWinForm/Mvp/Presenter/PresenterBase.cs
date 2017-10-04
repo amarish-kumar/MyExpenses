@@ -12,6 +12,7 @@ namespace MyExpenses.WinForm.Mvp.Presenter
     using MyExpenses.CrossCutting.Results;
     using MyExpenses.WinForm.Mvp.Interfaces;
     using MyExpenses.WinForm.Mvp.View;
+    using MyExpenses.WinForm.Properties;
 
     public class PresenterBase : IPresenter
     {
@@ -33,8 +34,8 @@ namespace MyExpenses.WinForm.Mvp.Presenter
             {
                 MessageBox.Show(
                     (Form)_view,
-                    String.Format(PresenterStrings.ActionAndSuccess, results.Action),
-                    PresenterStrings.ResultsTitle, 
+                    String.Format(Resources.ActionAndSuccess, results.Action),
+                    Resources.ResultsTitle, 
                     MessageBoxButtons.OK, 
                     MessageBoxIcon.Information);
             }
@@ -42,8 +43,8 @@ namespace MyExpenses.WinForm.Mvp.Presenter
             {
                 MessageBox.Show(
                     (Form)_view, 
-                    String.Format(PresenterStrings.ActionAndMessage, results.Action, results.Message), 
-                    PresenterStrings.ResultsTitle, 
+                    String.Format(Resources.ActionAndMessage, results.Action, results.Message),
+                    Resources.ResultsTitle, 
                     MessageBoxButtons.OK,
                     results.Type == MyResultsType.Error ? MessageBoxIcon.Error : MessageBoxIcon.Warning);
             }

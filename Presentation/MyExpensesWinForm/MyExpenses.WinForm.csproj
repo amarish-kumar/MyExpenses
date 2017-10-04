@@ -122,11 +122,6 @@
     <Compile Include="Mvp\Presenter\ExpensePresenter.cs" />
     <Compile Include="Mvp\Interfaces\IPresenter.cs" />
     <Compile Include="Mvp\Presenter\PresenterBase.cs" />
-    <Compile Include="Mvp\Presenter\PresenterStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PresenterStrings.resx</DependentUpon>
-    </Compile>
     <Compile Include="Mvp\View\ExpenseView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,10 +131,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mvp\Interfaces\IView.cs" />
-    <EmbeddedResource Include="Mvp\Presenter\PresenterStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>PresenterStrings.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Mvp\View\ExpenseView.resx">
       <DependentUpon>ExpenseView.cs</DependentUpon>
     </EmbeddedResource>

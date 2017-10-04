@@ -61,6 +61,24 @@ namespace MyExpenses.WinForm.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} : {1}.
+        /// </summary>
+        public static string ActionAndMessage {
+            get {
+                return ResourceManager.GetString("ActionAndMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} : Success.
+        /// </summary>
+        public static string ActionAndSuccess {
+            get {
+                return ResourceManager.GetString("ActionAndSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon icon {
@@ -127,6 +145,15 @@ namespace MyExpenses.WinForm.Properties {
             get {
                 object obj = ResourceManager.GetObject("image5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MyExpenses.
+        /// </summary>
+        public static string ResultsTitle {
+            get {
+                return ResourceManager.GetString("ResultsTitle", resourceCulture);
             }
         }
     }
