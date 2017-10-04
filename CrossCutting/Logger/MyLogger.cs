@@ -57,11 +57,12 @@ namespace MyExpenses.CrossCutting.Logger
             //Salva a mensagem de log
             switch (myLooLevel)
             {
-                case MyLoggerLevel.Info: _log.Info(message); break;
                 case MyLoggerLevel.Debug: _log.Debug(message); break;
                 case MyLoggerLevel.Error: _log.Error(message); break;
                 case MyLoggerLevel.Warn: _log.Warn(message); break;
                 case MyLoggerLevel.Fatal: _log.Fatal(message, ex); break;
+
+                default: _log.Info(message); break;
             }
         }
 
