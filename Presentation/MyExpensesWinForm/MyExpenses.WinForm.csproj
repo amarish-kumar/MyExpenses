@@ -89,8 +89,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -191,32 +190,32 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Image0.png">
+    <Resource Include="Resources\image0.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Image1.png">
+    <Resource Include="Resources\image1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Image2.png">
+    <Resource Include="Resources\image2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Image3.png">
+    <Resource Include="Resources\image3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Image4.png">
+    <Resource Include="Resources\image4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Image5.png">
+    <Resource Include="Resources\image5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -231,6 +230,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
