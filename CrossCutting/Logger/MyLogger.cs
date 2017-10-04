@@ -17,7 +17,7 @@ namespace MyExpenses.CrossCutting.Logger
 
     public class MyLogger : IMyLogger
     {
-        private static readonly List<KeyValuePair<MyLoggerLevel, string>> _stackLog = new List<KeyValuePair<MyLoggerLevel, string>>();;
+        private static readonly List<KeyValuePair<MyLoggerLevel, string>> _stackLog = new List<KeyValuePair<MyLoggerLevel, string>>();
 
         private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
