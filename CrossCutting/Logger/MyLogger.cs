@@ -41,7 +41,9 @@ namespace MyExpenses.CrossCutting.Logger
                 .OfType<AdoNetAppender>()
                 .SingleOrDefault();
             if (appender == null)
+            {
                 return;
+            }
 
             if (!string.IsNullOrWhiteSpace(connectionString))
             {
@@ -50,10 +52,10 @@ namespace MyExpenses.CrossCutting.Logger
             }
         }
 
-        public void AppendLog(MyLoggerLevel levelLog, string message, Exception ex = null)
+        public void AppendLog(MyLoggerLevel myLooLevel, string message, Exception ex = null)
         {
             //Salva a mensagem de log
-            switch (levelLog)
+            switch (myLooLevel)
             {
                 case MyLoggerLevel.Info: _log.Info(message); break;
                 case MyLoggerLevel.Debug: _log.Debug(message); break;
@@ -67,7 +69,9 @@ namespace MyExpenses.CrossCutting.Logger
         {
             string msg = string.Concat("[", action, "] ", "[", path, "]");
             if (obs.Length > 0)
+            {
                 msg = string.Concat(msg, " - ", obs);
+            }
             AppendLog(levelLog, msg);
         }
 
@@ -75,7 +79,10 @@ namespace MyExpenses.CrossCutting.Logger
         {
             string msg = string.Concat("[", action, "] ", "[", path, "]");
             if (obs.Length > 0)
+            {
                 msg = string.Concat(msg, " - ", obs);
+            }
+
             _stackLog.Add(new KeyValuePair<MyLoggerLevel, string>(levelLog, msg));
         }
 

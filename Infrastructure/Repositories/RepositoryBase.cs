@@ -31,10 +31,14 @@ namespace MyExpenses.Infrastructure.Repositories
             IQueryable<TEntity> set = _context.Set<TEntity>();
 
             foreach (var include in includes)
+            {
                 set = set.Include(include);
+            }
 
             if (filter != null)
+            {
                 set = set?.Where(filter);
+            }
 
             return set;
         }
@@ -44,7 +48,9 @@ namespace MyExpenses.Infrastructure.Repositories
             IQueryable<TEntity> set = _context.Set<TEntity>();
 
             foreach (var include in includes)
+            { 
                 set = set.Include(include);
+            }
 
             return set;
         }
@@ -54,7 +60,9 @@ namespace MyExpenses.Infrastructure.Repositories
             IQueryable<TEntity> set = _context.Set<TEntity>().Where(x => (object)x.Id == (object)id);
 
             foreach (var include in includes)
+            {
                 set = set.Include(include);
+            }
 
             return set.FirstOrDefault();
         }

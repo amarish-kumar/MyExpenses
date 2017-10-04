@@ -24,7 +24,7 @@ namespace MyExpenses.Infrastructure.UnitOfWork
             _context = context;
         }
 
-        public void BeginTransaction(bool autoDetectChange = true)
+        public void BeginTransaction()
         {
             // Method intentionally left empty.
         }

@@ -11,13 +11,5 @@ namespace MyExpenses.Domain.Models
         public long Id { get; set; }
 
         public string Name { get; set; }
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public Tag()
-        {
-                
-        }
     }
 }

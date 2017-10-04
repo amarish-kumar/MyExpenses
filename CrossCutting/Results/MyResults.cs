@@ -14,7 +14,14 @@ namespace MyExpenses.CrossCutting.Results
 
         public string Message { get; set; }
 
-        public MyResults(MyResultsType type, string action, string message = null)
+        public MyResults(MyResultsType type, string action)
+        {
+            Type = type;
+            Action = action;
+            Message = null;
+        }
+
+        public MyResults(MyResultsType type, string action, string message)
         {
             Type = type;
             Action = action;

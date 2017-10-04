@@ -11,8 +11,7 @@ namespace MyExpenses.Domain.Interfaces
         /// <summary>
         /// Begin transaction
         /// </summary>
-        /// <param name="autoDetectChange"></param>
-        void BeginTransaction(bool autoDetectChange = true);
+        void BeginTransaction();
 
         /// <summary>
         /// Commit
