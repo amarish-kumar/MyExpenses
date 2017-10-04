@@ -1,2 +1,2 @@
-# MyBaseSolution
-C# architecture using Wpf, WinForm and Web MVC.
+# MyExpenses
+Project to control personal expenses. Written in C# using WinForm and in the future for web.
