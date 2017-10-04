@@ -1,2 +1,5 @@
 language: csharp
 solution: MyExpenses.sln
+install:
+  - sudo apt-get install -y gtk-sharp2
+  - nuget restore MyExpenses.sln
