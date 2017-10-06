@@ -85,7 +85,9 @@ namespace MyExpenses.CrossCutting.Logger
         {
             string msg = string.Concat("[", action, "] ", "[", path, "]");
             if (!string.IsNullOrEmpty(obs))
+            {
                 msg = string.Concat(msg, " - ", obs);
+            }
             AppendLog(level, msg);
         }
 
@@ -98,8 +100,9 @@ namespace MyExpenses.CrossCutting.Logger
         {
             string msg = string.Concat("[", action, "] ", "[", path, "]");
             if (string.IsNullOrEmpty(obs))
+            {
                 msg = string.Concat(msg, " - ", obs);
-
+            }
             _stackLog.Add(new KeyValuePair<MyLoggerLevel, string>(level, msg));
         }
 
