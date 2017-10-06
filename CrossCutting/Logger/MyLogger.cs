@@ -10,9 +10,11 @@ namespace MyExpenses.CrossCutting.Logger
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Security.Principal;
 
     using log4net;
     using log4net.Appender;
+    using log4net.Config;
     using log4net.Repository.Hierarchy;
 
     public class MyLogger : IMyLogger
@@ -25,19 +27,20 @@ namespace MyExpenses.CrossCutting.Logger
         {
             // Configura o XML do log4net. Atenção, como a ConnectionString não está configurada,
             // sempre irá gerar um erro de conexão.
-            log4net.Config.XmlConfigurator.Configure();
+            XmlConfigurator.Configure();
 
             // Configura as propriedades globais para o log4net
-            GlobalContext.Properties["user"] = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            GlobalContext.Properties["user"] = WindowsIdentity.GetCurrent().Name;
             GlobalContext.Properties["version"] = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             // Configura a connectionString dinamicamente
             Hierarchy hierarchy = LogManager.GetRepository() as Hierarchy;
 
             // Capta as inforções do Log4Net na sessão "Appender" do tipo AdoNetAppender
-            var appender = hierarchy.GetAppenders()
+            AdoNetAppender appender = hierarchy?.GetAppenders()
                 .OfType<AdoNetAppender>()
                 .SingleOrDefault();
+
             if (appender == null)
             {
                 return;
@@ -50,10 +53,10 @@ namespace MyExpenses.CrossCutting.Logger
             }
         }
 
-        public void AppendLog(MyLoggerLevel myLooLevel, string message, Exception ex = null)
+        public void AppendLog(MyLoggerLevel level, string message, Exception ex = null)
         {
             //Salva a mensagem de log
-            switch (myLooLevel)
+            switch (level)
             {
                 case MyLoggerLevel.Debug:
                     _log.Debug(message);
@@ -73,25 +76,31 @@ namespace MyExpenses.CrossCutting.Logger
             }
         }
 
-        public void AppendLog(MyLoggerLevel myLooLevel, string action, string path, string obs)
+        public void AppendLog(MyLoggerLevel level, string action, string path)
         {
-            string msg = string.Concat("[", action, "] ", "[", path, "]");
-            if (obs.Length > 0)
-            {
-                msg = string.Concat(msg, " - ", obs);
-            }
-            AppendLog(myLooLevel, msg);
+            AppendLog(level, action, path, string.Empty);
         }
 
-        public void AddStackLog(MyLoggerLevel myLooLevel, string action, string path, string obs)
+        public void AppendLog(MyLoggerLevel level, string action, string path, string obs)
         {
             string msg = string.Concat("[", action, "] ", "[", path, "]");
-            if (obs.Length > 0)
-            {
+            if (!string.IsNullOrEmpty(obs))
                 msg = string.Concat(msg, " - ", obs);
-            }
+            AppendLog(level, msg);
+        }
 
-            _stackLog.Add(new KeyValuePair<MyLoggerLevel, string>(myLooLevel, msg));
+        public void AddStackLog(MyLoggerLevel level, string action, string path)
+        {
+            AddStackLog(level, action, path, string.Empty);
+        }
+
+        public void AddStackLog(MyLoggerLevel level, string action, string path, string obs)
+        {
+            string msg = string.Concat("[", action, "] ", "[", path, "]");
+            if (string.IsNullOrEmpty(obs))
+                msg = string.Concat(msg, " - ", obs);
+
+            _stackLog.Add(new KeyValuePair<MyLoggerLevel, string>(level, msg));
         }
 
         public void ClearStackLog()
