@@ -1,13 +1,15 @@
 ﻿/* 
 *   Project: MyBaseSolution
 *   Author: Luiz Felipe Machado da Silva
-*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
 namespace MyExpenses.Infrastructure.Modules
 {
     using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
+    using MyExpenses.Domain.Services;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Repositories;
     using MyExpenses.Infrastructure.UnitOfWork;
@@ -20,6 +22,9 @@ namespace MyExpenses.Infrastructure.Modules
         {
             // Repositories
             Bind<IExpensesRepo>().To<ExpensesRepo>().InSingletonScope();
+
+            // Domain Services
+            Bind<IExpensesService>().To<ExpensesService>().InSingletonScope();
 
             // Context
             Bind<MyContext>().ToSelf().InSingletonScope();

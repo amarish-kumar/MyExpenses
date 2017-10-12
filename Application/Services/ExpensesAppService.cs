@@ -1,7 +1,7 @@
 ﻿/* 
 *   Project: MyBaseSolution
 *   Author: Luiz Felipe Machado da Silva
-*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
 namespace MyExpenses.Application.Services
@@ -13,24 +13,24 @@ namespace MyExpenses.Application.Services
     using MyExpenses.Application.Interfaces;
     using MyExpenses.CrossCutting.Results;
     using MyExpenses.Domain.Interfaces;
-    using MyExpenses.Domain.Interfaces.Repositories;
+    using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Models;
 
     public class ExpensesAppService : AppServiceBase, IExpensesAppService
     {
-        private readonly IExpensesRepo _repo;
+        private readonly IExpensesService _service;
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public ExpensesAppService(IExpensesRepo repo, IUnitOfWork unitOfWork)
+        public ExpensesAppService(IExpensesService service, IUnitOfWork unitOfWork)
         {
-            _repo = repo;
+            _service = service;
             _unitOfWork = unitOfWork;
         }
 
         public List<ExpenseDto> GetAllExpenses()
         {
-            List<Expense> expensesDomain = _repo.GetAll().ToList();
+            List<Expense> expensesDomain = _service.GetAll().ToList();
             List<ExpenseDto> expensesDto = expensesDomain.Select(x => new ExpenseDto(x)).ToList();
 
             return expensesDto;
@@ -39,7 +39,7 @@ namespace MyExpenses.Application.Services
         public MyResults SaveOrUpdateExpense(ExpenseDto expenseDto)
         {
             _unitOfWork.BeginTransaction();
-            MyResults results = _repo.SaveOrUpdate(expenseDto.ConvertToDomain());
+            MyResults results = _service.SaveOrUpdate(expenseDto.ConvertToDomain());
             _unitOfWork.Commit();
 
             return results;
@@ -48,7 +48,7 @@ namespace MyExpenses.Application.Services
         public MyResults RemoveExpense(ExpenseDto expenseDto)
         {
             _unitOfWork.BeginTransaction();
-            MyResults result = _repo.Remove(expenseDto.ConvertToDomain());
+            MyResults result = _service.Remove(expenseDto.ConvertToDomain());
             _unitOfWork.Commit();
 
             return result;

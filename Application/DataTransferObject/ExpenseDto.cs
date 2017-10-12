@@ -1,13 +1,12 @@
 ﻿/* 
 *   Project: MyBaseSolution
 *   Author: Luiz Felipe Machado da Silva
-*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
 namespace MyExpenses.Application.DataTransferObject
 {
     using System;
-    using System.Diagnostics;
 
     using MyExpenses.Domain.Models;
 

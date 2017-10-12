@@ -1,7 +1,7 @@
 ﻿/* 
 *   Project: MyBaseSolution
 *   Author: Luiz Felipe Machado da Silva
-*   Github: http://github.com/lfmachadodasilva/MyBaseSolution
+*   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
 namespace MyExpenses.Infrastructure.Repositories
@@ -16,6 +16,7 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Infrastructure.Properties;
 
     public class RepositoryBase<TEntity>: IRepositoryBase<TEntity> where TEntity : class, IEntity
     {
@@ -69,11 +70,11 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public MyResults Remove(TEntity entity)
         {
-            string action = String.Format(RepoStrings.Action_Removing, entity.GetType().Name);
+            string action = String.Format(Resources.Action_Removing, entity.GetType().Name);
             TEntity existEntity = _context.Set<TEntity>().Find(entity.Id);
             if (existEntity == null)
             {
-                return new MyResults(MyResultsType.Error, action, RepoStrings.Error_RemoveInvalidObject);
+                return new MyResults(MyResultsType.Error, action, Resources.Error_RemoveInvalidObject);
             }
 
             _context.Set<TEntity>().Remove(existEntity);
@@ -89,13 +90,13 @@ namespace MyExpenses.Infrastructure.Repositories
                 if (existEntity != null)
                 {
                     existEntity.Copy(entity);
-                    return new MyResults(MyResultsType.Ok, String.Format(RepoStrings.Action_Updating, entity.GetType().Name));
+                    return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Updating, entity.GetType().Name));
                 }
             }
 
             // Save Add
             _context.Set<TEntity>().Add(entity);
-            return new MyResults(MyResultsType.Ok, String.Format(RepoStrings.Action_Adding, entity.GetType().Name));
+            return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Adding, entity.GetType().Name));
         }
     }
 }

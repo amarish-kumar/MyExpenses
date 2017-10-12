@@ -76,18 +76,28 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Interfaces\InfrastructureServices\" />
     <Folder Include="Validator\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\DomainServices\IDomainServiceBase.cs" />
+    <Compile Include="Interfaces\DomainServices\IExpensesService.cs" />
     <Compile Include="Interfaces\Repositories\IExpensesRepo.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Services\DomainServiceBase.cs" />
+    <Compile Include="Services\ExpensesService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCutting\MyExpenses.CrossCutting.csproj">
