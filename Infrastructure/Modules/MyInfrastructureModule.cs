@@ -22,9 +22,11 @@ namespace MyExpenses.Infrastructure.Modules
         {
             // Repositories
             Bind<IExpensesRepo>().To<ExpensesRepo>().InSingletonScope();
+            Bind<ITagsRepo>().To<TagsRepo>().InSingletonScope();
 
             // Domain Services
             Bind<IExpensesService>().To<ExpensesService>().InSingletonScope();
+            Bind<ITagsService>().To<TagsService>().InSingletonScope();
 
             // Context
             Bind<MyContext>().ToSelf().InSingletonScope();

@@ -18,19 +18,22 @@ namespace MyExpenses.Application.Services
 
     public class ExpensesAppService : AppServiceBase, IExpensesAppService
     {
-        private readonly IExpensesService _service;
+        private readonly IExpensesService _expensesService;
+        private readonly ITagsService _tagsService;
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public ExpensesAppService(IExpensesService service, IUnitOfWork unitOfWork)
+        public ExpensesAppService(IExpensesService expensesService, ITagsService tagsService, IUnitOfWork unitOfWork)
         {
-            _service = service;
+            _expensesService = expensesService;
+            _tagsService = tagsService;
             _unitOfWork = unitOfWork;
         }
 
         public List<ExpenseDto> GetAllExpenses()
         {
-            List<Expense> expensesDomain = _service.GetAll().ToList();
+            List<Expense> expensesDomain = _expensesService.GetAll().ToList();
+
             List<ExpenseDto> expensesDto = expensesDomain.Select(x => new ExpenseDto(x)).ToList();
 
             return expensesDto;
@@ -39,7 +42,7 @@ namespace MyExpenses.Application.Services
         public MyResults SaveOrUpdateExpense(ExpenseDto expenseDto)
         {
             _unitOfWork.BeginTransaction();
-            MyResults results = _service.SaveOrUpdate(expenseDto.ConvertToDomain());
+            MyResults results = _expensesService.SaveOrUpdate(expenseDto.ConvertToDomain());
             _unitOfWork.Commit();
 
             return results;
@@ -48,7 +51,7 @@ namespace MyExpenses.Application.Services
         public MyResults RemoveExpense(ExpenseDto expenseDto)
         {
             _unitOfWork.BeginTransaction();
-            MyResults result = _service.Remove(expenseDto.ConvertToDomain());
+            MyResults result = _expensesService.Remove(expenseDto.ConvertToDomain());
             _unitOfWork.Commit();
 
             return result;

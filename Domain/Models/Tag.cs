@@ -6,7 +6,11 @@
 
 namespace MyExpenses.Domain.Models
 {
-    public class Tag
+    using System.Collections.Generic;
+
+    using MyExpenses.Domain.Interfaces;
+
+    public class Tag : IEntity
     {
         /// <summary>
         /// ID column
@@ -17,5 +21,71 @@ namespace MyExpenses.Domain.Models
         /// NAME column
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Expenses
+        /// </summary>
+        public ICollection<Expense> Expenses { get; set; }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Tag()
+        {
+            Id = -1;
+            Expenses = new HashSet<Expense>();
+        }
+
+        /// <summary>
+        /// Equal
+        /// </summary>
+        /// <param name="obj">Object to compare</param>
+        /// <returns>True if is equal and false otherwise</returns>
+        public bool Equals(IEntity obj)
+        {
+            if (!(obj is Tag))
+            {
+                return false;
+            }
+
+            Tag expense = obj as Tag;
+
+            bool equal = Id.Equals(expense.Id);
+            equal &= Name.Equals(expense.Name);
+            equal &= Expenses.Count == expense.Expenses.Count;
+
+            if (Expenses.Count == expense.Expenses.Count)
+            {
+                foreach (Expense tag in Expenses)
+                {
+                    foreach (Expense expenseTag in expense.Expenses)
+                    {
+                        equal &= tag.Equals(expenseTag);
+                    }
+                }
+            }
+
+            return equal;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj">Object to copy</param>
+        /// <returns>True if is success and false otherwise</returns>
+        public bool Copy(IEntity obj)
+        {
+            if (!(obj is Tag))
+            {
+                return false;
+            }
+
+            Tag expense = obj as Tag;
+
+            Name = expense.Name;
+            Expenses = expense.Expenses;
+
+            return true;
+        }
     }
 }
