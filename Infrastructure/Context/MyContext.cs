@@ -19,9 +19,12 @@ namespace MyExpenses.Infrastructure.Context
 
         public DbSet<Expense> Expenses { get; set; }
 
+        public DbSet<Expense> Tags { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ExpenseMap());
+            modelBuilder.Configurations.Add(new TagMap());
 
             base.OnModelCreating(modelBuilder);
         }

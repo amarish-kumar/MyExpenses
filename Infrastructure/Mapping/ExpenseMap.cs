@@ -19,10 +19,6 @@ namespace MyExpenses.Infrastructure.Mapping
             Property(x => x.Value).HasColumnName("Value");
             Property(x => x.Date).HasColumnName("Date");
 
-            HasRequired(x => x.Tags)
-                .WithMany()
-                .Map(m => m.MapKey("Id"));
-
             ToTable("Expenses");
         }
     }
