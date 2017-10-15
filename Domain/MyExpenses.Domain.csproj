@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\InfrastructureServices\" />
+    <Folder Include="Properties\" />
     <Folder Include="Validator\" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +98,8 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CrossCutting\MyExpenses.CrossCutting.csproj">

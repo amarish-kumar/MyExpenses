@@ -109,10 +109,13 @@
       <HintPath>..\packages\Ninject.3.3.0\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\MyContext.cs" />
     <Compile Include="Mapping\ExpenseMap.cs" />
+    <Compile Include="Mapping\TagMap.cs" />
     <Compile Include="Modules\InitInfrastructureModules.cs" />
     <Compile Include="Modules\MyInfrastructureModule.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -152,16 +155,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LocalDataBase\ExpenseTable.sql" />
-    <Content Include="LocalDataBase\MyLocalDatabase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="LocalDataBase\MyLocalDatabase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>MyLocalDatabase.mdf</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +162,15 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LocalDataBase\MyExpensesDatabase.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LocalDataBase\MyExpensesDatabase_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>MyExpensesDatabase.mdf</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

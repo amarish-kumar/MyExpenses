@@ -19,7 +19,7 @@ namespace MyExpenses.Infrastructure.Context
 
         public DbSet<Expense> Expenses { get; set; }
 
-        public DbSet<Expense> Tags { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
