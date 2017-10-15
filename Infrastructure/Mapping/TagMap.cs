@@ -10,20 +10,14 @@ namespace MyExpenses.Infrastructure.Mapping
 
     using MyExpenses.Domain.Models;
 
-    public class ExpenseMap : EntityTypeConfiguration<Expense>
+    public class TagMap : EntityTypeConfiguration<Tag>
     {
-        public ExpenseMap()
+        public TagMap()
         {
             HasKey(x => x.Id);
             Property(x => x.Name).HasColumnName("Name");
-            Property(x => x.Value).HasColumnName("Value");
-            Property(x => x.Date).HasColumnName("Date");
 
-            HasRequired(x => x.Tags)
-                .WithMany()
-                .Map(m => m.MapKey("Id"));
-
-            ToTable("Expenses");
+            ToTable("Tags");
         }
     }
 }
