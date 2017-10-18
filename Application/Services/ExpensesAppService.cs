@@ -32,9 +32,10 @@ namespace MyExpenses.Application.Services
 
         public List<ExpenseDto> GetAllExpenses()
         {
-            // get expenses from domain
+            // Get expenses from domain
             List<Expense> expensesDomain = _expensesService.GetAll(x => x.Tags).ToList();
-            // convert expenses to DTO
+
+            // Convert expenses to DTO
             List<ExpenseDto> expensesDto = expensesDomain.Select(x => new ExpenseDto(x)).ToList();
 
             return expensesDto;
@@ -44,7 +45,7 @@ namespace MyExpenses.Application.Services
         {
             _unitOfWork.BeginTransaction();
 
-            // save or update expenses
+            // Save or update expenses
             MyResults results = _expensesService.SaveOrUpdate(expenseDto.ConvertToDomain());
 
             _unitOfWork.Commit();
@@ -56,7 +57,7 @@ namespace MyExpenses.Application.Services
         {
             _unitOfWork.BeginTransaction();
 
-            // remove expense
+            // Remove expense
             MyResults result = _expensesService.Remove(expenseDto.ConvertToDomain());
 
             _unitOfWork.Commit();

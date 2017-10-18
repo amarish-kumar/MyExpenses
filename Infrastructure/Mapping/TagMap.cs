@@ -14,7 +14,10 @@ namespace MyExpenses.Infrastructure.Mapping
     {
         public TagMap()
         {
+            // Primary key
             HasKey(x => x.Id);
+
+            // Columns
             Property(x => x.Name).HasColumnName("Name");
 
             ToTable("Tags");

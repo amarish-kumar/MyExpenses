@@ -13,17 +13,17 @@ namespace MyExpenses.Domain.Models
     public class Tag : IEntity
     {
         /// <summary>
-        /// ID column
+        /// Id column
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        /// NAME column
+        /// Name column
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Expenses
+        /// Relation with Expenses_Tags table
         /// </summary>
         public ICollection<Expense> Expenses { get; set; }
 

@@ -14,11 +14,15 @@ namespace MyExpenses.Infrastructure.Mapping
     {
         public ExpenseMap()
         {
+            // Primary key
             HasKey(x => x.Id);
+
+            // Columns
             Property(x => x.Name).HasColumnName("Name");
             Property(x => x.Value).HasColumnName("Value");
             Property(x => x.Date).HasColumnName("Date");
 
+            // Relations
             HasMany(e => e.Tags)
                 .WithMany(e => e.Expenses)
                 .Map(m => m.ToTable("Expenses_Tags").MapLeftKey("ExpenseId").MapRightKey("TagId"));

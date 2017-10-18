@@ -8,35 +8,39 @@ namespace MyExpenses.Domain.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using MyExpenses.Domain.Interfaces;
 
     public class Expense : IEntity
     {
         /// <summary>
-        /// ID column
+        /// Id column
         /// </summary>
         public long Id { get; set; }
 
         /// <summary>
-        /// NAME column
+        /// Name column
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// VALUE column
+        /// Value column
         /// </summary>
         public float Value { get; set; }
 
         /// <summary>
-        /// DATE column
+        /// Date column
         /// </summary>
         public DateTime Date { get; set; }
 
+        /// <summary>
+        /// Relation with Expenses_Tags table
+        /// </summary>
         public ICollection<Tag> Tags { get; set; }
 
         /// <summary>
-        /// Construtor
+        /// Constructor
         /// </summary>
         public Expense()
         {
@@ -79,7 +83,7 @@ namespace MyExpenses.Domain.Models
         }
 
         /// <summary>
-        /// 
+        /// Copy method
         /// </summary>
         /// <param name="obj">Object to copy</param>
         /// <returns>True if is success and false otherwise</returns>

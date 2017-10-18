@@ -13,14 +13,27 @@ namespace MyExpenses.Infrastructure.Context
 
     public class MyContext : DbContext
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MyContext() : base("name=MyLocalDatabase")
         {
         }
 
+        /// <summary>
+        /// Table of expenses
+        /// </summary>
         public DbSet<Expense> Expenses { get; set; }
 
+        /// <summary>
+        /// Table of tags
+        /// </summary>
         public DbSet<Tag> Tags { get; set; }
 
+        /// <summary>
+        /// Map all tables
+        /// </summary>
+        /// <param name="modelBuilder">Model builder</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ExpenseMap());
