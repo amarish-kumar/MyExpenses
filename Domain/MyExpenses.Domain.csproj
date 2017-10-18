@@ -79,20 +79,25 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\InfrastructureServices\" />
-    <Folder Include="Properties\" />
-    <Folder Include="Validator\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\DomainServices\IDomainServiceBase.cs" />
     <Compile Include="Interfaces\DomainServices\ITagsService.cs" />
     <Compile Include="Interfaces\DomainServices\IExpensesService.cs" />
+    <Compile Include="Interfaces\IValidator.cs" />
     <Compile Include="Interfaces\Repositories\ITagsRepo.cs" />
     <Compile Include="Interfaces\Repositories\IExpensesRepo.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Tag.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\DomainServiceBase.cs" />
     <Compile Include="Services\TagsService.cs" />
     <Compile Include="Services\ExpensesService.cs" />
@@ -109,6 +114,12 @@
       <Project>{573cbdb3-43c0-4d5c-90ce-1456334fc730}</Project>
       <Name>MyExpenses.CrossCutting</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
