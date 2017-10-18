@@ -11,7 +11,7 @@ namespace MyExpenses.Domain.Models
 
     using MyExpenses.Domain.Interfaces;
 
-    public sealed class Expense : IEntity
+    public class Expense : IEntity
     {
         /// <summary>
         /// ID column
@@ -33,7 +33,7 @@ namespace MyExpenses.Domain.Models
         /// </summary>
         public DateTime Date { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
 
         /// <summary>
         /// Construtor
