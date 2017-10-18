@@ -19,14 +19,11 @@ namespace MyExpenses.Application.Services
     public class ExpensesAppService : AppServiceBase, IExpensesAppService
     {
         private readonly IExpensesService _expensesService;
-        private readonly ITagsService _tagsService;
-
         private readonly IUnitOfWork _unitOfWork;
 
-        public ExpensesAppService(IExpensesService expensesService, ITagsService tagsService, IUnitOfWork unitOfWork)
+        public ExpensesAppService(IExpensesService expensesService, IUnitOfWork unitOfWork)
         {
             _expensesService = expensesService;
-            _tagsService = tagsService;
             _unitOfWork = unitOfWork;
         }
 

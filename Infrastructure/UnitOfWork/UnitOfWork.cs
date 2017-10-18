@@ -41,35 +41,6 @@ namespace MyExpenses.Infrastructure.UnitOfWork
         public void Rollback()
         {
             // TODO - implement and test in the feature
-            //var added = _context.ChangeTracker.Entries().Where(x => x.State == EntityState.Added).Select(c => c.Entity).ToList();
-
-            //added.ForEach(
-            //    x =>
-            //        {
-            //            var adapter = (IObjectContextAdapter)_context;
-
-            //            try
-            //            {
-            //                adapter.ObjectContext.DeleteObject(x);
-            //            }
-            //            catch (Exception e)
-            //            {
-            //                Console.WriteLine(e);
-            //                throw;
-            //            }
-            //        });
-
-            //var objectContext = ((IObjectContextAdapter)_context).ObjectContext;
-
-            ////Atualiza os outros objetos dando preferência para o banco de dados
-            //var entitiesToRefresh = _context
-            //    .ChangeTracker.Entries()
-            //    .Where(x => x.State == EntityState.Modified)
-            //    .Select(c => c.Entity).ToList();
-
-            ////Recarrega os dados do banco
-            //objectContext.Refresh(RefreshMode.StoreWins, entitiesToRefresh);
-            //entitiesToRefresh.ForEach(x => _context.Entry(x).State = EntityState.Unchanged);
         }
     }
 }
