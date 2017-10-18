@@ -13,7 +13,7 @@ namespace MyExpenses.Infrastructure.Context
 
     public class MyContext : DbContext
     {
-        public MyContext() : base("name=MyContext")
+        public MyContext() : base("name=MyLocalDatabase")
         {
         }
 

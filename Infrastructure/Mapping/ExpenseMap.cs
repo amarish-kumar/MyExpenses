@@ -22,14 +22,6 @@ namespace MyExpenses.Infrastructure.Mapping
             HasMany(e => e.Tags)
                 .WithMany(e => e.Expenses)
                 .Map(m => m.ToTable("Expenses_Tags").MapLeftKey("ExpenseId").MapRightKey("TagId"));
-            //HasMany(x => x.Tags)
-            //    .WithMany()
-            //    .Map(map =>
-            //        {
-            //            map.MapLeftKey("ExpenseId");
-            //            map.MapRightKey("TagId");
-            //            map.ToTable("Expenses_Tags");
-            //        });
 
             ToTable("Expenses");
         }

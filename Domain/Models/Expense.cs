@@ -33,7 +33,7 @@ namespace MyExpenses.Domain.Models
         /// </summary>
         public DateTime Date { get; set; }
 
-        public virtual ICollection<Tag> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
 
         /// <summary>
         /// Construtor
