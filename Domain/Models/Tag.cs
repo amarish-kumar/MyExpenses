@@ -101,17 +101,17 @@ namespace MyExpenses.Domain.Models
 
             if (Id <= 0)
             {
-                results = new MyResults(MyResultsType.Error, String.Format(Resources.Validate_Id_Invalid, Resources.Tag));
+                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
             }
 
             if (string.IsNullOrEmpty(Name))
             {
-                results = new MyResults(MyResultsType.Error, String.Format(Resources.Validate_String_Invalid, Resources.Tag, Resources.Name));
+                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_String_Invalid, Resources.Tag, Resources.Name));
             }
 
             if (Name.Length > 128)
             {
-                results = new MyResults(MyResultsType.Error, String.Format(Resources.Validate_String_Invalid, Resources.Tag, Resources.Name));
+                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_String_Invalid, Resources.Tag, Resources.Name));
             }
 
             return results;

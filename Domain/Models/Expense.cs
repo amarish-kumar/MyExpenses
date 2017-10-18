@@ -115,22 +115,22 @@ namespace MyExpenses.Domain.Models
 
             if (Id <= 0)
             {
-                results = new MyResults(MyResultsType.Error, String.Format(Resources.Validate_Id_Invalid, Resources.Expense));
+                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
             }
 
             if (string.IsNullOrEmpty(Name))
             {
-                results = new MyResults(MyResultsType.Error, String.Format(Resources.Validate_String_Invalid, Resources.Expense, Resources.Name));
+                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_String_Invalid, Resources.Expense, Resources.Name));
             }
 
             if (Name.Length > 128)
             {
-                results = new MyResults(MyResultsType.Error, String.Format(Resources.Validate_String_Invalid, Resources.Expense, Resources.Name));
+                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_String_Invalid, Resources.Expense, Resources.Name));
             }
 
             if (Value < 0.0f)
             {
-                results = new MyResults(MyResultsType.Error, Resources.Validation_OK);
+                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, Resources.Validation_OK);
             }
 
             return results;

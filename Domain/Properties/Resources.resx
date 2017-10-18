@@ -127,10 +127,16 @@
     <value>Tag</value>
   </data>
   <data name="Validate_Id_Invalid" xml:space="preserve">
-    <value>Validate error - {0} - Invalid Id.</value>
+    <value>{0} - Invalid Id.</value>
   </data>
   <data name="Validate_String_Invalid" xml:space="preserve">
-    <value>Validate error - {0} - {1} field is invalid.</value>
+    <value>{0} - {1} field is invalid.</value>
+  </data>
+  <data name="Validation" xml:space="preserve">
+    <value>Validation OK</value>
+  </data>
+  <data name="Validation_Error" xml:space="preserve">
+    <value>Validation Error</value>
   </data>
   <data name="Validation_OK" xml:space="preserve">
     <value>OK</value>

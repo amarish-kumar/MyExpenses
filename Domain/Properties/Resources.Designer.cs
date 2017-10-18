@@ -88,7 +88,7 @@ namespace MyExpenses.Domain.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validate error - {0} - Invalid Id..
+        ///   Looks up a localized string similar to {0} - Invalid Id..
         /// </summary>
         internal static string Validate_Id_Invalid {
             get {
@@ -97,11 +97,29 @@ namespace MyExpenses.Domain.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validate error - {0} - {1} field is invalid..
+        ///   Looks up a localized string similar to {0} - {1} field is invalid..
         /// </summary>
         internal static string Validate_String_Invalid {
             get {
                 return ResourceManager.GetString("Validate_String_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validation OK.
+        /// </summary>
+        internal static string Validation {
+            get {
+                return ResourceManager.GetString("Validation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validation Error.
+        /// </summary>
+        internal static string Validation_Error {
+            get {
+                return ResourceManager.GetString("Validation_Error", resourceCulture);
             }
         }
         

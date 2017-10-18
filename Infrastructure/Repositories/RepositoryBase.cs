@@ -83,7 +83,7 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public MyResults SaveOrUpdate(TEntity entity)
         {
-            MyResults validate = entity.Validate();
+            MyResults validate = (entity as IEntity).Validate();
             if (validate.Type != MyResultsType.Ok)
             {
                 return validate;

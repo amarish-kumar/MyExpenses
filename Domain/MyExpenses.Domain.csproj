@@ -91,7 +91,6 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
-    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
