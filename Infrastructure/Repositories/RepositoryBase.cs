@@ -70,7 +70,7 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public MyResults Remove(TEntity entity)
         {
-            string action = String.Format(Resources.Action_Removing, entity.GetType().Name);
+            string action = string.Format(Resources.Action_Removing, entity.GetType().Name);
             TEntity existEntity = _context.Set<TEntity>().Find(entity.Id);
             if (existEntity == null)
             {
@@ -83,6 +83,12 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public MyResults SaveOrUpdate(TEntity entity)
         {
+            MyResults validate = entity.Validate();
+            if (validate.Type != MyResultsType.Ok)
+            {
+                return validate;
+            }
+
             // Update
             if (entity.Id > 0)
             {

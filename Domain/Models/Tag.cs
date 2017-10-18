@@ -8,7 +8,10 @@ namespace MyExpenses.Domain.Models
 {
     using System.Collections.Generic;
 
+    using MyExpenses.CrossCutting.Results;
     using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Properties;
+    using System;
 
     public class Tag : IEntity
     {
@@ -86,6 +89,32 @@ namespace MyExpenses.Domain.Models
             Expenses = expense.Expenses;
 
             return true;
+        }
+
+        /// <summary>
+        /// Validates
+        /// </summary>
+        /// <returns>Results of the validation</returns>
+        public MyResults Validate()
+        {
+            MyResults results = new MyResults(MyResultsType.Ok, Resources.Validation_OK);
+
+            if (Id <= 0)
+            {
+                results = new MyResults(MyResultsType.Error, String.Format(Resources.Validate_Id_Invalid, Resources.Tag));
+            }
+
+            if (string.IsNullOrEmpty(Name))
+            {
+                results = new MyResults(MyResultsType.Error, String.Format(Resources.Validate_String_Invalid, Resources.Tag, Resources.Name));
+            }
+
+            if (Name.Length > 128)
+            {
+                results = new MyResults(MyResultsType.Error, String.Format(Resources.Validate_String_Invalid, Resources.Tag, Resources.Name));
+            }
+
+            return results;
         }
     }
 }

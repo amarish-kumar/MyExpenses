@@ -6,7 +6,9 @@
 
 namespace MyExpenses.Domain.Interfaces
 {
-    public interface IEntity
+    using MyExpenses.Domain.Validator;
+
+    public interface IEntity : IValidator
     {
         long Id { get; set; }
 
