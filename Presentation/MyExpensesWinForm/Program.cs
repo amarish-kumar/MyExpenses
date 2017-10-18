@@ -28,8 +28,6 @@ namespace MyExpenses.WinForm
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string connectionString = ConfigurationManager.ConnectionStrings["MyLocalDatabaseConnectionString"].ConnectionString;
-
             try
             {
                 // Loads only necessary modules
@@ -37,7 +35,7 @@ namespace MyExpenses.WinForm
                 InitPresentationModules.Init();
                 InitApplicationModules.Init();
                 InitInfrastructureModules.Init();
-                InitCrossCuttingModules.Init(connectionString);
+                InitCrossCuttingModules.Init();
 
                 ExpensePresenter expensePresenter = MyKernelService.GetInstance<ExpensePresenter>();
                 Application.Run((Form)expensePresenter.GetView());

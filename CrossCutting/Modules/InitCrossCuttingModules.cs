@@ -11,9 +11,9 @@ namespace MyExpenses.CrossCutting.Modules
 
     public static class InitCrossCuttingModules
     {
-        public static void Init(string connectionString)
+        public static void Init()
         {
-            MyKernelService.AddModule(new MyLogggerModule(connectionString));
+            MyKernelService.AddModule(new MyLogggerModule());
         }
     }
 }
