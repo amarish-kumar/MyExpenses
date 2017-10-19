@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Domain.Tests
+namespace MyExpenses.Infrastructure.Tests
 {
     using NUnit.Framework;
 

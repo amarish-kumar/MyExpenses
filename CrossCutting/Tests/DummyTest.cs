@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Tests
+namespace MyExpenses.CrossCutting.Tests
 {
     using NUnit.Framework;
 
