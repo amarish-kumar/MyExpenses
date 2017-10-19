@@ -78,14 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Connection\" />
+    <Folder Include="Logger\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IoC\MyKernel.cs" />
     <Compile Include="IoC\MyKernelService.cs" />
-    <Compile Include="Logger\IMyLogger.cs" />
-    <Compile Include="Logger\MyLoggerLevel.cs" />
-    <Compile Include="Logger\MyLogger.cs" />
-    <Compile Include="Logger\MyLoggerModule.cs" />
     <Compile Include="Modules\InitCrossCuttingModules.cs" />
     <Compile Include="Results\MyResults.cs" />
   </ItemGroup>
