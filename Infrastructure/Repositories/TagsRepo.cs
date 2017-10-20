@@ -12,7 +12,7 @@ namespace MyExpenses.Infrastructure.Repositories
 
     public class TagsRepo : RepositoryBase<Tag>, ITagsRepo
     {
-        public TagsRepo(MyContext context) : base(context)
+        public TagsRepo(IMyContext context) : base(context)
         {
         }
     }

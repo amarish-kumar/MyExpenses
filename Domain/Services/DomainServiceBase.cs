@@ -15,11 +15,11 @@ namespace MyExpenses.Domain.Services
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Util.Results;
 
-    public class DomainServiceBase<TEntity> : IDomainServiceBase<TEntity> where TEntity : class, IEntity
+    public abstract class DomainServiceBase<TEntity> : IDomainServiceBase<TEntity> where TEntity : class, IEntity
     {
         private readonly IRepositoryBase<TEntity> _repository;
 
-        public DomainServiceBase(IRepositoryBase<TEntity> repository)
+        protected DomainServiceBase(IRepositoryBase<TEntity> repository)
         {
             _repository = repository;
         }

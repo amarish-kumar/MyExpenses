@@ -13,9 +13,9 @@ namespace MyExpenses.Infrastructure.UnitOfWork
 
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly MyContext _context;
+        private readonly IMyContext _context;
 
-        public UnitOfWork(MyContext context)
+        public UnitOfWork(IMyContext context)
         {
             _context = context;
         }

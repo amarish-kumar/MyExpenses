@@ -12,7 +12,7 @@ namespace MyExpenses.Infrastructure.Repositories
 
     public class ExpensesRepo : RepositoryBase<Expense>, IExpensesRepo
     {
-        public ExpensesRepo(MyContext context) : base(context)
+        public ExpensesRepo(IMyContext context) : base(context)
         {
         }
     }

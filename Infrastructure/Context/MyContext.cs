@@ -11,7 +11,7 @@ namespace MyExpenses.Infrastructure.Context
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Mapping;
 
-    public class MyContext : DbContext
+    public class MyContext : DbContext, IMyContext
     {
         /// <summary>
         /// Constructor
@@ -23,12 +23,12 @@ namespace MyExpenses.Infrastructure.Context
         /// <summary>
         /// Table of expenses
         /// </summary>
-        public DbSet<Expense> Expenses { get; set; }
+        public IDbSet<Expense> Expenses { get; set; }
 
         /// <summary>
         /// Table of tags
         /// </summary>
-        public DbSet<Tag> Tags { get; set; }
+        public IDbSet<Tag> Tags { get; set; }
 
         /// <summary>
         /// Map all tables

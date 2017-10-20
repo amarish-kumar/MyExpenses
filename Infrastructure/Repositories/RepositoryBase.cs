@@ -18,16 +18,16 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Infrastructure.Properties;
     using MyExpenses.Util.Results;
 
-    public class RepositoryBase<TEntity>: IRepositoryBase<TEntity> where TEntity : class, IEntity
+    public abstract class RepositoryBase<TEntity>: IRepositoryBase<TEntity> where TEntity : class, IEntity
     {
-        private readonly MyContext _context;
+        private readonly IMyContext _context;
 
-        public RepositoryBase(MyContext context)
+        protected  RepositoryBase(IMyContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> set = _context.Set<TEntity>();
 
@@ -44,7 +44,7 @@ namespace MyExpenses.Infrastructure.Repositories
             return set;
         }
 
-        public IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes)
+        public virtual IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> set = _context.Set<TEntity>();
 
@@ -56,7 +56,7 @@ namespace MyExpenses.Infrastructure.Repositories
             return set;
         }
 
-        public TEntity GetById(long id, params Expression<Func<TEntity, object>>[] includes)
+        public virtual TEntity GetById(long id, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> set = _context.Set<TEntity>().Where(x => (object)x.Id == (object)id);
 
@@ -68,7 +68,7 @@ namespace MyExpenses.Infrastructure.Repositories
             return set.FirstOrDefault();
         }
 
-        public MyResults Remove(TEntity entity)
+        public virtual MyResults Remove(TEntity entity)
         {
             string action = string.Format(Resources.Action_Removing, entity.GetType().Name);
             TEntity existEntity = _context.Set<TEntity>().Find(entity.Id);
@@ -81,7 +81,7 @@ namespace MyExpenses.Infrastructure.Repositories
             return new MyResults(MyResultsType.Ok, action);
         }
 
-        public MyResults SaveOrUpdate(TEntity entity)
+        public virtual MyResults SaveOrUpdate(TEntity entity)
         {
             MyResults validate = (entity as IEntity).Validate();
             if (validate.Type != MyResultsType.Ok)
