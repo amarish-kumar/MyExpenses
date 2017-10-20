@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Connection\" />
+    <Folder Include="General\" />
     <Folder Include="Logger\" />
   </ItemGroup>
   <ItemGroup>
