@@ -28,14 +28,18 @@ namespace MyExpenses.Infrastructure.Tests
         [SetUp]
         public void Setup()
         {
-            ObservableCollection<Expense> expensesOb = new ObservableCollection<Expense>
-                                                         {
-                                                             new Expense { Id = 1, Name = "Expense1", Value = 2, Date = new DateTime(), Tags = new List<Tag>() }
-                                                         };
-            List<Expense> expenses = new List<Expense> { new Expense { Id = 1, Name = "Expense1", Value = 2, Date = new DateTime(), Tags = new List<Tag>() } };
-            DbSet<Expense> dtset = GetQueryableMockDbSet(expenses);
-
-            //dtset.Include(x => x.Tags);
+            ObservableCollection<Expense> expensesOb =
+                new ObservableCollection<Expense>
+                    {
+                        new Expense
+                            {
+                                Id = 1,
+                                Name = "Expense1",
+                                Value = 2,
+                                Date = new DateTime(),
+                                Tags = new List<Tag>()
+                            }
+                    };
 
             Mock<DbSet<Expense>> moq = GetMockSet<Expense>(expensesOb);
 
@@ -57,27 +61,12 @@ namespace MyExpenses.Infrastructure.Tests
             Assert.True(expenseRepo.GetAll(x => x.Tags).Any());
         }
 
-
         [Test]
         public void TestGetExpenses()
         {
             IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
-            Assert.True(expenseRepo.GetAll().Any());
-        }
-
-        private static DbSet<T> GetQueryableMockDbSet<T>(ICollection<T> sourceList) where T : class
-        {
-            IQueryable<T> queryable = sourceList.AsQueryable();
-
-            Mock<DbSet<T>> dbSet = new Mock<DbSet<T>>();
-            dbSet.As<IQueryable<T>>().Setup(m => m.Provider).Returns(queryable.Provider);
-            dbSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(queryable.Expression);
-            dbSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
-            dbSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(() => queryable.GetEnumerator());
-            dbSet.Setup(d => d.Add(It.IsAny<T>())).Callback<T>((s) => sourceList.Add(s));
-
-            return dbSet.Object;
+            Assert.True(expenseRepo.Get(x => x.Id == 1, x => x.Tags).Any());
         }
 
         public static Mock<DbSet<T>> GetMockSet<T>(ObservableCollection<T> list) where T : class
@@ -91,6 +80,7 @@ namespace MyExpenses.Infrastructure.Tests
             mockList.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(queryable.GetEnumerator());
             mockList.Setup(m => m.Include(It.IsAny<string>())).Returns(mockList.Object);
             mockList.Setup(m => m.Local).Returns(list);
+            mockList.Setup(m => m.Find(It.IsAny<T>())).Returns((T a) => { list.Add(a); return a; });
             mockList.Setup(m => m.Add(It.IsAny<T>())).Returns((T a) => { list.Add(a); return a; });
             mockList.Setup(m => m.AddRange(It.IsAny<IEnumerable<T>>())).Returns((IEnumerable<T> a) => { foreach (var item in a.ToArray()) list.Add(item); return a; });
             mockList.Setup(m => m.Remove(It.IsAny<T>())).Returns((T a) => { list.Remove(a); return a; });
