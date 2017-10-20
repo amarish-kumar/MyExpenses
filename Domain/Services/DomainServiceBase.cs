@@ -9,10 +9,11 @@ namespace MyExpenses.Domain.Services
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
-    using MyExpenses.CrossCutting.Results;
+
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
+    using MyExpenses.Util.Results;
 
     public class DomainServiceBase<TEntity> : IDomainServiceBase<TEntity> where TEntity : class, IEntity
     {

@@ -6,7 +6,7 @@
 
 namespace MyExpenses.Domain.Interfaces
 {
-    using MyExpenses.CrossCutting.Results;
+    using MyExpenses.Util.Results;
 
     public interface IValidator
     {

@@ -9,7 +9,7 @@ namespace MyExpenses.Application.Interfaces
     using System.Collections.Generic;
 
     using MyExpenses.Application.DataTransferObject;
-    using MyExpenses.CrossCutting.Results;
+    using MyExpenses.Util.Results;
 
     public interface IExpensesAppService
     {

@@ -12,11 +12,11 @@ namespace MyExpenses.Infrastructure.Repositories
     using System.Linq;
     using System.Linq.Expressions;
 
-    using MyExpenses.CrossCutting.Results;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Properties;
+    using MyExpenses.Util.Results;
 
     public class RepositoryBase<TEntity>: IRepositoryBase<TEntity> where TEntity : class, IEntity
     {

@@ -12,7 +12,7 @@ namespace MyExpenses.WinForm.Mvp.Presenter
 
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
-    using MyExpenses.CrossCutting.Results;
+    using MyExpenses.Util.Results;
     using MyExpenses.WinForm.Mvp.Interfaces;
     using MyExpenses.WinForm.Mvp.Model;
 

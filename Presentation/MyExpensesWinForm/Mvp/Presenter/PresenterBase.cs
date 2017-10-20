@@ -9,7 +9,7 @@ namespace MyExpenses.WinForm.Mvp.Presenter
     using System;
     using System.Windows.Forms;
 
-    using MyExpenses.CrossCutting.Results;
+    using MyExpenses.Util.Results;
     using MyExpenses.WinForm.Mvp.Interfaces;
     using MyExpenses.WinForm.Properties;
 

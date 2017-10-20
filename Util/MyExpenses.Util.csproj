@@ -7,8 +7,8 @@
     <ProjectGuid>{573CBDB3-43C0-4D5C-90CE-1456334FC730}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyExpenses.CrossCutting</RootNamespace>
-    <AssemblyName>MyExpenses.CrossCutting</AssemblyName>
+    <RootNamespace>MyExpenses.Util</RootNamespace>
+    <AssemblyName>MyExpenses.Util</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -83,7 +83,7 @@
   <ItemGroup>
     <Compile Include="IoC\MyKernel.cs" />
     <Compile Include="IoC\MyKernelService.cs" />
-    <Compile Include="Modules\InitCrossCuttingModules.cs" />
+    <Compile Include="Modules\InitUtilModules.cs" />
     <Compile Include="Results\MyResults.cs" />
   </ItemGroup>
   <ItemGroup>

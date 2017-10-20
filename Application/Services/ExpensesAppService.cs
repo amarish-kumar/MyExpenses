@@ -11,10 +11,10 @@ namespace MyExpenses.Application.Services
 
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
-    using MyExpenses.CrossCutting.Results;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Models;
+    using MyExpenses.Util.Results;
 
     public class ExpensesAppService : AppServiceBase, IExpensesAppService
     {

@@ -11,9 +11,9 @@ namespace MyExpenses.WinForm
     using System.Windows.Forms;
 
     using MyExpenses.Application.Modules;
-    using MyExpenses.CrossCutting.IoC;
-    using MyExpenses.CrossCutting.Modules;
     using MyExpenses.Infrastructure.Modules;
+    using MyExpenses.Util.IoC;
+    using MyExpenses.Util.Modules;
     using MyExpenses.WinForm.Modules;
     using MyExpenses.WinForm.Mvp.Presenter;
 

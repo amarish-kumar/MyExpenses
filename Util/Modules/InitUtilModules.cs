@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.CrossCutting.Modules
+namespace MyExpenses.Util.Modules
 {
     public static class InitCrossCuttingModules
     {

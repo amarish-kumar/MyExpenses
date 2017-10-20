@@ -9,9 +9,9 @@ namespace MyExpenses.Domain.Models
     using System;
     using System.Collections.Generic;
 
-    using MyExpenses.CrossCutting.Results;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Properties;
+    using MyExpenses.Util.Results;
 
     public class Expense : IEntity
     {

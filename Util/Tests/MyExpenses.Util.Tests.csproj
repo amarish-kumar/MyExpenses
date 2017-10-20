@@ -7,8 +7,8 @@
     <ProjectGuid>{22A5CA53-0663-40A7-897E-3194024C109B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyExpenses.CrossCutting.Tests</RootNamespace>
-    <AssemblyName>MyExpenses.CrossCutting.Tests</AssemblyName>
+    <RootNamespace>MyExpenses.Util.Tests</RootNamespace>
+    <AssemblyName>MyExpenses.Util.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,12 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MyExpenses.CrossCutting.csproj">
-      <Project>{573cbdb3-43c0-4d5c-90ce-1456334fc730}</Project>
-      <Name>MyExpenses.CrossCutting</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

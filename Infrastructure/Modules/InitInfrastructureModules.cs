@@ -6,7 +6,7 @@
 
 namespace MyExpenses.Infrastructure.Modules
 {
-    using MyExpenses.CrossCutting.IoC;
+    using MyExpenses.Util.IoC;
 
     public static class InitInfrastructureModules
     {

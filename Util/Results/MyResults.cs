@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.CrossCutting.Results
+namespace MyExpenses.Util.Results
 {
     public class MyResults
     {

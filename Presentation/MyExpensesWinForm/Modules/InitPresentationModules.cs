@@ -6,7 +6,7 @@
 
 namespace MyExpenses.WinForm.Modules
 {
-    using MyExpenses.CrossCutting.IoC;
+    using MyExpenses.Util.IoC;
 
     public static class InitPresentationModules
     {

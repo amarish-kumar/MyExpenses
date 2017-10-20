@@ -10,7 +10,7 @@ namespace MyExpenses.Domain.Interfaces.Repositories
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    using MyExpenses.CrossCutting.Results;
+    using MyExpenses.Util.Results;
 
     public interface IRepositoryBase<TEntity> where TEntity : class
     {

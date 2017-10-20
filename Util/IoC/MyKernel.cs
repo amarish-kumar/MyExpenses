@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.CrossCutting.IoC
+namespace MyExpenses.Util.IoC
 {
     using System.Linq;
 
