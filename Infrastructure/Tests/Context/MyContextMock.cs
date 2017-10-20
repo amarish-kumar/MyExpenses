@@ -24,7 +24,7 @@ namespace MyExpenses.Infrastructure.Tests.Context
 
         public int SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return 0;
         }
     }
 }
