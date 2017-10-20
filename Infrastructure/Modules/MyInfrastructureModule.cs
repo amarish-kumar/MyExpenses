@@ -1,5 +1,5 @@
 ﻿/* 
-*   Project: MyBaseSolution
+*   Project: MyExpenses
 *   Author: Luiz Felipe Machado da Silva
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */

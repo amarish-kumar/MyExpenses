@@ -4,11 +4,11 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Domain.Interfaces.DomainServices
+namespace MyExpenses.Infrastructure.Tests.Context
 {
-    using MyExpenses.Domain.Models;
+    using MyExpenses.Infrastructure.Context;
 
-    public interface ITagsService : IDomainServiceBase<Tag>
+    public class MyContextMock : IMyContext
     {
     }
 }
