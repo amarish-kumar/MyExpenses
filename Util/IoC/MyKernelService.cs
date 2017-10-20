@@ -10,19 +10,10 @@ namespace MyExpenses.Util.IoC
 
     public static class MyKernelService
     {
-        public static void Init()
-        {
-            MyKernel.Init();
-        }
+        public static void Init() => MyKernel.Init();
 
-        public static void AddModule(INinjectModule module)
-        {
-            MyKernel.AddModule(module);
-        }
+        public static void AddModule(INinjectModule module) => MyKernel.AddModule(module);
 
-        public static T GetInstance<T>()
-        {
-            return MyKernel.GetInstance<T>();
-        }
+        public static T GetInstance<T>() => MyKernel.GetInstance<T>();
     }
 }
