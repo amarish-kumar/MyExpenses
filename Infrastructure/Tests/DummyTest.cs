@@ -8,6 +8,7 @@ namespace MyExpenses.Infrastructure.Tests
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Data.Entity;
     using System.Linq;
 
@@ -22,25 +23,45 @@ namespace MyExpenses.Infrastructure.Tests
     [TestFixture]
     public class DummyTest
     {
-        [Test]
-        public void DummyTestWhenIsTrue()
+        private Mock<IMyContext> _contextMock;
+
+        [SetUp]
+        public void Setup()
         {
-            DbSet<Expense> dtset = GetQueryableMockDbSet(
-                new List<Expense>
-                    {
-                        new Expense
-                            {
-                                Id = 1,
-                                Name = "Expense1",
-                                Value = 2,
-                                Date = new DateTime()
-                            }
-                    });
+            ObservableCollection<Expense> expensesOb = new ObservableCollection<Expense>
+                                                         {
+                                                             new Expense { Id = 1, Name = "Expense1", Value = 2, Date = new DateTime(), Tags = new List<Tag>() }
+                                                         };
+            List<Expense> expenses = new List<Expense> { new Expense { Id = 1, Name = "Expense1", Value = 2, Date = new DateTime(), Tags = new List<Tag>() } };
+            DbSet<Expense> dtset = GetQueryableMockDbSet(expenses);
 
-            Mock<IMyContext> context = new Mock<IMyContext>(MockBehavior.Strict);
-            context.Setup(x => x.Set<Expense>()).Returns(dtset);
+            //dtset.Include(x => x.Tags);
 
-            IExpensesRepo expenseRepo = new ExpensesRepo(context.Object);
+            Mock<DbSet<Expense>> moq = GetMockSet<Expense>(expensesOb);
+
+            _contextMock = new Mock<IMyContext>(MockBehavior.Strict);
+            _contextMock.Setup(x => x.Set<Expense>()).Returns(moq.Object);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _contextMock = null;
+        }
+
+        [Test]
+        public void TestGetAllExpenses()
+        {
+            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
+
+            Assert.True(expenseRepo.GetAll(x => x.Tags).Any());
+        }
+
+
+        [Test]
+        public void TestGetExpenses()
+        {
+            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
             Assert.True(expenseRepo.GetAll().Any());
         }
@@ -57,6 +78,25 @@ namespace MyExpenses.Infrastructure.Tests
             dbSet.Setup(d => d.Add(It.IsAny<T>())).Callback<T>((s) => sourceList.Add(s));
 
             return dbSet.Object;
+        }
+
+        public static Mock<DbSet<T>> GetMockSet<T>(ObservableCollection<T> list) where T : class
+        {
+            var queryable = list.AsQueryable();
+            var mockList = new Mock<DbSet<T>>(MockBehavior.Loose);
+
+            mockList.As<IQueryable<T>>().Setup(m => m.Provider).Returns(queryable.Provider);
+            mockList.As<IQueryable<T>>().Setup(m => m.Expression).Returns(queryable.Expression);
+            mockList.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
+            mockList.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(queryable.GetEnumerator());
+            mockList.Setup(m => m.Include(It.IsAny<string>())).Returns(mockList.Object);
+            mockList.Setup(m => m.Local).Returns(list);
+            mockList.Setup(m => m.Add(It.IsAny<T>())).Returns((T a) => { list.Add(a); return a; });
+            mockList.Setup(m => m.AddRange(It.IsAny<IEnumerable<T>>())).Returns((IEnumerable<T> a) => { foreach (var item in a.ToArray()) list.Add(item); return a; });
+            mockList.Setup(m => m.Remove(It.IsAny<T>())).Returns((T a) => { list.Remove(a); return a; });
+            mockList.Setup(m => m.RemoveRange(It.IsAny<IEnumerable<T>>())).Returns((IEnumerable<T> a) => { foreach (var item in a.ToArray()) list.Remove(item); return a; });
+
+            return mockList;
         }
     }
 }
