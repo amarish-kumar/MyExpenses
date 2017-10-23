@@ -27,6 +27,7 @@ namespace MyExpenses.Infrastructure.Tests
     public class ExpensesRepoTest
     {
         const long EXPENSE_ID = 1;
+        const long TAG_ID = 1;
         private Mock<IMyContext> _contextMock;
 
         [SetUp]
@@ -41,7 +42,14 @@ namespace MyExpenses.Infrastructure.Tests
                                 Name = "Expense1",
                                 Value = 2,
                                 Date = new DateTime(),
-                                Tags = new List<Tag>()
+                                Tags = new List<Tag>
+                                           {
+                                               new Tag
+                                                   {
+                                                       Id = TAG_ID,
+                                                       Name = "Tag1"
+                                                   }
+                                           }
                             }
                     };
 
@@ -66,7 +74,8 @@ namespace MyExpenses.Infrastructure.Tests
             List<Expense> expenses = expenseRepo.GetAll(x => x.Tags).ToList();
 
             Assert.True(expenses.Any());
-            Assert.True(expenses.FirstOrDefault()?.Id == EXPENSE_ID);
+            Assert.True(expenses[0].Id == EXPENSE_ID);
+            Assert.True(expenses[0].Tags.Any());
         }
 
         [Test]
