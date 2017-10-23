@@ -82,9 +82,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TagsRepoTest.cs" />
-    <Compile Include="ExpensesRepoTest.cs" />
-    <Compile Include="MyExpensesUtil.cs" />
+    <Compile Include="Repositories\TagsRepoTest.cs" />
+    <Compile Include="Repositories\ExpensesRepoTest.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -4,29 +4,26 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Infrastructure.Tests
+namespace MyExpenses.Infrastructure.Tests.Repositories
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Data.Entity;
     using System.Linq;
 
     using Moq;
-    using MyExpenses.Domain.Interfaces;
+
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Repositories;
-    using MyExpenses.Infrastructure.UnitOfWork;
-    using MyExpenses.Util.Results;
 
     using NUnit.Framework;
 
     [TestFixture]
     public class TagsRepoTest
     {
-        const long TAG_ID = 1;
+        private const long TAG_ID = 1;
         private Mock<IMyContext> _contextMock;
 
         [SetUp]
@@ -43,7 +40,7 @@ namespace MyExpenses.Infrastructure.Tests
                             }
                     };
 
-            Mock<DbSet<Tag>> moq = MyExpensesUtil.GetMockSet(expensesOb);
+            Mock<DbSet<Tag>> moq = Util.GetMockSet(expensesOb);
 
             _contextMock = new Mock<IMyContext>(MockBehavior.Strict);
             _contextMock.Setup(x => x.Set<Tag>()).Returns(moq.Object);

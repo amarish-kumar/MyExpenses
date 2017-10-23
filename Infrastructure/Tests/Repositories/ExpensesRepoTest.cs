@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Infrastructure.Tests
+namespace MyExpenses.Infrastructure.Tests.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -13,6 +13,7 @@ namespace MyExpenses.Infrastructure.Tests
     using System.Linq;
 
     using Moq;
+
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
@@ -26,8 +27,12 @@ namespace MyExpenses.Infrastructure.Tests
     [TestFixture]
     public class ExpensesRepoTest
     {
-        const long EXPENSE_ID = 1;
-        const long TAG_ID = 1;
+        private const long EXPENSE_ID = 1;
+        private const long TAG_ID = 1;
+        private const string TAG_NAME = "Tag1";
+        private const string EXPENSE_NAME1 = "Expense1";
+        private const string EXPENSE_NAME2 = "Expense2";
+
         private Mock<IMyContext> _contextMock;
 
         [SetUp]
@@ -39,7 +44,7 @@ namespace MyExpenses.Infrastructure.Tests
                         new Expense
                             {
                                 Id = EXPENSE_ID,
-                                Name = "Expense1",
+                                Name = EXPENSE_NAME1,
                                 Value = 2,
                                 Date = new DateTime(),
                                 Tags = new List<Tag>
@@ -47,13 +52,13 @@ namespace MyExpenses.Infrastructure.Tests
                                                new Tag
                                                    {
                                                        Id = TAG_ID,
-                                                       Name = "Tag1"
+                                                       Name = TAG_NAME
                                                    }
                                            }
                             }
                     };
 
-            Mock<DbSet<Expense>> moq = MyExpensesUtil.GetMockSet(expensesOb);
+            Mock<DbSet<Expense>> moq = Util.GetMockSet(expensesOb);
 
             _contextMock = new Mock<IMyContext>(MockBehavior.Strict);
             _contextMock.Setup(x => x.Set<Expense>()).Returns(moq.Object);
@@ -106,7 +111,7 @@ namespace MyExpenses.Infrastructure.Tests
             Expense expense = new Expense
             {
                 Id = EXPENSE_ID + 1,
-                Name = "Expense",
+                Name = EXPENSE_NAME1,
                 Value = 2,
                 Date = new DateTime(),
                 Tags = new List<Tag>()
@@ -119,7 +124,7 @@ namespace MyExpenses.Infrastructure.Tests
             unitOfWork.Commit();
 
             Assert.True(result.Type == MyResultsType.Ok);
-            Assert.True(expenseRepo.Get(x => x.Id == 1, x => x.Tags).Any());
+            Assert.True(expenseRepo.Get(x => x.Id == EXPENSE_ID, x => x.Tags).Any());
         }
 
         [Test]
@@ -128,7 +133,7 @@ namespace MyExpenses.Infrastructure.Tests
             Expense expense = new Expense
             {
                 Id = EXPENSE_ID,
-                Name = "Expense2",
+                Name = EXPENSE_NAME2,
                 Value = 2,
                 Date = new DateTime(),
                 Tags = new List<Tag>()
@@ -140,7 +145,7 @@ namespace MyExpenses.Infrastructure.Tests
             expenseRepo.SaveOrUpdate(expense);
             unitOfWork.Commit();
 
-            Assert.True(expenseRepo.Get(x => x.Id == 1, x => x.Tags).Any());
+            Assert.True(expenseRepo.Get(x => x.Id == EXPENSE_ID && x.Name == EXPENSE_NAME2, x => x.Tags).Any());
         }
 
         [Test]
@@ -149,7 +154,7 @@ namespace MyExpenses.Infrastructure.Tests
             Expense expense = new Expense
             {
                 Id = -1,
-                Name = "Expense2",
+                Name = EXPENSE_NAME1,
                 Value = 2,
                 Date = new DateTime(),
                 Tags = new List<Tag>()
@@ -171,7 +176,7 @@ namespace MyExpenses.Infrastructure.Tests
             Expense expense = new Expense
             {
                 Id = EXPENSE_ID,
-                Name = "Expense2",
+                Name = EXPENSE_NAME1,
                 Value = 2,
                 Date = new DateTime(),
                 Tags = new List<Tag>()
@@ -196,10 +201,11 @@ namespace MyExpenses.Infrastructure.Tests
             IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
             unitOfWork.BeginTransaction();
-            expenseRepo.Remove(expense);
+            MyResults result = expenseRepo.Remove(expense);
             unitOfWork.Commit();
 
             List<Expense> expenses = expenseRepo.Get(x => x.Id == EXPENSE_ID, x => x.Tags).ToList();
+            Assert.True(result.Type == MyResultsType.Ok);
             Assert.False(expenses.Any());
         }
 
