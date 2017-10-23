@@ -79,7 +79,6 @@
     <Compile Include="Interfaces\IExpensesAppService.cs" />
     <Compile Include="Modules\InitApplicationModules.cs" />
     <Compile Include="Modules\MyApplicationModule.cs" />
-    <Compile Include="Services\AppServiceBase.cs" />
     <Compile Include="Services\ExpensesAppService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

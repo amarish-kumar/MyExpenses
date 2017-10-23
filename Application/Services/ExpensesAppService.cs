@@ -16,7 +16,7 @@ namespace MyExpenses.Application.Services
     using MyExpenses.Domain.Models;
     using MyExpenses.Util.Results;
 
-    public class ExpensesAppService : AppServiceBase, IExpensesAppService
+    public class ExpensesAppService : IExpensesAppService
     {
         private readonly IExpensesService _expensesService;
         private readonly IUnitOfWork _unitOfWork;
