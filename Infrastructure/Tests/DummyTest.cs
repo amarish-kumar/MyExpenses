@@ -18,7 +18,6 @@ namespace MyExpenses.Infrastructure.Tests
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Repositories;
-    using MyExpenses.Util.IoC;
 
     using NUnit.Framework;
 
