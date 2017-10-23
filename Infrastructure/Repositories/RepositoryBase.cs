@@ -58,7 +58,7 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public virtual TEntity GetById(long id, params Expression<Func<TEntity, object>>[] includes)
         {
-            IQueryable<TEntity> set = _context.Set<TEntity>().Where(x => (object)x.Id == (object)id);
+            IQueryable<TEntity> set = _context.Set<TEntity>().Where(x => x.Id == id);
 
             foreach (var include in includes)
             {

@@ -34,13 +34,8 @@ namespace MyExpenses.Infrastructure.UnitOfWork
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+                throw new Exception(e.Message);
             }
-        }
-
-        public void Rollback()
-        {
-            // TODO - implement and test in the feature
         }
     }
 }

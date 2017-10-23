@@ -17,10 +17,5 @@ namespace MyExpenses.Domain.Interfaces
         /// Commit
         /// </summary>
         void Commit();
-
-        /// <summary>
-        /// Rollback
-        /// </summary>
-        void Rollback();
     }
 }
