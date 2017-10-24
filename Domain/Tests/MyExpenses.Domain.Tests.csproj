@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Validator\ExpenseValidator.cs" />
     <Compile Include="Services\TagsServiceTest.cs" />
     <Compile Include="Services\ExpensesServiceTest.cs" />
   </ItemGroup>
