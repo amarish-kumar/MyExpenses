@@ -10,8 +10,7 @@ namespace MyExpenses.Domain.Models
 
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Properties;
-    using System;
-
+    
     using MyExpenses.Util.Results;
 
     public class Tag : IEntity
