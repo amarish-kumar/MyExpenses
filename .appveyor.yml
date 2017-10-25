@@ -14,6 +14,7 @@ nuget:
   project_feed: true
 build:
   project: MyExpenses.sln
+  parallel: true
   publish_nuget: true
   publish_nuget_symbols: true
   include_nuget_references: true
@@ -27,3 +28,9 @@ notifications:
   on_build_status_changed: true
 before_build:
   - nuget restore
+test_script:
+ - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"Infrastructure\Tests\bin\x86\Debug\MyExpenses.Infrastructure.Tests.dll -noshadow" -output:"coverage.xml" -filter:"+[YourSUTNamepace*]* -[YourTestNamespace*]*"
+after_test:
+- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+- pip install codecov
+- codecov -f "coverage.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 
