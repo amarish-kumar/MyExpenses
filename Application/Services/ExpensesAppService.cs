@@ -45,7 +45,8 @@ namespace MyExpenses.Application.Services
             // Save or update expenses
             MyResults results = _expensesService.SaveOrUpdate(expenseDto.ConvertToDomain());
 
-            _unitOfWork.Commit();
+            if(results.Type == MyResultsType.Ok)
+                _unitOfWork.Commit();
 
             return results;
         }
@@ -55,9 +56,10 @@ namespace MyExpenses.Application.Services
             _unitOfWork.BeginTransaction();
 
             // Remove expense
-            MyResults result = _expensesService.Remove(expenseDto.ConvertToDomain());
+            MyResults results = _expensesService.Remove(expenseDto.ConvertToDomain());
 
-            _unitOfWork.Commit();
+            if (results.Type == MyResultsType.Ok)
+                _unitOfWork.Commit();
 
             return result;
         }

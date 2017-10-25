@@ -38,7 +38,6 @@ namespace MyExpenses.Domain.Tests
         {
             _tagsRepoMock = new Mock<ITagsRepo>(MockBehavior.Strict);
 
-            
             _tagsRepoMock.Setup(x => x.GetAll()).Returns(_tags);
             _tagsRepoMock.Setup(x => x.Get(It.IsAny<Expression<Func<Tag, bool>>>())).Returns(_tags);
             _tagsRepoMock.Setup(x => x.GetById(It.IsAny<long>())).Returns(_tags.FirstOrDefault());
