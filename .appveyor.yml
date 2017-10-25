@@ -10,6 +10,10 @@ before_build:
 nuget:
   account_feed: true
   project_feed: true
+ branches:
+  only:
+    - master
+    - dev
 build:
   publish_nuget: true
   publish_nuget_symbols: true
