@@ -7,6 +7,7 @@
 namespace MyExpenses.Domain.Models
 {
     using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Properties;
     using MyExpenses.Util.Results;
 
     public abstract class EntityBase<TEntity> : IEntity where TEntity : class, IEntity
@@ -35,7 +36,9 @@ namespace MyExpenses.Domain.Models
 
         public MyResults Validate()
         {
-            return _validator.Validate(this);
+            return _validator != null ? 
+                _validator.Validate(this) : 
+                new MyResults(MyResultsType.Ok, Resources.Validation_OK);
         }
     }
 }

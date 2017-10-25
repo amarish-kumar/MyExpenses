@@ -42,17 +42,6 @@ namespace MyExpenses.Domain.Models
             equal &= Name.Equals(other.Name);
             equal &= Expenses.Count == other.Expenses.Count;
 
-            if (Expenses.Count == other.Expenses.Count)
-            {
-                foreach (Expense tag in Expenses)
-                {
-                    foreach (Expense expenseTag in other.Expenses)
-                    {
-                        equal &= tag.Equals(expenseTag);
-                    }
-                }
-            }
-
             return equal;
         }
 

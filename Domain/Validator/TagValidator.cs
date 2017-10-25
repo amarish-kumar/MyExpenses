@@ -6,6 +6,8 @@
 
 namespace MyExpenses.Domain.Validator
 {
+    using System;
+
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Models;
     using MyExpenses.Domain.Properties;
@@ -15,6 +17,11 @@ namespace MyExpenses.Domain.Validator
     {
         public MyResults Validate(IEntity obj)
         {
+            if (obj == null)
+            {
+                throw new ArgumentException("Error");
+            }
+
             Tag tag = obj as Tag;
 
             MyResults results = new MyResults(MyResultsType.Ok, Resources.Validation_OK);

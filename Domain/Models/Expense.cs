@@ -58,17 +58,6 @@ namespace MyExpenses.Domain.Models
             equal &= Date.Equals(expense.Date);
             equal &= Tags.Count == expense.Tags.Count;
 
-            if(Tags.Count == expense.Tags.Count)
-            {
-                foreach (Tag tag in Tags)
-                {
-                    foreach (Tag expenseTag in expense.Tags)
-                    {
-                        equal &= tag.Equals(expenseTag);
-                    }
-                }
-            }
-
             return equal;
         }
 
