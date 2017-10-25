@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Domain.Tests
+namespace MyExpenses.Domain.Tests.Services
 {
     using System;
     using System.Collections.Generic;
@@ -12,24 +12,26 @@ namespace MyExpenses.Domain.Tests
     using System.Linq.Expressions;
 
     using Moq;
+
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Domain.Services;
-    using NUnit.Framework;
     using MyExpenses.Util.Results;
+
+    using NUnit.Framework;
 
     [TestFixture]
     public class TagsServiceTest
     {
         private Mock<ITagsRepo> _tagsRepoMock;
 
-        private List<Tag> _tags = new List<Tag>
+        private readonly List<Tag> _tags = new List<Tag>
             {
                 new Tag
                 {
                     Id = 1,
-                    Name = "Tag1",
+                    Name = "Tag1"
                 }
             };
 
@@ -50,7 +52,7 @@ namespace MyExpenses.Domain.Tests
         {
             ITagsService tagsService = new TagsService(_tagsRepoMock.Object);
 
-            var tags = tagsService.Get(x => x.Id == 1);
+            List<Tag> tags = tagsService.Get(x => x.Id == 1).ToList();
 
             Assert.True(tags.Any());
         }
@@ -60,7 +62,7 @@ namespace MyExpenses.Domain.Tests
         {
             ITagsService tagsService = new TagsService(_tagsRepoMock.Object);
 
-            var tags = tagsService.GetAll();
+            List<Tag> tags = tagsService.GetAll().ToList();
 
             Assert.True(tags.Any());
         }
@@ -70,10 +72,10 @@ namespace MyExpenses.Domain.Tests
         {
             ITagsService tagsService = new TagsService(_tagsRepoMock.Object);
 
-            var expense = tagsService.GetById(1);
+            Tag tag = tagsService.GetById(1);
 
-            Assert.IsNotNull(expense);
-            Assert.True(expense.Equals(_tags.FirstOrDefault()));
+            Assert.IsNotNull(tag);
+            Assert.True(tag.Equals(_tags.FirstOrDefault()));
         }
 
         [Test]

@@ -11,7 +11,7 @@ namespace MyExpenses.Domain.Tests.Validator
     using NUnit.Framework;
 
     [TestFixture]
-    public class ExpenseValidator
+    public class ExpenseValidatorTest
     {
         private Expense _expense;
 
@@ -49,16 +49,6 @@ namespace MyExpenses.Domain.Tests.Validator
         public void TestExpenseValidator_NameIsEmtpy_Validate_ResultError()
         {
             _expense.Name = string.Empty;
-
-            MyResults results = _expense.Validate();
-
-            Assert.True(results.Type == MyResultsType.Error);
-        }
-
-        [Test]
-        public void TestExpenseValidator_ValueIsInvalid_Validate_ResultError()
-        {
-            _expense.Value = -1;
 
             MyResults results = _expense.Validate();
 

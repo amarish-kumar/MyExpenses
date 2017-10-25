@@ -6,12 +6,14 @@
 
 namespace MyExpenses.Domain.Interfaces
 {
-    public interface IEntity : IValidator
+    using MyExpenses.Util.Results;
+
+    public interface IEntity
     {
         long Id { get; set; }
 
-        bool Equals(IEntity obj);
-
         bool Copy(IEntity obj);
+
+        MyResults Validate();
     }
 }

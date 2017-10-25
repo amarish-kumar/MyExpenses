@@ -7,6 +7,14 @@ platform:
 - x64
 before_build:
   - nuget restore
+build_script:
+ - msbuild /verbosity:quiet "MyExpenses.sln"
+test_script:
+ - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:"Infrastructure\Tests\bin\x86\Debug\MyExpenses.Infrastructure.Tests.dll -noshadow" -output:"coverage.xml" -filter:"+[YourSUTNamepace*]* -[YourTestNamespace*]*"
+after_test:
+- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+- pip install codecov
+- codecov -f "coverage.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 
 nuget:
   account_feed: true
   project_feed: true

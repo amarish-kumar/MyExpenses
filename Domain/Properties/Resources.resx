@@ -138,6 +138,12 @@
   <data name="Validation_Error" xml:space="preserve">
     <value>Validation Error</value>
   </data>
+  <data name="Validation_InvalidObject" xml:space="preserve">
+    <value>Invalid or null {0} object.</value>
+  </data>
+  <data name="Validation_InvalidTypeObject" xml:space="preserve">
+    <value>Invalid {0} object type.</value>
+  </data>
   <data name="Validation_OK" xml:space="preserve">
     <value>OK</value>
   </data>

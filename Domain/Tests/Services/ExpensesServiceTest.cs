@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Domain.Tests
+namespace MyExpenses.Domain.Tests.Services
 {
     using System;
     using System.Collections.Generic;
@@ -12,19 +12,21 @@ namespace MyExpenses.Domain.Tests
     using System.Linq.Expressions;
 
     using Moq;
+
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Domain.Services;
-    using NUnit.Framework;
     using MyExpenses.Util.Results;
+
+    using NUnit.Framework;
 
     [TestFixture]
     public class ExpensesServiceTest
     {
         private Mock<IExpensesRepo> _expensesRepoMock;
 
-        private List<Expense> _expenses = new List<Expense>
+        private readonly List<Expense> _expenses = new List<Expense>
             {
                 new Expense
                 {
@@ -52,7 +54,7 @@ namespace MyExpenses.Domain.Tests
         {
             IExpensesService expensesService = new ExpensesService(_expensesRepoMock.Object);
 
-            var expenses = expensesService.Get(x => x.Id == 1);
+            List<Expense> expenses = expensesService.Get(x => x.Id == 1).ToList();
 
             Assert.True(expenses.Any());
         }
@@ -62,7 +64,7 @@ namespace MyExpenses.Domain.Tests
         {
             IExpensesService expensesService = new ExpensesService(_expensesRepoMock.Object);
 
-            var expenses = expensesService.GetAll();
+            List<Expense> expenses = expensesService.GetAll().ToList();
 
             Assert.True(expenses.Any());
         }
@@ -72,7 +74,7 @@ namespace MyExpenses.Domain.Tests
         {
             IExpensesService expensesService = new ExpensesService(_expensesRepoMock.Object);
 
-            var expense = expensesService.GetById(1);
+            Expense expense = expensesService.GetById(1);
 
             Assert.IsNotNull(expense);
             Assert.True(expense.Equals(_expenses.FirstOrDefault()));
