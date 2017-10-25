@@ -8,12 +8,13 @@ namespace MyExpenses.Domain.Interfaces
 {
     using MyExpenses.Util.Results;
 
-    public interface IValidator
+    public interface IValidator<TEntity> where TEntity : class, IEntity
     {
         /// <summary>
         /// Validate
         /// </summary>
+        /// <param name="obj">Object to validate</param>
         /// <returns>Results of the validation</returns>
-        MyResults Validate();
+        MyResults Validate(IEntity obj);
     }
 }

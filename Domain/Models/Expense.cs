@@ -10,16 +10,10 @@ namespace MyExpenses.Domain.Models
     using System.Collections.Generic;
 
     using MyExpenses.Domain.Interfaces;
-    using MyExpenses.Domain.Properties;
-    using MyExpenses.Util.Results;
+    using MyExpenses.Domain.Validator;
 
-    public class Expense : IEntity
+    public sealed class Expense : EntityBase<Expense>
     {
-        /// <summary>
-        /// Id column
-        /// </summary>
-        public long Id { get; set; }
-
         /// <summary>
         /// Name column
         /// </summary>
@@ -43,7 +37,7 @@ namespace MyExpenses.Domain.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        public Expense()
+        public Expense() : base(new ExpenseValidator())
         {
             Id = -1;
             Tags = new HashSet<Tag>();
@@ -52,16 +46,11 @@ namespace MyExpenses.Domain.Models
         /// <summary>
         /// Equal
         /// </summary>
-        /// <param name="obj">Object to compare</param>
+        /// <param name="other">Object to compare</param>
         /// <returns>True if is equal and false otherwise</returns>
-        public bool Equals(IEntity obj)
+        public override bool Equals(Expense other)
         {
-            if (!(obj is Expense))
-            {
-                return false;
-            }
-
-            Expense expense = (Expense)obj;
+            Expense expense = (Expense)other;
 
             bool equal = Id.Equals(expense.Id);
             equal &= Name.Equals(expense.Name);
@@ -88,7 +77,7 @@ namespace MyExpenses.Domain.Models
         /// </summary>
         /// <param name="obj">Object to copy</param>
         /// <returns>True if is success and false otherwise</returns>
-        public bool Copy(IEntity obj)
+        public override bool Copy(IEntity obj)
         {
             if (!(obj is Expense))
             {
@@ -103,37 +92,6 @@ namespace MyExpenses.Domain.Models
             Tags = expense.Tags;
 
             return true;
-        }
-
-        /// <summary>
-        /// Validate
-        /// </summary>
-        /// <returns>Results of the validation</returns>
-        public MyResults Validate()
-        {
-            MyResults results = new MyResults(MyResultsType.Ok, Resources.Validation_OK);
-
-            if (Id <= 0)
-            {
-                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
-            }
-
-            if (string.IsNullOrEmpty(Name))
-            {
-                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_String_Invalid, Resources.Expense, Resources.Name));
-            }
-
-            if (Name.Length > 128)
-            {
-                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_String_Invalid, Resources.Expense, Resources.Name));
-            }
-
-            if (Value < 0.0f)
-            {
-                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, Resources.Validation_OK);
-            }
-
-            return results;
         }
     }
 }

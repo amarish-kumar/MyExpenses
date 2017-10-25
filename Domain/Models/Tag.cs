@@ -6,20 +6,12 @@
 
 namespace MyExpenses.Domain.Models
 {
+    using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Validator;
     using System.Collections.Generic;
 
-    using MyExpenses.Domain.Interfaces;
-    using MyExpenses.Domain.Properties;
-    
-    using MyExpenses.Util.Results;
-
-    public class Tag : IEntity
+    public class Tag : EntityBase<Tag>
     {
-        /// <summary>
-        /// Id column
-        /// </summary>
-        public long Id { get; set; }
-
         /// <summary>
         /// Name column
         /// </summary>
@@ -33,7 +25,7 @@ namespace MyExpenses.Domain.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        public Tag()
+        public Tag() : base(new TagValidator())
         {
             Id = -1;
             Expenses = new HashSet<Expense>();
@@ -42,26 +34,19 @@ namespace MyExpenses.Domain.Models
         /// <summary>
         /// Equal
         /// </summary>
-        /// <param name="obj">Object to compare</param>
+        /// <param name="other">Object to compare</param>
         /// <returns>True if is equal and false otherwise</returns>
-        public bool Equals(IEntity obj)
+        public override bool Equals(Tag other)
         {
-            if (!(obj is Tag))
-            {
-                return false;
-            }
+            bool equal = Id.Equals(other.Id);
+            equal &= Name.Equals(other.Name);
+            equal &= Expenses.Count == other.Expenses.Count;
 
-            Tag expense = obj as Tag;
-
-            bool equal = Id.Equals(expense.Id);
-            equal &= Name.Equals(expense.Name);
-            equal &= Expenses.Count == expense.Expenses.Count;
-
-            if (Expenses.Count == expense.Expenses.Count)
+            if (Expenses.Count == other.Expenses.Count)
             {
                 foreach (Expense tag in Expenses)
                 {
-                    foreach (Expense expenseTag in expense.Expenses)
+                    foreach (Expense expenseTag in other.Expenses)
                     {
                         equal &= tag.Equals(expenseTag);
                     }
@@ -76,7 +61,7 @@ namespace MyExpenses.Domain.Models
         /// </summary>
         /// <param name="obj">Object to copy</param>
         /// <returns>True if is success and false otherwise</returns>
-        public bool Copy(IEntity obj)
+        public override bool Copy(IEntity obj)
         {
             if (!(obj is Tag))
             {
@@ -89,32 +74,6 @@ namespace MyExpenses.Domain.Models
             Expenses = expense.Expenses;
 
             return true;
-        }
-
-        /// <summary>
-        /// Validates
-        /// </summary>
-        /// <returns>Results of the validation</returns>
-        public MyResults Validate()
-        {
-            MyResults results = new MyResults(MyResultsType.Ok, Resources.Validation_OK);
-
-            if (Id <= 0)
-            {
-                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
-            }
-
-            if (string.IsNullOrEmpty(Name))
-            {
-                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_String_Invalid, Resources.Tag, Resources.Name));
-            }
-
-            if (Name.Length > 128)
-            {
-                results = new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_String_Invalid, Resources.Tag, Resources.Name));
-            }
-
-            return results;
         }
     }
 }
