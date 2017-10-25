@@ -61,7 +61,7 @@ namespace MyExpenses.Application.Services
             if (results.Type == MyResultsType.Ok)
                 _unitOfWork.Commit();
 
-            return result;
+            return results;
         }
     }
 }

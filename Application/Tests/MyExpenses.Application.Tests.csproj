@@ -78,6 +78,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Domain\MyExpenses.Domain.csproj">
+      <Project>{6bcca8e9-3252-4683-8db1-f8bc67a13c4f}</Project>
+      <Name>MyExpenses.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Util\MyExpenses.Util.csproj">
+      <Project>{573cbdb3-43c0-4d5c-90ce-1456334fc730}</Project>
+      <Name>MyExpenses.Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyExpenses.Application.csproj">
       <Project>{2e640191-56b4-4bd3-a549-d4e4aac9ca0a}</Project>
       <Name>MyExpenses.Application</Name>
