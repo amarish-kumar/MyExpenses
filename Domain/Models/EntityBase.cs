@@ -27,7 +27,10 @@ namespace MyExpenses.Domain.Models
             Id = 0;
         }
 
-        public abstract bool Copy(IEntity obj);
+        public virtual bool Copy(IEntity obj)
+        {
+            return true;
+        }
 
         public virtual bool Equals(TEntity other)
         {

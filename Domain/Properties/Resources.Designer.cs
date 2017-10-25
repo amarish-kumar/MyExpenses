@@ -124,6 +124,24 @@ namespace MyExpenses.Domain.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid or null {0} object..
+        /// </summary>
+        internal static string Validation_InvalidObject {
+            get {
+                return ResourceManager.GetString("Validation_InvalidObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid {0} object type..
+        /// </summary>
+        internal static string Validation_InvalidTypeObject {
+            get {
+                return ResourceManager.GetString("Validation_InvalidTypeObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string Validation_OK {
