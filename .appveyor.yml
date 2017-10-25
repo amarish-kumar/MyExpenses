@@ -7,10 +7,6 @@ platform:
 - x64
 before_build:
   - nuget restore
-after_test:
-- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
-- pip install codecov
-- codecov -f "coverage.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 
 nuget:
   account_feed: true
   project_feed: true
