@@ -22,11 +22,6 @@ namespace MyExpenses.Domain.Models
             _validator = validator;
         }
 
-        protected EntityBase()
-        {
-            Id = 0;
-        }
-
         public virtual bool Copy(IEntity obj)
         {
             return true;
