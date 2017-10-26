@@ -14,7 +14,11 @@ namespace MyExpenses.Application.Tests
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
+
+    using MyExpenses.Application.DataTransferObject;
+    using MyExpenses.Application.Services;
 
     [TestFixture]
     public class ExpensesAppServiceTest
@@ -43,12 +47,29 @@ namespace MyExpenses.Application.Tests
             _expensesServiceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok, ""));
 
             _unitOfWorkMock = new Mock<IUnitOfWork>(MockBehavior.Strict);
+            _unitOfWorkMock.Setup(x => x.BeginTransaction());
+            _unitOfWorkMock.Setup(x => x.Commit());
         }
 
         [Test]
-        public void DummyTestWhenIsTrue()
+        public void TestExpensesAppService_GetAllExpenses()
         {
-            Assert.True(true);
+            ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
+
+            List<ExpenseDto> expenses = expensesAppService.GetAllExpenses();
+            
+            Assert.True(_expenses.Count == expenses.Count);
+        }
+
+        [Test]
+        public void TestExpensesAppService_RemoveExpense_OK()
+        {
+            ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
+            ExpenseDto expenseDto = new ExpenseDto(_expenses.FirstOrDefault());
+
+            MyResults results = expensesAppService.RemoveExpense(expenseDto);
+
+            Assert.True(results.Type == MyResultsType.Ok);
         }
     }
 }
