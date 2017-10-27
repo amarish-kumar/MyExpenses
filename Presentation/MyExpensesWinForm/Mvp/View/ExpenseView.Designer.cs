@@ -235,7 +235,7 @@
             // 
             // picIcon
             // 
-            this.picIcon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picIcon.BackgroundImage")));
+            //this.picIcon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picIcon.BackgroundImage")));
             this.picIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picIcon.Location = new System.Drawing.Point(0, 0);
             this.picIcon.Margin = new System.Windows.Forms.Padding(0);
@@ -250,7 +250,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(762, 420);
             this.Controls.Add(this.tlpMain);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ExpenseView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Expenses";
