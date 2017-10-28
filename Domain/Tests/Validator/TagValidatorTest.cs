@@ -7,8 +7,10 @@
 namespace MyExpenses.Domain.Tests.Validator
 {
     using MyExpenses.Domain.Models;
+    using MyExpenses.Domain.Validator;
     using MyExpenses.Util.Results;
     using NUnit.Framework;
+    using System;
 
     [TestFixture]
     public class TagValidatorTest
@@ -23,6 +25,14 @@ namespace MyExpenses.Domain.Tests.Validator
                 Id = 1,
                 Name = "Tag1"
             };
+        }
+
+        [Test]
+        public void TestTagValidator_Invalid()
+        {
+            TagValidator tagValidator = new TagValidator();
+            Assert.Throws<ArgumentException>(() => tagValidator.Validate(null));
+            Assert.Throws<ArgumentException>(() => tagValidator.Validate(new Expense()));
         }
 
         [Test]
@@ -47,6 +57,20 @@ namespace MyExpenses.Domain.Tests.Validator
         public void TestTagValidator_NameIsEmtpy_Validate_ResultError()
         {
             _tag.Name = string.Empty;
+
+            MyResults results = _tag.Validate();
+
+            Assert.True(results.Type == MyResultsType.Error);
+        }
+
+        [Test]
+        public void TestTagValidator_NameIsTooBig_Validate_ResultError()
+        {
+            _tag.Name = string.Empty;
+            for (int i = 0; i < 129; i++)
+            {
+                _tag.Name += "a";
+            }
 
             MyResults results = _tag.Validate();
 
