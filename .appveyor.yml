@@ -42,5 +42,3 @@ after_test:
  - codecov -f "TestResultInfrastructure.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
  - codecov -f "TestResultApplication.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
  - codecov -f "TestResultUtil.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
-artifacts:
- - path: artifacts\**\*.*
