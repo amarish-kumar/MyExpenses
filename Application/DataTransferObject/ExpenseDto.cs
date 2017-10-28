@@ -20,10 +20,7 @@ namespace MyExpenses.Application.DataTransferObject
 
         public DateTime Date { get; set; }
 
-        public ExpenseDto()
-        {
-            
-        }
+        public ExpenseDto() { }
 
         public ExpenseDto(Expense expenseDomain)
         {

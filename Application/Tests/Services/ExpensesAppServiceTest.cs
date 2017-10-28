@@ -99,14 +99,14 @@ namespace MyExpenses.Application.Tests
         [Test]
         public void TestExpensesAppService_RemoveExpense_Error()
         {
-            _expensesServiceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Error, ""));
+            _expensesServiceMock.Setup(x => x.Remove(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Error, ""));
 
             ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
             ExpenseDto expenseDto = new ExpenseDto(_expenses.FirstOrDefault());
 
             MyResults results = expensesAppService.RemoveExpense(expenseDto);
 
-            Assert.True(results.Type == MyResultsType.Ok);
+            Assert.True(results.Type == MyResultsType.Error);
         }
     }
 }
