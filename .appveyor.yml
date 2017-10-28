@@ -3,11 +3,13 @@ branches:
   only:
   - master
   - dev
-image: Visual Studio 2017
+image:
+ - Visual Studio 2017
 configuration:
-- Debug
-- Release
-platform: x86
+ - Debug
+ - Release
+platform:
+ - x86
 nuget:
   account_feed: true
   project_feed: true
@@ -33,9 +35,12 @@ test_script:
  - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Application\Tests\bin\x86\Debug\MyExpenses.Application.Tests.dll" -output:"TestResultApplication.xml"
  - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Util\Tests\bin\x86\Debug\MyExpenses.Util.Tests.dll" -output:"TestResultUtil.xml"
 after_test:
-- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
-- pip install codecov
-- codecov -f "TestResultDomain.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
-- codecov -f "TestResultInfrastructure.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
-- codecov -f "TestResultApplication.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
-- codecov -f "TestResultUtil.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
+ - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+ - pip install codecov
+ - pip install git+git://github.com/codecov/codecov-python.git
+ - codecov -f "TestResultDomain.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
+ - codecov -f "TestResultInfrastructure.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
+ - codecov -f "TestResultApplication.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
+ - codecov -f "TestResultUtil.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
+artifacts:
+ - path: artifacts\**\*.*
