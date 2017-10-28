@@ -38,7 +38,7 @@ after_test:
  - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
  - pip install codecov
  - pip install git+git://github.com/codecov/codecov-python.git
- - codecov -f TestResultDomain.xml -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
+ - codecov -f "TestResultDomain.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
  - codecov -f "TestResultInfrastructure.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
  - codecov -f "TestResultApplication.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
  - codecov -f "TestResultUtil.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
