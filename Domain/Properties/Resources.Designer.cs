@@ -88,20 +88,20 @@ namespace MyExpenses.Domain.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - {1} field is invalid..
+        /// </summary>
+        internal static string Validate_Field_Invalid {
+            get {
+                return ResourceManager.GetString("Validate_Field_Invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} - Invalid Id..
         /// </summary>
         internal static string Validate_Id_Invalid {
             get {
                 return ResourceManager.GetString("Validate_Id_Invalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} - {1} field is invalid..
-        /// </summary>
-        internal static string Validate_String_Invalid {
-            get {
-                return ResourceManager.GetString("Validate_String_Invalid", resourceCulture);
             }
         }
         
@@ -147,6 +147,15 @@ namespace MyExpenses.Domain.Properties {
         internal static string Validation_OK {
             get {
                 return ResourceManager.GetString("Validation_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        internal static string Value {
+            get {
+                return ResourceManager.GetString("Value", resourceCulture);
             }
         }
     }

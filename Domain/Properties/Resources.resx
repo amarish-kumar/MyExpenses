@@ -126,11 +126,11 @@
   <data name="Tag" xml:space="preserve">
     <value>Tag</value>
   </data>
+  <data name="Validate_Field_Invalid" xml:space="preserve">
+    <value>{0} - {1} field is invalid.</value>
+  </data>
   <data name="Validate_Id_Invalid" xml:space="preserve">
     <value>{0} - Invalid Id.</value>
-  </data>
-  <data name="Validate_String_Invalid" xml:space="preserve">
-    <value>{0} - {1} field is invalid.</value>
   </data>
   <data name="Validation" xml:space="preserve">
     <value>Validation OK</value>
@@ -146,5 +146,8 @@
   </data>
   <data name="Validation_OK" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Value</value>
   </data>
 </root>

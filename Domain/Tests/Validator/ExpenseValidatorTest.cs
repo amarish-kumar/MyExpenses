@@ -54,5 +54,15 @@ namespace MyExpenses.Domain.Tests.Validator
 
             Assert.True(results.Type == MyResultsType.Error);
         }
+
+        [Test]
+        public void TestExpenseValidator_InvalidValue_Validate_ResultError()
+        {
+            _expense.Value = -10;
+
+            MyResults results = _expense.Validate();
+
+            Assert.True(results.Type == MyResultsType.Error);
+        }
     }
 }
