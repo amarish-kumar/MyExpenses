@@ -9,10 +9,11 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Util.Logger;
 
     public class ExpensesRepo : RepositoryBase<Expense>, IExpensesRepo
     {
-        public ExpensesRepo(IMyContext context) : base(context)
+        public ExpensesRepo(IMyContext context, ILogService log = null) : base(context, log)
         {
         }
     }

@@ -10,23 +10,22 @@ namespace MyExpenses.Infrastructure.UnitOfWork
 
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
-    using MyExpenses.Util.IoC;
     using MyExpenses.Util.Logger;
 
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IMyContext _context;
-        private readonly ILogService _logService;
+        private readonly ILogService _log;
 
-        public UnitOfWork(IMyContext context)
+        public UnitOfWork(IMyContext context, ILogService log = null)
         {
             _context = context;
-            _logService = MyKernelService.GetInstance<LogService>();
+            _log = log;
         }
 
         public void BeginTransaction()
         {
-            _logService.ClearStackLog();
+            _log?.ClearStackLog();
         }
 
         public void Commit()
@@ -34,7 +33,7 @@ namespace MyExpenses.Infrastructure.UnitOfWork
             try
             {
                 _context.SaveChanges();
-                _logService.SaveStackLog();
+                _log?.SaveStackLog();
             }
             catch (Exception e)
             {

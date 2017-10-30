@@ -25,10 +25,10 @@ namespace MyExpenses.Infrastructure.Repositories
         private readonly IMyContext _context;
         private readonly ILogService _log;
 
-        protected  RepositoryBase(IMyContext context)
+        protected  RepositoryBase(IMyContext context, ILogService log)
         {
             _context = context;
-            _log = MyKernelService.GetInstance<LogService>();
+            _log = log;
         }
 
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
@@ -74,7 +74,7 @@ namespace MyExpenses.Infrastructure.Repositories
             }
 
             _context.Set<TEntity>().Remove(existEntity);
-            _log.AppendLog(LevelLog.Info, action);
+            _log?.AppendLog(LevelLog.Info, action);
             return new MyResults(MyResultsType.Ok, action);
         }
 
@@ -91,14 +91,14 @@ namespace MyExpenses.Infrastructure.Repositories
                 if (existEntity != null)
                 {
                     existEntity.Copy(entity);
-                    _log.AppendLog(LevelLog.Info, String.Format(Resources.Action_Updating, entity.GetType().Name));
+                    _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Updating, entity.GetType().Name));
                     return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Updating, entity.GetType().Name));
                 }
             }
 
             // Save Add
             _context.Set<TEntity>().Add(entity);
-            _log.AppendLog(LevelLog.Info, String.Format(Resources.Action_Adding, entity.GetType().Name));
+            _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Adding, entity.GetType().Name));
             return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Adding, entity.GetType().Name));
         }
     }

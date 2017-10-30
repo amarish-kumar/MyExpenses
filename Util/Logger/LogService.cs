@@ -13,9 +13,9 @@ namespace MyExpenses.Util.Logger
 
     public class LogService : ILogService
     {
-        private static readonly List<KeyValuePair<LevelLog, string>> _stackLog = new List<KeyValuePair<LevelLog, string>>();
+        private readonly List<KeyValuePair<LevelLog, string>> _stackLog = new List<KeyValuePair<LevelLog, string>>();
 
-        private static readonly ILog _log;
+        private readonly ILog _log;
 
         public void AppendLog(LevelLog levelLog, string message, Exception ex = null)
         {
