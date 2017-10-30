@@ -49,7 +49,7 @@ namespace MyExpenses.Domain.Validator
                 return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Value));
             }
 
-            return new MyResults(MyResultsType.Ok, Resources.Validation_OK); ;
+            return new MyResults(MyResultsType.Ok, Resources.Validation_OK);
         }
     }
 }

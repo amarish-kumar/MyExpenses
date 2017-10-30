@@ -26,7 +26,7 @@ namespace MyExpenses.Application.Tests
         private Mock<IExpensesService> _expensesServiceMock;
         private Mock<IUnitOfWork> _unitOfWorkMock;
 
-        private List<Expense> _expenses = new List<Expense>
+        private readonly List<Expense> _expenses = new List<Expense>
             {
                 new Expense
                 {

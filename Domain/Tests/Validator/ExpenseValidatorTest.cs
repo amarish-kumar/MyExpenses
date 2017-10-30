@@ -32,7 +32,7 @@ namespace MyExpenses.Domain.Tests.Validator
         }
 
         [Test]
-        public void TestExpenseValidator_Invalid()
+        public static void TestExpenseValidator_Invalid()
         {
             ExpenseValidator expenseValidator = new ExpenseValidator();
             Assert.Throws<ArgumentException>(() => expenseValidator.Validate(null));

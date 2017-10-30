@@ -50,7 +50,7 @@ namespace MyExpenses.Domain.Models
         /// <returns>True if is equal and false otherwise</returns>
         public override bool Equals(Expense other)
         {
-            Expense expense = (Expense)other;
+            Expense expense = other;
 
             bool equal = Id.Equals(expense.Id);
             equal &= Name.Equals(expense.Name);
