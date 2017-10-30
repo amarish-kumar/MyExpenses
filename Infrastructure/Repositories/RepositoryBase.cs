@@ -16,15 +16,19 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Properties;
+    using MyExpenses.Util.IoC;
+    using MyExpenses.Util.Logger;
     using MyExpenses.Util.Results;
 
     public abstract class RepositoryBase<TEntity>: IRepositoryBase<TEntity> where TEntity : class, IEntity
     {
         private readonly IMyContext _context;
+        private readonly ILogService _log;
 
         protected  RepositoryBase(IMyContext context)
         {
             _context = context;
+            _log = MyKernelService.GetInstance<LogService>();
         }
 
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
@@ -32,14 +36,10 @@ namespace MyExpenses.Infrastructure.Repositories
             IQueryable<TEntity> set = _context.Set<TEntity>();
 
             foreach (var include in includes)
-            {
                 set = set.Include(include);
-            }
 
             if (filter != null)
-            {
                 set = set?.Where(filter);
-            }
 
             return set;
         }
@@ -49,9 +49,7 @@ namespace MyExpenses.Infrastructure.Repositories
             IQueryable<TEntity> set = _context.Set<TEntity>();
 
             foreach (var include in includes)
-            { 
                 set = set.Include(include);
-            }
 
             return set;
         }
@@ -61,9 +59,7 @@ namespace MyExpenses.Infrastructure.Repositories
             IQueryable<TEntity> set = _context.Set<TEntity>().Where(x => x.Id == id);
 
             foreach (var include in includes)
-            {
                 set = set.Include(include);
-            }
 
             return set.FirstOrDefault();
         }
@@ -78,6 +74,7 @@ namespace MyExpenses.Infrastructure.Repositories
             }
 
             _context.Set<TEntity>().Remove(existEntity);
+            _log.AppendLog(LevelLog.Info, action);
             return new MyResults(MyResultsType.Ok, action);
         }
 
@@ -85,9 +82,7 @@ namespace MyExpenses.Infrastructure.Repositories
         {
             MyResults validate = (entity as IEntity).Validate();
             if (validate.Type != MyResultsType.Ok)
-            {
                 return validate;
-            }
 
             // Update
             if (entity.Id > 0)
@@ -96,12 +91,14 @@ namespace MyExpenses.Infrastructure.Repositories
                 if (existEntity != null)
                 {
                     existEntity.Copy(entity);
+                    _log.AppendLog(LevelLog.Info, String.Format(Resources.Action_Updating, entity.GetType().Name));
                     return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Updating, entity.GetType().Name));
                 }
             }
 
             // Save Add
             _context.Set<TEntity>().Add(entity);
+            _log.AppendLog(LevelLog.Info, String.Format(Resources.Action_Adding, entity.GetType().Name));
             return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Adding, entity.GetType().Name));
         }
     }

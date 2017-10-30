@@ -28,7 +28,7 @@ namespace MyExpenses.Domain.Tests.Validator
         }
 
         [Test]
-        public void TestTagValidator_Invalid()
+        public static void TestTagValidator_Invalid()
         {
             TagValidator tagValidator = new TagValidator();
             Assert.Throws<ArgumentException>(() => tagValidator.Validate(null));

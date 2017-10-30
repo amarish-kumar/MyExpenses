@@ -40,15 +40,18 @@
   <ItemGroup>
     <Folder Include="Connection\" />
     <Folder Include="General\" />
-    <Folder Include="Logger\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IoC\MyKernel.cs" />
     <Compile Include="IoC\MyKernelService.cs" />
-    <Compile Include="Modules\InitUtilModules.cs" />
+    <Compile Include="Logger\ILogService.cs" />
+    <Compile Include="Logger\LogService.cs" />
     <Compile Include="Results\MyResults.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Ninject, Version=3.3.3.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.3\lib\net45\Ninject.dll</HintPath>

@@ -13,6 +13,7 @@ namespace MyExpenses.Infrastructure.Modules
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Repositories;
     using MyExpenses.Infrastructure.UnitOfWork;
+    using MyExpenses.Util.Logger;
 
     using Ninject.Modules;
 
@@ -33,6 +34,9 @@ namespace MyExpenses.Infrastructure.Modules
 
             // Unit of work
             Bind<IUnitOfWork>().To<UnitOfWork>();
+
+            // Log service
+            Bind<ILogService>().To<LogService>().InSingletonScope();
         }
     }
 }

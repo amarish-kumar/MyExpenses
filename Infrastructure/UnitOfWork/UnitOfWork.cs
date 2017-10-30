@@ -10,19 +10,23 @@ namespace MyExpenses.Infrastructure.UnitOfWork
 
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Util.IoC;
+    using MyExpenses.Util.Logger;
 
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IMyContext _context;
+        private readonly ILogService _logService;
 
         public UnitOfWork(IMyContext context)
         {
             _context = context;
+            _logService = MyKernelService.GetInstance<LogService>();
         }
 
         public void BeginTransaction()
         {
-            // Method intentionally left empty.
+            _logService.ClearStackLog();
         }
 
         public void Commit()
@@ -30,6 +34,7 @@ namespace MyExpenses.Infrastructure.UnitOfWork
             try
             {
                 _context.SaveChanges();
+                _logService.SaveStackLog();
             }
             catch (Exception e)
             {
