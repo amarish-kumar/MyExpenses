@@ -46,6 +46,7 @@
     <Compile Include="IoC\MyKernelService.cs" />
     <Compile Include="Logger\ILogService.cs" />
     <Compile Include="Logger\LogService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\MyResults.cs" />
   </ItemGroup>
   <ItemGroup>
