@@ -31,7 +31,7 @@ namespace MyExpenses.Application.Services
         public List<ExpenseDto> GetAllExpenses()
         {
             // Get expenses from domain
-            List<Expense> expensesDomain = _expensesService.GetAll(x => x.Tags).ToList();
+            List<Expense> expensesDomain = _expensesService.GetAll().ToList();
 
             // Convert expenses to DTO
             List<ExpenseDto> expensesDto = expensesDomain.Select(ExpenseAdapter.ToDto).ToList();
