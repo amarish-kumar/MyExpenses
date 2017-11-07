@@ -6,6 +6,9 @@
 
 namespace MyExpenses.Util.IoC
 {
+    using System;
+    using System.Collections.Generic;
+
     using Ninject.Modules;
 
     public static class MyKernelService
@@ -15,5 +18,9 @@ namespace MyExpenses.Util.IoC
         public static void AddModule(INinjectModule module) => MyKernel.AddModule(module);
 
         public static T GetInstance<T>() => MyKernel.GetInstance<T>();
+
+        public static IEnumerable<object> GetAll(Type type) => MyKernel.GetAll(type);
+
+        public static object Get(Type type) => MyKernel.Get(type);
     }
 }

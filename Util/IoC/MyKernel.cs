@@ -6,6 +6,8 @@
 
 namespace MyExpenses.Util.IoC
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Ninject;
@@ -21,6 +23,16 @@ namespace MyExpenses.Util.IoC
             {
                 _kernel = new StandardKernel();
             }
+        }
+
+        public static IEnumerable<object> GetAll(Type type)
+        {
+            return _kernel.GetAll(type);
+        }
+
+        public static object Get(Type type)
+        {
+            return _kernel.TryGet(type);
         }
 
         public static void AddModule(INinjectModule module)

@@ -6,8 +6,16 @@ using System.Web.Mvc;
 
 namespace MyExpenses.WebApplication.Controllers
 {
+    using MyExpenses.Application.Interfaces;
+
     public class HomeController : Controller
     {
+        public HomeController(IExpensesAppService expensesAppService)
+        {
+            var allExpenses = expensesAppService.GetAllExpenses();
+            allExpenses.ForEach(Console.WriteLine);
+        }
+
         public ActionResult Index()
         {
             return View();

@@ -7,6 +7,7 @@
 namespace MyExpenses.WebApplication
 {
     using System;
+    using System.Threading;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
@@ -25,21 +26,19 @@ namespace MyExpenses.WebApplication
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //try
-            //{
-            //    // Loads only necessary modules
-            //    MyKernelService.Init();
-            //    InitApplicationModules.Init();
-            //    InitInfrastructureModules.Init();
+            try
+            {
+                // Loads only necessary modules
+                MyKernelService.Init();
+                InitApplicationModules.Init();
+                InitInfrastructureModules.Init();
 
-            //    var expensesAppService = MyKernelService.GetInstance<ExpensesAppService>();
-            //    var allExpenses = expensesAppService.GetAllExpenses();
-            //    allExpenses.ForEach(Console.WriteLine);
-            //}
-            //catch (Exception e)
-            //{
-            //    throw;
-            //}
+                DependencyResolver.SetResolver(new MyKernelDependencyResolver());
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
     }
 }
