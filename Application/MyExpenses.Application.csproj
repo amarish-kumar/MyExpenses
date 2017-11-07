@@ -55,6 +55,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter\ExpenseAdapter.cs" />
     <Compile Include="DataTransferObject\ExpenseDto.cs" />
     <Compile Include="Interfaces\IAppServiceBase.cs" />
     <Compile Include="Interfaces\IExpensesAppService.cs" />

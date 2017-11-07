@@ -17,6 +17,7 @@ namespace MyExpenses.Application.Tests
     using System.Linq;
     using System.Linq.Expressions;
 
+    using MyExpenses.Application.Adapter;
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Services;
 
@@ -65,7 +66,7 @@ namespace MyExpenses.Application.Tests
         public void TestExpensesAppService_SaveAndUpdateExpense_OK()
         {
             ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
-            ExpenseDto expenseDto = new ExpenseDto(_expenses.FirstOrDefault());
+            ExpenseDto expenseDto = ExpenseAdapter.ToDto(_expenses.FirstOrDefault());
 
             MyResults results = expensesAppService.SaveOrUpdateExpense(expenseDto);
 
@@ -78,7 +79,7 @@ namespace MyExpenses.Application.Tests
             _expensesServiceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Error, ""));
 
             ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
-            ExpenseDto expenseDto = new ExpenseDto(_expenses.FirstOrDefault());
+            ExpenseDto expenseDto = ExpenseAdapter.ToDto(_expenses.FirstOrDefault());
 
             MyResults results = expensesAppService.SaveOrUpdateExpense(expenseDto);
 
@@ -89,7 +90,7 @@ namespace MyExpenses.Application.Tests
         public void TestExpensesAppService_RemoveExpense_OK()
         {
             ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
-            ExpenseDto expenseDto = new ExpenseDto(_expenses.FirstOrDefault());
+            ExpenseDto expenseDto = ExpenseAdapter.ToDto(_expenses.FirstOrDefault());
 
             MyResults results = expensesAppService.RemoveExpense(expenseDto);
 
@@ -102,7 +103,7 @@ namespace MyExpenses.Application.Tests
             _expensesServiceMock.Setup(x => x.Remove(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Error, ""));
 
             ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
-            ExpenseDto expenseDto = new ExpenseDto(_expenses.FirstOrDefault());
+            ExpenseDto expenseDto = ExpenseAdapter.ToDto(_expenses.FirstOrDefault());
 
             MyResults results = expensesAppService.RemoveExpense(expenseDto);
 

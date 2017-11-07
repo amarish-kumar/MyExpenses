@@ -9,6 +9,7 @@ namespace MyExpenses.Application.Services
     using System.Collections.Generic;
     using System.Linq;
 
+    using MyExpenses.Application.Adapter;
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Domain.Interfaces;
@@ -33,7 +34,7 @@ namespace MyExpenses.Application.Services
             List<Expense> expensesDomain = _expensesService.GetAll(x => x.Tags).ToList();
 
             // Convert expenses to DTO
-            List<ExpenseDto> expensesDto = expensesDomain.Select(x => new ExpenseDto(x)).ToList();
+            List<ExpenseDto> expensesDto = expensesDomain.Select(ExpenseAdapter.ToDto).ToList();
 
             return expensesDto;
         }
@@ -43,7 +44,7 @@ namespace MyExpenses.Application.Services
             _unitOfWork.BeginTransaction();
 
             // Save or update expenses
-            MyResults results = _expensesService.SaveOrUpdate(expenseDto.ConvertToDomain());
+            MyResults results = _expensesService.SaveOrUpdate(ExpenseAdapter.ToDomain(expenseDto));
 
             if(results.Type == MyResultsType.Ok)
                 _unitOfWork.Commit();
@@ -56,7 +57,7 @@ namespace MyExpenses.Application.Services
             _unitOfWork.BeginTransaction();
 
             // Remove expense
-            MyResults results = _expensesService.Remove(expenseDto.ConvertToDomain());
+            MyResults results = _expensesService.Remove(ExpenseAdapter.ToDomain(expenseDto));
 
             if (results.Type == MyResultsType.Ok)
                 _unitOfWork.Commit();
