@@ -20,7 +20,7 @@ namespace MyExpenses.Infrastructure.Mapping
             // Columns
             Property(x => x.Name).HasColumnName("Name");
             Property(x => x.Value).HasColumnName("Value");
-            Property(x => x.Date).HasColumnName("Date");
+            Property(x => x.Date).HasColumnName("Data");
 
             // Relations
             HasMany(e => e.Tags)
