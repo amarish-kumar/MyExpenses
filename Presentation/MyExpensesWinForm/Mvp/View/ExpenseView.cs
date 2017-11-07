@@ -78,7 +78,7 @@ namespace MyExpenses.WinForm.Mvp.View
         {
             return new ExpenseModel
             {
-                Id = ignoreId ? -1 : Convert.ToInt16(txtId.Text),
+                Id = ignoreId ? 0 : Convert.ToInt16(txtId.Text),
                 Name = txtName.Text,
                 Value = (float)Convert.ToDouble(txtValue.Text),
                 Date = Convert.ToDateTime(txtDate.Text)

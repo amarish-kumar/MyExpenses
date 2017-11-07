@@ -29,7 +29,7 @@ namespace MyExpenses.Domain.Validator
                 throw new ArgumentException(string.Format(Resources.Validation_InvalidTypeObject, Resources.Tag));
             }
 
-            if (tag.Id <= 0)
+            if (tag.Id < 0)
             {
                 return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
             }
