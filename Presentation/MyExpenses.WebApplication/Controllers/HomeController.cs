@@ -10,10 +10,11 @@ namespace MyExpenses.WebApplication.Controllers
 
     public class HomeController : Controller
     {
+        private readonly IExpensesAppService _expensesAppService;
+
         public HomeController(IExpensesAppService expensesAppService)
         {
-            var allExpenses = expensesAppService.GetAllExpenses();
-            allExpenses.ForEach(Console.WriteLine);
+            _expensesAppService = expensesAppService;
         }
 
         public ActionResult Index()
@@ -30,7 +31,12 @@ namespace MyExpenses.WebApplication.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            string text = String.Empty;
+
+            var allExpenses = _expensesAppService.GetAllExpenses();
+            allExpenses.ForEach(x => text += " " + x.Name);
+
+            ViewBag.Message = text;
 
             return View();
         }
