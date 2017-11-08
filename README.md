@@ -2,3 +2,4 @@
 
 Project to control personal expenses. Written in C# using WinForm and in the future for web.
 
+![Alt text](Data/Architecture/MyExpensesArchitectureV2.png "MyExpenses Architecture")
