@@ -34,7 +34,15 @@ namespace MyExpenses.Application.Tests
                     Id = 1,
                     Name = "Expense1",
                     Date = new DateTime(),
-                    Value = 2
+                    Value = 2,
+                    Tags = new List<Tag>
+                    {
+                        new Tag
+                        {
+                            Id = 1,
+                            Name = "Tag1"
+                        }
+                    }
                 }
             };
 

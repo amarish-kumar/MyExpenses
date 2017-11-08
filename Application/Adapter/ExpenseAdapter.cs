@@ -20,7 +20,8 @@ namespace MyExpenses.Application.Adapter
                 Id = expenseDto.Id,
                 Name = expenseDto.Name,
                 Value = expenseDto.Value,
-                Date = expenseDto.Date
+                Date = expenseDto.Date,
+                Tags = expenseDto.Tags.Select(TagAdapter.ToDomain).ToList()
             };
         }
 
