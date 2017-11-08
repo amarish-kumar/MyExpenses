@@ -6,6 +6,8 @@
 
 namespace MyExpenses.Application.Adapter
 {
+    using System.Linq;
+
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Domain.Models;
 
@@ -24,13 +26,16 @@ namespace MyExpenses.Application.Adapter
 
         public static ExpenseDto ToDto(Expense expenseDomain)
         {
-            return new ExpenseDto
+            ExpenseDto expenseDto = new ExpenseDto
             {
                 Id = expenseDomain.Id,
                 Name = expenseDomain.Name,
                 Value = expenseDomain.Value,
-                Date = expenseDomain.Date
+                Date = expenseDomain.Date,
+                Tags = expenseDomain.Tags.Select(TagAdapter.ToDto).ToList()
             };
+
+            return expenseDto;
         }
     }
 }

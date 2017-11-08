@@ -46,6 +46,10 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Sql\Sqlite\createTables.sql" />
+    <Content Include="Sql\Sqlite\populateTables.sql" />
+    <Content Include="Sql\SqlServer\createTables.sql" />
+    <Content Include="Sql\SqlServer\populateTables.sql" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -54,11 +58,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Sql\myexpenses.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="Sql\myexpenses.mdf" />
     <Content Include="Sql\myexpenses_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>myexpenses.mdf</DependentUpon>
     </Content>
     <Content Include="Sql\myexpenses.db">
@@ -89,7 +90,6 @@
     <Compile Include="Context\MyContext.cs" />
     <Compile Include="Mapping\ExpenseMap.cs" />
     <Compile Include="Mapping\TagMap.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Modules\InitInfrastructureModules.cs" />
     <Compile Include="Modules\MyInfrastructureModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,8 +137,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sql\createTables.sql" />
-    <Content Include="Sql\populateTables.sql" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

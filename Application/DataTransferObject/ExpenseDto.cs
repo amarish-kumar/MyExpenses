@@ -7,6 +7,7 @@
 namespace MyExpenses.Application.DataTransferObject
 {
     using System;
+    using System.Collections.Generic;
 
     public class ExpenseDto
     {
@@ -17,5 +18,12 @@ namespace MyExpenses.Application.DataTransferObject
         public float Value { get; set; }
 
         public DateTime Date { get; set; }
+
+        public ICollection<TagDto> Tags { get; set; }
+
+        public ExpenseDto()
+        {
+            Tags = new List<TagDto>();
+        }
     }
 }

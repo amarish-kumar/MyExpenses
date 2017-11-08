@@ -55,7 +55,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter\TagAdapter.cs" />
     <Compile Include="Adapter\ExpenseAdapter.cs" />
+    <Compile Include="DataTransferObject\TagDto.cs" />
     <Compile Include="DataTransferObject\ExpenseDto.cs" />
     <Compile Include="Interfaces\IAppServiceBase.cs" />
     <Compile Include="Interfaces\IExpensesAppService.cs" />
