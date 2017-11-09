@@ -22,13 +22,11 @@ namespace MyExpenses.Application.Adapter
 
         public static TagDto ToDto(Tag tagDomain)
         {
-            TagDto tagDto = new TagDto
+            return new TagDto
             {
                 Id = tagDomain.Id,
                 Name = tagDomain.Name,
             };
-
-            return tagDto;
         }
     }
 }

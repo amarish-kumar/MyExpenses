@@ -27,7 +27,7 @@ namespace MyExpenses.Application.Adapter
 
         public static ExpenseDto ToDto(Expense expenseDomain)
         {
-            ExpenseDto expenseDto = new ExpenseDto
+            return new ExpenseDto
             {
                 Id = expenseDomain.Id,
                 Name = expenseDomain.Name,
@@ -35,8 +35,6 @@ namespace MyExpenses.Application.Adapter
                 Date = expenseDomain.Date,
                 Tags = expenseDomain.Tags.Select(TagAdapter.ToDto).ToList()
             };
-
-            return expenseDto;
         }
     }
 }
