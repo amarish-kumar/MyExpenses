@@ -21,6 +21,20 @@ CREATE TABLE [dbo].[Expenses_Tags]
 	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY(1,1), 
     [ExpenseId] BIGINT NOT NULL, 
     [TagId] BIGINT NOT NULL, 
-    CONSTRAINT [FK_Expenses_Tags_Expense] FOREIGN KEY ([ExpenseId]) REFERENCES [Expenses]([Id]),
-	CONSTRAINT [FK_Expenses_Tags_Tag] FOREIGN KEY ([TagId]) REFERENCES [Tags]([Id])
+    CONSTRAINT [FK_Expenses_Tags_Expense] FOREIGN KEY ([ExpenseId]) REFERENCES [Expenses]([Id]) ON DELETE CASCADE,
+	CONSTRAINT [FK_Expenses_Tags_Tag] FOREIGN KEY ([TagId]) REFERENCES [Tags]([Id]) ON DELETE CASCADE
 )
+
+DROP TABLE IF EXISTS Users;
+CREATE TABLE [dbo].[Users] (
+    [Id]   BIGINT NOT NULL IDENTITY(1,1),
+    [Name] TEXT   NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+DROP TABLE IF EXISTS Projects;
+CREATE TABLE [dbo].[Projects] (
+    [Id]   BIGINT NOT NULL IDENTITY(1,1),
+    [Name] TEXT   NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
