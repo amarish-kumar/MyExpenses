@@ -11,4 +11,5 @@ Project to control personal expenses written in C#.
 | [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/lfmachadodasilva/MyExpenses.svg)](http://isitmaintained.com/project/lfmachadodasilva/MyExpenses "Average time to resolve an issue") |
 | [![Percentage of issues still open](http://isitmaintained.com/badge/open/lfmachadodasilva/MyExpenses.svg)](http://isitmaintained.com/project/lfmachadodasilva/MyExpenses "Percentage of issues still open") |
  
+ Architecture:<br>
 <img src="Data/Architecture/MyExpensesArchitectureV2.jpg" width="500">
