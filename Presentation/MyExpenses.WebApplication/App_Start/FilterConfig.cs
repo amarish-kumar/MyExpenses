@@ -1,9 +1,14 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿/* 
+*   Project: MyExpenses
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyExpenses
+*/
 
 namespace MyExpenses.WebApplication
 {
-    public class FilterConfig
+    using System.Web.Mvc;
+
+    public static class FilterConfig
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
