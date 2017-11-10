@@ -7,13 +7,11 @@
 namespace MyExpenses.WebApplication
 {
     using System;
-    using System.Threading;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
 
     using MyExpenses.Application.Modules;
-    using MyExpenses.Application.Services;
     using MyExpenses.Infrastructure.Modules;
     using MyExpenses.Util.IoC;
 
@@ -35,7 +33,7 @@ namespace MyExpenses.WebApplication
 
                 DependencyResolver.SetResolver(new MyKernelDependencyResolver());
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
