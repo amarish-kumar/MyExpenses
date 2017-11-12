@@ -6,8 +6,9 @@
 
 namespace MyExpenses.WebApplication.Controllers
 {
+    using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
-    
+    using MyExpenses.Util.Results;
     using System.Web.Mvc;
 
     public class ExpensesController : Controller
@@ -19,7 +20,6 @@ namespace MyExpenses.WebApplication.Controllers
             _expensesAppService = expensesAppService;
         }
 
-        // GET: Expenses
         [Route("Expenses")]
         public ActionResult Index()
         {
@@ -28,10 +28,27 @@ namespace MyExpenses.WebApplication.Controllers
             return View(allExpenses);
         }
 
-        // GET: Expenses
+        [HttpGet]
         [Route("Expenses/Create")]
         public ActionResult Create()
         {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Expenses/Create")]
+        public ActionResult Create([Bind(Include = "")]ExpenseDto expenseDto)
+        {
+            if (ModelState.IsValid)
+            {
+                MyResults result = _expensesAppService.SaveOrUpdateExpense(expenseDto);
+                if (result.Type == MyResultsType.Ok)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
             return View();
         }
     }

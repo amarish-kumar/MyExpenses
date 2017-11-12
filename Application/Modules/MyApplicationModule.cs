@@ -16,6 +16,7 @@ namespace MyExpenses.Application.Modules
         public override void Load()
         {
             Bind<IExpensesAppService>().To<ExpensesAppService>().InSingletonScope();
+            Bind<ITagsAppService>().To<TagsAppService>().InSingletonScope();
         }
     }
 }
