@@ -21,6 +21,7 @@ namespace MyExpenses.WebApplication.Controllers
         }
 
         [Route("Expenses")]
+        [Route("Expenses/Index")]
         public ActionResult Index()
         {
             var allExpenses = _expensesAppService.GetAllExpenses();

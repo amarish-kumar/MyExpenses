@@ -20,7 +20,8 @@ namespace MyExpenses.WebApplication.Controllers
             _tagsAppService = tagsAppService;
         }
 
-        // GET: Tags
+        [Route("Tags")]
+        [Route("Tags/Index")]
         public ActionResult Index()
         {
             var tags = _tagsAppService.GetAllTags();

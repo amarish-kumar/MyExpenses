@@ -20,6 +20,7 @@ namespace MyExpenses.WebApplication.Controllers
             _expensesAppService = expensesAppService;
         }
 
+        [Route]
         public ActionResult Index()
         {
             return View();
