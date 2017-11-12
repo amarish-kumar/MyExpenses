@@ -11,6 +11,7 @@ namespace MyExpenses.WebApplication.Controllers
     using MyExpenses.Util.Results;
     using System.Web.Mvc;
 
+    [RoutePrefix("Tags")]
     public class TagsController : Controller
     {
         private readonly ITagsAppService _tagsAppService;
@@ -20,8 +21,7 @@ namespace MyExpenses.WebApplication.Controllers
             _tagsAppService = tagsAppService;
         }
 
-        [Route("Tags")]
-        [Route("Tags/Index")]
+        [Route]
         public ActionResult Index()
         {
             var tags = _tagsAppService.GetAllTags();
@@ -30,7 +30,7 @@ namespace MyExpenses.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Tags/Create")]
+        [Route("Create")]
         public ActionResult Create([Bind(Include = "")]TagDto tagDto)
         {
             if (ModelState.IsValid)
@@ -46,7 +46,7 @@ namespace MyExpenses.WebApplication.Controllers
         }
 
         [HttpGet]
-        [Route("Tags/Create")]
+        [Route("Create")]
         public ActionResult Create()
         {
             return View();

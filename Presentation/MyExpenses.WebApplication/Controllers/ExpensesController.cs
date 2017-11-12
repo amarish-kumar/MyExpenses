@@ -11,6 +11,7 @@ namespace MyExpenses.WebApplication.Controllers
     using MyExpenses.Util.Results;
     using System.Web.Mvc;
 
+    [RoutePrefix("Expenses")]
     public class ExpensesController : Controller
     {
         private readonly IExpensesAppService _expensesAppService;
@@ -20,8 +21,7 @@ namespace MyExpenses.WebApplication.Controllers
             _expensesAppService = expensesAppService;
         }
 
-        [Route("Expenses")]
-        [Route("Expenses/Index")]
+        [Route]
         public ActionResult Index()
         {
             var allExpenses = _expensesAppService.GetAllExpenses();
@@ -30,7 +30,7 @@ namespace MyExpenses.WebApplication.Controllers
         }
 
         [HttpGet]
-        [Route("Expenses/Create")]
+        [Route("Create")]
         public ActionResult Create()
         {
             return View();
@@ -38,7 +38,7 @@ namespace MyExpenses.WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Expenses/Create")]
+        [Route("Create")]
         public ActionResult Create([Bind(Include = "")]ExpenseDto expenseDto)
         {
             if (ModelState.IsValid)
