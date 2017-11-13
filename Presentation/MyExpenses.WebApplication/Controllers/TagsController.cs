@@ -6,10 +6,13 @@
 
 namespace MyExpenses.WebApplication.Controllers
 {
-    using MyExpenses.Application.DataTransferObject;
+    using System.Linq;
+
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Util.Results;
     using System.Web.Mvc;
+
+    using MyExpenses.WebApplication.Models;
 
     [RoutePrefix("Tags")]
     public class TagsController : Controller
@@ -25,17 +28,17 @@ namespace MyExpenses.WebApplication.Controllers
         public ActionResult Index()
         {
             var tags = _tagsAppService.GetAllTags();
-            return View(tags);
+            return View(tags.Select(TagModel.ToModel));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public ActionResult Create([Bind(Include = "")]TagDto tagDto)
+        public ActionResult Create([Bind(Include = "")]TagModel model)
         {
             if (ModelState.IsValid)
             {
-                MyResults result = _tagsAppService.SaveOrUpdateTag(tagDto);
+                MyResults result = _tagsAppService.SaveOrUpdateTag(TagModel.ToDto(model));
                 if(result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");

@@ -13,27 +13,27 @@ namespace MyExpenses.Application.Adapter
 
     public static class ExpenseAdapter
     {
-        public static Expense ToDomain(ExpenseDto expenseDto)
+        public static Expense ToDomain(ExpenseDto dto)
         {
             return new Expense
             {
-                Id = expenseDto.Id,
-                Name = expenseDto.Name,
-                Value = expenseDto.Value,
-                Date = expenseDto.Date,
-                Tags = expenseDto.Tags.Select(TagAdapter.ToDomain).ToList()
+                Id = dto.Id,
+                Name = dto.Name,
+                Value = dto.Value,
+                Date = dto.Date,
+                Tags = dto.Tags.Select(TagAdapter.ToDomain).ToList()
             };
         }
 
-        public static ExpenseDto ToDto(Expense expenseDomain)
+        public static ExpenseDto ToDto(Expense domain)
         {
             return new ExpenseDto
             {
-                Id = expenseDomain.Id,
-                Name = expenseDomain.Name,
-                Value = expenseDomain.Value,
-                Date = expenseDomain.Date,
-                Tags = expenseDomain.Tags.Select(TagAdapter.ToDto).ToList()
+                Id = domain.Id,
+                Name = domain.Name,
+                Value = domain.Value,
+                Date = domain.Date,
+                Tags = domain.Tags.Select(TagAdapter.ToDto).ToList()
             };
         }
     }

@@ -6,10 +6,13 @@
 
 namespace MyExpenses.WebApplication.Controllers
 {
-    using MyExpenses.Application.DataTransferObject;
+    using System.Linq;
+
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Util.Results;
     using System.Web.Mvc;
+
+    using MyExpenses.WebApplication.Models;
 
     [RoutePrefix("Expenses")]
     public class ExpensesController : Controller
@@ -25,8 +28,7 @@ namespace MyExpenses.WebApplication.Controllers
         public ActionResult Index()
         {
             var allExpenses = _expensesAppService.GetAllExpenses();
-
-            return View(allExpenses);
+            return View(allExpenses.Select(ExpenseModel.ToModel));
         }
 
         [HttpGet]
@@ -39,11 +41,11 @@ namespace MyExpenses.WebApplication.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public ActionResult Create([Bind(Include = "")]ExpenseDto expenseDto)
+        public ActionResult Create([Bind(Include = "")]ExpenseModel model)
         {
             if (ModelState.IsValid)
             {
-                MyResults result = _expensesAppService.SaveOrUpdateExpense(expenseDto);
+                MyResults result = _expensesAppService.SaveOrUpdateExpense(ExpenseModel.ToDto(model));
                 if (result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");

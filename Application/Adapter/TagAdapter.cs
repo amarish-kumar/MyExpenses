@@ -11,21 +11,21 @@ namespace MyExpenses.Application.Adapter
 
     public static class TagAdapter
     {
-        public static Tag ToDomain(TagDto expenseDto)
+        public static Tag ToDomain(TagDto dto)
         {
             return new Tag
             {
-                Id = expenseDto.Id,
-                Name = expenseDto.Name,
+                Id = dto.Id,
+                Name = dto.Name,
             };
         }
 
-        public static TagDto ToDto(Tag tagDomain)
+        public static TagDto ToDto(Tag domain)
         {
             return new TagDto
             {
-                Id = tagDomain.Id,
-                Name = tagDomain.Name,
+                Id = domain.Id,
+                Name = domain.Name,
             };
         }
     }
