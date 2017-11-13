@@ -19,17 +19,17 @@ namespace MyExpenses.WebApplication.Controllers
     [RoutePrefix("Tags")]
     public class TagsController : Controller
     {
-        private readonly ITagsAppService<TagDto> _tagsAppService;
+        private readonly ITagsAppService<TagDto> _appService;
 
         public TagsController(ITagsAppService<TagDto> tagsAppService)
         {
-            _tagsAppService = tagsAppService;
+            _appService = tagsAppService;
         }
 
         [Route]
         public ActionResult Index()
         {
-            ICollection<TagDto> tags = _tagsAppService.GetAll();
+            ICollection<TagDto> tags = _appService.GetAll();
             return View(tags.Select(TagModel.ToModel));
         }
 
@@ -40,7 +40,7 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                MyResults result = _tagsAppService.SaveOrUpdate(TagModel.ToDto(model));
+                MyResults result = _appService.SaveOrUpdate(TagModel.ToDto(model));
                 if(result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");
@@ -61,7 +61,7 @@ namespace MyExpenses.WebApplication.Controllers
         [Route("Edit/{id}")]
         public ActionResult Edit(long id)
         {
-            var dto = _tagsAppService.GetById(id);
+            var dto = _appService.GetById(id);
             return View(TagModel.ToModel(dto));
         }
 
@@ -71,7 +71,31 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = _tagsAppService.SaveOrUpdate(TagModel.ToDto(model));
+                var result = _appService.SaveOrUpdate(TagModel.ToDto(model));
+                if (result.Type == MyResultsType.Ok)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        [Route("Delete/{id}")]
+        public ActionResult Delete(long id)
+        {
+            var dto = _appService.GetById(id);
+            return View(TagModel.ToModel(dto));
+        }
+
+        [HttpPost]
+        [Route("Delete/{id}")]
+        public ActionResult Delete(TagModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _appService.Remove(TagModel.ToDto(model));
                 if (result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");

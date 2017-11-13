@@ -80,5 +80,29 @@ namespace MyExpenses.WebApplication.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        [Route("Delete/{id}")]
+        public ActionResult Delete(long id)
+        {
+            var dto = _appService.GetById(id);
+            return View(ExpenseModel.ToModel(dto));
+        }
+
+        [HttpPost]
+        [Route("Delete/{id}")]
+        public ActionResult Delete(ExpenseModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _appService.Remove(ExpenseModel.ToDto(model));
+                if (result.Type == MyResultsType.Ok)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return View();
+        }
     }
 }
