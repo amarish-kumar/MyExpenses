@@ -9,17 +9,8 @@ namespace MyExpenses.WebApplication.Controllers
     using System;
     using System.Web.Mvc;
 
-    using MyExpenses.Application.Interfaces;
-
     public class HomeController : Controller
     {
-        private readonly IExpensesAppService _expensesAppService;
-
-        public HomeController(IExpensesAppService expensesAppService)
-        {
-            _expensesAppService = expensesAppService;
-        }
-
         [Route]
         public ActionResult Index()
         {
@@ -36,9 +27,6 @@ namespace MyExpenses.WebApplication.Controllers
         public ActionResult Contact()
         {
             string text = String.Empty;
-
-            var allExpenses = _expensesAppService.GetAllExpenses();
-            allExpenses.ForEach(x => text += " " + x.Name);
 
             ViewBag.Message = text;
 

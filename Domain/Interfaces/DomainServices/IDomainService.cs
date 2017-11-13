@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Domain.Interfaces.Repositories
+namespace MyExpenses.Domain.Interfaces.DomainServices
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace MyExpenses.Domain.Interfaces.Repositories
 
     using MyExpenses.Util.Results;
 
-    public interface IRepositoryBase<TEntity> where TEntity : class
+    public interface IDomainService<TEntity> where TEntity : IEntity
     {
         TEntity GetById(long id, params Expression<Func<TEntity, object>>[] includes);
 

@@ -6,7 +6,8 @@
 
 namespace MyExpenses.Application.Interfaces
 {
-    public interface IAppServiceBase
+    public interface IDto
     {
+        long Id { get; set; }
     }
 }

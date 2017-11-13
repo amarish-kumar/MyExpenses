@@ -42,13 +42,13 @@
     <Folder Include="Interfaces\InfrastructureServices\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\DomainServices\IDomainServiceBase.cs" />
+    <Compile Include="Interfaces\DomainServices\IDomainService.cs" />
     <Compile Include="Interfaces\DomainServices\ITagsService.cs" />
     <Compile Include="Interfaces\DomainServices\IExpensesService.cs" />
     <Compile Include="Interfaces\IValidator.cs" />
     <Compile Include="Interfaces\Repositories\ITagsRepo.cs" />
     <Compile Include="Interfaces\Repositories\IExpensesRepo.cs" />
-    <Compile Include="Interfaces\Repositories\IRepositoryBase.cs" />
+    <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\Expense.cs" />

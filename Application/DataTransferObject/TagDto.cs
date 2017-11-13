@@ -6,7 +6,9 @@
 
 namespace MyExpenses.Application.DataTransferObject
 {
-    public class TagDto
+    using MyExpenses.Application.Interfaces;
+
+    public class TagDto : IDto
     {
         public long Id { get; set; }
 

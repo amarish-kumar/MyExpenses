@@ -4,28 +4,31 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Tests
+namespace MyExpenses.Application.Tests.Services
 {
-    using Moq;
-    using MyExpenses.Domain.Interfaces;
-    using MyExpenses.Domain.Interfaces.DomainServices;
-    using MyExpenses.Domain.Models;
-    using MyExpenses.Util.Results;
-    using NUnit.Framework;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
+    using Moq;
+
     using MyExpenses.Application.Adapter;
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Services;
+    using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Interfaces.DomainServices;
+    using MyExpenses.Domain.Models;
+    using MyExpenses.Util.Results;
+
+    using NUnit.Framework;
 
     [TestFixture]
     public class ExpensesAppServiceTest
     {
-        private Mock<IExpensesService> _expensesServiceMock;
+        private Mock<IExpensesService> _serviceMock;
         private Mock<IUnitOfWork> _unitOfWorkMock;
+        private ExpensesAdapter _adapter;
 
         private readonly List<Expense> _expenses = new List<Expense>
             {
@@ -49,11 +52,12 @@ namespace MyExpenses.Application.Tests
         [SetUp]
         public void SetUp()
         {
-            _expensesServiceMock = new Mock<IExpensesService>(MockBehavior.Strict);
+            _adapter = new ExpensesAdapter(new TagsAdapter());
+            _serviceMock = new Mock<IExpensesService>(MockBehavior.Strict);
             
-            _expensesServiceMock.Setup(x => x.GetAll(It.IsAny<Expression<Func<Expense, object>>[]>())).Returns(_expenses);
-            _expensesServiceMock.Setup(x => x.Remove(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok, ""));
-            _expensesServiceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok, ""));
+            _serviceMock.Setup(x => x.GetAll(It.IsAny<Expression<Func<Expense, object>>[]>())).Returns(_expenses);
+            _serviceMock.Setup(x => x.Remove(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok, ""));
+            _serviceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok, ""));
 
             _unitOfWorkMock = new Mock<IUnitOfWork>(MockBehavior.Strict);
             _unitOfWorkMock.Setup(x => x.BeginTransaction());
@@ -63,20 +67,20 @@ namespace MyExpenses.Application.Tests
         [Test]
         public void TestExpensesAppService_GetAllExpenses()
         {
-            ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
+            ExpensesAppService appService = new ExpensesAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
 
-            List<ExpenseDto> expenses = expensesAppService.GetAllExpenses();
+            ICollection<ExpenseDto> dtos = appService.GetAll();
             
-            Assert.True(_expenses.Count == expenses.Count);
+            Assert.True(_expenses.Count == dtos.Count);
         }
 
         [Test]
         public void TestExpensesAppService_SaveAndUpdateExpense_OK()
         {
-            ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
-            ExpenseDto expenseDto = ExpenseAdapter.ToDto(_expenses.FirstOrDefault());
+            ExpensesAppService appService = new ExpensesAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
+            ExpenseDto dto = _adapter.ToDto(_expenses.FirstOrDefault());
 
-            MyResults results = expensesAppService.SaveOrUpdateExpense(expenseDto);
+            MyResults results = appService.SaveOrUpdate(dto);
 
             Assert.True(results.Type == MyResultsType.Ok);
         }
@@ -84,12 +88,12 @@ namespace MyExpenses.Application.Tests
         [Test]
         public void TestExpensesAppService_SaveAndUpdateExpense_Error()
         {
-            _expensesServiceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Error, ""));
+            _serviceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Error, ""));
 
-            ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
-            ExpenseDto expenseDto = ExpenseAdapter.ToDto(_expenses.FirstOrDefault());
+            ExpensesAppService appService = new ExpensesAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
+            ExpenseDto dto = _adapter.ToDto(_expenses.FirstOrDefault());
 
-            MyResults results = expensesAppService.SaveOrUpdateExpense(expenseDto);
+            MyResults results = appService.SaveOrUpdate(dto);
 
             Assert.True(results.Type == MyResultsType.Error);
         }
@@ -97,10 +101,10 @@ namespace MyExpenses.Application.Tests
         [Test]
         public void TestExpensesAppService_RemoveExpense_OK()
         {
-            ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
-            ExpenseDto expenseDto = ExpenseAdapter.ToDto(_expenses.FirstOrDefault());
+            ExpensesAppService appService = new ExpensesAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
+            ExpenseDto dto = _adapter.ToDto(_expenses.FirstOrDefault());
 
-            MyResults results = expensesAppService.RemoveExpense(expenseDto);
+            MyResults results = appService.Remove(dto);
 
             Assert.True(results.Type == MyResultsType.Ok);
         }
@@ -108,12 +112,12 @@ namespace MyExpenses.Application.Tests
         [Test]
         public void TestExpensesAppService_RemoveExpense_Error()
         {
-            _expensesServiceMock.Setup(x => x.Remove(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Error, ""));
+            _serviceMock.Setup(x => x.Remove(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Error, ""));
 
-            ExpensesAppService expensesAppService = new ExpensesAppService(_expensesServiceMock.Object, _unitOfWorkMock.Object);
-            ExpenseDto expenseDto = ExpenseAdapter.ToDto(_expenses.FirstOrDefault());
+            ExpensesAppService appService = new ExpensesAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
+            ExpenseDto dto = _adapter.ToDto(_expenses.FirstOrDefault());
 
-            MyResults results = expensesAppService.RemoveExpense(expenseDto);
+            MyResults results = appService.Remove(dto);
 
             Assert.True(results.Type == MyResultsType.Error);
         }

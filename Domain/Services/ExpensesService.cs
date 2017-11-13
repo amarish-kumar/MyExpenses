@@ -10,7 +10,7 @@ namespace MyExpenses.Domain.Services
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
 
-    public class ExpensesService : DomainServiceBase<Expense>, IExpensesService
+    public class ExpensesService : DomainService<Expense>, IExpensesService
     {
         public ExpensesService(IExpensesRepo repository) : base(repository)
         {

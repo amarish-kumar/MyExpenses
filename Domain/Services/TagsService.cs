@@ -10,7 +10,7 @@ namespace MyExpenses.Domain.Services
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
 
-    public class TagsService : DomainServiceBase<Tag>, ITagsService
+    public class TagsService : DomainService<Tag>, ITagsService
     {
         public TagsService(ITagsRepo repository) : base(repository)
         {

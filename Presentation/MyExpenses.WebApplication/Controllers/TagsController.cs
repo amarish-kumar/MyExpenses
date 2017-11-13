@@ -19,9 +19,9 @@ namespace MyExpenses.WebApplication.Controllers
     [RoutePrefix("Tags")]
     public class TagsController : Controller
     {
-        private readonly ITagsAppService _tagsAppService;
+        private readonly ITagsAppService<TagDto> _tagsAppService;
 
-        public TagsController(ITagsAppService tagsAppService)
+        public TagsController(ITagsAppService<TagDto> tagsAppService)
         {
             _tagsAppService = tagsAppService;
         }
@@ -29,7 +29,7 @@ namespace MyExpenses.WebApplication.Controllers
         [Route]
         public ActionResult Index()
         {
-            List<TagDto> tags = _tagsAppService.GetAllTags();
+            ICollection<TagDto> tags = _tagsAppService.GetAll();
             return View(tags.Select(TagModel.ToModel));
         }
 
@@ -40,7 +40,7 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                MyResults result = _tagsAppService.SaveOrUpdateTag(TagModel.ToDto(model));
+                MyResults result = _tagsAppService.SaveOrUpdate(TagModel.ToDto(model));
                 if(result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");

@@ -8,7 +8,7 @@ namespace MyExpenses.Domain.Interfaces.DomainServices
 {
     using MyExpenses.Domain.Models;
 
-    public interface ITagsService : IDomainServiceBase<Tag>
+    public interface ITagsService : IDomainService<Tag>
     {
     }
 }

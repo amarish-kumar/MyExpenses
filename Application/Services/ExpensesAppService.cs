@@ -9,60 +9,33 @@ namespace MyExpenses.Application.Services
     using System.Collections.Generic;
     using System.Linq;
 
-    using MyExpenses.Application.Adapter;
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Models;
-    using MyExpenses.Util.Results;
 
-    public class ExpensesAppService : IExpensesAppService
+    public class ExpensesAppService : AppServiceBase<Expense, ExpenseDto>, IExpensesAppService<ExpenseDto>
     {
-        private readonly IExpensesService _expensesService;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IExpensesService _domainService;
+        private readonly IAdapter<Expense, ExpenseDto> _adaper;
 
-        public ExpensesAppService(IExpensesService expensesService, IUnitOfWork unitOfWork)
+        public ExpensesAppService(IExpensesService domainService, IUnitOfWork unitOfWork, IAdapter<Expense, ExpenseDto> adaper) :
+            base(domainService, unitOfWork, adaper)
         {
-            _expensesService = expensesService;
-            _unitOfWork = unitOfWork;
+            _domainService = domainService;
+            _adaper = adaper;
         }
 
-        public List<ExpenseDto> GetAllExpenses()
+        public override ICollection<ExpenseDto> GetAll()
         {
             // Get expenses from domain
-            List<Expense> expensesDomain = _expensesService.GetAll(x => x.Tags).ToList();
+            var domains = _domainService.GetAll(x => x.Tags).ToList();
 
             // Convert expenses to DTO
-            List<ExpenseDto> expensesDto = expensesDomain.Select(ExpenseAdapter.ToDto).ToList();
+            var dtos = domains.Select(_adaper.ToDto).ToList();
 
-            return expensesDto;
-        }
-
-        public MyResults SaveOrUpdateExpense(ExpenseDto expenseDto)
-        {
-            _unitOfWork.BeginTransaction();
-
-            // Save or update expenses
-            MyResults results = _expensesService.SaveOrUpdate(ExpenseAdapter.ToDomain(expenseDto));
-
-            if(results.Type == MyResultsType.Ok)
-                _unitOfWork.Commit();
-
-            return results;
-        }
-
-        public MyResults RemoveExpense(ExpenseDto expenseDto)
-        {
-            _unitOfWork.BeginTransaction();
-
-            // Remove expense
-            MyResults results = _expensesService.Remove(ExpenseAdapter.ToDomain(expenseDto));
-
-            if (results.Type == MyResultsType.Ok)
-                _unitOfWork.Commit();
-
-            return results;
+            return dtos;
         }
     }
 }

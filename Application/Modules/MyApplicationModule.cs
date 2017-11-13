@@ -6,8 +6,11 @@
 
 namespace MyExpenses.Application.Modules
 {
+    using MyExpenses.Application.Adapter;
+    using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Application.Services;
+    using MyExpenses.Domain.Models;
 
     using Ninject.Modules;
 
@@ -15,8 +18,11 @@ namespace MyExpenses.Application.Modules
     {
         public override void Load()
         {
-            Bind<IExpensesAppService>().To<ExpensesAppService>().InSingletonScope();
-            Bind<ITagsAppService>().To<TagsAppService>().InSingletonScope();
+            Bind<IExpensesAppService<ExpenseDto>>().To<ExpensesAppService>().InSingletonScope();
+            Bind<ITagsAppService<TagDto>>().To<TagsAppService>().InSingletonScope();
+
+            Bind<IAdapter<Expense, ExpenseDto>>().To<ExpensesAdapter>().InSingletonScope();
+            Bind<IAdapter<Tag, TagDto>>().To<TagsAdapter>().InSingletonScope();
         }
     }
 }

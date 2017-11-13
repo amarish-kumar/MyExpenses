@@ -8,7 +8,7 @@ namespace MyExpenses.Domain.Interfaces.DomainServices
 {
     using MyExpenses.Domain.Models;
 
-    public interface IExpensesService : IDomainServiceBase<Expense>
+    public interface IExpensesService : IDomainService<Expense>
     {
     }
 }

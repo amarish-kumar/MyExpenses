@@ -11,7 +11,7 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Util.Logger;
 
-    public class ExpensesRepo : RepositoryBase<Expense>, IExpensesRepo
+    public class ExpensesRepo : Repository<Expense>, IExpensesRepo
     {
         public ExpensesRepo(IMyContext context, ILogService log = null) : base(context, log)
         {

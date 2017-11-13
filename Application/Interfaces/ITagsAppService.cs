@@ -6,31 +6,7 @@
 
 namespace MyExpenses.Application.Interfaces
 {
-    using System.Collections.Generic;
-
-    using MyExpenses.Application.DataTransferObject;
-    using MyExpenses.Util.Results;
-
-    public interface ITagsAppService
+    public interface ITagsAppService<TDto> : IAppService<TDto> where TDto : IDto
     {
-        /// <summary>
-        /// Get all tags available
-        /// </summary>
-        /// <returns cref="TagDto">All tags</returns>
-        List<TagDto> GetAllTags();
-
-        /// <summary>
-        /// Save or update a tag
-        /// </summary>
-        /// <param name="tagDto" cref="TagDto">Tag to be save or updated</param>
-        /// <returns>Result of the operation</returns>
-        MyResults SaveOrUpdateTag(TagDto TagDto);
-
-        /// <summary>
-        /// Remove tag
-        /// </summary>
-        /// <param name="tagDto" cref="TagDto">Tag to be removed</param>
-        /// <returns>Result of the operation</returns>
-        MyResults RemoveTag(TagDto tagDto);
     }
 }

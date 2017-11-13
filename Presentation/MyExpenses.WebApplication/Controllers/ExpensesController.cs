@@ -19,9 +19,9 @@ namespace MyExpenses.WebApplication.Controllers
     [RoutePrefix("Expenses")]
     public class ExpensesController : Controller
     {
-        private readonly IExpensesAppService _expensesAppService;
+        private readonly IExpensesAppService<ExpenseDto> _expensesAppService;
 
-        public ExpensesController(IExpensesAppService expensesAppService)
+        public ExpensesController(IExpensesAppService<ExpenseDto> expensesAppService)
         {
             _expensesAppService = expensesAppService;
         }
@@ -29,7 +29,7 @@ namespace MyExpenses.WebApplication.Controllers
         [Route]
         public ActionResult Index()
         {
-            List<ExpenseDto> allExpenses = _expensesAppService.GetAllExpenses();
+            ICollection<ExpenseDto> allExpenses = _expensesAppService.GetAll();
             return View(allExpenses.Select(ExpenseModel.ToModel));
         }
 
@@ -47,7 +47,7 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                MyResults result = _expensesAppService.SaveOrUpdateExpense(ExpenseModel.ToDto(model));
+                MyResults result = _expensesAppService.SaveOrUpdate(ExpenseModel.ToDto(model));
                 if (result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");

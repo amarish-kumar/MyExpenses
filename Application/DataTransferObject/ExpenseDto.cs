@@ -9,7 +9,9 @@ namespace MyExpenses.Application.DataTransferObject
     using System;
     using System.Collections.Generic;
 
-    public class ExpenseDto
+    using MyExpenses.Application.Interfaces;
+
+    public class ExpenseDto : IDto
     {
         public long Id { get; set; }
 

@@ -9,23 +9,23 @@ namespace MyExpenses.Application.Adapter
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Domain.Models;
 
-    public static class TagAdapter
+    public class TagsAdapter : AdapterBase<Tag, TagDto>
     {
-        public static Tag ToDomain(TagDto dto)
+        public override Tag ToDomain(TagDto dto)
         {
             return new Tag
             {
                 Id = dto.Id,
-                Name = dto.Name,
+                Name = dto.Name
             };
         }
 
-        public static TagDto ToDto(Tag domain)
+        public override TagDto ToDto(Tag domain)
         {
             return new TagDto
             {
                 Id = domain.Id,
-                Name = domain.Name,
+                Name = domain.Name
             };
         }
     }

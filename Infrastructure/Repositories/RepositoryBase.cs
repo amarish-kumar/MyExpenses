@@ -20,12 +20,12 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Util.Logger;
     using MyExpenses.Util.Results;
 
-    public abstract class RepositoryBase<TEntity>: IRepositoryBase<TEntity> where TEntity : class, IEntity
+    public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : class, IEntity
     {
         private readonly IMyContext _context;
         private readonly ILogService _log;
 
-        protected  RepositoryBase(IMyContext context, ILogService log)
+        protected  Repository(IMyContext context, ILogService log)
         {
             _context = context;
             _log = log;
