@@ -214,6 +214,8 @@
     <Content Include="Views\Expenses\Edit.cshtml" />
     <Content Include="Views\Expenses\Delete.cshtml" />
     <Content Include="Views\Tags\Delete.cshtml" />
+    <Content Include="Views\Expenses\Details.cshtml" />
+    <Content Include="Views\Tags\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\MyExpenses.Application.csproj">

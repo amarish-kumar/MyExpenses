@@ -104,5 +104,13 @@ namespace MyExpenses.WebApplication.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        [Route("Details/{id}")]
+        public ActionResult Details(long id)
+        {
+            var dto = _appService.GetById(id);
+            return View(ExpenseModel.ToModel(dto));
+        }
     }
 }
