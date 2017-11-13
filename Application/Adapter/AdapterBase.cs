@@ -18,10 +18,10 @@ namespace MyExpenses.Application.Adapter
     {
         public abstract TDomain ToDomain(TDto dto);
 
-        public ICollection<TDomain> ToDomain(ICollection<TDto> dto) => dto.Select(ToDomain).ToList();
+        public virtual ICollection<TDomain> ToDomain(ICollection<TDto> dto) => dto.Select(ToDomain).ToList();
 
         public abstract TDto ToDto(TDomain domain);
 
-        public ICollection<TDto> ToDto(ICollection<TDomain> domain) => domain.Select(ToDto).ToList();
+        public virtual ICollection<TDto> ToDto(ICollection<TDomain> domain) => domain.Select(ToDto).ToList();
     }
 }
