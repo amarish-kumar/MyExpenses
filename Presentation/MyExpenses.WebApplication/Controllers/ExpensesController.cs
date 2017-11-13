@@ -6,12 +6,14 @@
 
 namespace MyExpenses.WebApplication.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Util.Results;
     using System.Web.Mvc;
 
+    using MyExpenses.Application.DataTransferObject;
     using MyExpenses.WebApplication.Models;
 
     [RoutePrefix("Expenses")]
@@ -27,7 +29,7 @@ namespace MyExpenses.WebApplication.Controllers
         [Route]
         public ActionResult Index()
         {
-            var allExpenses = _expensesAppService.GetAllExpenses();
+            List<ExpenseDto> allExpenses = _expensesAppService.GetAllExpenses();
             return View(allExpenses.Select(ExpenseModel.ToModel));
         }
 

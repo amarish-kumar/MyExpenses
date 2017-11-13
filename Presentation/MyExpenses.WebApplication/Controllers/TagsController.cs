@@ -6,12 +6,14 @@
 
 namespace MyExpenses.WebApplication.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Util.Results;
     using System.Web.Mvc;
 
+    using MyExpenses.Application.DataTransferObject;
     using MyExpenses.WebApplication.Models;
 
     [RoutePrefix("Tags")]
@@ -27,7 +29,7 @@ namespace MyExpenses.WebApplication.Controllers
         [Route]
         public ActionResult Index()
         {
-            var tags = _tagsAppService.GetAllTags();
+            List<TagDto> tags = _tagsAppService.GetAllTags();
             return View(tags.Select(TagModel.ToModel));
         }
 
