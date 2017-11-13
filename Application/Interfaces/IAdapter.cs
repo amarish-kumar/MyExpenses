@@ -10,16 +10,16 @@ namespace MyExpenses.Application.Interfaces
 
     using MyExpenses.Domain.Interfaces;
 
-    public interface IAdapter<TEntity, TDto> 
-        where TEntity : IDomain 
+    public interface IAdapter<TDomain, TDto> 
+        where TDomain : IDomain 
         where TDto : IDto
     {
-        TEntity ToDomain(TDto dto);
+        TDomain ToDomain(TDto dto);
 
-        ICollection<TEntity> ToDomain(ICollection<TDto> dto);
+        ICollection<TDomain> ToDomain(ICollection<TDto> dto);
 
-        TDto ToDto(TEntity domain);
+        TDto ToDto(TDomain domain);
 
-        ICollection<TDto> ToDto(ICollection<TEntity> domain);
+        ICollection<TDto> ToDto(ICollection<TDomain> domain);
     }
 }

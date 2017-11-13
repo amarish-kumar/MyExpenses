@@ -25,9 +25,9 @@ namespace MyExpenses.Infrastructure.Context
         /// <summary>
         /// @see DbContext 
         /// </summary>
-        /// <typeparam name="TEntity">@see DbContext</typeparam>
+        /// <typeparam name="TDomain">@see DbContext</typeparam>
         /// <returns>@see DbContext</returns>
-        DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        DbSet<TDomain> Set<TDomain>() where TDomain : class;
 
         /// <summary>
         /// @see DbContext

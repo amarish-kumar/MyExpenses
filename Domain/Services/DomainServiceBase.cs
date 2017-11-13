@@ -15,36 +15,36 @@ namespace MyExpenses.Domain.Services
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Util.Results;
 
-    public abstract class DomainService<TEntity> : IDomainService<TEntity> where TEntity : class, IDomain
+    public abstract class DomainService<TDomain> : IDomainService<TDomain> where TDomain : class, IDomain
     {
-        private readonly IRepository<TEntity> _repository;
+        private readonly IRepository<TDomain> _repository;
 
-        protected DomainService(IRepository<TEntity> repository)
+        protected DomainService(IRepository<TDomain> repository)
         {
             _repository = repository;
         }
 
-        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes)
+        public IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter, params Expression<Func<TDomain, object>>[] includes)
         {
             return _repository.Get(filter, includes);
         }
 
-        public IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes)
+        public IEnumerable<TDomain> GetAll(params Expression<Func<TDomain, object>>[] includes)
         {
             return _repository.GetAll(includes);
         }
 
-        public TEntity GetById(long id, params Expression<Func<TEntity, object>>[] includes)
+        public TDomain GetById(long id, params Expression<Func<TDomain, object>>[] includes)
         {
             return _repository.GetById(id, includes);
         }
 
-        public MyResults Remove(TEntity entity)
+        public MyResults Remove(TDomain entity)
         {
             return _repository.Remove(entity);
         }
 
-        public MyResults SaveOrUpdate(TEntity entity)
+        public MyResults SaveOrUpdate(TDomain entity)
         {
             return _repository.SaveOrUpdate(entity);
         }

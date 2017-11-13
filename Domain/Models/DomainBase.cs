@@ -10,13 +10,13 @@ namespace MyExpenses.Domain.Models
     using MyExpenses.Domain.Properties;
     using MyExpenses.Util.Results;
 
-    public abstract class DomainBase<TEntity> : IDomain where TEntity : class, IDomain
+    public abstract class DomainBase<TDomain> : IDomain where TDomain : IDomain
     {
-        private readonly IValidator<TEntity> _validator;
+        private readonly IValidator _validator;
 
         public long Id { get; set; }
 
-        protected DomainBase(IValidator<TEntity> validator)
+        protected DomainBase(IValidator validator)
         {
             Id = 0;
             _validator = validator;
@@ -27,7 +27,7 @@ namespace MyExpenses.Domain.Models
             return true;
         }
 
-        public virtual bool Equals(TEntity other)
+        public virtual bool Equals(TDomain other)
         {
             return Id == other.Id;
         }

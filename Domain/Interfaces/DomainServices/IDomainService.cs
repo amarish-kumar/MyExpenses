@@ -12,16 +12,16 @@ namespace MyExpenses.Domain.Interfaces.DomainServices
 
     using MyExpenses.Util.Results;
 
-    public interface IDomainService<TEntity> where TEntity : IDomain
+    public interface IDomainService<TDomain> where TDomain : IDomain
     {
-        TEntity GetById(long id, params Expression<Func<TEntity, object>>[] includes);
+        TDomain GetById(long id, params Expression<Func<TDomain, object>>[] includes);
 
-        IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes);
+        IEnumerable<TDomain> GetAll(params Expression<Func<TDomain, object>>[] includes);
 
-        IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includes);
+        IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter, params Expression<Func<TDomain, object>>[] includes);
 
-        MyResults SaveOrUpdate(TEntity entity);
+        MyResults SaveOrUpdate(TDomain entity);
 
-        MyResults Remove(TEntity entity);
+        MyResults Remove(TDomain entity);
     }
 }

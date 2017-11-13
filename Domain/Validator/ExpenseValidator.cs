@@ -13,7 +13,7 @@ namespace MyExpenses.Domain.Validator
     using MyExpenses.Domain.Properties;
     using MyExpenses.Util.Results;
 
-    public class ExpenseValidator : IValidator<Expense>
+    public class ExpenseValidator : IValidator
     {
         public MyResults Validate(IDomain obj)
         {
@@ -29,7 +29,7 @@ namespace MyExpenses.Domain.Validator
                 throw new ArgumentException(string.Format(Resources.Validation_InvalidTypeObject, Resources.Expense));
             }
 
-            if (expense.Id < 0)
+            if (obj.Id < 0)
             {
                 return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
             }

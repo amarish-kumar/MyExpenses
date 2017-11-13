@@ -8,7 +8,7 @@ namespace MyExpenses.Domain.Interfaces
 {
     using MyExpenses.Util.Results;
 
-    public interface IValidator<TEntity> where TEntity : class, IDomain
+    public interface IValidator
     {
         /// <summary>
         /// Validate

@@ -20,7 +20,7 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Util.Logger;
     using MyExpenses.Util.Results;
 
-    public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : class, IDomain
+    public abstract class Repository<TDomain>: IRepository<TDomain> where TDomain : class, IDomain
     {
         private readonly IMyContext _context;
         private readonly ILogService _log;
@@ -31,9 +31,9 @@ namespace MyExpenses.Infrastructure.Repositories
             _log = log;
         }
 
-        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
+        public virtual IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter = null, params Expression<Func<TDomain, object>>[] includes)
         {
-            IQueryable<TEntity> set = _context.Set<TEntity>();
+            IQueryable<TDomain> set = _context.Set<TDomain>();
 
             foreach (var include in includes)
                 set = set.Include(include);
@@ -44,9 +44,9 @@ namespace MyExpenses.Infrastructure.Repositories
             return set;
         }
 
-        public virtual IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes)
+        public virtual IEnumerable<TDomain> GetAll(params Expression<Func<TDomain, object>>[] includes)
         {
-            IQueryable<TEntity> set = _context.Set<TEntity>();
+            IQueryable<TDomain> set = _context.Set<TDomain>();
 
             foreach (var include in includes)
                 set = set.Include(include);
@@ -54,9 +54,9 @@ namespace MyExpenses.Infrastructure.Repositories
             return set;
         }
 
-        public virtual TEntity GetById(long id, params Expression<Func<TEntity, object>>[] includes)
+        public virtual TDomain GetById(long id, params Expression<Func<TDomain, object>>[] includes)
         {
-            IQueryable<TEntity> set = _context.Set<TEntity>().Where(x => x.Id == id);
+            IQueryable<TDomain> set = _context.Set<TDomain>().Where(x => x.Id == id);
 
             foreach (var include in includes)
                 set = set.Include(include);
@@ -64,21 +64,21 @@ namespace MyExpenses.Infrastructure.Repositories
             return set.FirstOrDefault();
         }
 
-        public virtual MyResults Remove(TEntity entity)
+        public virtual MyResults Remove(TDomain entity)
         {
             string action = string.Format(Resources.Action_Removing, entity.GetType().Name);
-            TEntity existEntity = _context.Set<TEntity>().Find(entity.Id);
-            if (existEntity == null)
+            TDomain exisTDomain = _context.Set<TDomain>().Find(entity.Id);
+            if (exisTDomain == null)
             {
                 return new MyResults(MyResultsType.Error, action, Resources.Error_RemoveInvalidObject);
             }
 
-            _context.Set<TEntity>().Remove(existEntity);
+            _context.Set<TDomain>().Remove(exisTDomain);
             _log?.AppendLog(LevelLog.Info, action);
             return new MyResults(MyResultsType.Ok, action);
         }
 
-        public virtual MyResults SaveOrUpdate(TEntity entity)
+        public virtual MyResults SaveOrUpdate(TDomain entity)
         {
             MyResults validate = (entity as IDomain).Validate();
             if (validate.Type != MyResultsType.Ok)
@@ -87,17 +87,17 @@ namespace MyExpenses.Infrastructure.Repositories
             // Update
             if (entity.Id > 0)
             {
-                TEntity existEntity = _context.Set<TEntity>().Find(entity.Id);
-                if (existEntity != null)
+                TDomain exisTDomain = _context.Set<TDomain>().Find(entity.Id);
+                if (exisTDomain != null)
                 {
-                    existEntity.Copy(entity);
+                    exisTDomain.Copy(entity);
                     _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Updating, entity.GetType().Name));
                     return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Updating, entity.GetType().Name));
                 }
             }
 
             // Save Add
-            _context.Set<TEntity>().Add(entity);
+            _context.Set<TDomain>().Add(entity);
             _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Adding, entity.GetType().Name));
             return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Adding, entity.GetType().Name));
         }

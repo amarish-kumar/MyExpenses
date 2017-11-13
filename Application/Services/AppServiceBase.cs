@@ -14,15 +14,15 @@ namespace MyExpenses.Application.Services
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Util.Results;
 
-    public abstract class AppServiceBase<TEntity, TDto> : IAppService<TDto>
-        where TEntity : IDomain
+    public abstract class AppServiceBase<TDomain, TDto> : IAppService<TDto>
+        where TDomain : IDomain
         where TDto : IDto
     {
-        private readonly IDomainService<TEntity> _domainService;
+        private readonly IDomainService<TDomain> _domainService;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IAdapter<TEntity, TDto> _adaper;
+        private readonly IAdapter<TDomain, TDto> _adaper;
 
-        protected AppServiceBase(IDomainService<TEntity> domainService, IUnitOfWork unitOfWork, IAdapter<TEntity, TDto> adaper)
+        protected AppServiceBase(IDomainService<TDomain> domainService, IUnitOfWork unitOfWork, IAdapter<TDomain, TDto> adaper)
         {
             _domainService = domainService;
             _unitOfWork = unitOfWork;

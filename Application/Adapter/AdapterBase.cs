@@ -12,20 +12,20 @@ namespace MyExpenses.Application.Adapter
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Domain.Interfaces;
 
-    public abstract class AdapterBase<TEntity, TDto> : IAdapter<TEntity, TDto>
-        where TEntity : IDomain
+    public abstract class AdapterBase<TDomain, TDto> : IAdapter<TDomain, TDto>
+        where TDomain : IDomain
         where TDto : IDto
     {
-        public abstract TEntity ToDomain(TDto dto);
+        public abstract TDomain ToDomain(TDto dto);
 
-        public ICollection<TEntity> ToDomain(ICollection<TDto> dto)
+        public ICollection<TDomain> ToDomain(ICollection<TDto> dto)
         {
             return dto.Select(ToDomain).ToList();
         }
 
-        public abstract TDto ToDto(TEntity domain);
+        public abstract TDto ToDto(TDomain domain);
 
-        public ICollection<TDto> ToDto(ICollection<TEntity> domain)
+        public ICollection<TDto> ToDto(ICollection<TDomain> domain)
         {
             return domain.Select(ToDto).ToList();
         }
