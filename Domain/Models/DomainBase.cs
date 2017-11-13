@@ -10,19 +10,19 @@ namespace MyExpenses.Domain.Models
     using MyExpenses.Domain.Properties;
     using MyExpenses.Util.Results;
 
-    public abstract class EntityBase<TEntity> : IEntity where TEntity : class, IEntity
+    public abstract class DomainBase<TEntity> : IDomain where TEntity : class, IDomain
     {
         private readonly IValidator<TEntity> _validator;
 
         public long Id { get; set; }
 
-        protected EntityBase(IValidator<TEntity> validator)
+        protected DomainBase(IValidator<TEntity> validator)
         {
             Id = 0;
             _validator = validator;
         }
 
-        public virtual bool Copy(IEntity obj)
+        public virtual bool Copy(IDomain obj)
         {
             return true;
         }

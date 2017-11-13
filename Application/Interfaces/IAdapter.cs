@@ -11,7 +11,7 @@ namespace MyExpenses.Application.Interfaces
     using MyExpenses.Domain.Interfaces;
 
     public interface IAdapter<TEntity, TDto> 
-        where TEntity : IEntity 
+        where TEntity : IDomain 
         where TDto : IDto
     {
         TEntity ToDomain(TDto dto);

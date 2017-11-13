@@ -15,7 +15,7 @@ namespace MyExpenses.Domain.Services
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Util.Results;
 
-    public abstract class DomainService<TEntity> : IDomainService<TEntity> where TEntity : class, IEntity
+    public abstract class DomainService<TEntity> : IDomainService<TEntity> where TEntity : class, IDomain
     {
         private readonly IRepository<TEntity> _repository;
 

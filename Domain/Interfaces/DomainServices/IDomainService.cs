@@ -12,7 +12,7 @@ namespace MyExpenses.Domain.Interfaces.DomainServices
 
     using MyExpenses.Util.Results;
 
-    public interface IDomainService<TEntity> where TEntity : IEntity
+    public interface IDomainService<TEntity> where TEntity : IDomain
     {
         TEntity GetById(long id, params Expression<Func<TEntity, object>>[] includes);
 

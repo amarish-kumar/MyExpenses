@@ -12,7 +12,7 @@ namespace MyExpenses.Domain.Models
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Validator;
 
-    public sealed class Expense : EntityBase<Expense>
+    public sealed class Expense : DomainBase<Expense>
     {
         /// <summary>
         /// Name column
@@ -66,7 +66,7 @@ namespace MyExpenses.Domain.Models
         /// </summary>
         /// <param name="obj">Object to copy</param>
         /// <returns>True if is success and false otherwise</returns>
-        public override bool Copy(IEntity obj)
+        public override bool Copy(IDomain obj)
         {
             if (!(obj is Expense))
             {

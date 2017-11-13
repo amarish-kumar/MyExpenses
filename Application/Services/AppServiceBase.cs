@@ -15,7 +15,7 @@ namespace MyExpenses.Application.Services
     using MyExpenses.Util.Results;
 
     public abstract class AppServiceBase<TEntity, TDto> : IAppService<TDto>
-        where TEntity : IEntity
+        where TEntity : IDomain
         where TDto : IDto
     {
         private readonly IDomainService<TEntity> _domainService;

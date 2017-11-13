@@ -20,7 +20,7 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Util.Logger;
     using MyExpenses.Util.Results;
 
-    public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : class, IEntity
+    public abstract class Repository<TEntity>: IRepository<TEntity> where TEntity : class, IDomain
     {
         private readonly IMyContext _context;
         private readonly ILogService _log;
@@ -80,7 +80,7 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public virtual MyResults SaveOrUpdate(TEntity entity)
         {
-            MyResults validate = (entity as IEntity).Validate();
+            MyResults validate = (entity as IDomain).Validate();
             if (validate.Type != MyResultsType.Ok)
                 return validate;
 

@@ -17,7 +17,7 @@ namespace MyExpenses.Infrastructure.Tests
 
     internal static class Util
     {
-        public static Mock<DbSet<T>> GetMockSet<T>(ObservableCollection<T> list) where T : class, IEntity
+        public static Mock<DbSet<T>> GetMockSet<T>(ObservableCollection<T> list) where T : class, IDomain
         {
             IQueryable<T> queryable = list.AsQueryable();
             Mock<DbSet<T>> mockList = new Mock<DbSet<T>>(MockBehavior.Loose);
@@ -28,7 +28,7 @@ namespace MyExpenses.Infrastructure.Tests
             mockList.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(queryable.GetEnumerator());
             mockList.Setup(m => m.Include(It.IsAny<string>())).Returns(mockList.Object);
             mockList.Setup(m => m.Local).Returns(list);
-            mockList.Setup(m => m.Find(It.IsAny<object[]>())).Returns((object[] a) => { return (T)list.FirstOrDefault<IEntity>(x => x.Id == int.Parse(a[0].ToString())); });
+            mockList.Setup(m => m.Find(It.IsAny<object[]>())).Returns((object[] a) => { return (T)list.FirstOrDefault<IDomain>(x => x.Id == int.Parse(a[0].ToString())); });
             mockList.Setup(m => m.Add(It.IsAny<T>())).Returns((T a) => { list.Add(a); return a; });
             mockList.Setup(m => m.AddRange(It.IsAny<IEnumerable<T>>())).Returns((IEnumerable<T> a) => { foreach (var item in a.ToArray()) list.Add(item); return a; });
             mockList.Setup(m => m.Remove(It.IsAny<T>())).Returns((T a) => { list.Remove(a); return a; });

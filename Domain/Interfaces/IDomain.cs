@@ -8,11 +8,11 @@ namespace MyExpenses.Domain.Interfaces
 {
     using MyExpenses.Util.Results;
 
-    public interface IEntity
+    public interface IDomain
     {
         long Id { get; set; }
 
-        bool Copy(IEntity obj);
+        bool Copy(IDomain obj);
 
         MyResults Validate();
     }

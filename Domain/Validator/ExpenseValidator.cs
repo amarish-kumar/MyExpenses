@@ -15,7 +15,7 @@ namespace MyExpenses.Domain.Validator
 
     public class ExpenseValidator : IValidator<Expense>
     {
-        public MyResults Validate(IEntity obj)
+        public MyResults Validate(IDomain obj)
         {
             if (obj == null)
             {

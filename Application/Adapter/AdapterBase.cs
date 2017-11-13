@@ -13,7 +13,7 @@ namespace MyExpenses.Application.Adapter
     using MyExpenses.Domain.Interfaces;
 
     public abstract class AdapterBase<TEntity, TDto> : IAdapter<TEntity, TDto>
-        where TEntity : IEntity
+        where TEntity : IDomain
         where TDto : IDto
     {
         public abstract TEntity ToDomain(TDto dto);
