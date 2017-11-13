@@ -210,6 +210,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Tags\Edit.cshtml" />
+    <Content Include="Views\Expenses\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\MyExpenses.Application.csproj">

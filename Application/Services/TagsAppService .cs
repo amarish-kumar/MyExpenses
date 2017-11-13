@@ -14,9 +14,10 @@ namespace MyExpenses.Application.Services
 
     public class TagsAppService : AppServiceBase<Tag, TagDto>, ITagsAppService<TagDto>
     {
-        public TagsAppService(ITagsService domainService, IUnitOfWork unitOfWork, IAdapter<Tag, TagDto> adapter) :
-            base(domainService, unitOfWork, adapter)
-        {
-        }
+        public TagsAppService(
+            ITagsService domainService,
+            IUnitOfWork unitOfWork,
+            IAdapter<Tag, TagDto> adapter) :
+            base(domainService, unitOfWork, adapter) { }
     }
 }

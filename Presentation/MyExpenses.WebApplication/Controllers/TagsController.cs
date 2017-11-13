@@ -56,5 +56,29 @@ namespace MyExpenses.WebApplication.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        [Route("Edit/{id}")]
+        public ActionResult Edit(long id)
+        {
+            var dto = _tagsAppService.GetById(id);
+            return View(TagModel.ToModel(dto));
+        }
+
+        [HttpPost]
+        [Route("Edit/{id}")]
+        public ActionResult Edit(TagModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _tagsAppService.SaveOrUpdate(TagModel.ToDto(model));
+                if (result.Type == MyResultsType.Ok)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return View();
+        }
     }
 }

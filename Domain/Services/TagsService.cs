@@ -12,9 +12,6 @@ namespace MyExpenses.Domain.Services
 
     public class TagsService : DomainService<Tag>, ITagsService
     {
-        public TagsService(ITagsRepo repository) : base(repository)
-        {
-            
-        }
+        public TagsService(ITagsRepo repository) : base(repository) { }
     }
 }

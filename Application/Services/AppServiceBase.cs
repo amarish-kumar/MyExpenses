@@ -22,7 +22,10 @@ namespace MyExpenses.Application.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAdapter<TDomain, TDto> _adaper;
 
-        protected AppServiceBase(IDomainService<TDomain> domainService, IUnitOfWork unitOfWork, IAdapter<TDomain, TDto> adaper)
+        protected AppServiceBase(
+            IDomainService<TDomain> domainService,
+            IUnitOfWork unitOfWork,
+            IAdapter<TDomain, TDto> adaper)
         {
             _domainService = domainService;
             _unitOfWork = unitOfWork;

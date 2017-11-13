@@ -19,17 +19,17 @@ namespace MyExpenses.WebApplication.Controllers
     [RoutePrefix("Expenses")]
     public class ExpensesController : Controller
     {
-        private readonly IExpensesAppService<ExpenseDto> _expensesAppService;
+        private readonly IExpensesAppService<ExpenseDto> _appService;
 
         public ExpensesController(IExpensesAppService<ExpenseDto> expensesAppService)
         {
-            _expensesAppService = expensesAppService;
+            _appService = expensesAppService;
         }
 
         [Route]
         public ActionResult Index()
         {
-            ICollection<ExpenseDto> allExpenses = _expensesAppService.GetAll();
+            ICollection<ExpenseDto> allExpenses = _appService.GetAll();
             return View(allExpenses.Select(ExpenseModel.ToModel));
         }
 
@@ -47,7 +47,31 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                MyResults result = _expensesAppService.SaveOrUpdate(ExpenseModel.ToDto(model));
+                MyResults result = _appService.SaveOrUpdate(ExpenseModel.ToDto(model));
+                if (result.Type == MyResultsType.Ok)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        [Route("Edit/{id}")]
+        public ActionResult Edit(long id)
+        {
+            var dto = _appService.GetById(id);
+            return View(ExpenseModel.ToModel(dto));
+        }
+
+        [HttpPost]
+        [Route("Edit/{id}")]
+        public ActionResult Edit(ExpenseModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _appService.SaveOrUpdate(ExpenseModel.ToDto(model));
                 if (result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");

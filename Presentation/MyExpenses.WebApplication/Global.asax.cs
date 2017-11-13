@@ -28,8 +28,8 @@ namespace MyExpenses.WebApplication
             {
                 // Loads only necessary modules
                 MyKernelService.Init();
-                InitApplicationModules.Init();
-                InitInfrastructureModules.Init();
+                MyApplicationModule.Init();
+                MyInfrastructureModule.Init();
 
                 DependencyResolver.SetResolver(new MyKernelDependencyResolver());
             }

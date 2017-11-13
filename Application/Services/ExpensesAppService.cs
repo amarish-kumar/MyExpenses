@@ -20,7 +20,10 @@ namespace MyExpenses.Application.Services
         private readonly IExpensesService _domainService;
         private readonly IAdapter<Expense, ExpenseDto> _adaper;
 
-        public ExpensesAppService(IExpensesService domainService, IUnitOfWork unitOfWork, IAdapter<Expense, ExpenseDto> adaper) :
+        public ExpensesAppService(
+            IExpensesService domainService,
+            IUnitOfWork unitOfWork,
+            IAdapter<Expense, ExpenseDto> adaper) :
             base(domainService, unitOfWork, adaper)
         {
             _domainService = domainService;

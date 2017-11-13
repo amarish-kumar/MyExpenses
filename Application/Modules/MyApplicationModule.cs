@@ -11,7 +11,7 @@ namespace MyExpenses.Application.Modules
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Application.Services;
     using MyExpenses.Domain.Models;
-
+    using MyExpenses.Util.IoC;
     using Ninject.Modules;
 
     public class MyApplicationModule : NinjectModule
@@ -24,5 +24,7 @@ namespace MyExpenses.Application.Modules
             Bind<IAdapter<Expense, ExpenseDto>>().To<ExpensesAdapter>().InSingletonScope();
             Bind<IAdapter<Tag, TagDto>>().To<TagsAdapter>().InSingletonScope();
         }
+
+        public static void Init() => MyKernelService.AddModule(new MyApplicationModule());
     }
 }
