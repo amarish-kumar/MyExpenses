@@ -42,7 +42,3 @@ after_test:
  - codecov -f "TestResultDomain.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
  - codecov -f "TestResultInfrastructure.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
  - codecov -f "TestResultApplication.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
- - pip install codacy-coverage
- - python-codacy-coverage -r "TestResultDomain.xml"
- - python-codacy-coverage -r "TestResultInfrastructure.xml"
- - python-codacy-coverage -r "TestResultApplication.xml"
