@@ -20,10 +20,14 @@ namespace MyExpenses.WebApplication.Controllers
     public class ExpensesController : Controller
     {
         private readonly IExpensesAppService<ExpenseDto> _appService;
+        private readonly ITagsAppService<TagDto> _tagsAppService;
 
-        public ExpensesController(IExpensesAppService<ExpenseDto> expensesAppService)
+        public ExpensesController(
+            IExpensesAppService<ExpenseDto> expensesAppService,
+            ITagsAppService<TagDto> tagsAppService)
         {
             _appService = expensesAppService;
+            _tagsAppService = tagsAppService;
         }
 
         [Route]
@@ -37,7 +41,10 @@ namespace MyExpenses.WebApplication.Controllers
         [Route("Create")]
         public ActionResult Create()
         {
-            return View();
+            var model = new ExpenseModel();
+            var all = _tagsAppService.GetAll();
+            model.AllTags = new SelectList(all, "Id", "Name", all.FirstOrDefault().Id);
+            return View(model);
         }
 
         [HttpPost]
@@ -47,7 +54,11 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                MyResults result = _appService.SaveOrUpdate(ExpenseModel.ToDto(model));
+                var tag = _tagsAppService.GetById(model.SelectedTagId);
+                var expenseDto = ExpenseModel.ToDto(model);
+                expenseDto.Tags = new List<TagDto> { tag };
+
+                MyResults result = _appService.SaveOrUpdate(expenseDto);
                 if (result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");

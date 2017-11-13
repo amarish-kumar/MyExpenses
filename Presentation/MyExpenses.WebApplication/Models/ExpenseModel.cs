@@ -11,6 +11,7 @@ namespace MyExpenses.WebApplication.Models
     using System.Linq;
 
     using MyExpenses.Application.DataTransferObject;
+    using System.Web.Mvc;
 
     public class ExpenseModel
     {
@@ -21,6 +22,9 @@ namespace MyExpenses.WebApplication.Models
         public float Value { get; set; }
 
         public DateTime Date { get; set; }
+
+        public long SelectedTagId { get; set; }
+        public SelectList AllTags { get; set; }
 
         public ICollection<TagModel> Tags { get; set; }
 
