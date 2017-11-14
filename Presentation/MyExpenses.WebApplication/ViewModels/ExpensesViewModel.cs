@@ -10,12 +10,17 @@ namespace MyExpenses.WebApplication.ViewModels
 
     using MyExpenses.WebApplication.Models;
 
-    public class CreateExpensesViewModel
+    public class ExpensesViewModel
     {
         public ExpenseModel Model { get; set; }
 
         public long SelectedTag { get; set; }
 
         public SelectList AllTags { get; set; }
+
+        public ExpensesViewModel()
+        {
+                
+        }
     }
 }

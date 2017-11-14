@@ -9,7 +9,6 @@ namespace MyExpenses.WebApplication.Controllers
     using System.Collections.Generic;
     using System.Linq;
 
-    using MyExpenses.Application.Interfaces;
     using MyExpenses.Util.Results;
     using System.Web.Mvc;
 
@@ -22,9 +21,9 @@ namespace MyExpenses.WebApplication.Controllers
     {
         private readonly ITagsAppService _appService;
 
-        public TagsController(ITagsAppService tagsAppService)
+        public TagsController(ITagsAppService appService)
         {
-            _appService = tagsAppService;
+            _appService = appService;
         }
 
         [Route]

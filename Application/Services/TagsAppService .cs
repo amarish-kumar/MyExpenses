@@ -7,7 +7,7 @@
 namespace MyExpenses.Application.Services
 {
     using MyExpenses.Application.DataTransferObject;
-    using MyExpenses.Application.Interfaces;
+    using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
@@ -18,7 +18,7 @@ namespace MyExpenses.Application.Services
         public TagsAppService(
             ITagsService domainService,
             IUnitOfWork unitOfWork,
-            IAdapter<Tag, TagDto> adapter) :
+            ITagsAdapter adapter) :
             base(domainService, unitOfWork, adapter) { }
     }
 }

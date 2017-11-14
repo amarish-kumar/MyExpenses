@@ -9,13 +9,13 @@ namespace MyExpenses.WebApplication.Controllers
     using System.Collections.Generic;
     using System.Linq;
 
-    using MyExpenses.Application.Interfaces;
     using MyExpenses.Util.Results;
     using System.Web.Mvc;
 
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.WebApplication.Models;
+    using MyExpenses.WebApplication.ViewModels;
 
     [RoutePrefix("Expenses")]
     public class ExpensesController : Controller
@@ -42,21 +42,25 @@ namespace MyExpenses.WebApplication.Controllers
         [Route("Create")]
         public ActionResult Create()
         {
-            var model = new ExpenseModel();
+            ExpensesViewModel viewModel = new ExpensesViewModel();
             var all = _tagsAppService.GetAll();
-            model.AllTags = new SelectList(all, "Id", "Name", all.FirstOrDefault().Id);
-            return View(model);
+            if(all.Any())
+            {
+                viewModel.SelectedTag = all.FirstOrDefault().Id;
+                viewModel.AllTags = new SelectList(all, "Id", "Name", viewModel.SelectedTag);
+            }
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public ActionResult Create([Bind(Include = "")]ExpenseModel model)
+        public ActionResult Create([Bind(Include = "")]ExpensesViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var tag = _tagsAppService.GetById(model.SelectedTagId);
-                var expenseDto = ExpenseModel.ToDto(model);
+                var tag = _tagsAppService.GetById(viewModel.SelectedTag);
+                var expenseDto = ExpenseModel.ToDto(viewModel.Model);
                 expenseDto.Tags = new List<TagDto> { tag };
 
                 MyResults result = _appService.AddOrUpdate(expenseDto);
@@ -73,17 +77,37 @@ namespace MyExpenses.WebApplication.Controllers
         [Route("Edit/{id}")]
         public ActionResult Edit(long id)
         {
-            var dto = _appService.GetById(id);
-            return View(ExpenseModel.ToModel(dto));
+            ExpensesViewModel viewModel = new ExpensesViewModel();
+            viewModel.Model = ExpenseModel.ToModel(_appService.GetById(id));
+            var all = _tagsAppService.GetAll();
+            if (all.Any())
+            {
+                if (viewModel.Model.Tags.Any())
+                {
+                    viewModel.SelectedTag = viewModel.Model.Tags.FirstOrDefault().Id;
+                }
+                else
+                {
+                    viewModel.SelectedTag = 0;
+                }
+
+                viewModel.AllTags = new SelectList(all, "Id", "Name", viewModel.SelectedTag);
+            }
+
+            return View(viewModel);
         }
 
         [HttpPost]
         [Route("Edit/{id}")]
-        public ActionResult Edit(ExpenseModel model)
+        public ActionResult Edit(ExpensesViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var result = _appService.AddOrUpdate(ExpenseModel.ToDto(model));
+                var tag = _tagsAppService.GetById(viewModel.SelectedTag);
+                var expenseDto = ExpenseModel.ToDto(viewModel.Model);
+                expenseDto.Tags = new List<TagDto> { tag };
+
+                var result = _appService.AddOrUpdate(expenseDto);
                 if (result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");
