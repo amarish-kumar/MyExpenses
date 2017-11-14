@@ -14,12 +14,10 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 
     using Moq;
 
-    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Repositories;
-    using MyExpenses.Infrastructure.UnitOfWork;
     using MyExpenses.Util.Results;
 
     using NUnit.Framework;
@@ -33,7 +31,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         private const string EXPENSE_NAME1 = "Expense1";
         private const string EXPENSE_NAME2 = "Expense2";
 
-        private Mock<IMyContext> _contextMock;
+        private IExpensesRepo _repository;
 
         [SetUp]
         public void Setup()
@@ -60,23 +58,23 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 
             Mock<DbSet<Expense>> moq = DbSetMock.GetMock(expensesOb);
 
-            _contextMock = new Mock<IMyContext>(MockBehavior.Strict);
-            _contextMock.Setup(x => x.Set<Expense>()).Returns(moq.Object);
-            _contextMock.Setup(x => x.SaveChanges()).Returns(0);
+            Mock<IMyContext> contextMock = new Mock<IMyContext>(MockBehavior.Strict);
+            contextMock.Setup(x => x.Set<Expense>()).Returns(moq.Object);
+            contextMock.Setup(x => x.SaveChanges()).Returns(0);
+
+            _repository = new ExpensesRepo(contextMock.Object);
         }
 
         [TearDown]
         public void TearDown()
         {
-            _contextMock = null;
+            _repository = null;
         }
 
         [Test]
         public void TestExpensesRepoGetAll()
         {
-            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
-
-            List<Expense> expenses = expenseRepo.GetAll(x => x.Tags).ToList();
+            List<Expense> expenses = _repository.GetAll(x => x.Tags).ToList();
 
             Assert.True(expenses.Any());
             Assert.True(expenses[0].Id == EXPENSE_ID);
@@ -86,9 +84,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         [Test]
         public void TestExpensesRepoGet()
         {
-            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
-
-            List<Expense> expenses = expenseRepo.Get(x => x.Id == EXPENSE_ID, x => x.Tags).ToList();
+            List<Expense> expenses = _repository.Get(x => x.Id == EXPENSE_ID, x => x.Tags).ToList();
 
             Assert.True(expenses.Any());
             Assert.True(expenses.FirstOrDefault()?.Id == EXPENSE_ID);
@@ -97,9 +93,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         [Test]
         public void TestExpensesRepoGetById()
         {
-            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
-
-            Expense expense = expenseRepo.GetById(EXPENSE_ID, x => x.Tags);
+            Expense expense = _repository.GetById(EXPENSE_ID, x => x.Tags);
 
             Assert.IsNotNull(expense);
             Assert.True(expense.Id == EXPENSE_ID);
@@ -116,15 +110,11 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
                 Date = new DateTime(),
                 Tags = new List<Tag>()
             };
-            IUnitOfWork unitOfWork = new UnitOfWork(_contextMock.Object);
-            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
-            unitOfWork.BeginTransaction();
-            MyResults result = expenseRepo.AddOrUpdate(expense);
-            unitOfWork.Commit();
+            MyResults result = _repository.AddOrUpdate(expense);
 
             Assert.True(result.Type == MyResultsType.Ok);
-            Assert.True(expenseRepo.Get(x => x.Id == EXPENSE_ID, x => x.Tags).Any());
+            Assert.True(_repository.Get(x => x.Id == EXPENSE_ID, x => x.Tags).Any());
         }
 
         [Test]
@@ -138,14 +128,10 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
                 Date = new DateTime(),
                 Tags = new List<Tag>()
             };
-            IUnitOfWork unitOfWork = new UnitOfWork(_contextMock.Object);
-            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
-            unitOfWork.BeginTransaction();
-            expenseRepo.AddOrUpdate(expense);
-            unitOfWork.Commit();
+            _repository.AddOrUpdate(expense);
 
-            Assert.True(expenseRepo.Get(x => x.Id == EXPENSE_ID && x.Name == EXPENSE_NAME2, x => x.Tags).Any());
+            Assert.True(_repository.Get(x => x.Id == EXPENSE_ID && x.Name == EXPENSE_NAME2, x => x.Tags).Any());
         }
 
         [Test]
@@ -159,35 +145,11 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
                 Date = new DateTime(),
                 Tags = new List<Tag>()
             };
-            IUnitOfWork unitOfWork = new UnitOfWork(_contextMock.Object);
-            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
-            unitOfWork.BeginTransaction();
-            MyResults result = expenseRepo.AddOrUpdate(expense);
-            unitOfWork.Commit();
+            MyResults result = _repository.AddOrUpdate(expense);
 
             Assert.True(result.Type == MyResultsType.Error);
-            Assert.True(expenseRepo.Get(x => x.Id == 1, x => x.Tags).Any());
-        }
-
-        [Test]
-        public void TestExpensesRepoUpdateWhenUnitOfWorkException()
-        {
-            Expense expense = new Expense
-            {
-                Id = EXPENSE_ID,
-                Name = EXPENSE_NAME1,
-                Value = 2,
-                Date = new DateTime(),
-                Tags = new List<Tag>()
-            };
-
-            IUnitOfWork unitOfWork = new UnitOfWork(null);
-            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
-
-            unitOfWork.BeginTransaction();
-            expenseRepo.AddOrUpdate(expense);
-            Assert.Throws<Exception>(() => unitOfWork.Commit());
+            Assert.True(_repository.Get(x => x.Id == 1, x => x.Tags).Any());
         }
 
         [Test]
@@ -197,14 +159,10 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             {
                 Id = EXPENSE_ID
             };
-            IUnitOfWork unitOfWork = new UnitOfWork(_contextMock.Object);
-            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
-            unitOfWork.BeginTransaction();
-            MyResults result = expenseRepo.Remove(expense);
-            unitOfWork.Commit();
+            MyResults result = _repository.Remove(expense);
 
-            List<Expense> expenses = expenseRepo.Get(x => x.Id == EXPENSE_ID, x => x.Tags).ToList();
+            List<Expense> expenses = _repository.Get(x => x.Id == EXPENSE_ID, x => x.Tags).ToList();
             Assert.True(result.Type == MyResultsType.Ok);
             Assert.False(expenses.Any());
         }
@@ -216,15 +174,11 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             {
                 Id = EXPENSE_ID + 1
             };
-            IUnitOfWork unitOfWork = new UnitOfWork(_contextMock.Object);
-            IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
-            unitOfWork.BeginTransaction();
-            MyResults result = expenseRepo.Remove(expense);
-            unitOfWork.Commit();
+            MyResults result = _repository.Remove(expense);
 
             Assert.True(result.Type == MyResultsType.Error);
-            Assert.True(expenseRepo.GetAll(x => x.Tags).Any());
+            Assert.True(_repository.GetAll(x => x.Tags).Any());
         }
     }
 }
