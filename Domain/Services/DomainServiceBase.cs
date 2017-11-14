@@ -44,9 +44,9 @@ namespace MyExpenses.Domain.Services
             return _repository.Remove(entity);
         }
 
-        public MyResults SaveOrUpdate(TDomain entity)
+        public MyResults AddOrUpdate(TDomain entity)
         {
-            return _repository.SaveOrUpdate(entity);
+            return _repository.AddOrUpdate(entity);
         }
     }
 }

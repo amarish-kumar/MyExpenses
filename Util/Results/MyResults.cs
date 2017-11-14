@@ -14,14 +14,7 @@ namespace MyExpenses.Util.Results
 
         public string Message { get; set; }
 
-        public MyResults(MyResultsType type, string action)
-        {
-            Type = type;
-            Action = action;
-            Message = null;
-        }
-
-        public MyResults(MyResultsType type, string action, string message)
+        public MyResults(MyResultsType type, string action = "", string message = "")
         {
             Type = type;
             Action = action;

@@ -16,7 +16,6 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Properties;
-    using MyExpenses.Util.IoC;
     using MyExpenses.Util.Logger;
     using MyExpenses.Util.Results;
 
@@ -30,6 +29,8 @@ namespace MyExpenses.Infrastructure.Repositories
             _context = context;
             _log = log;
         }
+
+        public virtual void UpdateDependencies(TDomain entity) { }
 
         public virtual IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter = null, params Expression<Func<TDomain, object>>[] includes)
         {
@@ -64,10 +65,10 @@ namespace MyExpenses.Infrastructure.Repositories
             return set.FirstOrDefault();
         }
 
-        public virtual MyResults Remove(TDomain entity)
+        public virtual MyResults Remove(TDomain domain)
         {
-            string action = string.Format(Resources.Action_Removing, entity.GetType().Name);
-            TDomain exisTDomain = _context.Set<TDomain>().Find(entity.Id);
+            string action = string.Format(Resources.Action_Removing, domain.GetType().Name);
+            TDomain exisTDomain = _context.Set<TDomain>().Find(domain.Id);
             if (exisTDomain == null)
             {
                 return new MyResults(MyResultsType.Error, action, Resources.Error_RemoveInvalidObject);
@@ -78,28 +79,28 @@ namespace MyExpenses.Infrastructure.Repositories
             return new MyResults(MyResultsType.Ok, action);
         }
 
-        public virtual MyResults SaveOrUpdate(TDomain entity)
+        public virtual MyResults AddOrUpdate(TDomain domain)
         {
-            MyResults validate = (entity as IDomain).Validate();
+            MyResults validate = (domain as IDomain).Validate();
             if (validate.Type != MyResultsType.Ok)
                 return validate;
 
             // Update
-            if (entity.Id > 0)
+            if (domain.Id > 0)
             {
-                TDomain exisTDomain = _context.Set<TDomain>().Find(entity.Id);
+                TDomain exisTDomain = _context.Set<TDomain>().Find(domain.Id);
                 if (exisTDomain != null)
                 {
-                    exisTDomain.Copy(entity);
-                    _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Updating, entity.GetType().Name));
-                    return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Updating, entity.GetType().Name));
+                    exisTDomain.Copy(domain);
+                    _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Updating, domain.GetType().Name));
+                    return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Updating, domain.GetType().Name));
                 }
             }
 
             // Save Add
-            _context.Set<TDomain>().Add(entity);
-            _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Adding, entity.GetType().Name));
-            return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Adding, entity.GetType().Name));
+            _context.Set<TDomain>().Add(domain);
+            _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Adding, domain.GetType().Name));
+            return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Adding, domain.GetType().Name));
         }
     }
 }

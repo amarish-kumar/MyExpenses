@@ -18,17 +18,11 @@ namespace MyExpenses.Domain.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Relation with Expenses_Tags table
-        /// </summary>
-        public ICollection<Expense> Expenses { get; set; }
-
-        /// <summary>
         /// Constructor
         /// </summary>
         public Tag() : base(new TagValidator())
         {
             Id = -1;
-            Expenses = new HashSet<Expense>();
         }
 
         /// <summary>
@@ -40,7 +34,6 @@ namespace MyExpenses.Domain.Models
         {
             bool equal = Id.Equals(other.Id);
             equal &= Name.Equals(other.Name);
-            equal &= Expenses.Count == other.Expenses.Count;
 
             return equal;
         }
@@ -60,7 +53,6 @@ namespace MyExpenses.Domain.Models
             Tag expense = obj as Tag;
 
             Name = expense.Name;
-            Expenses = expense.Expenses;
 
             return true;
         }

@@ -18,6 +18,9 @@ namespace MyExpenses.Infrastructure.Context
         /// </summary>
         public MyContext() : base("name=MyLocalDatabase")
         {
+            //Configuration.LazyLoadingEnabled = false;
+            //Configuration.ProxyCreationEnabled = false;
+            //Configuration.ValidateOnSaveEnabled = false;
         }
 
         /// <summary>

@@ -7,9 +7,10 @@
 namespace MyExpenses.Application.Adapter
 {
     using MyExpenses.Application.DataTransferObject;
+    using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Domain.Models;
 
-    public class TagsAdapter : AdapterBase<Tag, TagDto>
+    public class TagsAdapter : AdapterBase<Tag, TagDto>, ITagsAdapter
     {
         public override Tag ToDomain(TagDto dto)
         {

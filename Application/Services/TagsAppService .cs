@@ -8,11 +8,12 @@ namespace MyExpenses.Application.Services
 {
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces;
+    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Models;
 
-    public class TagsAppService : AppServiceBase<Tag, TagDto>, ITagsAppService<TagDto>
+    public class TagsAppService : AppServiceBase<Tag, TagDto>, ITagsAppService
     {
         public TagsAppService(
             ITagsService domainService,

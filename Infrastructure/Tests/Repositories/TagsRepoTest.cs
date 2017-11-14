@@ -35,12 +35,11 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
                         new Tag
                             {
                                 Id = TAG_ID,
-                                Name = "Tag1",
-                                Expenses = new List<Expense>()
+                                Name = "Tag1"
                             }
                     };
 
-            Mock<DbSet<Tag>> moq = Util.GetMockSet(expensesOb);
+            Mock<DbSet<Tag>> moq = DbSetMock.GetMock(expensesOb);
 
             _contextMock = new Mock<IMyContext>(MockBehavior.Strict);
             _contextMock.Setup(x => x.Set<Tag>()).Returns(moq.Object);
@@ -58,7 +57,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         {
             ITagsRepo tagsRepo = new TagsRepo(_contextMock.Object);
 
-            List<Tag> expenses = tagsRepo.GetAll(x => x.Expenses).ToList();
+            List<Tag> expenses = tagsRepo.GetAll().ToList();
 
             Assert.True(expenses.Any());
             Assert.True(expenses.FirstOrDefault()?.Id == TAG_ID);
@@ -69,7 +68,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         {
             ITagsRepo tagsRepo = new TagsRepo(_contextMock.Object);
 
-            List<Tag> tags = tagsRepo.Get(x => x.Id == TAG_ID, x => x.Expenses).ToList();
+            List<Tag> tags = tagsRepo.Get(x => x.Id == TAG_ID).ToList();
 
             Assert.True(tags.Any());
             Assert.True(tags.FirstOrDefault()?.Id == TAG_ID);

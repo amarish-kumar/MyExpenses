@@ -58,7 +58,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
                             }
                     };
 
-            Mock<DbSet<Expense>> moq = Util.GetMockSet(expensesOb);
+            Mock<DbSet<Expense>> moq = DbSetMock.GetMock(expensesOb);
 
             _contextMock = new Mock<IMyContext>(MockBehavior.Strict);
             _contextMock.Setup(x => x.Set<Expense>()).Returns(moq.Object);
@@ -120,7 +120,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
             unitOfWork.BeginTransaction();
-            MyResults result = expenseRepo.SaveOrUpdate(expense);
+            MyResults result = expenseRepo.AddOrUpdate(expense);
             unitOfWork.Commit();
 
             Assert.True(result.Type == MyResultsType.Ok);
@@ -142,7 +142,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
             unitOfWork.BeginTransaction();
-            expenseRepo.SaveOrUpdate(expense);
+            expenseRepo.AddOrUpdate(expense);
             unitOfWork.Commit();
 
             Assert.True(expenseRepo.Get(x => x.Id == EXPENSE_ID && x.Name == EXPENSE_NAME2, x => x.Tags).Any());
@@ -163,7 +163,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
             unitOfWork.BeginTransaction();
-            MyResults result = expenseRepo.SaveOrUpdate(expense);
+            MyResults result = expenseRepo.AddOrUpdate(expense);
             unitOfWork.Commit();
 
             Assert.True(result.Type == MyResultsType.Error);
@@ -186,7 +186,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             IExpensesRepo expenseRepo = new ExpensesRepo(_contextMock.Object);
 
             unitOfWork.BeginTransaction();
-            expenseRepo.SaveOrUpdate(expense);
+            expenseRepo.AddOrUpdate(expense);
             Assert.Throws<Exception>(() => unitOfWork.Commit());
         }
 

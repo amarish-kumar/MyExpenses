@@ -4,17 +4,16 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Tests.Modules
+namespace MyExpenses.Application.Tests.ModulesMock
 {
     using Moq;
 
     using MyExpenses.Application.Adapter;
-    using MyExpenses.Application.DataTransferObject;
-    using MyExpenses.Application.Interfaces;
+    using MyExpenses.Application.Interfaces.Adapters;
+    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Application.Services;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
-    using MyExpenses.Domain.Models;
 
     using Ninject.Modules;
 
@@ -36,11 +35,11 @@ namespace MyExpenses.Application.Tests.Modules
 
         public override void Load()
         {
-            Bind<IExpensesAppService<ExpenseDto>>().To<ExpensesAppService>();
-            Bind<ITagsAppService<TagDto>>().To<TagsAppService>();
+            Bind<IExpensesAppService>().To<ExpensesAppService>();
+            Bind<ITagsAppService>().To<TagsAppService>();
 
-            Bind<IAdapter<Expense, ExpenseDto>>().To<ExpensesAdapter>();
-            Bind<IAdapter<Tag, TagDto>>().To<TagsAdapter>();
+            Bind<IExpensesAdapter>().To<ExpensesAdapter>();
+            Bind<ITagsAdapter>().To<TagsAdapter>();
 
             if (_expenseServiceMock != null)
                 Bind<IExpensesService>().ToConstant(_expenseServiceMock.Object);

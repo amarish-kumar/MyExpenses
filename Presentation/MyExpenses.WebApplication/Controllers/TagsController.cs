@@ -14,14 +14,15 @@ namespace MyExpenses.WebApplication.Controllers
     using System.Web.Mvc;
 
     using MyExpenses.Application.DataTransferObject;
+    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.WebApplication.Models;
 
     [RoutePrefix("Tags")]
     public class TagsController : Controller
     {
-        private readonly ITagsAppService<TagDto> _appService;
+        private readonly ITagsAppService _appService;
 
-        public TagsController(ITagsAppService<TagDto> tagsAppService)
+        public TagsController(ITagsAppService tagsAppService)
         {
             _appService = tagsAppService;
         }
@@ -40,7 +41,7 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                MyResults result = _appService.SaveOrUpdate(TagModel.ToDto(model));
+                MyResults result = _appService.AddOrUpdate(TagModel.ToDto(model));
                 if(result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");
@@ -71,7 +72,7 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = _appService.SaveOrUpdate(TagModel.ToDto(model));
+                var result = _appService.AddOrUpdate(TagModel.ToDto(model));
                 if (result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");

@@ -30,18 +30,18 @@ namespace MyExpenses.Application.Tests.ServiceMock
                         var r = collection.FirstOrDefault(x => x.Id == tmp.Id);
                         if (r != null && collection.Remove(r))
                         {
-                            return new MyResults(MyResultsType.Ok, "");
+                            return new MyResults(MyResultsType.Ok);
                         }
-                        return new MyResults(MyResultsType.Error, "");
+                        return new MyResults(MyResultsType.Error);
                     });
-            serviceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Expense>())).Returns(
+            serviceMock.Setup(x => x.AddOrUpdate(It.IsAny<Expense>())).Returns(
                 (Expense tmp) =>
                     {
                         MyResults validate = tmp.Validate();
                         if (validate.Type != MyResultsType.Ok)
                             return validate;
                         collection.Add(tmp);
-                        return new MyResults(MyResultsType.Ok, "");
+                        return new MyResults(MyResultsType.Ok);
                     });
             serviceMock.Setup(x => x.GetById(It.IsAny<long>())).Returns(collection.FirstOrDefault());
 

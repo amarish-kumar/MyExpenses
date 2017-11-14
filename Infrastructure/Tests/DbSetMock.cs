@@ -15,9 +15,9 @@ namespace MyExpenses.Infrastructure.Tests
 
     using MyExpenses.Domain.Interfaces;
 
-    internal static class Util
+    internal static class DbSetMock
     {
-        public static Mock<DbSet<T>> GetMockSet<T>(ObservableCollection<T> list) where T : class, IDomain
+        public static Mock<DbSet<T>> GetMock<T>(ObservableCollection<T> list) where T : class, IDomain
         {
             IQueryable<T> queryable = list.AsQueryable();
             Mock<DbSet<T>> mockList = new Mock<DbSet<T>>(MockBehavior.Loose);

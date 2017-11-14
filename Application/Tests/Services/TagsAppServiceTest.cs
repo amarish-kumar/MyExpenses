@@ -14,6 +14,7 @@ namespace MyExpenses.Application.Tests.Services
     using Moq;
 
     using MyExpenses.Application.Adapter;
+    using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Application.Services;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
@@ -30,7 +31,7 @@ namespace MyExpenses.Application.Tests.Services
 
         private Mock<ITagsService> _serviceMock;
         private Mock<IUnitOfWork> _unitOfWorkMock;
-        private TagsAdapter _adapter;
+        private ITagsAdapter _adapter;
 
         private readonly List<Tag> _tags = new List<Tag>
             {
@@ -48,8 +49,8 @@ namespace MyExpenses.Application.Tests.Services
             _serviceMock = new Mock<ITagsService>(MockBehavior.Strict);
             
             _serviceMock.Setup(x => x.GetAll(It.IsAny<Expression<Func<Tag, object>>[]>())).Returns(_tags);
-            _serviceMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok, ""));
-            _serviceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok, ""));
+            _serviceMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok));
+            _serviceMock.Setup(x => x.AddOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok));
             _serviceMock.Setup(x => x.GetById(It.IsAny<long>())).Returns(_tags.FirstOrDefault());
 
             _unitOfWorkMock = new Mock<IUnitOfWork>(MockBehavior.Strict);
@@ -84,7 +85,7 @@ namespace MyExpenses.Application.Tests.Services
             var appService = new TagsAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
             var dto = _adapter.ToDto(_tags.FirstOrDefault());
 
-            var results = appService.SaveOrUpdate(dto);
+            var results = appService.AddOrUpdate(dto);
 
             Assert.True(results.Type == MyResultsType.Ok);
         }
@@ -92,12 +93,12 @@ namespace MyExpenses.Application.Tests.Services
         [Test]
         public void TestTagsAppService_SaveAndUpdateTag_Error()
         {
-            _serviceMock.Setup(x => x.SaveOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Error, ""));
+            _serviceMock.Setup(x => x.AddOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Error));
 
             var appService = new TagsAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
             var dto = _adapter.ToDto(_tags.FirstOrDefault());
 
-            var results = appService.SaveOrUpdate(dto);
+            var results = appService.AddOrUpdate(dto);
 
             Assert.True(results.Type == MyResultsType.Error);
         }
@@ -116,7 +117,7 @@ namespace MyExpenses.Application.Tests.Services
         [Test]
         public void TestTagsAppService_RemoveTag_Error()
         {
-            _serviceMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Error, ""));
+            _serviceMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Error));
 
             var appService = new TagsAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
             var dto = _adapter.ToDto(_tags.FirstOrDefault());

@@ -43,8 +43,8 @@ namespace MyExpenses.Domain.Tests.Services
             _tagsRepoMock.Setup(x => x.GetAll()).Returns(_tags);
             _tagsRepoMock.Setup(x => x.Get(It.IsAny<Expression<Func<Tag, bool>>>())).Returns(_tags);
             _tagsRepoMock.Setup(x => x.GetById(It.IsAny<long>())).Returns(_tags.FirstOrDefault());
-            _tagsRepoMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok, ""));
-            _tagsRepoMock.Setup(x => x.SaveOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok, ""));
+            _tagsRepoMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok));
+            _tagsRepoMock.Setup(x => x.AddOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok));
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace MyExpenses.Domain.Tests.Services
         {
             ITagsService tagsService = new TagsService(_tagsRepoMock.Object);
 
-            MyResults results = tagsService.SaveOrUpdate(_tags.FirstOrDefault());
+            MyResults results = tagsService.AddOrUpdate(_tags.FirstOrDefault());
 
             Assert.True(results.Type == MyResultsType.Ok);
         }

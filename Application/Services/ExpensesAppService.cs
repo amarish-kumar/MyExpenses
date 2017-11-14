@@ -10,24 +10,25 @@ namespace MyExpenses.Application.Services
     using System.Linq;
 
     using MyExpenses.Application.DataTransferObject;
-    using MyExpenses.Application.Interfaces;
+    using MyExpenses.Application.Interfaces.Adapters;
+    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Models;
     using MyExpenses.Util.Results;
 
-    public class ExpensesAppService : AppServiceBase<Expense, ExpenseDto>, IExpensesAppService<ExpenseDto>
+    public class ExpensesAppService : AppServiceBase<Expense, ExpenseDto>, IExpensesAppService
     {
         private readonly IExpensesService _domainService;
         private readonly ITagsService _tagsDomainService;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IAdapter<Expense, ExpenseDto> _adaper;
+        private readonly IExpensesAdapter _adaper;
 
         public ExpensesAppService(
             IExpensesService domainService,
             ITagsService tagsDomainService,
             IUnitOfWork unitOfWork,
-            IAdapter<Expense, ExpenseDto> adaper) :
+            IExpensesAdapter adaper) :
             base(domainService, unitOfWork, adaper)
         {
             _domainService = domainService;
@@ -47,15 +48,19 @@ namespace MyExpenses.Application.Services
             return dtos;
         }
 
-        public override MyResults SaveOrUpdate(ExpenseDto dto)
+        public override MyResults AddOrUpdate(ExpenseDto dto)
         {
             // convert to domain
             var domain = _adaper.ToDomain(dto);
 
             _unitOfWork.BeginTransaction();
 
+            // TODO - migrate to other layer 
+            var tags = domain.Tags.ToList();
+            domain.Tags = tags.Select(x => _tagsDomainService.GetById(x.Id)).ToList();
+
             // save and updates
-            var results = _domainService.SaveOrUpdate(domain);
+            var results = _domainService.AddOrUpdate(domain);
 
             if (results.Type == MyResultsType.Ok)
                 _unitOfWork.Commit();

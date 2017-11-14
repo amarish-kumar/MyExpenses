@@ -20,7 +20,7 @@ namespace MyExpenses.Domain.Interfaces.DomainServices
 
         IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter, params Expression<Func<TDomain, object>>[] includes);
 
-        MyResults SaveOrUpdate(TDomain entity);
+        MyResults AddOrUpdate(TDomain entity);
 
         MyResults Remove(TDomain entity);
     }

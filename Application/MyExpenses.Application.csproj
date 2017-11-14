@@ -56,15 +56,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapter\AdapterBase.cs" />
+    <Compile Include="Interfaces\Adapters\ITagsAdapter.cs" />
+    <Compile Include="Interfaces\Adapters\IExpensesAdapter.cs" />
     <Compile Include="Interfaces\IAdapter.cs" />
     <Compile Include="Adapter\TagsAdapter.cs" />
     <Compile Include="Adapter\ExpensesAdapter.cs" />
     <Compile Include="DataTransferObject\TagDto.cs" />
     <Compile Include="DataTransferObject\ExpenseDto.cs" />
-    <Compile Include="Interfaces\IAppService.cs" />
+    <Compile Include="Interfaces\Services\IAppService.cs" />
     <Compile Include="Interfaces\IDto.cs" />
-    <Compile Include="Interfaces\ITagsAppService.cs" />
-    <Compile Include="Interfaces\IExpensesAppService.cs" />
+    <Compile Include="Interfaces\Services\ITagsAppService.cs" />
+    <Compile Include="Interfaces\Services\IExpensesAppService.cs" />
     <Compile Include="Modules\MyApplicationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AppServiceBase.cs" />

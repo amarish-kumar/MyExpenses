@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Interfaces
+namespace MyExpenses.Application.Interfaces.Services
 {
     using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace MyExpenses.Application.Interfaces
 
         ICollection<TDto> GetAll();
 
-        MyResults SaveOrUpdate(TDto dto);
+        MyResults AddOrUpdate(TDto dto);
 
         MyResults Remove(TDto dto);
     }

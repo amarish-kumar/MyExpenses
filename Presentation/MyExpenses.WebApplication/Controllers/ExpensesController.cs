@@ -14,17 +14,18 @@ namespace MyExpenses.WebApplication.Controllers
     using System.Web.Mvc;
 
     using MyExpenses.Application.DataTransferObject;
+    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.WebApplication.Models;
 
     [RoutePrefix("Expenses")]
     public class ExpensesController : Controller
     {
-        private readonly IExpensesAppService<ExpenseDto> _appService;
-        private readonly ITagsAppService<TagDto> _tagsAppService;
+        private readonly IExpensesAppService _appService;
+        private readonly ITagsAppService _tagsAppService;
 
         public ExpensesController(
-            IExpensesAppService<ExpenseDto> expensesAppService,
-            ITagsAppService<TagDto> tagsAppService)
+            IExpensesAppService expensesAppService,
+            ITagsAppService tagsAppService)
         {
             _appService = expensesAppService;
             _tagsAppService = tagsAppService;
@@ -58,7 +59,7 @@ namespace MyExpenses.WebApplication.Controllers
                 var expenseDto = ExpenseModel.ToDto(model);
                 expenseDto.Tags = new List<TagDto> { tag };
 
-                MyResults result = _appService.SaveOrUpdate(expenseDto);
+                MyResults result = _appService.AddOrUpdate(expenseDto);
                 if (result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");
@@ -82,7 +83,7 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = _appService.SaveOrUpdate(ExpenseModel.ToDto(model));
+                var result = _appService.AddOrUpdate(ExpenseModel.ToDto(model));
                 if (result.Type == MyResultsType.Ok)
                 {
                     return RedirectToAction("Index");

@@ -45,8 +45,8 @@ namespace MyExpenses.Domain.Tests.Services
             _expensesRepoMock.Setup(x => x.GetAll()).Returns(_expenses);
             _expensesRepoMock.Setup(x => x.Get(It.IsAny<Expression<Func<Expense, bool>>>())).Returns(_expenses);
             _expensesRepoMock.Setup(x => x.GetById(It.IsAny<long>())).Returns(_expenses.FirstOrDefault());
-            _expensesRepoMock.Setup(x => x.Remove(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok, ""));
-            _expensesRepoMock.Setup(x => x.SaveOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok, ""));
+            _expensesRepoMock.Setup(x => x.Remove(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok));
+            _expensesRepoMock.Setup(x => x.AddOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok));
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace MyExpenses.Domain.Tests.Services
         {
             IExpensesService expensesService = new ExpensesService(_expensesRepoMock.Object);
 
-            MyResults results = expensesService.SaveOrUpdate(_expenses.FirstOrDefault());
+            MyResults results = expensesService.AddOrUpdate(_expenses.FirstOrDefault());
 
             Assert.True(results.Type == MyResultsType.Ok);
         }

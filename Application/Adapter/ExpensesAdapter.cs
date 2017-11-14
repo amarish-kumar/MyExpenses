@@ -7,14 +7,14 @@
 namespace MyExpenses.Application.Adapter
 {
     using MyExpenses.Application.DataTransferObject;
-    using MyExpenses.Application.Interfaces;
+    using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Domain.Models;
 
-    public class ExpensesAdapter : AdapterBase<Expense, ExpenseDto>
+    public class ExpensesAdapter : AdapterBase<Expense, ExpenseDto>, IExpensesAdapter
     {
-        private readonly IAdapter<Tag, TagDto> _tagAdapter;
+        private readonly ITagsAdapter _tagAdapter;
 
-        public ExpensesAdapter(IAdapter<Tag, TagDto> tagAdapter)
+        public ExpensesAdapter(ITagsAdapter tagAdapter)
         {
             _tagAdapter = tagAdapter;
         }

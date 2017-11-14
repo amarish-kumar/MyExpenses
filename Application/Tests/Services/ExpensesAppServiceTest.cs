@@ -9,22 +9,19 @@ namespace MyExpenses.Application.Tests.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
 
     using Moq;
-
     using MyExpenses.Application.Adapter;
     using MyExpenses.Application.DataTransferObject;
-    using MyExpenses.Application.Interfaces;
-    using MyExpenses.Application.Tests.Modules;
+    using MyExpenses.Application.Interfaces.Adapters;
+    using MyExpenses.Application.Interfaces.Services;
+    using MyExpenses.Application.Tests.ModulesMock;
+    using MyExpenses.Application.Tests.ServiceMock;
     using MyExpenses.Domain.Interfaces;
-    using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Models;
     using MyExpenses.Util.IoC;
     using MyExpenses.Util.Results;
-
     using NUnit.Framework;
-    using MyExpenses.Application.Tests.ServiceMock;
 
     [TestFixture]
     public class ExpensesAppServiceTest
@@ -32,11 +29,11 @@ namespace MyExpenses.Application.Tests.Services
         private const string NAME = "Expense1";
         private const long ID = 1;
 
-        private readonly IAdapter<Expense, ExpenseDto> _adapter = new ExpensesAdapter(new TagsAdapter());
+        private readonly IExpensesAdapter _adapter = new ExpensesAdapter(new TagsAdapter());
         private readonly ExpenseDto _invalidDto = new ExpenseDto { Id = 10, Name = string.Empty };
         private readonly ExpenseDto _validDto = new ExpenseDto { Id = 10, Name = "tmp", Value = 1, Date = new DateTime() };
 
-        private IExpensesAppService<ExpenseDto> _appService;
+        private IExpensesAppService _appService;
 
         private static readonly List<Expense> _expenses = new List<Expense>
             {
@@ -84,7 +81,7 @@ namespace MyExpenses.Application.Tests.Services
             MyKernelService.Init();
             MyKernelService.AddModule(new MyApplicationModuleMock(serviceMock, tagServiceMock, unitOfWorkMock));
 
-            _appService = MyKernelService.GetInstance<IExpensesAppService<ExpenseDto>>();
+            _appService = MyKernelService.GetInstance<IExpensesAppService>();
         }
 
         [Test]
@@ -108,7 +105,7 @@ namespace MyExpenses.Application.Tests.Services
         public void TestExpensesAppService_SaveExpense_OK()
         {
             int before = _appService.GetAll().Count;
-            var results = _appService.SaveOrUpdate(_validDto);
+            var results = _appService.AddOrUpdate(_validDto);
             int after = _appService.GetAll().Count;
 
             Assert.True(before < after);
@@ -118,7 +115,7 @@ namespace MyExpenses.Application.Tests.Services
         [Test]
         public void TestExpensesAppService_SaveAndUpdateExpense_Error()
         {
-            var results = _appService.SaveOrUpdate(_invalidDto);
+            var results = _appService.AddOrUpdate(_invalidDto);
 
             Assert.True(results.Type == MyResultsType.Error);
         }

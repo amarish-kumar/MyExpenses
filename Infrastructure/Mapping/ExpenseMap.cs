@@ -24,7 +24,7 @@ namespace MyExpenses.Infrastructure.Mapping
 
             // Relations
             HasMany(e => e.Tags)
-                .WithMany(e => e.Expenses)
+                .WithMany()
                 .Map(m => m.ToTable("Expenses_Tags").MapLeftKey("ExpenseId").MapRightKey("TagId"));
 
             ToTable("Expenses");

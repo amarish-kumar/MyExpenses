@@ -10,6 +10,7 @@ namespace MyExpenses.Application.Services
     using System.Linq;
 
     using MyExpenses.Application.Interfaces;
+    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Util.Results;
@@ -68,7 +69,7 @@ namespace MyExpenses.Application.Services
             return results;
         }
 
-        public virtual MyResults SaveOrUpdate(TDto dto)
+        public virtual MyResults AddOrUpdate(TDto dto)
         {
             // convert to domain
             var domain = _adaper.ToDomain(dto);
@@ -76,7 +77,7 @@ namespace MyExpenses.Application.Services
             _unitOfWork.BeginTransaction();
 
             // save and updates
-            var results = _domainService.SaveOrUpdate(domain);
+            var results = _domainService.AddOrUpdate(domain);
 
             if (results.Type == MyResultsType.Ok)
                 _unitOfWork.Commit();
