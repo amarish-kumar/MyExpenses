@@ -25,13 +25,13 @@ namespace MyExpenses.Application.Services
 
         public ExpensesAppService(
             IExpensesService domainService,
-            //ITagsService tagsDomainService,
+            ITagsService tagsDomainService,
             IUnitOfWork unitOfWork,
             IAdapter<Expense, ExpenseDto> adaper) :
             base(domainService, unitOfWork, adaper)
         {
             _domainService = domainService;
-            //_tagsDomainService = tagsDomainService;
+            _tagsDomainService = tagsDomainService;
             _unitOfWork = unitOfWork;
             _adaper = adaper;
         }

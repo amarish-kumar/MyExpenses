@@ -6,11 +6,13 @@
 
 namespace MyExpenses.Domain.Tests.Validator
 {
+    using System;
+
     using MyExpenses.Domain.Models;
     using MyExpenses.Domain.Validator;
     using MyExpenses.Util.Results;
+
     using NUnit.Framework;
-    using System;
 
     [TestFixture]
     public class TagValidatorTest
