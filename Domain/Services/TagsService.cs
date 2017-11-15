@@ -6,12 +6,36 @@
 
 namespace MyExpenses.Domain.Services
 {
+    using System.Linq;
+
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
+    using MyExpenses.Util.Results;
 
     public class TagsService : DomainService<Tag>, ITagsService
     {
-        public TagsService(ITagsRepo repository) : base(repository) { }
+        private readonly IExpensesRepository _expensesRepository;
+
+        public TagsService(ITagsRepository repository, IExpensesRepository expensesRepository)
+            : base(repository)
+        {
+            _expensesRepository = expensesRepository;
+        }
+
+        public override MyResults Remove(Tag domain)
+        {
+            // get all expenses with this tag
+            foreach (Expense expense in _expensesRepository.Get(x => x.Tags.Any(y => y.Id == domain.Id)))
+            {
+                // remove tag ref
+                expense.Tags.Remove(expense.Tags.FirstOrDefault(y => y.Id == domain.Id));
+
+                // update expense
+                _expensesRepository.AddOrUpdate(expense);
+            }
+
+            return base.Remove(domain);
+        }
     }
 }

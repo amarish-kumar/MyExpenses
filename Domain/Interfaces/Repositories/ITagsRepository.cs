@@ -8,7 +8,7 @@ namespace MyExpenses.Domain.Interfaces.Repositories
 {
     using MyExpenses.Domain.Models;
 
-    public interface IExpensesRepo : IRepository<Expense>
+    public interface ITagsRepository : IRepository<Tag>
     {
     }
 }

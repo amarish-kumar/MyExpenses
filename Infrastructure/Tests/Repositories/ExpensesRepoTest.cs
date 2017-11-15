@@ -31,7 +31,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         private const string EXPENSE_NAME1 = "Expense1";
         private const string EXPENSE_NAME2 = "Expense2";
 
-        private IExpensesRepo _repository;
+        private IExpensesRepository _repository;
 
         [SetUp]
         public void Setup()
@@ -62,7 +62,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             contextMock.Setup(x => x.Set<Expense>()).Returns(moq.Object);
             contextMock.Setup(x => x.SaveChanges()).Returns(0);
 
-            _repository = new ExpensesRepo(contextMock.Object, null);
+            _repository = new ExpensesRepository(contextMock.Object, null);
         }
 
         [TearDown]

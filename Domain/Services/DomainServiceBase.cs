@@ -24,29 +24,29 @@ namespace MyExpenses.Domain.Services
             _repository = repository;
         }
 
-        public IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter, params Expression<Func<TDomain, object>>[] includes)
+        public virtual IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter, params Expression<Func<TDomain, object>>[] includes)
         {
             return _repository.Get(filter, includes);
         }
 
-        public IEnumerable<TDomain> GetAll(params Expression<Func<TDomain, object>>[] includes)
+        public virtual IEnumerable<TDomain> GetAll(params Expression<Func<TDomain, object>>[] includes)
         {
             return _repository.GetAll(includes);
         }
 
-        public TDomain GetById(long id, params Expression<Func<TDomain, object>>[] includes)
+        public virtual TDomain GetById(long id, params Expression<Func<TDomain, object>>[] includes)
         {
             return _repository.GetById(id, includes);
         }
 
-        public MyResults Remove(TDomain entity)
+        public virtual MyResults Remove(TDomain domain)
         {
-            return _repository.Remove(entity);
+            return _repository.Remove(domain);
         }
 
-        public MyResults AddOrUpdate(TDomain entity)
+        public virtual MyResults AddOrUpdate(TDomain domain)
         {
-            return _repository.AddOrUpdate(entity);
+            return _repository.AddOrUpdate(domain);
         }
     }
 }

@@ -23,8 +23,8 @@ namespace MyExpenses.Infrastructure.Modules
         public override void Load()
         {
             // Repositories
-            Bind<IExpensesRepo>().To<ExpensesRepo>().InSingletonScope();
-            Bind<ITagsRepo>().To<TagsRepo>().InSingletonScope();
+            Bind<IExpensesRepository>().To<ExpensesRepository>().InSingletonScope();
+            Bind<ITagsRepository>().To<TagsRepository>().InSingletonScope();
 
             // Domain Services
             Bind<IExpensesService>().To<ExpensesService>().InSingletonScope();

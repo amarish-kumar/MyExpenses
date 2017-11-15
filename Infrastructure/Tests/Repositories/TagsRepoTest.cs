@@ -56,7 +56,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         public void TestTagRepoGetAll()
         {
             // TODO #61 fix referece using ninject
-            ITagsRepo tagsRepo = new TagsRepo(_contextMock.Object);
+            ITagsRepository tagsRepo = new TagsRepository(_contextMock.Object);
 
             List<Tag> expenses = tagsRepo.GetAll().ToList();
 
@@ -68,7 +68,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         public void TestExpensesRepoGet()
         {
             // TODO #61 fix referece using ninject
-            ITagsRepo tagsRepo = new TagsRepo(_contextMock.Object);
+            ITagsRepository tagsRepo = new TagsRepository(_contextMock.Object);
 
             List<Tag> tags = tagsRepo.Get(x => x.Id == TAG_ID).ToList();
 

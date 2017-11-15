@@ -6,16 +6,29 @@
 
 namespace MyExpenses.Domain.Services
 {
+    using System.Linq;
+
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
+    using MyExpenses.Util.Results;
 
     public class ExpensesService : DomainService<Expense>, IExpensesService
     {
-        public ExpensesService(IExpensesRepo repository)
+        private readonly ITagsRepository _tagsRepo;
+
+        public ExpensesService(IExpensesRepository repository, ITagsRepository tagsRepo)
             : base(repository)
         {
-            
+            _tagsRepo = tagsRepo;
+        }
+
+        public override MyResults AddOrUpdate(Expense domain)
+        {
+            // Update dependencies references
+            domain.Tags = domain.Tags.Select(x => _tagsRepo.GetById(x.Id)).ToList();
+
+            return base.AddOrUpdate(domain);
         }
     }
 }

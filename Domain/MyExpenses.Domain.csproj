@@ -46,8 +46,8 @@
     <Compile Include="Interfaces\DomainServices\ITagsService.cs" />
     <Compile Include="Interfaces\DomainServices\IExpensesService.cs" />
     <Compile Include="Interfaces\IValidator.cs" />
-    <Compile Include="Interfaces\Repositories\ITagsRepo.cs" />
-    <Compile Include="Interfaces\Repositories\IExpensesRepo.cs" />
+    <Compile Include="Interfaces\Repositories\ITagsRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IExpensesRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\DomainBase.cs" />
