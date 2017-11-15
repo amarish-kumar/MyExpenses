@@ -20,20 +20,15 @@ namespace MyExpenses.Application.Services
     public class ExpensesAppService : AppServiceBase<Expense, ExpenseDto>, IExpensesAppService
     {
         private readonly IExpensesService _domainService;
-        private readonly ITagsService _tagsDomainService;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IExpensesAdapter _adaper;
 
         public ExpensesAppService(
             IExpensesService domainService,
-            ITagsService tagsDomainService,
             IUnitOfWork unitOfWork,
             IExpensesAdapter adaper) :
             base(domainService, unitOfWork, adaper)
         {
             _domainService = domainService;
-            _tagsDomainService = tagsDomainService;
-            _unitOfWork = unitOfWork;
             _adaper = adaper;
         }
 
@@ -46,26 +41,6 @@ namespace MyExpenses.Application.Services
             var dtos = domains.Select(_adaper.ToDto).ToList();
 
             return dtos;
-        }
-
-        public override MyResults AddOrUpdate(ExpenseDto dto)
-        {
-            // convert to domain
-            var domain = _adaper.ToDomain(dto);
-
-            _unitOfWork.BeginTransaction();
-
-            // TODO - migrate to other layer 
-            var tags = domain.Tags.ToList();
-            domain.Tags = tags.Select(x => _tagsDomainService.GetById(x.Id)).ToList();
-
-            // save and updates
-            var results = _domainService.AddOrUpdate(domain);
-
-            if (results.Type == MyResultsType.Ok)
-                _unitOfWork.Commit();
-
-            return results;
         }
     }
 }

@@ -72,14 +72,13 @@ namespace MyExpenses.Application.Tests.Services
         public void SetUp()
         {
             var serviceMock = ExpensesServiceMock.GetMock(_expenses);
-            var tagServiceMock = TagsServiceMock.GetMock(_tags);
 
             var unitOfWorkMock = new Mock<IUnitOfWork>(MockBehavior.Strict);
             unitOfWorkMock.Setup(x => x.BeginTransaction());
             unitOfWorkMock.Setup(x => x.Commit());
 
             MyKernelService.Init();
-            MyKernelService.AddModule(new MyApplicationModuleMock(serviceMock, tagServiceMock, unitOfWorkMock));
+            MyKernelService.AddModule(new MyApplicationModuleMock(serviceMock, null, unitOfWorkMock));
 
             _appService = MyKernelService.GetInstance<IExpensesAppService>();
         }

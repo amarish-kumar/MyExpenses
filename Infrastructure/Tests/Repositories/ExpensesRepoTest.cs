@@ -62,7 +62,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             contextMock.Setup(x => x.Set<Expense>()).Returns(moq.Object);
             contextMock.Setup(x => x.SaveChanges()).Returns(0);
 
-            _repository = new ExpensesRepo(contextMock.Object);
+            _repository = new ExpensesRepo(contextMock.Object, null);
         }
 
         [TearDown]
@@ -180,5 +180,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             Assert.True(result.Type == MyResultsType.Error);
             Assert.True(_repository.GetAll(x => x.Tags).Any());
         }
+
+        // TODO - test AddOrUpdate updatating references
     }
 }
