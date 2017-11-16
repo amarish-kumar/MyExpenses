@@ -67,16 +67,15 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public virtual MyResults Remove(TDomain domain)
         {
-            string action = string.Format(Resources.Action_Removing, domain.GetType().Name);
             TDomain exisTDomain = _context.Set<TDomain>().Find(domain.Id);
             if (exisTDomain == null)
             {
-                return new MyResults(MyResultsType.Error, action, Resources.Error_RemoveInvalidObject);
+                return new MyResults(MyResultsType.Error, MyResultsAction.Removing, Resources.Error_RemoveInvalidObject);
             }
 
             _context.Set<TDomain>().Remove(exisTDomain);
-            _log?.AppendLog(LevelLog.Info, action);
-            return new MyResults(MyResultsType.Ok, action);
+            _log?.AppendLog(LevelLog.Info, MyResultsAction.Removing + " " + domain.GetType().Name);
+            return new MyResults(MyResultsType.Ok, MyResultsAction.Removing, domain.GetType().Name);
         }
 
         public virtual MyResults AddOrUpdate(TDomain domain)
@@ -92,15 +91,15 @@ namespace MyExpenses.Infrastructure.Repositories
                 if (exisTDomain != null)
                 {
                     exisTDomain.Copy(domain);
-                    _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Updating, domain.GetType().Name));
-                    return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Updating, domain.GetType().Name));
+                    _log?.AppendLog(LevelLog.Info, MyResultsAction.Updating + " " + domain.GetType().Name);
+                    return new MyResults(MyResultsType.Ok, MyResultsAction.Updating, domain.GetType().Name);
                 }
             }
 
             // Save Add
             _context.Set<TDomain>().Add(domain);
-            _log?.AppendLog(LevelLog.Info, String.Format(Resources.Action_Adding, domain.GetType().Name));
-            return new MyResults(MyResultsType.Ok, String.Format(Resources.Action_Adding, domain.GetType().Name));
+            _log?.AppendLog(LevelLog.Info, MyResultsAction.Creating + " " + domain.GetType().Name);
+            return new MyResults(MyResultsType.Ok, MyResultsAction.Creating, domain.GetType().Name);
         }
     }
 }

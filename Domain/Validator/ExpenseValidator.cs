@@ -31,25 +31,25 @@ namespace MyExpenses.Domain.Validator
 
             if (obj.Id < 0)
             {
-                return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
+                return new MyResults(MyResultsType.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
             }
 
             if (string.IsNullOrEmpty(expense.Name))
             {
-                return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
+                return new MyResults(MyResultsType.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
             }
 
             if (expense.Name.Length > 128)
             {
-                return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
+                return new MyResults(MyResultsType.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
             }
 
             if (expense.Value < 0)
             {
-                return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Value));
+                return new MyResults(MyResultsType.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Value));
             }
 
-            return new MyResults(MyResultsType.Ok, Resources.Validation_OK);
+            return new MyResults(MyResultsType.Ok, MyResultsAction.Validating);
         }
     }
 }

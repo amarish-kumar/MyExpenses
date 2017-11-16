@@ -31,20 +31,20 @@ namespace MyExpenses.Domain.Validator
 
             if (obj.Id < 0)
             {
-                return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
+                return new MyResults(MyResultsType.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
             }
 
             if (string.IsNullOrEmpty(tag.Name))
             {
-                return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
+                return new MyResults(MyResultsType.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
             }
 
             if (tag.Name.Length > 128)
             {
-                return new MyResults(MyResultsType.Error, Resources.Validation_Error, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
+                return new MyResults(MyResultsType.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
             }
 
-            return new MyResults(MyResultsType.Ok, Resources.Validation_OK);
+            return new MyResults(MyResultsType.Ok, MyResultsAction.Validating);
         }
     }
 }

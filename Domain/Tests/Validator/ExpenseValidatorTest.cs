@@ -9,6 +9,7 @@ namespace MyExpenses.Domain.Tests.Validator
     using System;
 
     using MyExpenses.Domain.Models;
+    using MyExpenses.Domain.Properties;
     using MyExpenses.Domain.Validator;
     using MyExpenses.Util.Results;
 
@@ -27,7 +28,7 @@ namespace MyExpenses.Domain.Tests.Validator
                 Id = 1,
                 Name = "Expense1",
                 Value = 1,
-                Date = new System.DateTime()
+                Date = new DateTime()
             };
         }
 
@@ -45,6 +46,7 @@ namespace MyExpenses.Domain.Tests.Validator
             MyResults results = _expense.Validate();
 
             Assert.True(results.Type == MyResultsType.Ok);
+            Assert.True(results.Action == MyResultsAction.Validating);
         }
 
         [Test]
@@ -55,6 +57,8 @@ namespace MyExpenses.Domain.Tests.Validator
             MyResults results = _expense.Validate();
 
             Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Action == MyResultsAction.Validating);
+            Assert.True(results.Message == string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
         }
 
         [Test]
@@ -65,20 +69,20 @@ namespace MyExpenses.Domain.Tests.Validator
             MyResults results = _expense.Validate();
 
             Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Action == MyResultsAction.Validating);
+            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
         }
 
         [Test]
         public void TestExpenseValidator_NameIsTooBig_Validate_ResultError()
         {
-            _expense.Name = string.Empty;
-            for (int i = 0; i < 129; i++)
-            {
-                _expense.Name += "a";
-            }
+            _expense.Name = new string('a', 129);
 
             MyResults results = _expense.Validate();
 
             Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Action == MyResultsAction.Validating);
+            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
         }
 
         [Test]
@@ -89,6 +93,8 @@ namespace MyExpenses.Domain.Tests.Validator
             MyResults results = _expense.Validate();
 
             Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Action == MyResultsAction.Validating);
+            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Value));
         }
     }
 }

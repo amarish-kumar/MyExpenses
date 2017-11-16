@@ -115,15 +115,6 @@ namespace MyExpenses.Domain.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validation Error.
-        /// </summary>
-        internal static string Validation_Error {
-            get {
-                return ResourceManager.GetString("Validation_Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid or null {0} object..
         /// </summary>
         internal static string Validation_InvalidObject {
@@ -138,15 +129,6 @@ namespace MyExpenses.Domain.Properties {
         internal static string Validation_InvalidTypeObject {
             get {
                 return ResourceManager.GetString("Validation_InvalidTypeObject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OK.
-        /// </summary>
-        internal static string Validation_OK {
-            get {
-                return ResourceManager.GetString("Validation_OK", resourceCulture);
             }
         }
         

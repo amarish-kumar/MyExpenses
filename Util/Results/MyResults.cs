@@ -10,11 +10,11 @@ namespace MyExpenses.Util.Results
     {
         public MyResultsType Type { get; set; }
 
-        public string Action { get; set; }
+        public MyResultsAction Action { get; set; }
 
         public string Message { get; set; }
 
-        public MyResults(MyResultsType type, string action = "", string message = "")
+        public MyResults(MyResultsType type, MyResultsAction action = Results.MyResultsAction.None, string message = "")
         {
             Type = type;
             Action = action;
@@ -27,5 +27,14 @@ namespace MyExpenses.Util.Results
         Ok,
         Warning,
         Error
+    }
+
+    public enum MyResultsAction
+    {
+        None,
+        Validating,
+        Creating,
+        Updating,
+        Removing
     }
 }

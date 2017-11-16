@@ -9,6 +9,7 @@ namespace MyExpenses.Domain.Tests.Validator
     using System;
 
     using MyExpenses.Domain.Models;
+    using MyExpenses.Domain.Properties;
     using MyExpenses.Domain.Validator;
     using MyExpenses.Util.Results;
 
@@ -43,6 +44,7 @@ namespace MyExpenses.Domain.Tests.Validator
             MyResults results = _tag.Validate();
 
             Assert.True(results.Type == MyResultsType.Ok);
+            Assert.True(results.Action == MyResultsAction.Validating);
         }
 
         [Test]
@@ -53,6 +55,8 @@ namespace MyExpenses.Domain.Tests.Validator
             MyResults results = _tag.Validate();
 
             Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Action == MyResultsAction.Validating);
+            Assert.True(results.Message == string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
         }
 
         [Test]
@@ -63,20 +67,20 @@ namespace MyExpenses.Domain.Tests.Validator
             MyResults results = _tag.Validate();
 
             Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Action == MyResultsAction.Validating);
+            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
         }
 
         [Test]
         public void TestTagValidator_NameIsTooBig_Validate_ResultError()
         {
-            _tag.Name = string.Empty;
-            for (int i = 0; i < 129; i++)
-            {
-                _tag.Name += "a";
-            }
+            _tag.Name = new string('a', 129);
 
             MyResults results = _tag.Validate();
 
             Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Action == MyResultsAction.Validating);
+            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
         }
     }
 }

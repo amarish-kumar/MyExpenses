@@ -36,7 +36,7 @@ namespace MyExpenses.Domain.Models
         {
             return _validator != null ? 
                 _validator.Validate(this) : 
-                new MyResults(MyResultsType.Ok, Resources.Validation_OK);
+                new MyResults(MyResultsType.Ok, MyResultsAction.Validating);
         }
     }
 }
