@@ -14,7 +14,7 @@ namespace MyExpenses.Util.Results
 
         public string Message { get; set; }
 
-        public MyResults(MyResultsType type, MyResultsAction action = Results.MyResultsAction.None, string message = "")
+        public MyResults(MyResultsType type, MyResultsAction action = MyResultsAction.None, string message = "")
         {
             Type = type;
             Action = action;
