@@ -18,6 +18,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Repositories;
+    using MyExpenses.Infrastructure.Tests.Context;
     using MyExpenses.Util.Results;
 
     using NUnit.Framework;
@@ -36,33 +37,23 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         [SetUp]
         public void Setup()
         {
-            ObservableCollection<Expense> expensesOb =
-                new ObservableCollection<Expense>
+            ICollection<Tag> tags = new List<Tag> { new Tag { Id = TAG_ID, Name = TAG_NAME } };
+
+            ICollection<Expense> expenses = new List<Expense>
+            {
+                new Expense
                     {
-                        new Expense
-                            {
-                                Id = EXPENSE_ID,
-                                Name = EXPENSE_NAME1,
-                                Value = 2,
-                                Date = new DateTime(),
-                                Tags = new List<Tag>
-                                           {
-                                               new Tag
-                                                   {
-                                                       Id = TAG_ID,
-                                                       Name = TAG_NAME
-                                                   }
-                                           }
-                            }
-                    };
+                        Id = EXPENSE_ID,
+                        Name = EXPENSE_NAME1,
+                        Value = 2,
+                        Date = new DateTime(),
+                        Tags = tags
+                    }
+            };
 
-            Mock<DbSet<Expense>> moq = DbSetMock.GetMock(expensesOb);
+            IMyContext contextMock = new MyContextMock(expenses, tags);
 
-            Mock<IMyContext> contextMock = new Mock<IMyContext>(MockBehavior.Strict);
-            contextMock.Setup(x => x.Set<Expense>()).Returns(moq.Object);
-            contextMock.Setup(x => x.SaveChanges()).Returns(0);
-
-            _repository = new ExpensesRepository(contextMock.Object, null);
+            _repository = new ExpensesRepository(contextMock, null);
         }
 
         [TearDown]

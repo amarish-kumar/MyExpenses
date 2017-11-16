@@ -6,59 +6,58 @@
 
 namespace MyExpenses.Infrastructure.Tests.Repositories
 {
+    using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Data.Entity;
     using System.Linq;
-
-    using Moq;
 
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Repositories;
-
+    using MyExpenses.Infrastructure.Tests.Context;
     using NUnit.Framework;
 
     [TestFixture]
     public class TagsRepoTest
     {
+        private const long EXPENSE_ID = 1;
         private const long TAG_ID = 1;
-        private Mock<IMyContext> _contextMock;
+        private const string TAG_NAME = "Tag1";
+        private const string EXPENSE_NAME = "Expense";
+
+        private ITagsRepository _repository;
 
         [SetUp]
         public void Setup()
         {
-            ObservableCollection<Tag> expensesOb =
-                new ObservableCollection<Tag>
+            ICollection<Tag> tags = new List<Tag> { new Tag { Id = TAG_ID, Name = TAG_NAME } };
+
+            ICollection<Expense> expenses = new List<Expense>
+            {
+                new Expense
                     {
-                        new Tag
-                            {
-                                Id = TAG_ID,
-                                Name = "Tag1"
-                            }
-                    };
+                        Id = EXPENSE_ID,
+                        Name = EXPENSE_NAME,
+                        Value = 2,
+                        Date = new DateTime(),
+                        Tags = tags
+                    }
+            };
 
-            Mock<DbSet<Tag>> moq = DbSetMock.GetMock(expensesOb);
-
-            _contextMock = new Mock<IMyContext>(MockBehavior.Strict);
-            _contextMock.Setup(x => x.Set<Tag>()).Returns(moq.Object);
-            _contextMock.Setup(x => x.SaveChanges()).Returns(0);
+            IMyContext contextMock = new MyContextMock(expenses, tags);
+            _repository = new TagsRepository(contextMock);
         }
 
         [TearDown]
         public void TearDown()
         {
-            _contextMock = null;
+            _repository = null;
         }
 
         [Test]
         public void TestTagRepoGetAll()
         {
-            // TODO #61 fix referece using ninject
-            ITagsRepository tagsRepo = new TagsRepository(_contextMock.Object);
-
-            List<Tag> expenses = tagsRepo.GetAll().ToList();
+            List<Tag> expenses = _repository.GetAll().ToList();
 
             Assert.True(expenses.Any());
             Assert.True(expenses.FirstOrDefault()?.Id == TAG_ID);
@@ -67,10 +66,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         [Test]
         public void TestExpensesRepoGet()
         {
-            // TODO #61 fix referece using ninject
-            ITagsRepository tagsRepo = new TagsRepository(_contextMock.Object);
-
-            List<Tag> tags = tagsRepo.Get(x => x.Id == TAG_ID).ToList();
+            List<Tag> tags = _repository.Get(x => x.Id == TAG_ID).ToList();
 
             Assert.True(tags.Any());
             Assert.True(tags.FirstOrDefault()?.Id == TAG_ID);
