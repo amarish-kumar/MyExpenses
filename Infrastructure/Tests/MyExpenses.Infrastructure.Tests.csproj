@@ -60,13 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\MyContextMock.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Repositories\TagsRepoTest.cs" />
-    <Compile Include="Repositories\ExpensesRepoTest.cs" />
+    <Compile Include="Repositories\TagsRepositoryTest.cs" />
+    <Compile Include="Repositories\ExpensesRepositoryTest.cs" />
     <Compile Include="Context\DbSetMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,12 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -18,7 +18,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
     using NUnit.Framework;
 
     [TestFixture]
-    public class TagsRepoTest
+    public class TagsRepositoryTest
     {
         private const long EXPENSE_ID = 1;
         private const long TAG_ID = 1;

@@ -9,14 +9,14 @@ namespace MyExpenses.Domain.Tests.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
-
-    using Moq;
 
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Domain.Services;
+    using MyExpenses.Domain.Tests.Mocks;
+    using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Infrastructure.Tests.Context;
     using MyExpenses.Util.Results;
 
     using NUnit.Framework;
@@ -24,82 +24,79 @@ namespace MyExpenses.Domain.Tests.Services
     [TestFixture]
     public class ExpensesServiceTest
     {
-        private Mock<IExpensesRepository> _expensesRepoMock;
-
-        private readonly List<Expense> _expenses = new List<Expense>
-            {
-                new Expense
-                {
-                    Id = 1,
-                    Name = "Expense1",
-                    Date = new DateTime(),
-                    Value = 2
-                }
-            };
+        private IExpensesService _service;
 
         [SetUp]
         public void Setup()
         {
-            _expensesRepoMock = new Mock<IExpensesRepository>(MockBehavior.Strict);
+            ICollection<Tag> tags = new List<Tag> { new Tag { Id = 1, Name = "a" } };
+            List<Expense> expenses = new List<Expense>
+                                          {
+                                              new Expense
+                                                  {
+                                                      Id = 1,
+                                                      Name = "Expense1",
+                                                      Date = new DateTime(),
+                                                      Value = 2
+                                                  }
+                                          };
 
-            _expensesRepoMock.Setup(x => x.GetAll()).Returns(_expenses);
-            _expensesRepoMock.Setup(x => x.Get(It.IsAny<Expression<Func<Expense, bool>>>())).Returns(_expenses);
-            _expensesRepoMock.Setup(x => x.GetById(It.IsAny<long>())).Returns(_expenses.FirstOrDefault());
-            _expensesRepoMock.Setup(x => x.Remove(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok));
-            _expensesRepoMock.Setup(x => x.AddOrUpdate(It.IsAny<Expense>())).Returns(new MyResults(MyResultsType.Ok));
+            IMyContext contextMock = new MyContextMock(expenses, tags);
+
+            IExpensesRepository expensesRepo = new ExpensesRepositoryMock(contextMock);
+            ITagsRepository tagsRepo = new TagsRepositoryMock(contextMock);
+
+            _service = new ExpensesService(expensesRepo, tagsRepo);
         }
 
         // TODO #61 Use ninject in unit-tests 
 
-        //[Test]
-        //public void TestExpensesServiceGet()
-        //{
-        //    IExpensesService expensesService = new ExpensesService(_expensesRepoMock.Object);
+        [Test]
+        public void TestExpensesServiceGet()
+        {
+            List<Expense> expenses = _service.Get(x => x.Id == 1).ToList();
 
-        //    List<Expense> expenses = expensesService.Get(x => x.Id == 1).ToList();
+            Assert.True(expenses.Any());
+        }
 
-        //    Assert.True(expenses.Any());
-        //}
+        [Test]
+        public void TestExpensesServiceGetAll()
+        {
+            List<Expense> expenses = _service.GetAll().ToList();
 
-        //[Test]
-        //public void TestExpensesServiceGetAll()
-        //{
-        //    IExpensesService expensesService = new ExpensesService(_expensesRepoMock.Object);
+            Assert.True(expenses.Any());
+        }
 
-        //    List<Expense> expenses = expensesService.GetAll().ToList();
+        [Test]
+        public void TestExpensesServiceGetById()
+        {
+            Expense expense = _service.GetById(1);
 
-        //    Assert.True(expenses.Any());
-        //}
+            Assert.IsNotNull(expense);
+            Assert.True(expense.Name == "Expense1");
+        }
 
-        //[Test]
-        //public void TestExpensesServiceGetById()
-        //{
-        //    IExpensesService expensesService = new ExpensesService(_expensesRepoMock.Object);
+        [Test]
+        public void TestExpensesServiceRemove()
+        {
+            Expense expense = _service.GetById(1);
+            MyResults results = _service.Remove(expense);
 
-        //    Expense expense = expensesService.GetById(1);
+            Assert.True(results.Type == MyResultsType.Ok);
+        }
 
-        //    Assert.IsNotNull(expense);
-        //    Assert.True(expense.Equals(_expenses.FirstOrDefault()));
-        //}
+        [Test]
+        public void TestExpensesServiceSaveAndUpdate()
+        {
+            Expense expense = _service.GetById(1);
+            expense.Name = "NewExpense";
 
-        //[Test]
-        //public void TestExpensesServiceRemove()
-        //{
-        //    IExpensesService expensesService = new ExpensesService(_expensesRepoMock.Object);
+            MyResults results = _service.AddOrUpdate(expense);
 
-        //    MyResults results = expensesService.Remove(_expenses.FirstOrDefault());
+            Assert.True(results.Type == MyResultsType.Ok);
 
-        //    Assert.True(results.Type == MyResultsType.Ok);
-        //}
-
-        //[Test]
-        //public void TestExpensesServiceSaveAndUpdate()
-        //{
-        //    IExpensesService expensesService = new ExpensesService(_expensesRepoMock.Object);
-
-        //    MyResults results = expensesService.AddOrUpdate(_expenses.FirstOrDefault());
-
-        //    Assert.True(results.Type == MyResultsType.Ok);
-        //}
+            Expense newExpense = _service.GetById(1);
+            Assert.True(newExpense.Name == "NewExpense");
+        }
     }
 }

@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mocks\TagsRepositoryMock.cs" />
+    <Compile Include="Mocks\ExpensesRepositoryMock.cs" />
+    <Compile Include="Mocks\RepositoryMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validator\TagValidatorTest.cs" />
     <Compile Include="Validator\ExpenseValidatorTest.cs" />
@@ -64,6 +67,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\MyExpenses.Infrastructure.csproj">
+      <Project>{abd725ac-f2c5-466c-8812-3302dbfce516}</Project>
+      <Name>MyExpenses.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Tests\MyExpenses.Infrastructure.Tests.csproj">
+      <Project>{dfce1d1a-5b20-41ac-a156-a8a6076d3276}</Project>
+      <Name>MyExpenses.Infrastructure.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Util\MyExpenses.Util.csproj">
       <Project>{573cbdb3-43c0-4d5c-90ce-1456334fc730}</Project>
       <Name>MyExpenses.Util</Name>

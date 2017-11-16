@@ -15,7 +15,6 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Infrastructure.Context;
-    using MyExpenses.Infrastructure.Properties;
     using MyExpenses.Util.Logger;
     using MyExpenses.Util.Results;
 
@@ -29,8 +28,6 @@ namespace MyExpenses.Infrastructure.Repositories
             _context = context;
             _log = log;
         }
-
-        public virtual void UpdateDependencies(TDomain entity) { }
 
         public virtual IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter = null, params Expression<Func<TDomain, object>>[] includes)
         {
@@ -70,7 +67,7 @@ namespace MyExpenses.Infrastructure.Repositories
             TDomain exisTDomain = _context.Set<TDomain>().Find(domain.Id);
             if (exisTDomain == null)
             {
-                return new MyResults(MyResultsType.Error, MyResultsAction.Removing, Resources.Error_RemoveInvalidObject);
+                return new MyResults(MyResultsType.Error, MyResultsAction.Removing, MyResultsAction.Removing + " " + domain.GetType().Name);
             }
 
             _context.Set<TDomain>().Remove(exisTDomain);
