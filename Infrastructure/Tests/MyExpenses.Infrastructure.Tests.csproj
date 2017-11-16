@@ -67,7 +67,7 @@
     </Compile>
     <Compile Include="Repositories\TagsRepoTest.cs" />
     <Compile Include="Repositories\ExpensesRepoTest.cs" />
-    <Compile Include="DbSetMock.cs" />
+    <Compile Include="Context\DbSetMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

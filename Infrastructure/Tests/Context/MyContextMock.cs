@@ -7,7 +7,6 @@
 namespace MyExpenses.Infrastructure.Tests.Context
 {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Data.Entity;
 
     using Moq;
@@ -21,11 +20,8 @@ namespace MyExpenses.Infrastructure.Tests.Context
 
         public MyContextMock(ICollection<Expense> expenses, ICollection<Tag> tags)
         {
-            ObservableCollection<Tag> tagsOb = new ObservableCollection<Tag>(tags);
-            ObservableCollection<Expense> expensesOb = new ObservableCollection<Expense>(expenses);
-
-            Mock<DbSet<Expense>> expensesMock = DbSetMock.GetMock(expensesOb);
-            Mock<DbSet<Tag>> tagsMock = DbSetMock.GetMock(tagsOb);
+            Mock<DbSet<Expense>> expensesMock = DbSetMock.CreateMock(expenses);
+            Mock<DbSet<Tag>> tagsMock = DbSetMock.CreateMock(tags);
 
             _contextMock = new Mock<IMyContext>(MockBehavior.Strict);
             _contextMock.Setup(x => x.Set<Expense>()).Returns(expensesMock.Object);
@@ -34,6 +30,7 @@ namespace MyExpenses.Infrastructure.Tests.Context
         }
 
         public IDbSet<Expense> Expenses { get; set; }
+
         public IDbSet<Tag> Tags { get; set; }
 
         public int SaveChanges()
