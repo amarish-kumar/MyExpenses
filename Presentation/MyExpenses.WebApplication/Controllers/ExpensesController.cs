@@ -43,12 +43,12 @@ namespace MyExpenses.WebApplication.Controllers
         public ActionResult Create()
         {
             ExpensesViewModel viewModel = new ExpensesViewModel();
+
             var all = _tagsAppService.GetAll();
-            if(all.Any())
-            {
-                viewModel.SelectedTag = all.FirstOrDefault().Id;
-                viewModel.AllTags = new SelectList(all, "Id", "Name", viewModel.SelectedTag);
-            }
+
+            viewModel.SelectedTag = all.Any() ? all.First().Id : 0;
+            viewModel.AllTags = new SelectList(all, "Id", "Name", viewModel.SelectedTag);
+
             return View(viewModel);
         }
 
@@ -59,9 +59,17 @@ namespace MyExpenses.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var tag = _tagsAppService.GetById(viewModel.SelectedTag);
                 var expenseDto = ExpenseModel.ToDto(viewModel.Model);
-                expenseDto.Tags = new List<TagDto> { tag };
+
+                if (viewModel.SelectedTag > 0)
+                {
+                    var tag = _tagsAppService.GetById(viewModel.SelectedTag);
+                    expenseDto.Tags = new List<TagDto> { tag };
+                }
+                else
+                {
+                    expenseDto.Tags.Clear();
+                }
 
                 MyResults result = _appService.AddOrUpdate(expenseDto);
                 if (result.Type == MyResultsType.Ok)
