@@ -8,11 +8,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Data.Entity;
     using System.Linq;
-
-    using Moq;
 
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
@@ -20,7 +16,6 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
     using MyExpenses.Infrastructure.Repositories;
     using MyExpenses.Infrastructure.Tests.Context;
     using MyExpenses.Util.Results;
-
     using NUnit.Framework;
 
     [TestFixture]
