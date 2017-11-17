@@ -59,19 +59,19 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\MyExpenses.Infrastructure.csproj">
+    <ProjectReference Include="..\..\Infrastructure\MyExpenses.Infrastructure.csproj">
       <Project>{abd725ac-f2c5-466c-8812-3302dbfce516}</Project>
       <Name>MyExpenses.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Tests\MyExpenses.Infrastructure.Tests.csproj">
+    <ProjectReference Include="..\..\Infrastructure\Tests\MyExpenses.Infrastructure.Tests.csproj">
       <Project>{dfce1d1a-5b20-41ac-a156-a8a6076d3276}</Project>
       <Name>MyExpenses.Infrastructure.Tests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Util\MyExpenses.Util.csproj">
+    <ProjectReference Include="..\..\Util\MyExpenses.Util.csproj">
       <Project>{573cbdb3-43c0-4d5c-90ce-1456334fc730}</Project>
       <Name>MyExpenses.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain\MyExpenses.Domain.csproj">
+    <ProjectReference Include="..\MyExpenses.Domain.csproj">
       <Project>{6bcca8e9-3252-4683-8db1-f8bc67a13c4f}</Project>
       <Name>MyExpenses.Domain</Name>
     </ProjectReference>
