@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{DFCE1D1A-5B20-41AC-A156-A8A6076D3276}</ProjectGuid>
+    <ProjectGuid>{4FE7F17C-8C35-4C53-8F37-01D6292F7215}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyExpenses.Infrastructure.Tests</RootNamespace>
-    <AssemblyName>MyExpenses.Infrastructure.Tests</AssemblyName>
+    <RootNamespace>MyExpenses.Application.Tests</RootNamespace>
+    <AssemblyName>MyExpenses.Application.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -35,14 +35,11 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Moq, Version=4.7.145.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Moq.4.7.145\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
@@ -51,28 +48,28 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\MyContextMock.cs" />
-    <Compile Include="Repositories\TagsRepositoryTest.cs" />
-    <Compile Include="Repositories\ExpensesRepositoryTest.cs" />
-    <Compile Include="Context\DbSetMock.cs" />
+    <Compile Include="ModulesMock\MyApplicationModuleMock.cs" />
+    <Compile Include="ServiceMock\TagsServiceMock.cs" />
+    <Compile Include="ServiceMock\ExpensesServiceMock.cs" />
+    <Compile Include="Services\TagsAppServiceTest.cs" />
+    <Compile Include="Services\ExpensesAppServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\MyExpenses.Domain.csproj">
+    <ProjectReference Include="..\Domain\MyExpenses.Domain.csproj">
       <Project>{6bcca8e9-3252-4683-8db1-f8bc67a13c4f}</Project>
       <Name>MyExpenses.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Util\MyExpenses.Util.csproj">
+    <ProjectReference Include="..\Util\MyExpenses.Util.csproj">
       <Project>{573cbdb3-43c0-4d5c-90ce-1456334fc730}</Project>
       <Name>MyExpenses.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyExpenses.Infrastructure.csproj">
-      <Project>{abd725ac-f2c5-466c-8812-3302dbfce516}</Project>
-      <Name>MyExpenses.Infrastructure</Name>
+    <ProjectReference Include="..\Application\MyExpenses.Application.csproj">
+      <Project>{2e640191-56b4-4bd3-a549-d4e4aac9ca0a}</Project>
+      <Name>MyExpenses.Application</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

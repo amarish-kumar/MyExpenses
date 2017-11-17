@@ -10,8 +10,6 @@ configuration:
  - Release
 platform:
  - x86
-environment:
-  CODACY_PROJECT_TOKEN: 909dd767787943658cde4290d6d68ee5
 nuget:
   account_feed: true
   project_feed: true
@@ -32,9 +30,9 @@ notifications:
 before_build:
   - nuget restore
 test_script:
- - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Domain\Tests\bin\x86\Debug\MyExpenses.Domain.Tests.dll" -output:"TestResultDomain.xml"
- - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Infrastructure\Tests\bin\x86\Debug\MyExpenses.Infrastructure.Tests.dll" -output:"TestResultInfrastructure.xml"
- - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Application\Tests\bin\x86\Debug\MyExpenses.Application.Tests.dll" -output:"TestResultApplication.xml"
+ - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Domain.Tests\bin\x86\Debug\MyExpenses.Domain.Tests.dll" -output:"TestResultDomain.xml"
+ - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Infrastructure.Tests\bin\x86\Debug\MyExpenses.Infrastructure.Tests.dll" -output:"TestResultInfrastructure.xml"
+ - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Application.Tests\bin\x86\Debug\MyExpenses.Application.Tests.dll" -output:"TestResultApplication.xml"
 after_test:
  - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
  - pip install codecov
