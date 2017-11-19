@@ -39,7 +39,6 @@ namespace MyExpenses.Domain.Tests.Services
             MyResults results = _service.AddOrUpdate(expense);
 
             Assert.True(results.Type == MyResultsType.Ok);
-
             Expense newExpense = _service.GetById(1);
             Assert.True(newExpense.Name == "NewExpense");
         }
@@ -67,6 +66,7 @@ namespace MyExpenses.Domain.Tests.Services
             MyResults results = _service.Remove(expense);
 
             Assert.True(results.Type == MyResultsType.Ok);
+            Assert.IsNull(_service.GetById(2));
         }
     }
 }
