@@ -24,11 +24,6 @@ namespace MyExpenses.Application.Tests.ModulesMock
     {
         private readonly IMyContext _contextMock;
 
-        public MyDomainModuleMock(ICollection<Expense> expenses, ICollection<Tag> tags)
-        {
-            _contextMock = new MyContextMock(expenses, tags);
-        }
-
         public MyDomainModuleMock()
         {
 
