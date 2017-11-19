@@ -50,8 +50,6 @@
   <ItemGroup>
     <Compile Include="ModuleMock\MyDomainModuleMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ExpensesServiceTest2 .cs" />
-    <Compile Include="Services\ServiceTestBase.cs" />
     <Compile Include="Validator\TagValidatorTest.cs" />
     <Compile Include="Validator\ExpenseValidatorTest.cs" />
     <Compile Include="Services\TagsServiceTest.cs" />
