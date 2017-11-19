@@ -20,84 +20,58 @@ namespace MyExpenses.Domain.Tests.Services
     using MyExpenses.Util.Results;
 
     using NUnit.Framework;
+    using MyExpenses.Util.IoC;
+    using MyExpenses.Application.Tests.ModulesMock;
 
     [TestFixture]
     public class TagsServiceTest
     {
-        private Mock<ITagsRepository> _tagsRepoMock;
-
-        private readonly List<Tag> _tags = new List<Tag>
-            {
-                new Tag
-                {
-                    Id = 1,
-                    Name = "Tag1"
-                }
-            };
+        private ITagsService _service;
 
         [SetUp]
         public void Setup()
         {
-            _tagsRepoMock = new Mock<ITagsRepository>(MockBehavior.Strict);
+            MyKernelService.Init();
+            MyKernelService.AddModule(new MyDomainModuleMock());
 
-            _tagsRepoMock.Setup(x => x.GetAll()).Returns(_tags);
-            _tagsRepoMock.Setup(x => x.Get(It.IsAny<Expression<Func<Tag, bool>>>())).Returns(_tags);
-            _tagsRepoMock.Setup(x => x.GetById(It.IsAny<long>())).Returns(_tags.FirstOrDefault());
-            _tagsRepoMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok));
-            _tagsRepoMock.Setup(x => x.AddOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok));
+            _service = MyKernelService.GetInstance<TagsService>();
         }
 
-        // TODO #61 Use ninject in unit-tests 
+        [Test]
+        public void TestTagsServiceSaveAndUpdate()
+        {
+            Tag tag = _service.GetById(1);
+            tag.Name = "NewName";
 
-        //[Test]
-        //public void TestTagsServiceGet()
-        //{
-        //    ITagsService tagsService = new TagsService(_tagsRepoMock.Object);
+            MyResults results = _service.AddOrUpdate(tag);
 
-        //    List<Tag> tags = tagsService.Get(x => x.Id == 1).ToList();
+            Assert.True(results.Type == MyResultsType.Ok);
+        }
 
-        //    Assert.True(tags.Any());
-        //}
+        [Test]
+        public void TestTagsServiceGet()
+        {
+            List<Tag> tags = _service.Get(x => x.Id == 1).ToList();
 
-        //[Test]
-        //public void TestTagsServiceGetAll()
-        //{
-        //    ITagsService tagsService = new TagsService(_tagsRepoMock.Object);
+            Assert.True(tags.Any());
+        }
 
-        //    List<Tag> tags = tagsService.GetAll().ToList();
+        [Test]
+        public void TestTagsServiceGetAll()
+        {
+            List<Tag> tags = _service.GetAll().ToList();
 
-        //    Assert.True(tags.Any());
-        //}
+            Assert.True(tags.Any());
+        }
 
-        //[Test]
-        //public void TestTagsServiceGetById()
-        //{
-        //    ITagsService tagsService = new TagsService(_tagsRepoMock.Object);
+        [Test]
+        public void TestTagsServiceRemove()
+        {
+            Tag tag = _service.GetById(2);
 
-        //    Tag tag = tagsService.GetById(1);
+            MyResults results = _service.Remove(tag);
 
-        //    Assert.IsNotNull(tag);
-        //    Assert.True(tag.Equals(_tags.FirstOrDefault()));
-        //}
-
-        //[Test]
-        //public void TestTagsServiceRemove()
-        //{
-        //    ITagsService tagsService = new TagsService(_tagsRepoMock.Object);
-
-        //    MyResults results = tagsService.Remove(_tags.FirstOrDefault());
-
-        //    Assert.True(results.Type == MyResultsType.Ok);
-        //}
-
-        //[Test]
-        //public void TestTagsServiceSaveAndUpdate()
-        //{
-        //    ITagsService tagsService = new TagsService(_tagsRepoMock.Object);
-
-        //    MyResults results = tagsService.AddOrUpdate(_tags.FirstOrDefault());
-
-        //    Assert.True(results.Type == MyResultsType.Ok);
-        //}
+            Assert.True(results.Type == MyResultsType.Ok);
+        }
     }
 }
