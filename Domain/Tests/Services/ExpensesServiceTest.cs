@@ -33,10 +33,10 @@ namespace MyExpenses.Domain.Tests.Services
         [Test]
         public void TestExpensesServiceSaveAndUpdate()
         {
-            Expense expense = _service.GetById(1);
-            expense.Name = "NewExpense";
+            var obj = _service.GetById(1);
+            obj.Name = "NewExpense";
 
-            MyResults results = _service.AddOrUpdate(expense);
+            MyResults results = _service.AddOrUpdate(obj);
 
             Assert.True(results.Type == MyResultsType.Ok);
             Expense newExpense = _service.GetById(1);
@@ -46,24 +46,24 @@ namespace MyExpenses.Domain.Tests.Services
         [Test]
         public void TestExpensesServiceGet()
         {
-            List<Expense> expenses = _service.Get(x => x.Id == 1).ToList();
+            var obj = _service.Get(x => x.Id == 1).First();
 
-            Assert.True(expenses.Any());
+            Assert.True(obj.Equals(_service.GetById(1)));
         }
 
         [Test]
         public void TestExpensesServiceGetAll()
         {
-            List<Expense> expenses = _service.GetAll().ToList();
+            var objs = _service.GetAll().ToList();
 
-            Assert.True(expenses.Any());
+            Assert.True(objs.Any());
         }
 
         [Test]
         public void TestExpensesServiceRemove()
         {
-            Expense expense = _service.GetById(2);
-            MyResults results = _service.Remove(expense);
+            var obj = _service.GetById(2);
+            MyResults results = _service.Remove(obj);
 
             Assert.True(results.Type == MyResultsType.Ok);
             Assert.IsNull(_service.GetById(2));

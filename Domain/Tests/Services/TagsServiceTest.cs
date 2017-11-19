@@ -33,38 +33,38 @@ namespace MyExpenses.Domain.Tests.Services
         [Test]
         public void TestTagsServiceSaveAndUpdate()
         {
-            Tag tag = _service.GetById(1);
-            tag.Name = "NewName";
+            var obj = _service.GetById(1);
+            obj.Name = "NewName";
 
-            MyResults results = _service.AddOrUpdate(tag);
+            MyResults results = _service.AddOrUpdate(obj);
 
             Assert.True(results.Type == MyResultsType.Ok);
-            tag = _service.GetById(1);
-            Assert.True(tag.Name == "NewName");
+            obj = _service.GetById(1);
+            Assert.True(obj.Name == "NewName");
         }
 
         [Test]
         public void TestTagsServiceGet()
         {
-            List<Tag> tags = _service.Get(x => x.Id == 1).ToList();
+            var obj = _service.Get(x => x.Id == 1).First();
 
-            Assert.True(tags.Any());
+            Assert.True(obj.Equals(_service.GetById(1)));
         }
 
         [Test]
         public void TestTagsServiceGetAll()
         {
-            List<Tag> tags = _service.GetAll().ToList();
+            var objs = _service.GetAll().ToList();
 
-            Assert.True(tags.Any());
+            Assert.True(objs.Any());
         }
 
         [Test]
         public void TestTagsServiceRemove()
         {
-            Tag tag = _service.GetById(2);
+            var obj = _service.GetById(2);
 
-            MyResults results = _service.Remove(tag);
+            MyResults results = _service.Remove(obj);
 
             Assert.True(results.Type == MyResultsType.Ok);
             Assert.IsNull(_service.GetById(2));
