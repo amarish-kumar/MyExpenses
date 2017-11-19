@@ -13,7 +13,6 @@ namespace MyExpenses.Domain.Tests.Services
     using MyExpenses.Util.IoC;
     using MyExpenses.Util.Results;
     using NUnit.Framework;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 

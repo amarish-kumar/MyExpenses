@@ -6,22 +6,15 @@
 
 namespace MyExpenses.Domain.Tests.Services
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
-
-    using Moq;
-
+    using MyExpenses.Application.Tests.ModulesMock;
     using MyExpenses.Domain.Interfaces.DomainServices;
-    using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Domain.Services;
-    using MyExpenses.Util.Results;
-
-    using NUnit.Framework;
     using MyExpenses.Util.IoC;
-    using MyExpenses.Application.Tests.ModulesMock;
+    using MyExpenses.Util.Results;
+    using NUnit.Framework;
+    using System.Collections.Generic;
+    using System.Linq;
 
     [TestFixture]
     public class TagsServiceTest
@@ -46,6 +39,8 @@ namespace MyExpenses.Domain.Tests.Services
             MyResults results = _service.AddOrUpdate(tag);
 
             Assert.True(results.Type == MyResultsType.Ok);
+            tag = _service.GetById(1);
+            Assert.True(tag.Name == "NewName");
         }
 
         [Test]
@@ -72,6 +67,7 @@ namespace MyExpenses.Domain.Tests.Services
             MyResults results = _service.Remove(tag);
 
             Assert.True(results.Type == MyResultsType.Ok);
+            Assert.IsNull(_service.GetById(2));
         }
     }
 }
