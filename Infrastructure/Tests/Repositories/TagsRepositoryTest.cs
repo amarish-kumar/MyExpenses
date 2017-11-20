@@ -62,6 +62,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 
             var result = _repository.AddOrUpdate(obj);
 
+            Assert.AreEqual(result.Type, MyResultsType.Ok);
             Assert.AreEqual(result.Action, MyResultsAction.Creating);
             Assert.True(_repository.Get(x => x.Name == NAME2).Any());
         }

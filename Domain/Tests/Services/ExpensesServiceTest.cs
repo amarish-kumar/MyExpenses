@@ -39,11 +39,19 @@ namespace MyExpenses.Domain.Tests.Services
         }
 
         [Test]
-        public void TestExpensesServiceGetAll()
+        public void TestExpensesService_GetAll()
         {
             var objs = _service.GetAll(x => x.Tags);
 
             Assert.True(objs.Any());
+        }
+
+        [Test]
+        public void TestExpensesService_Get()
+        {
+            var obj = _service.Get(x => x.Id == ID, x => x.Tags).First();
+
+            Assert.True(obj.Equals(_service.GetById(ID)));
         }
 
         [Test]
@@ -74,20 +82,26 @@ namespace MyExpenses.Domain.Tests.Services
             Assert.AreEqual(results.Type, MyResultsType.Ok);
             Assert.AreEqual(results.Action, MyResultsAction.Updating);
 
-            Expense newExpense = _service.GetById(ID);
-            Assert.AreEqual(newExpense.Name, NEWNAME);
+            var newObj = _service.GetById(ID);
+            Assert.AreEqual(newObj.Name, NEWNAME);
         }
 
         [Test]
-        public void TestExpensesServiceGet()
+        public void TestExpensesService_Add_ErrorValidation()
         {
-            var obj = _service.Get(x => x.Id == ID).First();
+            var obj = new Expense();
+            obj.Copy(_service.GetById(ID));
+            obj.Id = 0;
+            obj.Name = "";
 
-            Assert.True(obj.Equals(_service.GetById(ID)));
+            MyResults results = _service.AddOrUpdate(obj);
+
+            Assert.AreEqual(results.Type, MyResultsType.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
         }
 
         [Test]
-        public void TestExpensesServiceRemove()
+        public void TestExpensesService_Remove_Ok()
         {
             MyResults results = _service.Remove(_service.GetById(ID));
 
@@ -95,6 +109,19 @@ namespace MyExpenses.Domain.Tests.Services
             Assert.AreEqual(results.Action, MyResultsAction.Removing);
 
             Assert.IsNull(_service.GetById(ID));
+        }
+
+        [Test]
+        public void TestExpensesService_Remove_ErrorNotFind()
+        {
+            var obj = new Expense();
+            obj.Copy(_service.GetById(ID));
+            obj.Id = 1000;
+
+            MyResults results = _service.Remove(obj);
+
+            Assert.AreEqual(results.Type, MyResultsType.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Removing);
         }
     }
 }

@@ -69,13 +69,13 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         {
             var obj = _repository.GetById(ID);
             obj.Id = 0;
-            obj.Name = "NewName";
+            obj.Name = NAME2;
 
             var result = _repository.AddOrUpdate(obj);
 
             Assert.AreEqual(result.Type, MyResultsType.Ok);
             Assert.AreEqual(result.Action, MyResultsAction.Creating);
-            Assert.True(_repository.Get(x => x.Name == "NewName", x => x.Tags).Any());
+            Assert.True(_repository.Get(x => x.Name == NAME2, x => x.Tags).Any());
         }
 
         [Test]
