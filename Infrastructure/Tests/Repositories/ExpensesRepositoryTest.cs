@@ -48,7 +48,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 
             IMyContext contextMock = new MyContextMock(expenses, tags);
 
-            _repository = new ExpensesRepository(contextMock, null);
+            _repository = new ExpensesRepository(contextMock);
         }
 
         [TearDown]
@@ -58,115 +58,75 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         }
 
         [Test]
-        public void TestExpensesRepoGetAll()
+        public void TestExpensesRepository_GetAll()
         {
-            List<Expense> expenses = _repository.GetAll(x => x.Tags).ToList();
+            var objs = _repository.GetAll(x => x.Tags).ToList();
 
-            Assert.True(expenses.Any());
-            Assert.True(expenses[0].Id == EXPENSE_ID);
-            Assert.True(expenses[0].Tags.Any());
+            Assert.True(objs.Any());
+            Assert.AreEqual(objs[0].Id, EXPENSE_ID);
+            Assert.True(objs[0].Tags.Any());
         }
 
         [Test]
-        public void TestExpensesRepoGet()
+        public void TestExpensesRepository_Add_Ok()
         {
-            List<Expense> expenses = _repository.Get(x => x.Id == EXPENSE_ID, x => x.Tags).ToList();
+            var obj = _repository.GetById(EXPENSE_ID);
+            obj.Id = 0;
+            obj.Name = "NewName";
 
-            Assert.True(expenses.Any());
-            Assert.True(expenses.FirstOrDefault()?.Id == EXPENSE_ID);
-        }
-
-        [Test]
-        public void TestExpensesRepoGetById()
-        {
-            Expense expense = _repository.GetById(EXPENSE_ID, x => x.Tags);
-
-            Assert.IsNotNull(expense);
-            Assert.True(expense.Id == EXPENSE_ID);
-        }
-
-        [Test]
-        public void TestExpensesRepoAddOk()
-        {
-            Expense expense = new Expense
-            {
-                Id = EXPENSE_ID + 1,
-                Name = EXPENSE_NAME1,
-                Value = 2,
-                Date = new DateTime(),
-                Tags = new List<Tag>()
-            };
-
-            MyResults result = _repository.AddOrUpdate(expense);
+            var result = _repository.AddOrUpdate(obj);
 
             Assert.True(result.Type == MyResultsType.Ok);
-            Assert.True(_repository.Get(x => x.Id == EXPENSE_ID, x => x.Tags).Any());
+            Assert.True(result.Action == MyResultsAction.Creating);
+            Assert.True(_repository.Get(x => x.Name == "NewName", x => x.Tags).Any());
         }
 
         [Test]
-        public void TestExpensesRepoUpdateOk()
+        public void TestExpensesRepository_Update_Ok()
         {
-            Expense expense = new Expense
-            {
-                Id = EXPENSE_ID,
-                Name = EXPENSE_NAME2,
-                Value = 2,
-                Date = new DateTime(),
-                Tags = new List<Tag>()
-            };
+            var obj = _repository.GetById(EXPENSE_ID);
+            obj.Name = EXPENSE_NAME2;
 
-            _repository.AddOrUpdate(expense);
+            var result = _repository.AddOrUpdate(obj);
 
+            Assert.True(result.Type == MyResultsType.Ok);
+            Assert.True(result.Action == MyResultsAction.Updating);
             Assert.True(_repository.Get(x => x.Id == EXPENSE_ID && x.Name == EXPENSE_NAME2, x => x.Tags).Any());
         }
 
         [Test]
-        public void TestExpensesRepoUpdateWhenInvalidId()
+        public void TestExpensesRepository_AddOrUpdate_ErrorValidation()
         {
-            Expense expense = new Expense
-            {
-                Id = -1,
-                Name = EXPENSE_NAME1,
-                Value = 2,
-                Date = new DateTime(),
-                Tags = new List<Tag>()
-            };
+            var obj = _repository.GetById(EXPENSE_ID);
+            obj.Id = -1;
 
-            MyResults result = _repository.AddOrUpdate(expense);
+            MyResults result = _repository.AddOrUpdate(obj);
 
             Assert.True(result.Type == MyResultsType.Error);
-            Assert.True(_repository.Get(x => x.Id == 1, x => x.Tags).Any());
+            Assert.True(result.Action == MyResultsAction.Validating);
         }
 
         [Test]
-        public void TestExpensesRepoRemoveOk()
+        public void TestExpensesRepository_Remove_Ok()
         {
-            Expense expense = new Expense
-            {
-                Id = EXPENSE_ID
-            };
+            var obj = _repository.GetById(EXPENSE_ID);
 
-            MyResults result = _repository.Remove(expense);
+            MyResults result = _repository.Remove(obj);
 
-            List<Expense> expenses = _repository.Get(x => x.Id == EXPENSE_ID, x => x.Tags).ToList();
             Assert.True(result.Type == MyResultsType.Ok);
-            Assert.False(expenses.Any());
+            Assert.True(result.Action == MyResultsAction.Removing);
+            Assert.False(_repository.Get(x => x.Id == EXPENSE_ID, x => x.Tags).Any());
         }
 
         [Test]
-        public void TestExpensesRepoRemoveWhenIdNotExist()
+        public void TestExpensesRepository_Remove_IdNotExist()
         {
-            Expense expense = new Expense
-            {
-                Id = EXPENSE_ID + 1
-            };
-
-            MyResults result = _repository.Remove(expense);
+            var obj = new Expense { Id = 100 };
+         
+            MyResults result = _repository.Remove(obj);
 
             Assert.True(result.Type == MyResultsType.Error);
-            Assert.True(_repository.GetAll(x => x.Tags).Any());
+            Assert.True(result.Action == MyResultsAction.Removing);
         }
-
-        // TODO - test AddOrUpdate updatating references
     }
 }

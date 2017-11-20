@@ -15,29 +15,29 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Repositories;
     using MyExpenses.Infrastructure.Tests.Context;
+    using MyExpenses.Util.Results;
+
     using NUnit.Framework;
 
     [TestFixture]
     public class TagsRepositoryTest
     {
-        private const long EXPENSE_ID = 1;
-        private const long TAG_ID = 1;
-        private const string TAG_NAME = "Tag1";
-        private const string EXPENSE_NAME = "Expense";
+        private const long ID = 1;
+        private const string NEWNAME = "NewName";
 
         private ITagsRepository _repository;
 
         [SetUp]
         public void Setup()
         {
-            ICollection<Tag> tags = new List<Tag> { new Tag { Id = TAG_ID, Name = TAG_NAME } };
+            ICollection<Tag> tags = new List<Tag> { new Tag { Id = ID, Name = "Tag" } };
 
             ICollection<Expense> expenses = new List<Expense>
             {
                 new Expense
                     {
-                        Id = EXPENSE_ID,
-                        Name = EXPENSE_NAME,
+                        Id = 1,
+                        Name = "Expense",
                         Value = 2,
                         Date = new DateTime(),
                         Tags = tags
@@ -55,21 +55,74 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         }
 
         [Test]
-        public void TestTagRepoGetAll()
+        public void TestTagsRepository_GetAll()
         {
-            List<Tag> expenses = _repository.GetAll().ToList();
+            var objs = _repository.GetAll().ToList();
 
-            Assert.True(expenses.Any());
-            Assert.True(expenses.FirstOrDefault()?.Id == TAG_ID);
+            Assert.True(objs.Any());
+            Assert.AreEqual(objs[0].Id, ID);
         }
 
         [Test]
-        public void TestExpensesRepoGet()
+        public void TestTagsRepository_Add_Ok()
         {
-            List<Tag> tags = _repository.Get(x => x.Id == TAG_ID).ToList();
+            var obj = _repository.GetById(ID);
+            obj.Id = 0;
+            obj.Name = "NewName";
 
-            Assert.True(tags.Any());
-            Assert.True(tags.FirstOrDefault()?.Id == TAG_ID);
+            var result = _repository.AddOrUpdate(obj);
+
+            Assert.True(result.Type == MyResultsType.Ok);
+            Assert.True(result.Action == MyResultsAction.Creating);
+            Assert.True(_repository.Get(x => x.Name == "NewName").Any());
+        }
+
+        [Test]
+        public void TestTagsRepository_Update_Ok()
+        {
+            var obj = _repository.GetById(ID);
+            obj.Name = NEWNAME;
+
+            var result = _repository.AddOrUpdate(obj);
+
+            Assert.True(result.Type == MyResultsType.Ok);
+            Assert.True(result.Action == MyResultsAction.Updating);
+            Assert.True(_repository.Get(x => x.Id == ID && x.Name == NEWNAME).Any());
+        }
+
+        [Test]
+        public void TestTagsRepository_AddOrUpdate_ErrorValidation()
+        {
+            var obj = _repository.GetById(ID);
+            obj.Id = -1;
+
+            MyResults result = _repository.AddOrUpdate(obj);
+
+            Assert.True(result.Type == MyResultsType.Error);
+            Assert.True(result.Action == MyResultsAction.Validating);
+        }
+
+        [Test]
+        public void TestTagsRepository_Remove_Ok()
+        {
+            var obj = _repository.GetById(ID);
+
+            MyResults result = _repository.Remove(obj);
+
+            Assert.True(result.Type == MyResultsType.Ok);
+            Assert.True(result.Action == MyResultsAction.Removing);
+            Assert.False(_repository.Get(x => x.Id == ID).Any());
+        }
+
+        [Test]
+        public void TestTagsRepository_Remove_IdNotExist()
+        {
+            var obj = new Tag { Id = 100 };
+
+            MyResults result = _repository.Remove(obj);
+
+            Assert.True(result.Type == MyResultsType.Error);
+            Assert.True(result.Action == MyResultsAction.Removing);
         }
     }
 }
