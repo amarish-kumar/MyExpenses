@@ -62,8 +62,7 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 
             var result = _repository.AddOrUpdate(obj);
 
-            Assert.True(result.Type == MyResultsType.Ok);
-            Assert.True(result.Action == MyResultsAction.Creating);
+            Assert.AreEqual(result.Action, MyResultsAction.Creating);
             Assert.True(_repository.Get(x => x.Name == NAME2).Any());
         }
 
@@ -75,8 +74,8 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 
             var result = _repository.AddOrUpdate(obj);
 
-            Assert.True(result.Type == MyResultsType.Ok);
-            Assert.True(result.Action == MyResultsAction.Updating);
+            Assert.AreEqual(result.Type, MyResultsType.Ok);
+            Assert.AreEqual(result.Action, MyResultsAction.Updating);
             Assert.True(_repository.Get(x => x.Id == ID && x.Name == NAME2).Any());
         }
 
@@ -88,8 +87,8 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 
             MyResults result = _repository.AddOrUpdate(obj);
 
-            Assert.True(result.Type == MyResultsType.Error);
-            Assert.True(result.Action == MyResultsAction.Validating);
+            Assert.AreEqual(result.Type, MyResultsType.Error);
+            Assert.AreEqual(result.Action, MyResultsAction.Validating);
         }
 
         [Test]
@@ -99,8 +98,8 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 
             MyResults result = _repository.Remove(obj);
 
-            Assert.True(result.Type == MyResultsType.Ok);
-            Assert.True(result.Action == MyResultsAction.Removing);
+            Assert.AreEqual(result.Type, MyResultsType.Ok);
+            Assert.AreEqual(result.Action, MyResultsAction.Removing);
             Assert.False(_repository.Get(x => x.Id == ID).Any());
         }
 
@@ -111,8 +110,8 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
 
             MyResults result = _repository.Remove(obj);
 
-            Assert.True(result.Type == MyResultsType.Error);
-            Assert.True(result.Action == MyResultsAction.Removing);
+            Assert.AreEqual(result.Type, MyResultsType.Error);
+            Assert.AreEqual(result.Action, MyResultsAction.Removing);
         }
     }
 }

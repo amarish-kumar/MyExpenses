@@ -15,6 +15,8 @@ namespace MyExpenses.Util.IoC
     {
         public static void Init() => MyKernel.Init();
 
+        public static void Reset() => MyKernel.Reset();
+
         public static void AddModule(INinjectModule module) => MyKernel.AddModule(module);
 
         public static T GetInstance<T>() => MyKernel.GetInstance<T>();

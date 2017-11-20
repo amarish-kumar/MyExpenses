@@ -29,7 +29,7 @@ namespace MyExpenses.Infrastructure.Repositories
             _log = log;
         }
 
-        public virtual IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter = null, params Expression<Func<TDomain, object>>[] includes)
+        public virtual IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter, params Expression<Func<TDomain, object>>[] includes)
         {
             IQueryable<TDomain> set = _context.Set<TDomain>();
 

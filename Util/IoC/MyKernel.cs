@@ -20,9 +20,12 @@ namespace MyExpenses.Util.IoC
         public static void Init()
         {
             if (_kernel == null)
-            {
                 _kernel = new StandardKernel();
-            }
+        }
+
+        public static void Reset()
+        {
+            _kernel = new StandardKernel();
         }
 
         public static IEnumerable<object> GetAll(Type type)
@@ -39,17 +42,13 @@ namespace MyExpenses.Util.IoC
         {
             var exists = _kernel.GetModules().FirstOrDefault(x => x.Name == module.Name);
             if (exists == null)
-            {
                 _kernel.Load(module);
-            }
         }
 
         public static T GetInstance<T>()
         {
             if (_kernel == null)
-            {
                 Init();
-            }
 
             return _kernel.Get<T>();
         }

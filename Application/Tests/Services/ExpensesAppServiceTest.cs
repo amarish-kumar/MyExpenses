@@ -78,7 +78,7 @@ namespace MyExpenses.Application.Tests.Services
             unitOfWorkMock.Setup(x => x.BeginTransaction());
             unitOfWorkMock.Setup(x => x.Commit());
 
-            MyKernelService.Init();
+            MyKernelService.Reset();
             MyKernelService.AddModule(new MyApplicationModuleMock(serviceMock, tagServiceMock, unitOfWorkMock));
 
             _appService = MyKernelService.GetInstance<IExpensesAppService>();

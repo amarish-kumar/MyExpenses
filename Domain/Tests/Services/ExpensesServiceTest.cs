@@ -26,10 +26,24 @@ namespace MyExpenses.Domain.Tests.Services
         [SetUp]
         public void Setup()
         {
-            MyKernelService.Init();
+            MyKernelService.Reset();
             MyKernelService.AddModule(new MyDomainModuleMock());
 
             _service = MyKernelService.GetInstance<ExpensesService>();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _service = null;
+        }
+
+        [Test]
+        public void TestExpensesServiceGetAll()
+        {
+            var objs = _service.GetAll(x => x.Tags);
+
+            Assert.True(objs.Any());
         }
 
         [Test]
@@ -52,7 +66,7 @@ namespace MyExpenses.Domain.Tests.Services
         [Test]
         public void TestExpensesService_Update_Ok()
         {
-            var obj = _service.GetById(1);
+            var obj = _service.GetById(ID);
             obj.Name = NEWNAME;
 
             MyResults results = _service.AddOrUpdate(obj);
@@ -60,24 +74,16 @@ namespace MyExpenses.Domain.Tests.Services
             Assert.AreEqual(results.Type, MyResultsType.Ok);
             Assert.AreEqual(results.Action, MyResultsAction.Updating);
 
-            Expense newExpense = _service.GetById(1);
+            Expense newExpense = _service.GetById(ID);
             Assert.AreEqual(newExpense.Name, NEWNAME);
         }
 
         [Test]
         public void TestExpensesServiceGet()
         {
-            var obj = _service.Get(x => x.Id == 1).First();
+            var obj = _service.Get(x => x.Id == ID).First();
 
-            Assert.True(obj.Equals(_service.GetById(1)));
-        }
-
-        [Test]
-        public void TestExpensesServiceGetAll()
-        {
-            var objs = _service.GetAll(x => x.Tags).ToList();
-
-            Assert.True(objs.Any());
+            Assert.True(obj.Equals(_service.GetById(ID)));
         }
 
         [Test]
