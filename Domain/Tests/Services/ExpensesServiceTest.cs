@@ -13,12 +13,14 @@ namespace MyExpenses.Domain.Tests.Services
     using MyExpenses.Util.IoC;
     using MyExpenses.Util.Results;
     using NUnit.Framework;
-    using System.Collections.Generic;
     using System.Linq;
 
     [TestFixture]
     public class ExpensesServiceTest
     {
+        private const long ID = 1;
+        private const string NEWNAME = "NewName";
+
         private IExpensesService _service;
 
         [SetUp]
@@ -31,16 +33,35 @@ namespace MyExpenses.Domain.Tests.Services
         }
 
         [Test]
-        public void TestExpensesServiceSaveAndUpdate()
+        public void TestExpensesService_Add_Ok()
         {
-            var obj = _service.GetById(1);
-            obj.Name = "NewExpense";
+            var obj = new Expense();
+            obj.Copy(_service.GetById(1));
+            obj.Id = 0;
+            obj.Name = NEWNAME;
 
             MyResults results = _service.AddOrUpdate(obj);
 
-            Assert.True(results.Type == MyResultsType.Ok);
+            Assert.AreEqual(results.Type, MyResultsType.Ok);
+            Assert.AreEqual(results.Action, MyResultsAction.Creating);
+
+            obj = _service.Get(x => x.Name == NEWNAME).First();
+            Assert.IsNotNull(obj);
+        }
+
+        [Test]
+        public void TestExpensesService_Update_Ok()
+        {
+            var obj = _service.GetById(1);
+            obj.Name = NEWNAME;
+
+            MyResults results = _service.AddOrUpdate(obj);
+
+            Assert.AreEqual(results.Type, MyResultsType.Ok);
+            Assert.AreEqual(results.Action, MyResultsAction.Updating);
+
             Expense newExpense = _service.GetById(1);
-            Assert.True(newExpense.Name == "NewExpense");
+            Assert.AreEqual(newExpense.Name, NEWNAME);
         }
 
         [Test]
@@ -54,7 +75,7 @@ namespace MyExpenses.Domain.Tests.Services
         [Test]
         public void TestExpensesServiceGetAll()
         {
-            var objs = _service.GetAll().ToList();
+            var objs = _service.GetAll(x => x.Tags).ToList();
 
             Assert.True(objs.Any());
         }
@@ -62,11 +83,12 @@ namespace MyExpenses.Domain.Tests.Services
         [Test]
         public void TestExpensesServiceRemove()
         {
-            var obj = _service.GetById(2);
-            MyResults results = _service.Remove(obj);
+            MyResults results = _service.Remove(_service.GetById(ID));
 
-            Assert.True(results.Type == MyResultsType.Ok);
-            Assert.IsNull(_service.GetById(2));
+            Assert.AreEqual(results.Type, MyResultsType.Ok);
+            Assert.AreEqual(results.Action, MyResultsAction.Removing);
+
+            Assert.IsNull(_service.GetById(ID));
         }
     }
 }

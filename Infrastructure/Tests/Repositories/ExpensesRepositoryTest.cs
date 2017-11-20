@@ -21,25 +21,23 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
     [TestFixture]
     public class ExpensesRepositoryTest
     {
-        private const long EXPENSE_ID = 1;
-        private const long TAG_ID = 1;
-        private const string TAG_NAME = "Tag1";
-        private const string EXPENSE_NAME1 = "Expense1";
-        private const string EXPENSE_NAME2 = "Expense2";
+        private const long ID = 1;
+        private const string NAME1 = "Name1";
+        private const string NAME2 = "Name2";
 
         private IExpensesRepository _repository;
 
         [SetUp]
         public void Setup()
         {
-            ICollection<Tag> tags = new List<Tag> { new Tag { Id = TAG_ID, Name = TAG_NAME } };
+            ICollection<Tag> tags = new List<Tag>();
 
             ICollection<Expense> expenses = new List<Expense>
             {
                 new Expense
                     {
-                        Id = EXPENSE_ID,
-                        Name = EXPENSE_NAME1,
+                        Id = ID,
+                        Name = NAME1,
                         Value = 2,
                         Date = new DateTime(),
                         Tags = tags
@@ -63,14 +61,13 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
             var objs = _repository.GetAll(x => x.Tags).ToList();
 
             Assert.True(objs.Any());
-            Assert.AreEqual(objs[0].Id, EXPENSE_ID);
-            Assert.True(objs[0].Tags.Any());
+            Assert.AreEqual(objs[0].Id, ID);
         }
 
         [Test]
         public void TestExpensesRepository_Add_Ok()
         {
-            var obj = _repository.GetById(EXPENSE_ID);
+            var obj = _repository.GetById(ID);
             obj.Id = 0;
             obj.Name = "NewName";
 
@@ -84,20 +81,20 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         [Test]
         public void TestExpensesRepository_Update_Ok()
         {
-            var obj = _repository.GetById(EXPENSE_ID);
-            obj.Name = EXPENSE_NAME2;
+            var obj = _repository.GetById(ID);
+            obj.Name = NAME2;
 
             var result = _repository.AddOrUpdate(obj);
 
             Assert.True(result.Type == MyResultsType.Ok);
             Assert.True(result.Action == MyResultsAction.Updating);
-            Assert.True(_repository.Get(x => x.Id == EXPENSE_ID && x.Name == EXPENSE_NAME2, x => x.Tags).Any());
+            Assert.True(_repository.Get(x => x.Id == ID && x.Name == NAME2, x => x.Tags).Any());
         }
 
         [Test]
         public void TestExpensesRepository_AddOrUpdate_ErrorValidation()
         {
-            var obj = _repository.GetById(EXPENSE_ID);
+            var obj = _repository.GetById(ID);
             obj.Id = -1;
 
             MyResults result = _repository.AddOrUpdate(obj);
@@ -109,13 +106,13 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         [Test]
         public void TestExpensesRepository_Remove_Ok()
         {
-            var obj = _repository.GetById(EXPENSE_ID);
+            var obj = _repository.GetById(ID);
 
             MyResults result = _repository.Remove(obj);
 
             Assert.True(result.Type == MyResultsType.Ok);
             Assert.True(result.Action == MyResultsAction.Removing);
-            Assert.False(_repository.Get(x => x.Id == EXPENSE_ID, x => x.Tags).Any());
+            Assert.False(_repository.Get(x => x.Id == ID, x => x.Tags).Any());
         }
 
         [Test]

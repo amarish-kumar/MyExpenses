@@ -6,7 +6,6 @@
 
 namespace MyExpenses.Infrastructure.Tests.Repositories
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -23,26 +22,17 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
     public class TagsRepositoryTest
     {
         private const long ID = 1;
-        private const string NEWNAME = "NewName";
+        private const string NAME1 = "Name1";
+        private const string NAME2 = "Name2";
 
         private ITagsRepository _repository;
 
         [SetUp]
         public void Setup()
         {
-            ICollection<Tag> tags = new List<Tag> { new Tag { Id = ID, Name = "Tag" } };
+            ICollection<Tag> tags = new List<Tag> { new Tag { Id = ID, Name = NAME1 } };
 
-            ICollection<Expense> expenses = new List<Expense>
-            {
-                new Expense
-                    {
-                        Id = 1,
-                        Name = "Expense",
-                        Value = 2,
-                        Date = new DateTime(),
-                        Tags = tags
-                    }
-            };
+            ICollection<Expense> expenses = new List<Expense>();
 
             IMyContext contextMock = new MyContextMock(expenses, tags);
             _repository = new TagsRepository(contextMock);
@@ -68,26 +58,26 @@ namespace MyExpenses.Infrastructure.Tests.Repositories
         {
             var obj = _repository.GetById(ID);
             obj.Id = 0;
-            obj.Name = "NewName";
+            obj.Name = NAME2;
 
             var result = _repository.AddOrUpdate(obj);
 
             Assert.True(result.Type == MyResultsType.Ok);
             Assert.True(result.Action == MyResultsAction.Creating);
-            Assert.True(_repository.Get(x => x.Name == "NewName").Any());
+            Assert.True(_repository.Get(x => x.Name == NAME2).Any());
         }
 
         [Test]
         public void TestTagsRepository_Update_Ok()
         {
             var obj = _repository.GetById(ID);
-            obj.Name = NEWNAME;
+            obj.Name = NAME2;
 
             var result = _repository.AddOrUpdate(obj);
 
             Assert.True(result.Type == MyResultsType.Ok);
             Assert.True(result.Action == MyResultsAction.Updating);
-            Assert.True(_repository.Get(x => x.Id == ID && x.Name == NEWNAME).Any());
+            Assert.True(_repository.Get(x => x.Id == ID && x.Name == NAME2).Any());
         }
 
         [Test]

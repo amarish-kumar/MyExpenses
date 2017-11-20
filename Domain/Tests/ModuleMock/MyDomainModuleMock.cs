@@ -19,6 +19,7 @@ namespace MyExpenses.Application.Tests.ModulesMock
     using MyExpenses.Util.Logger;
     using MyExpenses.Domain.Services;
     using System;
+    using System.Linq;
 
     public class MyDomainModuleMock : NinjectModule
     {
@@ -27,7 +28,7 @@ namespace MyExpenses.Application.Tests.ModulesMock
         public MyDomainModuleMock()
         {
 
-            ICollection<Tag> tags = new List<Tag>
+            List<Tag> tags = new List<Tag>
             {
                 new Tag
                 {
@@ -52,21 +53,24 @@ namespace MyExpenses.Application.Tests.ModulesMock
                         Id = 1,
                         Name = "Expense1",
                         Date = new DateTime(),
-                        Value = 2
+                        Value = 2,
+                        Tags = new List<Tag> { tags[0] }
                     },
                 new Expense
                     {
                         Id = 2,
                         Name = "Expense2",
                         Date = new DateTime(),
-                        Value = 10
+                        Value = 10,
+                        Tags = new List<Tag> { tags[1] }
                     },
                 new Expense
                     {
                         Id = 3,
                         Name = "Expense3",
                         Date = new DateTime(),
-                        Value = 15
+                        Value = 15,
+                        Tags = new List<Tag> { tags[2] }
                     }
             };
 
