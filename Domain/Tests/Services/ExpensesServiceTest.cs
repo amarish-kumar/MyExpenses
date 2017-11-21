@@ -49,9 +49,12 @@ namespace MyExpenses.Domain.Tests.Services
         [Test]
         public void TestExpensesService_Get()
         {
-            var obj = _service.Get(x => x.Id == ID, x => x.Tags).First();
+            var obj1 = _service.Get(x => x.Id == ID, x => x.Tags).First();
+            var obj2 = _service.GetById(ID).MyClone();
 
-            Assert.True(obj.Equals(_service.GetById(ID)));
+            Assert.True(obj1.Equal(obj2));
+            Assert.True(obj1.Equals(obj2));
+            Assert.True(obj1.MyEqual(obj2));
         }
 
         [Test]

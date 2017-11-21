@@ -41,7 +41,7 @@ namespace MyExpenses.Domain.Tests.Services
 
 
         [Test]
-        public void TestExpensesService_GetAll()
+        public void TestTagsService_GetAll()
         {
             var objs = _service.GetAll();
 
@@ -49,18 +49,20 @@ namespace MyExpenses.Domain.Tests.Services
         }
 
         [Test]
-        public void TestExpensesService_Get()
+        public void TestTagsService_Get()
         {
-            var obj = _service.Get(x => x.Id == ID1).First();
+            var obj1 = _service.Get(x => x.Id == ID1).First();
+            var obj2 = _service.GetById(ID1).MyClone();
 
-            Assert.True(obj.Equals(_service.GetById(ID1)));
+            Assert.True(obj1.Equal(obj2));
+            Assert.True(obj1.Equals(obj2));
+            Assert.True(obj1.MyEqual(obj2));
         }
 
         [Test]
-        public void TestExpensesService_Add_Ok()
+        public void TestTagsService_Add_Ok()
         {
-            var obj = new Tag();
-            obj.Copy(_service.GetById(1));
+            var obj = _service.GetById(ID1).MyClone();
             obj.Id = 0;
             obj.Name = NEWNAME;
 
@@ -74,7 +76,7 @@ namespace MyExpenses.Domain.Tests.Services
         }
 
         [Test]
-        public void TestExpensesService_Update_Ok()
+        public void TestTagsService_Update_Ok()
         {
             var obj = _service.GetById(ID1);
             obj.Name = NEWNAME;
@@ -89,7 +91,20 @@ namespace MyExpenses.Domain.Tests.Services
         }
 
         [Test]
-        public void TestExpensesService_Add_ErrorValidation()
+        public void TestTagsService_Update_ErrorNotFind()
+        {
+            var obj = _service.GetById(ID1).MyClone();
+            obj.Id = 1000;
+            obj.Name = NEWNAME;
+
+            MyResults results = _service.AddOrUpdate(obj);
+
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Updating);
+        }
+
+        [Test]
+        public void TestTagsService_Add_ErrorValidation()
         {
             var obj = new Tag();
             obj.Copy(_service.GetById(ID1));
@@ -103,7 +118,7 @@ namespace MyExpenses.Domain.Tests.Services
         }
 
         [Test]
-        public void TestExpensesService_Remove_Ok()
+        public void TestTagsService_Remove_Ok()
         {
             MyResults results = _service.Remove(_service.GetById(ID1));
 
@@ -114,11 +129,11 @@ namespace MyExpenses.Domain.Tests.Services
 
             // confirm that removed from expenses
             var expensesService = MyKernelService.GetInstance<ExpensesService>();
-            Assert.IsFalse(expensesService.GetAll().Where(x => x.Tags.Any(y => y.Id == ID1)).Any());
+            Assert.IsFalse(expensesService.GetAll().Any(x => x.Tags.Any(y => y.Id == ID1)));
         }
 
         [Test]
-        public void TestExpensesService_Remove_ErrorNotFind()
+        public void TestTagsService_Remove_ErrorNotFind()
         {
             var obj = new Tag();
             obj.Copy(_service.GetById(ID1));

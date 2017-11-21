@@ -91,6 +91,7 @@ namespace MyExpenses.Infrastructure.Repositories
                     _log?.AppendLog(LevelLog.Info, MyResultsAction.Updating + " " + domain.GetType().Name);
                     return new MyResults(MyResultsStatus.Ok, MyResultsAction.Updating, domain.GetType().Name);
                 }
+                return new MyResults(MyResultsStatus.Error, MyResultsAction.Updating, domain.GetType().Name);
             }
 
             // Save Add

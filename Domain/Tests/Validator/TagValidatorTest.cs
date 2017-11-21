@@ -43,8 +43,8 @@ namespace MyExpenses.Domain.Tests.Validator
         {
             MyResults results = _tag.Validate();
 
-            Assert.True(results.Status == MyResultsStatus.Ok);
-            Assert.True(results.Action == MyResultsAction.Validating);
+            Assert.AreEqual(results.Status, MyResultsStatus.Ok);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
         }
 
         [Test]
@@ -54,9 +54,9 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _tag.Validate();
 
-            Assert.True(results.Status == MyResultsStatus.Error);
-            Assert.True(results.Action == MyResultsAction.Validating);
-            Assert.True(results.Message == string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
+            Assert.AreEqual(results.Message, string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
         }
 
         [Test]
@@ -66,9 +66,9 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _tag.Validate();
 
-            Assert.True(results.Status == MyResultsStatus.Error);
-            Assert.True(results.Action == MyResultsAction.Validating);
-            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
+            Assert.AreEqual(results.Message, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
         }
 
         [Test]
@@ -78,9 +78,9 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _tag.Validate();
 
-            Assert.True(results.Status == MyResultsStatus.Error);
-            Assert.True(results.Action == MyResultsAction.Validating);
-            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
+            Assert.AreEqual(results.Message, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
         }
     }
 }

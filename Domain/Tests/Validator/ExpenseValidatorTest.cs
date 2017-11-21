@@ -45,8 +45,8 @@ namespace MyExpenses.Domain.Tests.Validator
         {
             MyResults results = _expense.Validate();
 
-            Assert.True(results.Status == MyResultsStatus.Ok);
-            Assert.True(results.Action == MyResultsAction.Validating);
+            Assert.AreEqual(results.Status, MyResultsStatus.Ok);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
         }
 
         [Test]
@@ -56,9 +56,9 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _expense.Validate();
 
-            Assert.True(results.Status == MyResultsStatus.Error);
-            Assert.True(results.Action == MyResultsAction.Validating);
-            Assert.True(results.Message == string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
+            Assert.AreEqual(results.Message, string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
         }
 
         [Test]
@@ -68,9 +68,9 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _expense.Validate();
 
-            Assert.True(results.Status == MyResultsStatus.Error);
-            Assert.True(results.Action == MyResultsAction.Validating);
-            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
+            Assert.AreEqual(results.Message, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
         }
 
         [Test]
@@ -80,9 +80,9 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _expense.Validate();
 
-            Assert.True(results.Status == MyResultsStatus.Error);
-            Assert.True(results.Action == MyResultsAction.Validating);
-            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
+            Assert.AreEqual(results.Message, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
         }
 
         [Test]
@@ -92,9 +92,9 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _expense.Validate();
 
-            Assert.True(results.Status == MyResultsStatus.Error);
-            Assert.True(results.Action == MyResultsAction.Validating);
-            Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Value));
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
+            Assert.AreEqual(results.Message, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Value));
         }
     }
 }
