@@ -19,6 +19,7 @@ namespace MyExpenses.Application.Tests.Services
     public class ExpensesAppServiceTest
     {
         private const string NAME = "Expense1";
+        private const string NEW_NAME = "NewName";
         private const long ID = 1;
 
         private readonly ExpenseDto _invalidDto = new ExpenseDto { Id = 10, Name = string.Empty };
@@ -52,20 +53,27 @@ namespace MyExpenses.Application.Tests.Services
             Assert.IsTrue(dto.Name.Equals(NAME));
         }
 
-        //[Test]
-        //public void TestExpensesAppService_SaveExpense_OK()
-        //{
-        //    var dto = _appService.GetById(ID);
-        //    dto.Id = 0;
-        //    dto.Name = "blabla";
+        [Test]
+        public void TestExpensesAppService_GetById_ErrorNotFind()
+        {
+            var dto = _appService.GetById(1000);
 
-        //    int before = _appService.GetAll().Count;
-        //    var results = _appService.AddOrUpdate(dto);
-        //    int after = _appService.GetAll().Count;
+            Assert.IsNull(dto);
+        }
 
-        //    Assert.True(before < after);
-        //    Assert.True(results.Type == MyResultsType.Ok);
-        //}
+        [Test]
+        public void TestExpensesAppService_SaveExpense_OK()
+        {
+            var dto = _validDto;
+            dto.Id = 0;
+            dto.Name = NEW_NAME;
+
+            var results = _appService.AddOrUpdate(dto);
+
+            Assert.True(_appService.GetAll().Where(x => x.Name == NEW_NAME).Any());
+            Assert.True(results.Status == MyResultsStatus.Ok);
+            Assert.True(results.Action == MyResultsAction.Creating);
+        }
 
         [Test]
         public void TestExpensesAppService_SaveAndUpdateExpense_Error()

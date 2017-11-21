@@ -26,12 +26,12 @@ namespace MyExpenses.Infrastructure.Context
         /// <summary>
         /// Table of expenses
         /// </summary>
-        public IDbSet<Expense> Expenses { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
 
         /// <summary>
         /// Table of tags
         /// </summary>
-        public IDbSet<Tag> Tags { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         /// <summary>
         /// Map all tables

@@ -15,12 +15,12 @@ namespace MyExpenses.Infrastructure.Context
         /// <summary>
         /// Table of expenses
         /// </summary>
-        IDbSet<Expense> Expenses { get; set; }
+        DbSet<Expense> Expenses { get; set; }
 
         /// <summary>
         /// Table of tags
         /// </summary>
-        IDbSet<Tag> Tags { get; set; }
+        DbSet<Tag> Tags { get; set; }
 
         /// <summary>
         /// @see DbContext 

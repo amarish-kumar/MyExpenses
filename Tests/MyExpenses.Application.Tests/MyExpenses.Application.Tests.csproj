@@ -56,7 +56,6 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\DbSetMock.cs" />
     <Compile Include="Context\MyContextMock.cs" />
     <Compile Include="ModulesMock\MyApplicationModuleMock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
