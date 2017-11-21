@@ -39,9 +39,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Connection\" />
-    <Folder Include="General\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="General\ICloneable.cs" />
     <Compile Include="IoC\MyKernel.cs" />
     <Compile Include="IoC\MyKernelDependencyResolver.cs" />
     <Compile Include="IoC\MyKernelService.cs" />

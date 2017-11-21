@@ -8,9 +8,8 @@ namespace MyExpenses.Domain.Models
 {
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Validator;
-    using System.Collections.Generic;
 
-    public class Tag : DomainBase<Tag>
+    public class Tag : DomainBase
     {
         /// <summary>
         /// Name column
@@ -25,36 +24,37 @@ namespace MyExpenses.Domain.Models
             Id = -1;
         }
 
-        /// <summary>
-        /// Equal
-        /// </summary>
-        /// <param name="other">Object to compare</param>
-        /// <returns>True if is equal and false otherwise</returns>
-        public override bool Equals(Tag other)
+        public override IDomain Clone()
         {
-            bool equal = Id.Equals(other.Id);
-            equal &= Name.Equals(other.Name);
-
-            return equal;
+            var obj = new Tag();
+            obj.Copy(this);
+            return obj;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj">Object to copy</param>
-        /// <returns>True if is success and false otherwise</returns>
-        public override bool Copy(IDomain obj)
+        public override bool Copy(IDomain other)
         {
-            if (!(obj is Tag))
-            {
+            if (!(other is Tag))
                 return false;
-            }
 
-            Tag expense = obj as Tag;
+            var obj = (Tag)other;
 
-            Name = expense.Name;
+            Id = obj.Id;
+            Name = obj.Name;
 
             return true;
+        }
+
+        public override bool Equal(IDomain other)
+        {
+            if (!(other is Tag))
+                return false;
+
+            var obj = (Tag)other;
+
+            bool equal = Id.Equals(obj.Id);
+            equal &= Name.Equals(obj.Name);
+
+            return equal;
         }
     }
 }

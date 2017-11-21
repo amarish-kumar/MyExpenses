@@ -6,11 +6,12 @@
 
 namespace MyExpenses.Domain.Models
 {
+    using System;
+
     using MyExpenses.Domain.Interfaces;
-    using MyExpenses.Domain.Properties;
     using MyExpenses.Util.Results;
 
-    public abstract class DomainBase<TDomain> : IDomain where TDomain : IDomain
+    public abstract class DomainBase : IDomain
     {
         private readonly IValidator _validator;
 
@@ -22,21 +23,32 @@ namespace MyExpenses.Domain.Models
             _validator = validator;
         }
 
-        public virtual bool Copy(IDomain obj)
-        {
-            return true;
-        }
-
-        public virtual bool Equals(TDomain other)
-        {
-            return Id == other.Id;
-        }
-
         public MyResults Validate()
         {
             return _validator != null ? 
                 _validator.Validate(this) : 
                 new MyResults(MyResultsType.Ok, MyResultsAction.Validating);
         }
+
+        public virtual bool Copy(IDomain other)
+        {
+            Id = other.Id;
+            return true;
+        }
+
+        public virtual IDomain Clone()
+        {
+            return default(IDomain);
+        }
+
+        object ICloneable.Clone()
+        {
+            return this.Clone();
+        }
+
+        public virtual bool Equal(IDomain other)
+        {
+            return Id == other?.Id;
+        }        
     }
 }

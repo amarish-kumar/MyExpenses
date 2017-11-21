@@ -12,7 +12,7 @@ namespace MyExpenses.Domain.Models
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Validator;
 
-    public sealed class Expense : DomainBase<Expense>
+    public sealed class Expense : DomainBase
     {
         /// <summary>
         /// Name column
@@ -43,44 +43,42 @@ namespace MyExpenses.Domain.Models
             Tags = new HashSet<Tag>();
         }
 
-        /// <summary>
-        /// Equal
-        /// </summary>
-        /// <param name="other">Object to compare</param>
-        /// <returns>True if is equal and false otherwise</returns>
-        public override bool Equals(Expense other)
+        public override IDomain Clone()
         {
-            Expense expense = other;
-
-            bool equal = Id.Equals(expense.Id);
-            equal &= Name.Equals(expense.Name);
-            equal &= Value.Equals(expense.Value);
-            equal &= Date.Equals(expense.Date);
-            equal &= Tags.Count == expense.Tags.Count;
-
-            return equal;
+            var obj = new Expense();
+            obj.Copy(this);
+            return obj;
         }
 
-        /// <summary>
-        /// Copy method
-        /// </summary>
-        /// <param name="obj">Object to copy</param>
-        /// <returns>True if is success and false otherwise</returns>
-        public override bool Copy(IDomain obj)
+        public override bool Copy(IDomain other)
         {
-            if (!(obj is Expense))
-            {
+            if (!(other is Expense))
                 return false;
-            }
 
-            Expense expense = (Expense)obj;
+            var obj = (Expense)other;
 
-            Name = expense.Name;
-            Value = expense.Value;
-            Date = expense.Date;
-            Tags = expense.Tags;
+            Id = obj.Id;
+            Name = obj.Name;
+            Value = obj.Value;
+            Date = obj.Date;
+            Tags = obj.Tags;
 
             return true;
+        }
+
+        public override bool Equal(IDomain other)
+        {
+            if (!(other is Expense))
+                return false;
+
+            var obj = (Expense)other;
+
+            bool equal = Id.Equals(obj.Id);
+            equal &= Name.Equals(obj.Name);
+            equal &= Value.Equals(obj.Value);
+            equal &= Tags.Equals(obj.Tags);
+
+            return equal;
         }
     }
 }
