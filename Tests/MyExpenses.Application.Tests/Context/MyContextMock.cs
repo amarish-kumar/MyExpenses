@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Infrastructure.Tests.Context
+namespace MyExpenses.Application.Tests
 {
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -13,6 +13,7 @@ namespace MyExpenses.Infrastructure.Tests.Context
 
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Application.Tests.Context;
 
     public class MyContextMock : IMyContext
     {

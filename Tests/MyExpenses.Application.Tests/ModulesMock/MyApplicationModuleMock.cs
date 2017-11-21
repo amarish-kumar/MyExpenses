@@ -6,28 +6,29 @@
 
 namespace MyExpenses.Application.Tests.ModulesMock
 {
-    using System.Collections.Generic;
-
+    using MyExpenses.Application.Adapter;
+    using MyExpenses.Application.Interfaces.Adapters;
+    using MyExpenses.Application.Interfaces.Services;
+    using MyExpenses.Application.Services;
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
+    using MyExpenses.Domain.Services;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Repositories;
-
-    using Ninject.Modules;
-    using MyExpenses.Infrastructure.Tests.Context;
+    using MyExpenses.Infrastructure.UnitOfWork;
     using MyExpenses.Util.Logger;
-    using MyExpenses.Domain.Services;
+    using Ninject.Modules;
     using System;
-    using System.Linq;
+    using System.Collections.Generic;
 
-    public class MyDomainModuleMock : NinjectModule
+    public class MyApplicationModuleMock : NinjectModule
     {
         private readonly IMyContext _contextMock;
 
-        public MyDomainModuleMock()
+        public MyApplicationModuleMock()
         {
-
             List<Tag> tags = new List<Tag>
             {
                 new Tag
@@ -79,15 +80,23 @@ namespace MyExpenses.Application.Tests.ModulesMock
 
         public override void Load()
         {
+            Bind<IExpensesAppService>().To<ExpensesAppService>();
+            Bind<ITagsAppService>().To<TagsAppService>();
+
+            Bind<IExpensesAdapter>().To<ExpensesAdapter>();
+            Bind<ITagsAdapter>().To<TagsAdapter>();
+
             Bind<IExpensesService>().To<ExpensesService>();
             Bind<ITagsService>().To<TagsService>();
 
             Bind<IExpensesRepository>().To<ExpensesRepository>();
             Bind<ITagsRepository>().To<TagsRepository>();
 
-            Bind<IMyContext>().ToConstant(_contextMock);
-
             Bind<ILogService>().To<LogService>();
+
+            Bind<IUnitOfWork>().To<UnitOfWork>();
+
+            Bind<IMyContext>().ToConstant(_contextMock);
         }
     }
 }

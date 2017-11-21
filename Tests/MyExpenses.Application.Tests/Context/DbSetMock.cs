@@ -4,14 +4,13 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Infrastructure.Tests.Context
+namespace MyExpenses.Application.Tests.Context
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Data.Entity;
     using System.Linq;
     using Moq;
-
     using MyExpenses.Domain.Interfaces;
 
     internal static class DbSetMock
