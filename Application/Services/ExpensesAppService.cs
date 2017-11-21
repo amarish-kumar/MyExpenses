@@ -31,16 +31,5 @@ namespace MyExpenses.Application.Services
             _domainService = domainService;
             _adaper = adaper;
         }
-
-        public override ICollection<ExpenseDto> GetAll()
-        {
-            // Get expenses from domain
-            var domains = _domainService.GetAll(x => x.Tags).ToList();
-
-            // Convert expenses to DTO
-            var dtos = domains.Select(_adaper.ToDto).ToList();
-
-            return dtos;
-        }
     }
 }

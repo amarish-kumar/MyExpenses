@@ -34,7 +34,7 @@ namespace MyExpenses.WebApplication.Controllers
         [Route]
         public ActionResult Index()
         {
-            ICollection<ExpenseDto> allExpenses = _appService.GetAll();
+            ICollection<ExpenseDto> allExpenses = _appService.GetAll(x => x.Tags);
             return View(allExpenses.Select(ExpenseModel.ToModel));
         }
 

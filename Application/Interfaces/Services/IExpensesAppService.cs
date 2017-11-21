@@ -7,8 +7,9 @@
 namespace MyExpenses.Application.Interfaces.Services
 {
     using MyExpenses.Application.DataTransferObject;
+    using MyExpenses.Domain.Models;
 
-    public interface IExpensesAppService : IAppService<ExpenseDto>
+    public interface IExpensesAppService : IAppService<Expense, ExpenseDto>
     {
     }
 }

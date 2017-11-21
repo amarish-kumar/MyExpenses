@@ -9,12 +9,19 @@ namespace MyExpenses.Application.Interfaces.Services
     using System.Collections.Generic;
 
     using MyExpenses.Util.Results;
+    using System.Linq.Expressions;
+    using System;
+    using MyExpenses.Domain.Interfaces;
 
-    public interface IAppService<TDto> where TDto : IDto 
+    public interface IAppService<TDomain, TDto>
+        where TDomain : IDomain
+        where TDto : IDto 
     {
         TDto GetById(long id);
 
-        ICollection<TDto> GetAll();
+        ICollection<TDto> GetAll(params Expression<Func<TDomain, object>>[] includes);
+
+        ICollection<TDto> Get(Expression<Func<TDomain, bool>> filter, params Expression<Func<TDomain, object>>[] includes);
 
         MyResults AddOrUpdate(TDto dto);
 

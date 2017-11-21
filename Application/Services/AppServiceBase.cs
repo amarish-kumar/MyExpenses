@@ -14,8 +14,10 @@ namespace MyExpenses.Application.Services
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Util.Results;
+    using System.Linq.Expressions;
+    using System;
 
-    public abstract class AppServiceBase<TDomain, TDto> : IAppService<TDto>
+    public abstract class AppServiceBase<TDomain, TDto> : IAppService<TDomain, TDto>
         where TDomain : IDomain
         where TDto : IDto
     {
@@ -33,10 +35,21 @@ namespace MyExpenses.Application.Services
             _adaper = adaper;
         }
 
-        public virtual ICollection<TDto> GetAll()
+        public virtual ICollection<TDto> GetAll(params Expression<Func<TDomain, object>>[] includes)
         {
             // Get all from domain
-            var domains = _domainService.GetAll();
+            var domains = _domainService.GetAll(includes);
+
+            // Convert domain into dto
+            var dtos = domains.Select(_adaper.ToDto).ToList();
+
+            return dtos;
+        }
+
+        public virtual ICollection<TDto> Get(Expression<Func<TDomain, bool>> filter, params Expression<Func<TDomain, object>>[] includes)
+        {
+            // Get all from domain
+            var domains = _domainService.Get(filter, includes);
 
             // Convert domain into dto
             var dtos = domains.Select(_adaper.ToDto).ToList();
