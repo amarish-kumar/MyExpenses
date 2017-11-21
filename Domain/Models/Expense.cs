@@ -9,10 +9,9 @@ namespace MyExpenses.Domain.Models
     using System;
     using System.Collections.Generic;
 
-    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Validator;
 
-    public sealed class Expense : DomainBase
+    public sealed class Expense : DomainBase<Expense>
     {
         /// <summary>
         /// Name column
@@ -43,40 +42,30 @@ namespace MyExpenses.Domain.Models
             Tags = new HashSet<Tag>();
         }
 
-        public override IDomain Clone()
+        public override bool MyCopy(Expense other)
         {
-            var obj = new Expense();
-            obj.Copy(this);
-            return obj;
-        }
-
-        public override bool Copy(IDomain other)
-        {
-            if (!(other is Expense))
-                return false;
-
-            var obj = (Expense)other;
-
-            Id = obj.Id;
-            Name = obj.Name;
-            Value = obj.Value;
-            Date = obj.Date;
-            Tags = obj.Tags;
+            Id = other.Id;
+            Name = other.Name;
+            Value = other.Value;
+            Date = other.Date;
+            Tags = other.Tags;
 
             return true;
         }
 
-        public override bool Equal(IDomain other)
+        public override Expense MyClone()
         {
-            if (!(other is Expense))
-                return false;
+            var obj = new Expense();
+            obj.MyCopy(this);
+            return obj;
+        }
 
-            var obj = (Expense)other;
-
-            bool equal = Id.Equals(obj.Id);
-            equal &= Name.Equals(obj.Name);
-            equal &= Value.Equals(obj.Value);
-            equal &= Tags.Equals(obj.Tags);
+        public override bool MyEqual(Expense other)
+        {
+            bool equal = Id.Equals(other.Id);
+            equal &= Name.Equals(other.Name);
+            equal &= Value.Equals(other.Value);
+            equal &= Tags.Equals(other.Tags);
 
             return equal;
         }

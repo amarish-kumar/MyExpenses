@@ -6,10 +6,9 @@
 
 namespace MyExpenses.Domain.Models
 {
-    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Validator;
 
-    public class Tag : DomainBase
+    public class Tag : DomainBase<Tag>
     {
         /// <summary>
         /// Name column
@@ -24,35 +23,25 @@ namespace MyExpenses.Domain.Models
             Id = -1;
         }
 
-        public override IDomain Clone()
+        public override bool MyCopy(Tag other)
         {
-            var obj = new Tag();
-            obj.Copy(this);
-            return obj;
-        }
-
-        public override bool Copy(IDomain other)
-        {
-            if (!(other is Tag))
-                return false;
-
-            var obj = (Tag)other;
-
-            Id = obj.Id;
-            Name = obj.Name;
+            Id = other.Id;
+            Name = other.Name;
 
             return true;
         }
 
-        public override bool Equal(IDomain other)
+        public override Tag MyClone()
         {
-            if (!(other is Tag))
-                return false;
+            var obj = new Tag();
+            obj.MyCopy(this);
+            return obj;
+        }
 
-            var obj = (Tag)other;
-
-            bool equal = Id.Equals(obj.Id);
-            equal &= Name.Equals(obj.Name);
+        public override bool MyEqual(Tag other)
+        {
+            bool equal = Id.Equals(other.Id);
+            equal &= Name.Equals(other.Name);
 
             return equal;
         }

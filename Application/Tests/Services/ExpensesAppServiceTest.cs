@@ -72,7 +72,7 @@ namespace MyExpenses.Application.Tests.Services
         {
             var results = _appService.AddOrUpdate(_invalidDto);
 
-            Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Status == MyResultsStatus.Error);
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace MyExpenses.Application.Tests.Services
 
             var results = _appService.Remove(dto);
 
-            Assert.True(results.Type == MyResultsType.Ok);
+            Assert.True(results.Status == MyResultsStatus.Ok);
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace MyExpenses.Application.Tests.Services
         {
             var results = _appService.Remove(_invalidDto);
 
-            Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Status == MyResultsStatus.Error);
         }
     }
 }

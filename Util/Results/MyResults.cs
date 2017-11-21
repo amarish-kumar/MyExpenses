@@ -8,21 +8,23 @@ namespace MyExpenses.Util.Results
 {
     public class MyResults
     {
-        public MyResultsType Type { get; set; }
+        public MyResultsStatus Status { get; set; }
 
         public MyResultsAction Action { get; set; }
 
         public string Message { get; set; }
 
-        public MyResults(MyResultsType type, MyResultsAction action = MyResultsAction.None, string message = "")
+        public bool IsValid => Status == MyResultsStatus.Ok;
+
+        public MyResults(MyResultsStatus status, MyResultsAction action = MyResultsAction.None, string message = "")
         {
-            Type = type;
+            Status = status;
             Action = action;
             Message = message;
         }
     }
 
-    public enum MyResultsType
+    public enum MyResultsStatus
     {
         Ok,
         Warning,

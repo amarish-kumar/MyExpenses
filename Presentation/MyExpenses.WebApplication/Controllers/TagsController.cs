@@ -41,7 +41,7 @@ namespace MyExpenses.WebApplication.Controllers
             if (ModelState.IsValid)
             {
                 MyResults result = _appService.AddOrUpdate(TagModel.ToDto(model));
-                if(result.Type == MyResultsType.Ok)
+                if(result.Status == MyResultsStatus.Ok)
                 {
                     return RedirectToAction("Index");
                 }
@@ -72,7 +72,7 @@ namespace MyExpenses.WebApplication.Controllers
             if (ModelState.IsValid)
             {
                 var result = _appService.AddOrUpdate(TagModel.ToDto(model));
-                if (result.Type == MyResultsType.Ok)
+                if (result.Status == MyResultsStatus.Ok)
                 {
                     return RedirectToAction("Index");
                 }
@@ -96,7 +96,7 @@ namespace MyExpenses.WebApplication.Controllers
             if (ModelState.IsValid)
             {
                 var result = _appService.Remove(TagModel.ToDto(model));
-                if (result.Type == MyResultsType.Ok)
+                if (result.Status == MyResultsStatus.Ok)
                 {
                     return RedirectToAction("Index");
                 }

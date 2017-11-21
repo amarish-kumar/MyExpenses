@@ -67,18 +67,18 @@ namespace MyExpenses.Infrastructure.Repositories
             TDomain exisTDomain = _context.Set<TDomain>().Find(domain.Id);
             if (exisTDomain == null)
             {
-                return new MyResults(MyResultsType.Error, MyResultsAction.Removing, MyResultsAction.Removing + " " + domain.GetType().Name);
+                return new MyResults(MyResultsStatus.Error, MyResultsAction.Removing, MyResultsAction.Removing + " " + domain.GetType().Name);
             }
 
             _context.Set<TDomain>().Remove(exisTDomain);
             _log?.AppendLog(LevelLog.Info, MyResultsAction.Removing + " " + domain.GetType().Name);
-            return new MyResults(MyResultsType.Ok, MyResultsAction.Removing, domain.GetType().Name);
+            return new MyResults(MyResultsStatus.Ok, MyResultsAction.Removing, domain.GetType().Name);
         }
 
         public virtual MyResults AddOrUpdate(TDomain domain)
         {
             MyResults validate = (domain as IDomain).Validate();
-            if (validate.Type != MyResultsType.Ok)
+            if (validate.Status != MyResultsStatus.Ok)
                 return validate;
 
             // Update
@@ -89,14 +89,14 @@ namespace MyExpenses.Infrastructure.Repositories
                 {
                     exisTDomain.Copy(domain);
                     _log?.AppendLog(LevelLog.Info, MyResultsAction.Updating + " " + domain.GetType().Name);
-                    return new MyResults(MyResultsType.Ok, MyResultsAction.Updating, domain.GetType().Name);
+                    return new MyResults(MyResultsStatus.Ok, MyResultsAction.Updating, domain.GetType().Name);
                 }
             }
 
             // Save Add
             _context.Set<TDomain>().Add(domain);
             _log?.AppendLog(LevelLog.Info, MyResultsAction.Creating + " " + domain.GetType().Name);
-            return new MyResults(MyResultsType.Ok, MyResultsAction.Creating, domain.GetType().Name);
+            return new MyResults(MyResultsStatus.Ok, MyResultsAction.Creating, domain.GetType().Name);
         }
     }
 }

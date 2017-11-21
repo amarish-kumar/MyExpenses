@@ -66,7 +66,7 @@ namespace MyExpenses.Domain.Tests.Services
 
             MyResults results = _service.AddOrUpdate(obj);
 
-            Assert.AreEqual(results.Type, MyResultsType.Ok);
+            Assert.AreEqual(results.Status, MyResultsStatus.Ok);
             Assert.AreEqual(results.Action, MyResultsAction.Creating);
 
             obj = _service.Get(x => x.Name == NEWNAME).First();
@@ -81,7 +81,7 @@ namespace MyExpenses.Domain.Tests.Services
 
             MyResults results = _service.AddOrUpdate(obj);
 
-            Assert.AreEqual(results.Type, MyResultsType.Ok);
+            Assert.AreEqual(results.Status, MyResultsStatus.Ok);
             Assert.AreEqual(results.Action, MyResultsAction.Updating);
 
             var newObj = _service.GetById(ID1);
@@ -98,7 +98,7 @@ namespace MyExpenses.Domain.Tests.Services
 
             MyResults results = _service.AddOrUpdate(obj);
 
-            Assert.AreEqual(results.Type, MyResultsType.Error);
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
             Assert.AreEqual(results.Action, MyResultsAction.Validating);
         }
 
@@ -107,7 +107,7 @@ namespace MyExpenses.Domain.Tests.Services
         {
             MyResults results = _service.Remove(_service.GetById(ID1));
 
-            Assert.AreEqual(results.Type, MyResultsType.Ok);
+            Assert.AreEqual(results.Status, MyResultsStatus.Ok);
             Assert.AreEqual(results.Action, MyResultsAction.Removing);
 
             Assert.IsNull(_service.GetById(ID1));
@@ -126,7 +126,7 @@ namespace MyExpenses.Domain.Tests.Services
 
             MyResults results = _service.Remove(obj);
 
-            Assert.AreEqual(results.Type, MyResultsType.Error);
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
             Assert.AreEqual(results.Action, MyResultsAction.Removing);
         }
     }

@@ -63,7 +63,7 @@ namespace MyExpenses.Application.Services
             // remove
             var results = _domainService.Remove(domain);
 
-            if (results.Type == MyResultsType.Ok)
+            if (results.Status == MyResultsStatus.Ok)
                 _unitOfWork.Commit();
 
             return results;
@@ -79,7 +79,7 @@ namespace MyExpenses.Application.Services
             // save and updates
             var results = _domainService.AddOrUpdate(domain);
 
-            if (results.Type == MyResultsType.Ok)
+            if (results.Status == MyResultsStatus.Ok)
                 _unitOfWork.Commit();
 
             return results;

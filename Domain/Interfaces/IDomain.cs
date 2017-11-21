@@ -6,20 +6,18 @@
 
 namespace MyExpenses.Domain.Interfaces
 {
-    using System;
-
     using MyExpenses.Util.Results;
 
-    public interface IDomain : ICloneable
+    public interface IDomain
     {
         long Id { get; set; }
 
+        MyResults Validate();
+
         bool Copy(IDomain other);
 
-        new IDomain Clone();
+        IDomain Clone();
 
         bool Equal(IDomain other);
-
-        MyResults Validate();
     }
 }

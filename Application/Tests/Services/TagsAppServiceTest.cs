@@ -49,8 +49,8 @@ namespace MyExpenses.Application.Tests.Services
             _serviceMock = new Mock<ITagsService>(MockBehavior.Strict);
             
             _serviceMock.Setup(x => x.GetAll(It.IsAny<Expression<Func<Tag, object>>[]>())).Returns(_tags);
-            _serviceMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok));
-            _serviceMock.Setup(x => x.AddOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Ok));
+            _serviceMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsStatus.Ok));
+            _serviceMock.Setup(x => x.AddOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsStatus.Ok));
             _serviceMock.Setup(x => x.GetById(It.IsAny<long>())).Returns(_tags.FirstOrDefault());
 
             _unitOfWorkMock = new Mock<IUnitOfWork>(MockBehavior.Strict);
@@ -87,20 +87,20 @@ namespace MyExpenses.Application.Tests.Services
 
             var results = appService.AddOrUpdate(dto);
 
-            Assert.True(results.Type == MyResultsType.Ok);
+            Assert.True(results.Status == MyResultsStatus.Ok);
         }
 
         [Test]
         public void TestTagsAppService_SaveAndUpdateTag_Error()
         {
-            _serviceMock.Setup(x => x.AddOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Error));
+            _serviceMock.Setup(x => x.AddOrUpdate(It.IsAny<Tag>())).Returns(new MyResults(MyResultsStatus.Error));
 
             var appService = new TagsAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
             var dto = _adapter.ToDto(_tags.FirstOrDefault());
 
             var results = appService.AddOrUpdate(dto);
 
-            Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Status == MyResultsStatus.Error);
         }
 
         [Test]
@@ -111,20 +111,20 @@ namespace MyExpenses.Application.Tests.Services
 
             var results = appService.Remove(dto);
 
-            Assert.True(results.Type == MyResultsType.Ok);
+            Assert.True(results.Status == MyResultsStatus.Ok);
         }
 
         [Test]
         public void TestTagsAppService_RemoveTag_Error()
         {
-            _serviceMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsType.Error));
+            _serviceMock.Setup(x => x.Remove(It.IsAny<Tag>())).Returns(new MyResults(MyResultsStatus.Error));
 
             var appService = new TagsAppService(_serviceMock.Object, _unitOfWorkMock.Object, _adapter);
             var dto = _adapter.ToDto(_tags.FirstOrDefault());
 
             var results = appService.Remove(dto);
 
-            Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Status == MyResultsStatus.Error);
         }
     }
 }

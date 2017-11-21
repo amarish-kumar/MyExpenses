@@ -72,7 +72,7 @@ namespace MyExpenses.WebApplication.Controllers
                 }
 
                 MyResults result = _appService.AddOrUpdate(expenseDto);
-                if (result.Type == MyResultsType.Ok)
+                if (result.Status == MyResultsStatus.Ok)
                 {
                     return RedirectToAction("Index");
                 }
@@ -116,7 +116,7 @@ namespace MyExpenses.WebApplication.Controllers
                 expenseDto.Tags = new List<TagDto> { tag };
 
                 var result = _appService.AddOrUpdate(expenseDto);
-                if (result.Type == MyResultsType.Ok)
+                if (result.Status == MyResultsStatus.Ok)
                 {
                     return RedirectToAction("Index");
                 }
@@ -140,7 +140,7 @@ namespace MyExpenses.WebApplication.Controllers
             if (ModelState.IsValid)
             {
                 var result = _appService.Remove(ExpenseModel.ToDto(model));
-                if (result.Type == MyResultsType.Ok)
+                if (result.Status == MyResultsStatus.Ok)
                 {
                     return RedirectToAction("Index");
                 }

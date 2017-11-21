@@ -43,7 +43,7 @@ namespace MyExpenses.Domain.Tests.Validator
         {
             MyResults results = _tag.Validate();
 
-            Assert.True(results.Type == MyResultsType.Ok);
+            Assert.True(results.Status == MyResultsStatus.Ok);
             Assert.True(results.Action == MyResultsAction.Validating);
         }
 
@@ -54,7 +54,7 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _tag.Validate();
 
-            Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Status == MyResultsStatus.Error);
             Assert.True(results.Action == MyResultsAction.Validating);
             Assert.True(results.Message == string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
         }
@@ -66,7 +66,7 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _tag.Validate();
 
-            Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Status == MyResultsStatus.Error);
             Assert.True(results.Action == MyResultsAction.Validating);
             Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
         }
@@ -78,7 +78,7 @@ namespace MyExpenses.Domain.Tests.Validator
 
             MyResults results = _tag.Validate();
 
-            Assert.True(results.Type == MyResultsType.Error);
+            Assert.True(results.Status == MyResultsStatus.Error);
             Assert.True(results.Action == MyResultsAction.Validating);
             Assert.True(results.Message == string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
         }
