@@ -23,6 +23,8 @@ namespace MyExpenses.Application.Tests.ModulesMock
     using System;
     using System.Collections.Generic;
 
+    using MyExpenses.Application.Tests.Context;
+
     public class MyApplicationModuleMock : NinjectModule
     {
         private readonly IMyContext _contextMock;

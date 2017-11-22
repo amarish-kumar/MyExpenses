@@ -37,6 +37,7 @@ namespace MyExpenses.Util.Results
         Validating,
         Creating,
         Updating,
+        AddOrUpdate,
         Removing
     }
 }

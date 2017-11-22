@@ -17,6 +17,8 @@ namespace MyExpenses.Application.Services
     using System.Linq.Expressions;
     using System;
 
+    using MyExpenses.Application.Properties;
+
     public abstract class AppServiceBase<TDomain, TDto> : IAppService<TDomain, TDto>
         where TDomain : IDomain
         where TDto : IDto
@@ -61,6 +63,9 @@ namespace MyExpenses.Application.Services
         {
             // get domain class by id
             var domain = _domainService.GetById(id);
+
+            if (domain == null)
+                return default(TDto);
 
             // convert to dto
             return _adaper.ToDto(domain);

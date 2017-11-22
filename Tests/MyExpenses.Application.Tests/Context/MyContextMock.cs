@@ -4,11 +4,8 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Tests
+namespace MyExpenses.Application.Tests.Context
 {
-    using Moq;
-    using MyExpenses.Domain.Models;
-    using MyExpenses.Infrastructure.Context;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -19,7 +16,13 @@ namespace MyExpenses.Application.Tests
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class MyContextMock : IMyContext
+    using Moq;
+
+    using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Models;
+    using MyExpenses.Infrastructure.Context;
+
+    internal class MyContextMock : IMyContext
     {
         private readonly Mock<IMyContext> _contextMock;
 
@@ -27,6 +30,9 @@ namespace MyExpenses.Application.Tests
         {
             Expenses = new TestDbSet<Expense>();
             Tags = new TestDbSet<Tag>();
+
+            expenses.ToList().ForEach(x => Expenses.Add(x));
+            tags.ToList().ForEach(x => Tags.Add(x));
 
             _contextMock = new Mock<IMyContext>(MockBehavior.Strict);
             _contextMock.Setup(x => x.Set<Expense>()).Returns(Expenses);
@@ -53,11 +59,11 @@ namespace MyExpenses.Application.Tests
     /// Used as reference https://msdn.microsoft.com/en-us/data/dn314431.aspx#doubles
     /// </summary>
     /// <typeparam name="TEntity">Domain entity</typeparam>
-    public class TestDbSet<TEntity> : DbSet<TEntity>, IQueryable, IEnumerable<TEntity>, IDbAsyncEnumerable<TEntity>
-        where TEntity : class
+    internal class TestDbSet<TEntity> : DbSet<TEntity>, IQueryable, IEnumerable<TEntity>, IDbAsyncEnumerable<TEntity>
+        where TEntity : class, IDomain
     {
-        ObservableCollection<TEntity> _data;
-        IQueryable _query;
+        private readonly ObservableCollection<TEntity> _data;
+        private readonly IQueryable _query;
 
         public TestDbSet()
         {
@@ -65,68 +71,45 @@ namespace MyExpenses.Application.Tests
             _query = _data.AsQueryable();
         }
 
-        public override TEntity Add(TEntity item)
+        public override TEntity Add(TEntity entity)
         {
-            _data.Add(item);
-            return item;
+            _data.Add(entity);
+            return entity;
         }
 
-        public override TEntity Remove(TEntity item)
+        public override TEntity Remove(TEntity entity)
         {
-            _data.Remove(item);
-            return item;
+            _data.Remove(entity);
+            return entity;
         }
 
-        public override TEntity Attach(TEntity item)
+        public override TEntity Attach(TEntity entity)
         {
-            _data.Add(item);
-            return item;
+            return Add(entity);
         }
 
-        public override TEntity Create()
+        public override TEntity Find(params object[] keyValues)
         {
-            return Activator.CreateInstance<TEntity>();
+            return _data.FirstOrDefault(x => x.Id == int.Parse(keyValues[0].ToString()));
         }
 
-        public override TDerivedEntity Create<TDerivedEntity>()
-        {
-            return Activator.CreateInstance<TDerivedEntity>();
-        }
+        public override TEntity Create() => Activator.CreateInstance<TEntity>();
 
-        public override ObservableCollection<TEntity> Local
-        {
-            get { return _data; }
-        }
+        public override TDerivedEntity Create<TDerivedEntity>() => Activator.CreateInstance<TDerivedEntity>();
 
-        Type IQueryable.ElementType
-        {
-            get { return _query.ElementType; }
-        }
+        public override ObservableCollection<TEntity> Local => _data;
 
-        Expression IQueryable.Expression
-        {
-            get { return _query.Expression; }
-        }
+        Type IQueryable.ElementType => _query.ElementType;
 
-        IQueryProvider IQueryable.Provider
-        {
-            get { return new TestDbAsyncQueryProvider<TEntity>(_query.Provider); }
-        }
+        Expression IQueryable.Expression => _query.Expression;
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return _data.GetEnumerator();
-        }
+        IQueryProvider IQueryable.Provider => new TestDbAsyncQueryProvider<TEntity>(_query.Provider);
 
-        IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator()
-        {
-            return _data.GetEnumerator();
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => _data.GetEnumerator();
 
-        IDbAsyncEnumerator<TEntity> IDbAsyncEnumerable<TEntity>.GetAsyncEnumerator()
-        {
-            return new TestDbAsyncEnumerator<TEntity>(_data.GetEnumerator());
-        }
+        IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator() => _data.GetEnumerator();
+
+        IDbAsyncEnumerator<TEntity> IDbAsyncEnumerable<TEntity>.GetAsyncEnumerator() => new TestDbAsyncEnumerator<TEntity>(_data.GetEnumerator());
     }
 
     internal class TestDbAsyncQueryProvider<TEntity> : IDbAsyncQueryProvider
@@ -179,20 +162,11 @@ namespace MyExpenses.Application.Tests
             : base(expression)
         { }
 
-        public IDbAsyncEnumerator<T> GetAsyncEnumerator()
-        {
-            return new TestDbAsyncEnumerator<T>(this.AsEnumerable().GetEnumerator());
-        }
+        public IDbAsyncEnumerator<T> GetAsyncEnumerator() => new TestDbAsyncEnumerator<T>(this.AsEnumerable().GetEnumerator());
 
-        IDbAsyncEnumerator IDbAsyncEnumerable.GetAsyncEnumerator()
-        {
-            return GetAsyncEnumerator();
-        }
+        IDbAsyncEnumerator IDbAsyncEnumerable.GetAsyncEnumerator() => GetAsyncEnumerator();
 
-        IQueryProvider IQueryable.Provider
-        {
-            get { return new TestDbAsyncQueryProvider<T>(this); }
-        }
+        IQueryProvider IQueryable.Provider => new TestDbAsyncQueryProvider<T>(this);
     }
 
     internal class TestDbAsyncEnumerator<T> : IDbAsyncEnumerator<T>
@@ -204,24 +178,12 @@ namespace MyExpenses.Application.Tests
             _inner = inner;
         }
 
-        public void Dispose()
-        {
-            _inner.Dispose();
-        }
+        public void Dispose() => _inner.Dispose();
 
-        public Task<bool> MoveNextAsync(CancellationToken cancellationToken)
-        {
-            return Task.FromResult(_inner.MoveNext());
-        }
+        public Task<bool> MoveNextAsync(CancellationToken cancellationToken) => Task.FromResult(_inner.MoveNext());
 
-        public T Current
-        {
-            get { return _inner.Current; }
-        }
+        public T Current => _inner.Current;
 
-        object IDbAsyncEnumerator.Current
-        {
-            get { return Current; }
-        }
+        object IDbAsyncEnumerator.Current => Current;
     }
 }

@@ -64,11 +64,12 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public virtual MyResults Remove(TDomain domain)
         {
+            if(domain == null)
+                return new MyResults(MyResultsStatus.Error, MyResultsAction.Removing);
+
             TDomain exisTDomain = _context.Set<TDomain>().Find(domain.Id);
             if (exisTDomain == null)
-            {
                 return new MyResults(MyResultsStatus.Error, MyResultsAction.Removing, MyResultsAction.Removing + " " + domain.GetType().Name);
-            }
 
             _context.Set<TDomain>().Remove(exisTDomain);
             _log?.AppendLog(LevelLog.Info, MyResultsAction.Removing + " " + domain.GetType().Name);
@@ -77,6 +78,9 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public virtual MyResults AddOrUpdate(TDomain domain)
         {
+            if (domain == null)
+                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating);
+
             MyResults validate = (domain as IDomain).Validate();
             if (validate.Status != MyResultsStatus.Ok)
                 return validate;
