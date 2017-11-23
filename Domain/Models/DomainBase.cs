@@ -7,12 +7,11 @@
 namespace MyExpenses.Domain.Models
 {
     using System;
-    using System.Collections.Generic;
 
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Util.Results;
 
-    public abstract class DomainBase<TDomain> : IDomain, ICloneable, IEquatable<TDomain>, IEqualityComparer<TDomain>
+    public abstract class DomainBase<TDomain> : IDomain, ICloneable
         where TDomain : class, IDomain
     {
         /// <summary>
@@ -86,26 +85,6 @@ namespace MyExpenses.Domain.Models
         public bool Equals(TDomain other)
         {
             return MyEqual(other);
-        }
-
-        public bool Equals(TDomain x, TDomain y)
-        {
-            if (x == null || y == null)
-                return false;
-            return x.Equals(y);
-        }
-
-        public int GetHashCode(TDomain obj)
-        {
-            return obj.GetHashCode();
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = -58299164;
-            hashCode = hashCode * -1521134295 + EqualityComparer<IValidator>.Default.GetHashCode(_validator);
-            hashCode = hashCode * -1521134295 + Id.GetHashCode();
-            return hashCode;
         }
 
         #endregion

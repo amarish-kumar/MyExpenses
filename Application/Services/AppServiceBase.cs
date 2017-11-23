@@ -90,10 +90,36 @@ namespace MyExpenses.Application.Services
             return results;
         }
 
+        public virtual MyResults Remove(ICollection<TDto> dtos)
+        {
+            MyResults results = new MyResults(MyResultsStatus.Ok, MyResultsAction.Removing);
+
+            _unitOfWork.BeginTransaction();
+
+            foreach (TDto dto in dtos)
+            {
+                if (dto == null)
+                    return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, Resources.Error_DomainNotFound);
+
+                // convert to domain
+                var domain = _adaper.ToDomain(dto);
+
+                results = _domainService.Remove(domain);
+
+                if (results.Status == MyResultsStatus.Error)
+                    return results;
+            }
+
+            if (results.Status == MyResultsStatus.Ok)
+                _unitOfWork.Commit();
+
+            return results;
+        }
+
         public virtual MyResults AddOrUpdate(TDto dto)
         {
             if (dto == null)
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.AddOrUpdate, Resources.Error_DomainNotFound);
+                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, Resources.Error_DomainNotFound);
 
             // convert to domain
             var domain = _adaper.ToDomain(dto);
@@ -102,6 +128,32 @@ namespace MyExpenses.Application.Services
 
             // save and updates
             var results = _domainService.AddOrUpdate(domain);
+
+            if (results.Status == MyResultsStatus.Ok)
+                _unitOfWork.Commit();
+
+            return results;
+        }
+
+        public virtual MyResults AddOrUpdate(ICollection<TDto> dtos)
+        {
+            MyResults results = new MyResults(MyResultsStatus.Ok, MyResultsAction.Removing);
+
+            _unitOfWork.BeginTransaction();
+
+            foreach (TDto dto in dtos)
+            {
+                if (dto == null)
+                    return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, Resources.Error_DomainNotFound);
+
+                // convert to domain
+                var domain = _adaper.ToDomain(dto);
+
+                results = _domainService.AddOrUpdate(domain);
+
+                if (results.Status == MyResultsStatus.Error)
+                    return results;
+            }
 
             if (results.Status == MyResultsStatus.Ok)
                 _unitOfWork.Commit();

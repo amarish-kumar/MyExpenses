@@ -27,11 +27,19 @@ namespace MyExpenses.Application.Tests.Services
 
         private static readonly ExpenseDto[] _invalidDtos =
         {
+            // invalid id
             new ExpenseDto { Id = -1, Name = NAME, Value = 0, Date = new DateTime() },
+            // invalid name
             new ExpenseDto { Id = 1, Name = string.Empty, Value = 0, Date = new DateTime() },
             new ExpenseDto { Id = 1, Name = new string ('a', 129), Value = 0, Date = new DateTime() },
+            // invalid value
             new ExpenseDto { Id = 2, Name = NAME, Value = -1, Date = new DateTime() },
-            new ExpenseDto { Id = -5, Name = null, Value = -10 }
+            // invalid id, name and value
+            new ExpenseDto { Id = -5, Name = null, Value = -10 },
+            // default
+            new ExpenseDto(),
+            // null
+            null
         };
 
         private readonly ExpenseDto _validDto = new ExpenseDto { Id = 10, Name = "tmp", Value = 1, Date = new DateTime() };

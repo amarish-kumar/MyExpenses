@@ -17,10 +17,5 @@ namespace MyExpenses.WebApplication.ViewModels
         public long SelectedTag { get; set; }
 
         public SelectList AllTags { get; set; }
-
-        public ExpensesViewModel()
-        {
-                
-        }
     }
 }

@@ -25,6 +25,10 @@ namespace MyExpenses.Application.Interfaces.Services
 
         MyResults AddOrUpdate(TDto dto);
 
+        MyResults AddOrUpdate(ICollection<TDto> dtos);
+
         MyResults Remove(TDto dto);
+
+        MyResults Remove(ICollection<TDto> dtos);
     }
 }
