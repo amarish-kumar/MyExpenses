@@ -19,32 +19,30 @@ namespace MyExpenses.Application.Tests.Services
     using MyExpenses.Infrastructure.Modules;
 
     [TestFixture]
-    public class ExpensesAppServiceTest
+    public class TagsAppServiceTest
     {
-        private const string NAME = "Expense1";
+        private const string NAME = "Tag1";
         private const string NEW_NAME = "NewName";
         private const long ID = 1;
 
-        private static readonly ExpenseDto[] _invalidDtos =
+        private static readonly TagDto[] _invalidDtos =
         {
             // invalid id
-            new ExpenseDto { Id = -1, Name = NAME, Value = 0, Date = new DateTime() },
+            new TagDto { Id = -1, Name = NAME },
             // invalid name
-            new ExpenseDto { Id = 1, Name = string.Empty, Value = 0, Date = new DateTime() },
-            new ExpenseDto { Id = 1, Name = new string ('a', 129), Value = 0, Date = new DateTime() },
-            // invalid value
-            new ExpenseDto { Id = 2, Name = NAME, Value = -1, Date = new DateTime() },
+            new TagDto { Id = 1, Name = string.Empty },
+            new TagDto { Id = 1, Name = new string ('a', 129) },
             // invalid id, name and value
-            new ExpenseDto { Id = -5, Name = null, Value = -10 },
+            new TagDto { Id = -5, Name = null },
             // default
-            new ExpenseDto(),
+            new TagDto(),
             // null
             null
         };
 
-        private readonly ExpenseDto _validDto = new ExpenseDto { Id = 10, Name = "tmp", Value = 1, Date = new DateTime() };
+        private readonly TagDto _validDto = new TagDto { Id = 10, Name = "tmp" };
 
-        private IExpensesAppService _appService;
+        private ITagsAppService _appService;
 
         [SetUp]
         public void SetUp()
@@ -54,11 +52,11 @@ namespace MyExpenses.Application.Tests.Services
             MyApplicationModule.Init();
             MyKernelService.AddModule(new MyApplicationModuleMock());
 
-            _appService = MyKernelService.GetInstance<IExpensesAppService>();
+            _appService = MyKernelService.GetInstance<ITagsAppService>();
         }
 
         [Test]
-        public void TestExpensesAppService_GetAllExpenses()
+        public void TestTagsAppService_GetAllExpenses()
         {
             // arrange
 
@@ -70,7 +68,7 @@ namespace MyExpenses.Application.Tests.Services
         }
 
         [Test]
-        public void TestExpensesAppService_AddOrUpdate_ValidationError([ValueSource(nameof(_invalidDtos))] ExpenseDto dto)
+        public void TestTagsAppService_AddOrUpdate_ValidationError([ValueSource(nameof(_invalidDtos))] TagDto dto)
         {
             // arrange
 
@@ -83,7 +81,7 @@ namespace MyExpenses.Application.Tests.Services
         }
 
         [Test]
-        public void TestExpensesAppService_GetById_OK()
+        public void TestTagsAppService_GetById_OK()
         {
             // arrange
 
@@ -96,7 +94,7 @@ namespace MyExpenses.Application.Tests.Services
         }
 
         [Test]
-        public void TestExpensesAppService_GetById_ErrorNotFind()
+        public void TestTagsAppService_GetById_ErrorNotFind()
         {
             // arrange
 
@@ -108,7 +106,7 @@ namespace MyExpenses.Application.Tests.Services
         }
 
         [Test]
-        public void TestExpensesAppService_AddExpense_OK()
+        public void TestTagsAppService_AddExpense_OK()
         {
             // arrange
             var dto = _validDto;
@@ -125,23 +123,7 @@ namespace MyExpenses.Application.Tests.Services
         }
 
         [Test]
-        public void TestExpensesAppService_UpdateExpense_OK()
-        {
-            // arrange
-            var dto = _appService.Get(x => x.Id == ID, x => x.Tags).First();
-            dto.Name = NEW_NAME;
-
-            // act
-            var results = _appService.AddOrUpdate(dto);
-
-            // assert
-            Assert.True(_appService.GetAll().Any(x => x.Name == NEW_NAME));
-            Assert.AreEqual(results.Status, MyResultsStatus.Ok);
-            Assert.AreEqual(results.Action, MyResultsAction.Updating);
-        }
-
-        [Test]
-        public void TestExpensesAppService_RemoveExpense_OK()
+        public void TestTagsAppService_RemoveExpense_OK()
         {
             // arrange
             var dto = _appService.GetById(ID);
@@ -155,24 +137,13 @@ namespace MyExpenses.Application.Tests.Services
         }
 
         [Test]
-        public void TestExpensesAppService_RemoveExpense_ErrorDomainNotFind()
+        public void TestTagsAppService_RemoveExpense_Error()
         {
             // arrange
-            var dto = new ExpenseDto { Id = 100 };
+            var dto = new TagDto { Id = 100 };
 
             // act
             var results = _appService.Remove(dto);
-
-            // assert
-            Assert.AreEqual(results.Status, MyResultsStatus.Error);
-            Assert.AreEqual(results.Action, MyResultsAction.Removing);
-        }
-
-        [Test]
-        public void TestExpensesAppService_RemoveExpense_ErrorNull()
-        {
-            // act
-            var results = _appService.Remove(default(ExpenseDto));
 
             // assert
             Assert.AreEqual(results.Status, MyResultsStatus.Error);

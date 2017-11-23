@@ -26,9 +26,6 @@ namespace MyExpenses.Application.Adapter
         /// <returns cref="Expense">Domain class</returns>
         public override Expense ToDomain(ExpenseDto dto)
         {
-            if (dto == null)
-                return null;
-
             return new Expense
             {
                 Id = dto.Id,
@@ -46,9 +43,6 @@ namespace MyExpenses.Application.Adapter
         /// <returns cref="ExpenseDto">Dto class</returns>
         public override ExpenseDto ToDto(Expense domain)
         {
-            if (domain == null)
-                return null;
-
             return new ExpenseDto
             {
                 Id = domain.Id,

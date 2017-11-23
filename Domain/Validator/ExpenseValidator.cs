@@ -6,8 +6,6 @@
 
 namespace MyExpenses.Domain.Validator
 {
-    using System;
-
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Models;
     using MyExpenses.Domain.Properties;
@@ -24,11 +22,6 @@ namespace MyExpenses.Domain.Validator
 
         public MyResults Validate()
         {
-            if (_domain == null)
-            {
-                throw new ArgumentException(string.Format(Resources.Validation_InvalidObject, Resources.Expense));
-            }
-
             if (_domain.Id < 0)
             {
                 return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
