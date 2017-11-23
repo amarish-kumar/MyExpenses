@@ -15,6 +15,9 @@ namespace MyExpenses.Application.Tests.Services
     using System;
     using System.Linq;
 
+    using MyExpenses.Application.Modules;
+    using MyExpenses.Infrastructure.Modules;
+
     [TestFixture]
     public class ExpensesAppServiceTest
     {
@@ -39,6 +42,8 @@ namespace MyExpenses.Application.Tests.Services
         public void SetUp()
         {
             MyKernelService.Reset();
+            MyInfrastructureModule.Init();
+            MyApplicationModule.Init();
             MyKernelService.AddModule(new MyApplicationModuleMock());
 
             _appService = MyKernelService.GetInstance<IExpensesAppService>();

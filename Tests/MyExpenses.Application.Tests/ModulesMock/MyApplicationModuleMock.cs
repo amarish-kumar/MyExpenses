@@ -82,23 +82,7 @@ namespace MyExpenses.Application.Tests.ModulesMock
 
         public override void Load()
         {
-            Bind<IExpensesAppService>().To<ExpensesAppService>();
-            Bind<ITagsAppService>().To<TagsAppService>();
-
-            Bind<IExpensesAdapter>().To<ExpensesAdapter>();
-            Bind<ITagsAdapter>().To<TagsAdapter>();
-
-            Bind<IExpensesService>().To<ExpensesService>();
-            Bind<ITagsService>().To<TagsService>();
-
-            Bind<IExpensesRepository>().To<ExpensesRepository>();
-            Bind<ITagsRepository>().To<TagsRepository>();
-
-            Bind<ILogService>().To<LogService>();
-
-            Bind<IUnitOfWork>().To<UnitOfWork>();
-
-            Bind<IMyContext>().ToConstant(_contextMock);
+            Rebind<IMyContext>().ToConstant(_contextMock);
         }
     }
 }

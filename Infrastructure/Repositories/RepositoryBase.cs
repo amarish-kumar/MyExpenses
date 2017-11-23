@@ -81,17 +81,18 @@ namespace MyExpenses.Infrastructure.Repositories
             if (domain == null)
                 return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating);
 
-            MyResults validate = (domain as IDomain).Validate();
+            MyResults validate = domain.Validate();
             if (validate.Status != MyResultsStatus.Ok)
                 return validate;
 
             // Update
             if (domain.Id > 0)
             {
-                TDomain exisTDomain = _context.Set<TDomain>().Find(domain.Id);
-                if (exisTDomain != null)
+                TDomain existDomain = _context.Set<TDomain>().Find(domain.Id);
+                if (existDomain != null)
                 {
-                    exisTDomain.Copy(domain);
+                    // copy attributes
+                    existDomain.Copy(domain);
                     _log?.AppendLog(LevelLog.Info, MyResultsAction.Updating + " " + domain.GetType().Name);
                     return new MyResults(MyResultsStatus.Ok, MyResultsAction.Updating, domain.GetType().Name);
                 }

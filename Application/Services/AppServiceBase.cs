@@ -73,6 +73,9 @@ namespace MyExpenses.Application.Services
 
         public virtual MyResults Remove(TDto dto)
         {
+            if(dto == null)
+                return new MyResults(MyResultsStatus.Error, MyResultsAction.Removing, Resources.Error_DomainNotFound);
+
             // convert to domain
             var domain = _adaper.ToDomain(dto);
 
@@ -89,6 +92,9 @@ namespace MyExpenses.Application.Services
 
         public virtual MyResults AddOrUpdate(TDto dto)
         {
+            if (dto == null)
+                return new MyResults(MyResultsStatus.Error, MyResultsAction.AddOrUpdate, Resources.Error_DomainNotFound);
+
             // convert to domain
             var domain = _adaper.ToDomain(dto);
 
