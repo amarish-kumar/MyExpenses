@@ -141,6 +141,9 @@
   <data name="Validation_InvalidTypeObject" xml:space="preserve">
     <value>Invalid {0} object type.</value>
   </data>
+  <data name="Validation_MissingValidator" xml:space="preserve">
+    <value>Missing validator.</value>
+  </data>
   <data name="Value" xml:space="preserve">
     <value>Value</value>
   </data>

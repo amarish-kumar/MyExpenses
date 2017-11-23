@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.WebApplication.Models
+namespace MyExpenses.Presentaion.WebApplication.Models
 {
     using System;
     using System.Collections.Generic;

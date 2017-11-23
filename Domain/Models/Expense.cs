@@ -36,8 +36,9 @@ namespace MyExpenses.Domain.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        public Expense() : base(new ExpenseValidator())
+        public Expense()
         {
+            Validator = new ExpenseValidator(this);
             Id = -1;
             Tags = new HashSet<Tag>();
         }

@@ -133,6 +133,15 @@ namespace MyExpenses.Domain.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing validator..
+        /// </summary>
+        internal static string Validation_MissingValidator {
+            get {
+                return ResourceManager.GetString("Validation_MissingValidator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value.
         /// </summary>
         internal static string Value {

@@ -10,11 +10,6 @@ namespace MyExpenses.Domain.Interfaces
 
     public interface IValidator
     {
-        /// <summary>
-        /// Validate
-        /// </summary>
-        /// <param name="obj">Object to validate</param>
-        /// <returns>Results of the validation</returns>
-        MyResults Validate(IDomain obj);
+        MyResults Validate();
     }
 }

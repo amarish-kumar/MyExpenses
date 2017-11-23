@@ -15,31 +15,31 @@ namespace MyExpenses.Domain.Validator
 
     public class TagValidator : IValidator
     {
-        public MyResults Validate(IDomain obj)
+        private readonly Tag _domain;
+
+        public TagValidator(Tag obj)
         {
-            if (obj == null)
+            _domain = obj;
+        }
+
+        public MyResults Validate()
+        {
+            if (_domain == null)
             {
                 throw new ArgumentException(string.Format(Resources.Validation_InvalidObject, Resources.Tag));
             }
 
-            Tag tag = obj as Tag;
-
-            if (tag == null)
-            {
-                throw new ArgumentException(string.Format(Resources.Validation_InvalidTypeObject, Resources.Tag));
-            }
-
-            if (obj.Id < 0)
+            if (_domain.Id < 0)
             {
                 return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
             }
 
-            if (string.IsNullOrEmpty(tag.Name))
+            if (string.IsNullOrEmpty(_domain.Name))
             {
                 return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
             }
 
-            if (tag.Name.Length > 128)
+            if (_domain.Name.Length > 128)
             {
                 return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
             }

@@ -4,17 +4,16 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.WebApplication.Controllers
+namespace MyExpenses.Presentaion.WebApplication.Controllers
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using MyExpenses.Util.Results;
     using System.Web.Mvc;
 
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces.Services;
-    using MyExpenses.WebApplication.Models;
+    using MyExpenses.Presentaion.WebApplication.Models;
+    using MyExpenses.Util.Results;
 
     [RoutePrefix("Tags")]
     public class TagsController : Controller

@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.WebApplication.Controllers
+namespace MyExpenses.Presentaion.WebApplication.Controllers
 {
     using System;
     using System.Web.Mvc;

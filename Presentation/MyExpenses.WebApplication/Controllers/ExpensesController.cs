@@ -4,18 +4,17 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.WebApplication.Controllers
+namespace MyExpenses.Presentaion.WebApplication.Controllers
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using MyExpenses.Util.Results;
     using System.Web.Mvc;
 
     using MyExpenses.Application.DataTransferObject;
     using MyExpenses.Application.Interfaces.Services;
-    using MyExpenses.WebApplication.Models;
-    using MyExpenses.WebApplication.ViewModels;
+    using MyExpenses.Presentaion.WebApplication.Models;
+    using MyExpenses.Presentaion.WebApplication.ViewModels;
+    using MyExpenses.Util.Results;
 
     [RoutePrefix("Expenses")]
     public class ExpensesController : Controller

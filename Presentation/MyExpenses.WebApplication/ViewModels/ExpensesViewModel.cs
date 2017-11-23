@@ -4,11 +4,11 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.WebApplication.ViewModels
+namespace MyExpenses.Presentaion.WebApplication.ViewModels
 {
     using System.Web.Mvc;
 
-    using MyExpenses.WebApplication.Models;
+    using MyExpenses.Presentaion.WebApplication.Models;
 
     public class ExpensesViewModel
     {

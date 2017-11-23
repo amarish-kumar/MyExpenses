@@ -9,16 +9,12 @@ namespace MyExpenses.Domain.Models
     using System;
 
     using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Properties;
     using MyExpenses.Util.Results;
 
     public abstract class DomainBase<TDomain> : IDomain, ICloneable
         where TDomain : class, IDomain
     {
-        /// <summary>
-        /// Validator class
-        /// </summary>
-        private readonly IValidator _validator;
-
         /// <summary>
         /// Identification
         /// </summary>
@@ -27,11 +23,10 @@ namespace MyExpenses.Domain.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="validator" cref="IValidator">Validator</param>
-        protected DomainBase(IValidator validator)
+        protected DomainBase()
         {
             Id = 0;
-            _validator = validator;
+            Validator = null;
         }
 
         /// <summary>
@@ -40,10 +35,15 @@ namespace MyExpenses.Domain.Models
         /// <returns cref="MyResults">Result of validation</returns>
         public MyResults Validate()
         {
-            return _validator != null ? 
-                _validator.Validate(this) : 
-                new MyResults(MyResultsStatus.Ok, MyResultsAction.Validating);
+            return Validator != null ? 
+                Validator.Validate() : 
+                new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, Resources.Validation_MissingValidator);
         }
+
+        /// <summary>
+        /// Validator class
+        /// </summary>
+        protected IValidator Validator;
 
         /// <summary>
         /// My implementation of copy

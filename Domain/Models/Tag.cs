@@ -18,8 +18,9 @@ namespace MyExpenses.Domain.Models
         /// <summary>
         /// Constructor
         /// </summary>
-        public Tag() : base(new TagValidator())
+        public Tag()
         {
+            Validator = new TagValidator(this);
             Id = -1;
         }
 
