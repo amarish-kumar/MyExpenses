@@ -59,10 +59,10 @@ namespace MyExpenses.Application.Services
             return dtos;
         }
 
-        public virtual TDto GetById(long id)
+        public virtual TDto GetById(long id, params Expression<Func<TDomain, object>>[] includes)
         {
             // get domain class by id
-            var domain = _domainService.GetById(id);
+            var domain = _domainService.GetById(id, includes);
 
             if (domain == null)
                 return default(TDto);

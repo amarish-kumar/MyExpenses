@@ -17,7 +17,7 @@ namespace MyExpenses.Application.Interfaces.Services
         where TDomain : IDomain
         where TDto : IDto 
     {
-        TDto GetById(long id);
+        TDto GetById(long id, params Expression<Func<TDomain, object>>[] includes);
 
         ICollection<TDto> GetAll(params Expression<Func<TDomain, object>>[] includes);
 

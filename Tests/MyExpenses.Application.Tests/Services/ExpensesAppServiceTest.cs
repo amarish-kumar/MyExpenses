@@ -63,7 +63,7 @@ namespace MyExpenses.Application.Tests.Services
             // arrange
 
             // act
-            var dtos = _appService.GetAll();
+            var dtos = _appService.GetAll(x => x.Tags);
 
             // assert
             Assert.True(dtos.Any());
@@ -141,10 +141,26 @@ namespace MyExpenses.Application.Tests.Services
         }
 
         [Test]
+        public void TestExpensesAppService_UpdateExpense_ErroNotFindDomain()
+        {
+            // arrange
+            var dto = _appService.Get(x => x.Id == ID, x => x.Tags).First();
+            dto.Id = 1000;
+            dto.Name = NEW_NAME;
+
+            // act
+            var results = _appService.AddOrUpdate(dto);
+
+            // assert
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Updating);
+        }
+
+        [Test]
         public void TestExpensesAppService_RemoveExpense_OK()
         {
             // arrange
-            var dto = _appService.GetById(ID);
+            var dto = _appService.GetById(ID, x => x.Tags);
 
             // act
             var results = _appService.Remove(dto);

@@ -64,9 +64,6 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public virtual MyResults Remove(TDomain domain)
         {
-            if(domain == null)
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Removing);
-
             TDomain exisTDomain = _context.Set<TDomain>().Find(domain.Id);
             if (exisTDomain == null)
                 return new MyResults(MyResultsStatus.Error, MyResultsAction.Removing, MyResultsAction.Removing + " " + domain.GetType().Name);
@@ -78,9 +75,6 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public virtual MyResults AddOrUpdate(TDomain domain)
         {
-            if (domain == null)
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating);
-
             MyResults validate = domain.Validate();
             if (validate.Status != MyResultsStatus.Ok)
                 return validate;
@@ -89,14 +83,13 @@ namespace MyExpenses.Infrastructure.Repositories
             if (domain.Id > 0)
             {
                 TDomain existDomain = _context.Set<TDomain>().Find(domain.Id);
-                if (existDomain != null)
-                {
-                    // copy attributes
-                    existDomain.Copy(domain);
-                    _log?.AppendLog(LevelLog.Info, MyResultsAction.Updating + " " + domain.GetType().Name);
-                    return new MyResults(MyResultsStatus.Ok, MyResultsAction.Updating, domain.GetType().Name);
-                }
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Updating, domain.GetType().Name);
+                if (existDomain == null)
+                    return new MyResults(MyResultsStatus.Error, MyResultsAction.Updating, domain.GetType().Name);
+
+                // copy attributes
+                existDomain.Copy(domain);
+                _log?.AppendLog(LevelLog.Info, MyResultsAction.Updating + " " + domain.GetType().Name);
+                return new MyResults(MyResultsStatus.Ok, MyResultsAction.Updating, domain.GetType().Name);
             }
 
             // Save Add
