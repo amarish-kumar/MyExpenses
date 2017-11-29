@@ -11,7 +11,7 @@ namespace MyExpenses.Domain.Models
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Properties;
     using MyExpenses.Util.Results;
-
+    
     public abstract class DomainBase<TDomain> : IDomain, ICloneable
         where TDomain : class, IDomain
     {

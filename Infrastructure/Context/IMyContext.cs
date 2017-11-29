@@ -6,7 +6,7 @@
 
 namespace MyExpenses.Infrastructure.Context
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Models;
 

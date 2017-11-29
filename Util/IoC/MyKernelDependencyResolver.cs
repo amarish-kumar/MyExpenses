@@ -8,9 +8,9 @@ namespace MyExpenses.Util.IoC
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
+    //using System.Web.Mvc;
 
-    public class MyKernelDependencyResolver : IDependencyResolver
+    public class MyKernelDependencyResolver// : IDependencyResolver
     {
         public object GetService(Type serviceType)
         {

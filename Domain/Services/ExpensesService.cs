@@ -6,8 +6,6 @@
 
 namespace MyExpenses.Domain.Services
 {
-    using System.Linq;
-
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
@@ -26,7 +24,7 @@ namespace MyExpenses.Domain.Services
         public override MyResults AddOrUpdate(Expense domain)
         {
             // Update dependencies references
-            domain.Tags = domain.Tags.Select(x => _tagsRepo.GetById(x.Id)).ToList();
+            domain.Tag = _tagsRepo.GetById(domain.Tag.Id);
 
             return base.AddOrUpdate(domain);
         }

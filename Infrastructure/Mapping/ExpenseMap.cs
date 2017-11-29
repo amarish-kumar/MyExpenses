@@ -6,28 +6,28 @@
 
 namespace MyExpenses.Infrastructure.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Models;
 
-    public class ExpenseMap : EntityTypeConfiguration<Expense>
+    public static class ExpenseMap
     {
-        public ExpenseMap()
+        public static void Map(ModelBuilder modelBuilder)
         {
-            // Primary key
-            HasKey(x => x.Id);
+            modelBuilder.Entity<Expense>(entity =>
+            {
+                // Primary key
+                entity.HasKey(x => x.Id);
 
-            // Columns
-            Property(x => x.Name).HasColumnName("Name");
-            Property(x => x.Value).HasColumnName("Value");
-            Property(x => x.Date).HasColumnName("Data");
+                // Columns
+                entity.Property(x => x.Name).HasColumnName("Name");
+                entity.Property(x => x.Value).HasColumnName("Value");
+                entity.Property(x => x.Date).HasColumnName("Data");
 
-            // Relations
-            HasMany(e => e.Tags)
-                .WithMany()
-                .Map(m => m.ToTable("Expenses_Tags").MapLeftKey("ExpenseId").MapRightKey("TagId"));
+                entity.HasOne(x => x.Tag).WithOne().HasForeignKey<Expense>(y => y.TagId);
 
-            ToTable("Expenses");
+                entity.ToTable("Expense");
+            });
         }
     }
 }

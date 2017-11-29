@@ -6,21 +6,23 @@
 
 namespace MyExpenses.Infrastructure.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
-
+    using Microsoft.EntityFrameworkCore;
     using MyExpenses.Domain.Models;
 
-    public class TagMap : EntityTypeConfiguration<Tag>
+    public class TagMap
     {
-        public TagMap()
+        public static void Map(ModelBuilder modelBuilder)
         {
-            // Primary key
-            HasKey(x => x.Id);
+            modelBuilder.Entity<Tag>(entity =>
+            {
+                // Primary key
+                entity.HasKey(x => x.Id);
 
-            // Columns
-            Property(x => x.Name).HasColumnName("Name");
+                // Columns
+                entity.Property(x => x.Name).HasColumnName("Name");
 
-            ToTable("Tags");
+                entity.ToTable("Tag");
+            });
         }
     }
 }

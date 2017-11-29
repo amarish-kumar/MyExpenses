@@ -7,7 +7,6 @@
 namespace MyExpenses.Domain.Models
 {
     using System;
-    using System.Collections.Generic;
 
     using MyExpenses.Domain.Validator;
 
@@ -29,9 +28,10 @@ namespace MyExpenses.Domain.Models
         public DateTime Date { get; set; }
 
         /// <summary>
-        /// Relation with Expenses_Tags table
+        /// Tag relation
         /// </summary>
-        public ICollection<Tag> Tags { get; set; }
+        public long TagId { get; set; }
+        public Tag Tag { get; set; }
 
         /// <summary>
         /// Constructor
@@ -40,7 +40,6 @@ namespace MyExpenses.Domain.Models
         {
             Validator = new ExpenseValidator(this);
             Id = -1;
-            Tags = new HashSet<Tag>();
         }
 
         public override bool MyCopy(Expense other)
@@ -49,7 +48,7 @@ namespace MyExpenses.Domain.Models
             Name = other.Name;
             Value = other.Value;
             Date = other.Date;
-            Tags = other.Tags;
+            Tag = other.Tag;
 
             return true;
         }
@@ -66,7 +65,7 @@ namespace MyExpenses.Domain.Models
             bool equal = Id.Equals(other.Id);
             equal &= Name.Equals(other.Name);
             equal &= Value.Equals(other.Value);
-            equal &= Tags.Equals(other.Tags);
+            equal &= Tag.Equals(other.Tag);
 
             return equal;
         }

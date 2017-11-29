@@ -6,8 +6,7 @@
 
 namespace MyExpenses.Infrastructure.Context
 {
-    using System.Data.Entity;
-
+    using Microsoft.EntityFrameworkCore;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Mapping;
 
@@ -16,11 +15,8 @@ namespace MyExpenses.Infrastructure.Context
         /// <summary>
         /// Constructor
         /// </summary>
-        public MyContext() : base("name=MyLocalDatabase")
+        public MyContext(DbContextOptions<MyContext> options) : base(options)
         {
-            //Configuration.LazyLoadingEnabled = false;
-            //Configuration.ProxyCreationEnabled = false;
-            //Configuration.ValidateOnSaveEnabled = false;
         }
 
         /// <summary>
@@ -37,10 +33,10 @@ namespace MyExpenses.Infrastructure.Context
         /// Map all tables
         /// </summary>
         /// <param name="modelBuilder">Model builder</param>
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations.Add(new ExpenseMap());
-            modelBuilder.Configurations.Add(new TagMap());
+            ExpenseMap.Map(modelBuilder);
+            TagMap.Map(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }
