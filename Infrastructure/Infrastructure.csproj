@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>MyExpenses.Infrastructure</AssemblyName>
+    <RootNamespace>MyExpenses.Infrastructure</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

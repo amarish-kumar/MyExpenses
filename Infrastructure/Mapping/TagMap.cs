@@ -9,9 +9,9 @@ namespace MyExpenses.Infrastructure.Mapping
     using Microsoft.EntityFrameworkCore;
     using MyExpenses.Domain.Models;
 
-    public class TagMap
+    internal static class TagMap
     {
-        public static void Map(ModelBuilder modelBuilder)
+        internal static void Map(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Tag>(entity =>
             {

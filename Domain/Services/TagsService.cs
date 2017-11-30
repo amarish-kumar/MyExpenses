@@ -6,8 +6,6 @@
 
 namespace MyExpenses.Domain.Services
 {
-    using System.Linq;
-
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
@@ -26,10 +24,10 @@ namespace MyExpenses.Domain.Services
         public override MyResults Remove(Tag domain)
         {
             // get all expenses with this tag
-            foreach (Expense expense in _expensesRepository.Get(x => x.Tags.Any(y => y.Id == domain.Id)))
+            foreach (Expense expense in _expensesRepository.Get(x => x.Tag != null))
             {
                 // remove tag ref
-                expense.Tags.Remove(expense.Tags.FirstOrDefault(y => y.Id == domain.Id));
+                expense.Tag = null;
 
                 // update expense
                 _expensesRepository.AddOrUpdate(expense);

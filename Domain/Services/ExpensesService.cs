@@ -24,7 +24,8 @@ namespace MyExpenses.Domain.Services
         public override MyResults AddOrUpdate(Expense domain)
         {
             // Update dependencies references
-            domain.Tag = _tagsRepo.GetById(domain.Tag.Id);
+            if(domain.Tag != null)
+                domain.Tag = _tagsRepo.GetById(domain.Tag.Id);
 
             return base.AddOrUpdate(domain);
         }
