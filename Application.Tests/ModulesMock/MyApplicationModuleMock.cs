@@ -7,8 +7,10 @@
 namespace MyExpenses.Application.Tests.ModulesMock
 {
     using Microsoft.EntityFrameworkCore;
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Util.IoC;
     using Ninject.Modules;
     using System;
     using System.Collections.Generic;
@@ -19,21 +21,29 @@ namespace MyExpenses.Application.Tests.ModulesMock
 
         public MyApplicationModuleMock()
         {
+            var options = new DbContextOptionsBuilder<MyContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+            _context = new MyContext(options);
+        }
+
+        public void LoadData()
+        {
             List<Tag> tags = new List<Tag>
             {
                 new Tag
                 {
-                    Id = 1,
+                    Id = 0,
                     Name = "Tag1"
                 },
                 new Tag
                 {
-                    Id = 2,
+                    Id = 0,
                     Name = "Tag2"
                 },
                 new Tag
                 {
-                    Id = 3,
+                    Id = 0,
                     Name = "Tag3"
                 }
             };
@@ -41,7 +51,7 @@ namespace MyExpenses.Application.Tests.ModulesMock
             {
                 new Expense
                     {
-                        Id = 1,
+                        Id = 0,
                         Name = "Expense1",
                         Date = new DateTime(),
                         Value = 2,
@@ -49,7 +59,7 @@ namespace MyExpenses.Application.Tests.ModulesMock
                     },
                 new Expense
                     {
-                        Id = 2,
+                        Id = 0,
                         Name = "Expense2",
                         Date = new DateTime(),
                         Value = 10,
@@ -57,7 +67,7 @@ namespace MyExpenses.Application.Tests.ModulesMock
                     },
                 new Expense
                     {
-                        Id = 3,
+                        Id = 0,
                         Name = "Expense3",
                         Date = new DateTime(),
                         Value = 15,
@@ -65,19 +75,22 @@ namespace MyExpenses.Application.Tests.ModulesMock
                     }
             };
 
-            var options = new DbContextOptionsBuilder<MyContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-            _context = new MyContext(options);
+            var unitOfWork = MyKernelService.GetInstance<IUnitOfWork>();
+
+            unitOfWork.BeginTransaction();
 
             // populate
-            expenses.ForEach(x => _context.Expenses.Add(x));
-            tags.ForEach(x => _context.Tags.Add(x));
+            tags.ForEach(x => _context.Set<Tag>().Add(x));
+            expenses.ForEach(x => _context.Set<Expense>().Add(x));
+
+            unitOfWork.Commit();
         }
 
         public override void Load()
         {
             Rebind<IMyContext>().ToConstant(_context);
+
+            LoadData();
         }
     }
 }

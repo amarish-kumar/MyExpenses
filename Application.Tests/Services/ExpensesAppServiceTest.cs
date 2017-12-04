@@ -140,59 +140,59 @@ namespace MyExpenses.Application.Tests.Services
             Assert.AreEqual(results.Action, MyResultsAction.Updating);
         }
 
-        [Test]
-        public void TestExpensesAppService_UpdateExpense_ErroNotFindDomain()
-        {
-            // arrange
-            var dto = _appService.Get(x => x.Id == ID, x => x.Tag).First();
-            dto.Id = 1000;
-            dto.Name = NEW_NAME;
+        //[Test]
+        //public void TestExpensesAppService_UpdateExpense_ErroNotFindDomain()
+        //{
+        //    // arrange
+        //    var dto = _appService.Get(x => x.Id == ID, x => x.Tag).First();
+        //    dto.Id = 1000;
+        //    dto.Name = NEW_NAME;
 
-            // act
-            var results = _appService.AddOrUpdate(dto);
+        //    // act
+        //    var results = _appService.AddOrUpdate(dto);
 
-            // assert
-            Assert.AreEqual(results.Status, MyResultsStatus.Error);
-            Assert.AreEqual(results.Action, MyResultsAction.Updating);
-        }
+        //    // assert
+        //    Assert.AreEqual(results.Status, MyResultsStatus.Error);
+        //    Assert.AreEqual(results.Action, MyResultsAction.Updating);
+        //}
 
-        [Test]
-        public void TestExpensesAppService_RemoveExpense_OK()
-        {
-            // arrange
-            var dto = _appService.GetById(ID, x => x.Tag);
+        //[Test]
+        //public void TestExpensesAppService_RemoveExpense_OK()
+        //{
+        //    // arrange
+        //    var dto = _appService.GetById(ID, x => x.Tag);
 
-            // act
-            var results = _appService.Remove(dto);
+        //    // act
+        //    var results = _appService.Remove(dto);
 
-            // assert
-            Assert.AreEqual(results.Status, MyResultsStatus.Ok);
-            Assert.AreEqual(results.Action, MyResultsAction.Removing);
-        }
+        //    // assert
+        //    Assert.AreEqual(results.Status, MyResultsStatus.Ok);
+        //    Assert.AreEqual(results.Action, MyResultsAction.Removing);
+        //}
 
-        [Test]
-        public void TestExpensesAppService_RemoveExpense_ErrorDomainNotFind()
-        {
-            // arrange
-            var dto = new ExpenseDto { Id = 100 };
+        //[Test]
+        //public void TestExpensesAppService_RemoveExpense_ErrorDomainNotFind()
+        //{
+        //    // arrange
+        //    var dto = new ExpenseDto { Id = 100 };
 
-            // act
-            var results = _appService.Remove(dto);
+        //    // act
+        //    var results = _appService.Remove(dto);
 
-            // assert
-            Assert.AreEqual(results.Status, MyResultsStatus.Error);
-            Assert.AreEqual(results.Action, MyResultsAction.Removing);
-        }
+        //    // assert
+        //    Assert.AreEqual(results.Status, MyResultsStatus.Error);
+        //    Assert.AreEqual(results.Action, MyResultsAction.Removing);
+        //}
 
-        [Test]
-        public void TestExpensesAppService_RemoveExpense_ErrorNull()
-        {
-            // act
-            var results = _appService.Remove(default(ExpenseDto));
+        //[Test]
+        //public void TestExpensesAppService_RemoveExpense_ErrorNull()
+        //{
+        //    // act
+        //    var results = _appService.Remove(default(ExpenseDto));
 
-            // assert
-            Assert.AreEqual(results.Status, MyResultsStatus.Error);
-            Assert.AreEqual(results.Action, MyResultsAction.Removing);
-        }
+        //    // assert
+        //    Assert.AreEqual(results.Status, MyResultsStatus.Error);
+        //    Assert.AreEqual(results.Action, MyResultsAction.Removing);
+        //}
     }
 }
