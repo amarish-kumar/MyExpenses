@@ -23,7 +23,8 @@ namespace MyExpenses.Application.Tests.Services
     {
         private const string NAME = "Expense1";
         private const string NEW_NAME = "NewName";
-        private const long ID = 1;
+        private const long ID1 = 1;
+        private const long ID2 = 2;
 
         private static readonly ExpenseDto[] _invalidDtos =
         {
@@ -42,14 +43,12 @@ namespace MyExpenses.Application.Tests.Services
             null
         };
 
-        private readonly ExpenseDto _validDto = new ExpenseDto { Id = 10, Name = "tmp", Value = 1, Date = new DateTime() };
-
         private IExpensesAppService _appService;
 
         [SetUp]
         public void SetUp()
         {
-            MyKernelService.Reset();
+            MyKernelService.Init();
             MyInfrastructureModule.Init();
             MyApplicationModule.Init();
             MyKernelService.AddModule(new MyApplicationModuleMock());
@@ -88,7 +87,7 @@ namespace MyExpenses.Application.Tests.Services
             // arrange
 
             // act
-            var dto = _appService.GetById(ID);
+            var dto = _appService.Get(x => x.Id == ID1).FirstOrDefault();
 
             // assert
             Assert.IsNotNull(dto);
@@ -111,9 +110,7 @@ namespace MyExpenses.Application.Tests.Services
         public void TestExpensesAppService_AddExpense_OK()
         {
             // arrange
-            var dto = _validDto;
-            dto.Id = 0;
-            dto.Name = NEW_NAME;
+            var dto = new ExpenseDto { Id = 0, Name = NEW_NAME, Value = 1, Date = new DateTime() };
 
             // act
             var results = _appService.AddOrUpdate(dto);
@@ -128,7 +125,7 @@ namespace MyExpenses.Application.Tests.Services
         public void TestExpensesAppService_UpdateExpense_OK()
         {
             // arrange
-            var dto = _appService.Get(x => x.Id == ID, x => x.Tag).First();
+            var dto = _appService.Get(x => x.Id == ID2).First();
             dto.Name = NEW_NAME;
 
             // act
@@ -140,59 +137,57 @@ namespace MyExpenses.Application.Tests.Services
             Assert.AreEqual(results.Action, MyResultsAction.Updating);
         }
 
-        //[Test]
-        //public void TestExpensesAppService_UpdateExpense_ErroNotFindDomain()
-        //{
-        //    // arrange
-        //    var dto = _appService.Get(x => x.Id == ID, x => x.Tag).First();
-        //    dto.Id = 1000;
-        //    dto.Name = NEW_NAME;
+        [Test]
+        public void TestExpensesAppService_UpdateExpense_ErroNotFindDomain()
+        {
+            // arrange
+            var dto = new ExpenseDto { Id = 1000 };
 
-        //    // act
-        //    var results = _appService.AddOrUpdate(dto);
+            // act
+            var results = _appService.AddOrUpdate(dto);
 
-        //    // assert
-        //    Assert.AreEqual(results.Status, MyResultsStatus.Error);
-        //    Assert.AreEqual(results.Action, MyResultsAction.Updating);
-        //}
+            // assert
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Validating);
+        }
 
-        //[Test]
-        //public void TestExpensesAppService_RemoveExpense_OK()
-        //{
-        //    // arrange
-        //    var dto = _appService.GetById(ID, x => x.Tag);
+        [Test]
+        public void TestExpensesAppService_RemoveExpense_OK()
+        {
+            // arrange
+            var dto = _appService.GetById(ID1, x => x.Tag);
 
-        //    // act
-        //    var results = _appService.Remove(dto);
+            // act
+            var results = _appService.Remove(dto);
 
-        //    // assert
-        //    Assert.AreEqual(results.Status, MyResultsStatus.Ok);
-        //    Assert.AreEqual(results.Action, MyResultsAction.Removing);
-        //}
+            // assert
+            Assert.AreEqual(results.Status, MyResultsStatus.Ok);
+            Assert.AreEqual(results.Action, MyResultsAction.Removing);
+        }
 
-        //[Test]
-        //public void TestExpensesAppService_RemoveExpense_ErrorDomainNotFind()
-        //{
-        //    // arrange
-        //    var dto = new ExpenseDto { Id = 100 };
+        [Test]
+        public void TestExpensesAppService_RemoveExpense_ErrorDomainNotFind()
+        {
+            // arrange
+            var dto = new ExpenseDto { Id = 100 };
 
-        //    // act
-        //    var results = _appService.Remove(dto);
+            // act
+            var results = _appService.Remove(dto);
 
-        //    // assert
-        //    Assert.AreEqual(results.Status, MyResultsStatus.Error);
-        //    Assert.AreEqual(results.Action, MyResultsAction.Removing);
-        //}
+            // assert
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Removing);
+        }
 
-        //[Test]
-        //public void TestExpensesAppService_RemoveExpense_ErrorNull()
-        //{
-        //    // act
-        //    var results = _appService.Remove(default(ExpenseDto));
+        [Test]
+        public void TestExpensesAppService_RemoveExpense_ErrorNull()
+        {
+            // act
+            var results = _appService.Remove(default(ExpenseDto));
 
-        //    // assert
-        //    Assert.AreEqual(results.Status, MyResultsStatus.Error);
-        //    Assert.AreEqual(results.Action, MyResultsAction.Removing);
-        //}
+            // assert
+            Assert.AreEqual(results.Status, MyResultsStatus.Error);
+            Assert.AreEqual(results.Action, MyResultsAction.Removing);
+        }
     }
 }

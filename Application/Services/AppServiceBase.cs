@@ -17,8 +17,6 @@ namespace MyExpenses.Application.Services
     using System.Linq.Expressions;
     using System;
 
-    using global::Application.Properties;
-
     public abstract class AppServiceBase<TDomain, TDto> : IAppService<TDomain, TDto>
         where TDomain : IDomain
         where TDto : IDto

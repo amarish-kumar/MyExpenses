@@ -40,14 +40,12 @@ namespace MyExpenses.Application.Tests.Services
             null
         };
 
-        private readonly TagDto _validDto = new TagDto { Id = 10, Name = "tmp" };
-
         private ITagsAppService _appService;
 
         [SetUp]
         public void SetUp()
         {
-            MyKernelService.Reset();
+            MyKernelService.Init();
             MyInfrastructureModule.Init();
             MyApplicationModule.Init();
             MyKernelService.AddModule(new MyApplicationModuleMock());
@@ -109,9 +107,7 @@ namespace MyExpenses.Application.Tests.Services
         public void TestTagsAppService_AddExpense_OK()
         {
             // arrange
-            var dto = _validDto;
-            dto.Id = 0;
-            dto.Name = NEW_NAME;
+            var dto = new TagDto { Id = 0, Name = NEW_NAME };
 
             // act
             var results = _appService.AddOrUpdate(dto);
