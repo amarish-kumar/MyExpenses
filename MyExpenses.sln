@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Angular", "Presentation.Angular\Presentation.Angular.csproj", "{9E73D63A-A9D2-416E-8600-28F73667A63B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation.Console", "Presentation.Console\Presentation.Console.csproj", "{F2E2E3DC-061F-4EDF-842E-0E3C82C33537}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{9E73D63A-A9D2-416E-8600-28F73667A63B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E73D63A-A9D2-416E-8600-28F73667A63B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E73D63A-A9D2-416E-8600-28F73667A63B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2E2E3DC-061F-4EDF-842E-0E3C82C33537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E2E3DC-061F-4EDF-842E-0E3C82C33537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2E2E3DC-061F-4EDF-842E-0E3C82C33537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E2E3DC-061F-4EDF-842E-0E3C82C33537}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{400D427C-8056-4227-882D-94BFA7190150} = {15EF61F8-C4E8-483F-90A3-08EE2CE99048}
 		{9E73D63A-A9D2-416E-8600-28F73667A63B} = {15EF61F8-C4E8-483F-90A3-08EE2CE99048}
+		{F2E2E3DC-061F-4EDF-842E-0E3C82C33537} = {15EF61F8-C4E8-483F-90A3-08EE2CE99048}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {53493E0C-CC7B-417C-B1A9-6F2059519FF5}
