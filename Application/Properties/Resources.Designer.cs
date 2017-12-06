@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Application {
+namespace MyExpenses.Application.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MyExpenses.Application {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Application.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Application.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace MyExpenses.Application {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entity not found..
+        ///   Looks up a localized string similar to Domain not found..
         /// </summary>
         internal static string Error_DomainNotFound {
             get {
