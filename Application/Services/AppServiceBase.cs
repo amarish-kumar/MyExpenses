@@ -6,16 +6,16 @@
 
 namespace MyExpenses.Application.Services
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Application.Interfaces.Services;
+    using MyExpenses.Application.Properties;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.DomainServices;
     using MyExpenses.Util.Results;
-    using System.Linq.Expressions;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     public abstract class AppServiceBase<TDomain, TDto> : IAppService<TDomain, TDto>
         where TDomain : IDomain
