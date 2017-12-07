@@ -7,12 +7,12 @@
 namespace Presentation.Console
 {
     using System;
+    using System.Linq;
 
-    using MyExpenses.Application.DataTransferObject;
-    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Application.Modules;
     using MyExpenses.Infrastructure.Modules;
     using MyExpenses.Util.IoC;
+    using MyExpenses.Application.Services;
 
     public class Program
     {
@@ -23,12 +23,12 @@ namespace Presentation.Console
             MyApplicationModule.Init();
             MyInfrastructureModule.Init();
 
-            Console.WriteLine("Expenses:");
+            var app = MyKernelService.GetInstance<ExpensesAppService>();
+            var all = app.GetAll(x => x.Tag).ToList();
 
-            var appService = MyKernelService.GetInstance<IExpensesAppService>();
-            foreach (ExpenseDto expenseDto in appService.GetAll())
+            foreach (var e in all)
             {
-                Console.WriteLine($"{expenseDto.Name}");
+                Console.WriteLine(e.Name);
             }
 
             Console.WriteLine("Hello World!");
