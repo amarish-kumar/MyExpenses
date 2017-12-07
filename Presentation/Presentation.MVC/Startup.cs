@@ -40,8 +40,8 @@ namespace Presentation.MVC
             MyApplicationModule.Init();
             MyInfrastructureModule.Init();
 
-            var app = MyKernelService.GetInstance<ExpensesRepository>();
-            var all = app.GetAll().ToList();
+            var app = MyKernelService.GetInstance<ExpensesAppService>();
+            var all = app.GetAll(x => x.Tag).ToList();
             
             foreach (var e in all)
             {

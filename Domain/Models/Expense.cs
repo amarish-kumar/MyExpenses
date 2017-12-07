@@ -30,7 +30,6 @@ namespace MyExpenses.Domain.Models
         /// <summary>
         /// Tag relation
         /// </summary>
-        //public long TagId { get; set; }
         public Tag Tag { get; set; }
 
         /// <summary>

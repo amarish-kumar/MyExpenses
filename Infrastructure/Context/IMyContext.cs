@@ -8,20 +8,8 @@ namespace MyExpenses.Infrastructure.Context
 {
     using Microsoft.EntityFrameworkCore;
 
-    using MyExpenses.Domain.Models;
-
     public interface IMyContext
     {
-        /// <summary>
-        /// Table of expenses
-        /// </summary>
-        DbSet<Expense> Expenses { get; set; }
-
-        /// <summary>
-        /// Table of tags
-        /// </summary>
-        DbSet<Tag> Tags { get; set; }
-
         /// <summary>
         /// @see DbContext 
         /// </summary>

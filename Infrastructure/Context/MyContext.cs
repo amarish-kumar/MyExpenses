@@ -7,7 +7,6 @@
 namespace MyExpenses.Infrastructure.Context
 {
     using Microsoft.EntityFrameworkCore;
-    using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Mapping;
 
     public class MyContext : DbContext, IMyContext
@@ -18,16 +17,6 @@ namespace MyExpenses.Infrastructure.Context
         public MyContext(DbContextOptions<MyContext> options) : base(options)
         {
         }
-
-        /// <summary>
-        /// Table of expenses
-        /// </summary>
-        public DbSet<Expense> Expenses { get; set; }
-
-        /// <summary>
-        /// Table of tags
-        /// </summary>
-        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
