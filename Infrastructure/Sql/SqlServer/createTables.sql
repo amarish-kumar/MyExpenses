@@ -5,8 +5,9 @@ CREATE TABLE [dbo].[Expenses] (
     [Name]   TEXT   NOT NULL,
     [Value]  REAL   NOT NULL,
     [Data]   DATE   NOT NULL,
-    [UserId] BIGINT NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC)
+    [TagId] BIGINT NOT NULL, 
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Expenses_Tags] FOREIGN KEY ([TagId]) REFERENCES [Tags]([Id]) ON DELETE CASCADE,
 );
 -- Tags
 DROP TABLE IF EXISTS Tags;
@@ -15,16 +16,7 @@ CREATE TABLE [dbo].[Tags] (
     [Name] TEXT   NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
--- Expenses_Tags
-DROP TABLE IF EXISTS Expenses_Tags;
-CREATE TABLE [dbo].[Expenses_Tags]
-(
-	[Id] BIGINT NOT NULL PRIMARY KEY IDENTITY(1,1), 
-    [ExpenseId] BIGINT NOT NULL, 
-    [TagId] BIGINT NOT NULL, 
-    CONSTRAINT [FK_Expenses_Tags_Expense] FOREIGN KEY ([ExpenseId]) REFERENCES [Expenses]([Id]) ON DELETE CASCADE,
-	CONSTRAINT [FK_Expenses_Tags_Tag] FOREIGN KEY ([TagId]) REFERENCES [Tags]([Id]) ON DELETE CASCADE
-)
+
 -- Users
 DROP TABLE IF EXISTS Users;
 CREATE TABLE [dbo].[Users] (

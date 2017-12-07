@@ -29,6 +29,11 @@ namespace MyExpenses.Infrastructure.Context
         /// </summary>
         public DbSet<Tag> Tags { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=database;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        }
+
         /// <summary>
         /// Map all tables
         /// </summary>

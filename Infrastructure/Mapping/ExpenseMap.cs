@@ -25,7 +25,7 @@ namespace MyExpenses.Infrastructure.Mapping
                 entity.Property(x => x.Date).HasColumnName("Data");
 
                 // Relations
-                entity.HasOne(x => x.Tag).WithOne().HasForeignKey<Expense>(y => y.TagId);
+                entity.HasOne(x => x.Tag).WithMany().HasForeignKey("TagId").OnDelete(DeleteBehavior.Cascade).IsRequired();
 
                 entity.ToTable("Expense");
             });
