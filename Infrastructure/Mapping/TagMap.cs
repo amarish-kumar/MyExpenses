@@ -7,22 +7,20 @@
 namespace MyExpenses.Infrastructure.Mapping
 {
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using MyExpenses.Domain.Models;
 
-    internal static class TagMap
+    internal class TagMap : IEntityTypeConfiguration<Tag>
     {
-        internal static void Map(ModelBuilder modelBuilder)
+        public void Configure(EntityTypeBuilder<Tag> builder)
         {
-            modelBuilder.Entity<Tag>(entity =>
-            {
-                // Primary key
-                entity.HasKey(x => x.Id);
+            // Primary key
+            builder.HasKey(x => x.Id);
 
-                // Columns
-                entity.Property(x => x.Name).HasColumnName("Name");
+            // Columns
+            builder.Property(x => x.Name).HasColumnName("Name");
 
-                entity.ToTable("Tag");
-            });
+            builder.ToTable("Tag");
         }
     }
 }

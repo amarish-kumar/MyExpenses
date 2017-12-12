@@ -7,28 +7,25 @@
 namespace MyExpenses.Infrastructure.Mapping
 {
     using Microsoft.EntityFrameworkCore;
-
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using MyExpenses.Domain.Models;
 
-    public static class ExpenseMap
+    public class ExpenseMap : IEntityTypeConfiguration<Expense>
     {
-        public static void Map(ModelBuilder modelBuilder)
+        public void Configure(EntityTypeBuilder<Expense> builder)
         {
-            modelBuilder.Entity<Expense>(entity =>
-            {
-                // Primary key
-                entity.HasKey(x => x.Id);
+            // Primary key
+            builder.HasKey(x => x.Id);
 
-                // Columns
-                entity.Property(x => x.Name).HasColumnName("Name");
-                entity.Property(x => x.Value).HasColumnName("Value");
-                entity.Property(x => x.Date).HasColumnName("Data");
+            // Columns
+            builder.Property(x => x.Name).HasColumnName("Name");
+            builder.Property(x => x.Value).HasColumnName("Value");
+            builder.Property(x => x.Date).HasColumnName("Data");
 
-                // Relations
-                entity.HasOne(x => x.Tag).WithMany().HasForeignKey("TagId").OnDelete(DeleteBehavior.Cascade);
+            // Relations
+            builder.HasOne(x => x.Tag).WithMany().HasForeignKey("TagId").OnDelete(DeleteBehavior.Cascade);
 
-                entity.ToTable("Expense");
-            });
+            builder.ToTable("Expense");
         }
     }
 }

@@ -20,6 +20,16 @@ namespace MyExpenses.Infrastructure.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // TODO 
+            // get the configuration from the app settings
+            //var config = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("appsettings.json")
+            //    .Build();
+
+            //// define the database to use
+            //optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+
             optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=database;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
 
@@ -29,8 +39,8 @@ namespace MyExpenses.Infrastructure.Context
         /// <param name="modelBuilder">Model builder</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ExpenseMap.Map(modelBuilder);
-            TagMap.Map(modelBuilder);
+            modelBuilder.ApplyConfiguration(new ExpenseMap());
+            modelBuilder.ApplyConfiguration(new TagMap());
 
             base.OnModelCreating(modelBuilder);
         }
