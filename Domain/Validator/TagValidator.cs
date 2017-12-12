@@ -14,7 +14,6 @@ namespace MyExpenses.Domain.Validator
         public TagValidator()
         {
             ValidateId(string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
-
             ValidateName(x => x.Name, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
         }
     }
