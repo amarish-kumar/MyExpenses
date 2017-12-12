@@ -13,7 +13,7 @@ namespace MyExpenses.Infrastructure.Repositories
 
     public class TagsRepository : Repository<Tag>, ITagsRepository
     {
-        public TagsRepository(IMyContext context, ILogService log = null) : base(context, log)
+        public TagsRepository(MyContext context, ILogService log = null) : base(context, log)
         {
         }
     }

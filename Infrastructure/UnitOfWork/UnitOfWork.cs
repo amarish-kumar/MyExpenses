@@ -12,12 +12,12 @@ namespace MyExpenses.Infrastructure.UnitOfWork
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Util.Logger;
 
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly IMyContext _context;
+        private readonly MyContext _context;
         private readonly ILogService _log;
 
-        public UnitOfWork(IMyContext context, ILogService log = null)
+        public UnitOfWork(MyContext context, ILogService log = null)
         {
             _context = context;
             _log = log;
@@ -40,6 +40,11 @@ namespace MyExpenses.Infrastructure.UnitOfWork
                 Console.WriteLine(e);
                 throw new Exception(e.Message);
             }
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }

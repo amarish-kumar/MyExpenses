@@ -17,7 +17,7 @@ namespace MyExpenses.Application.Tests.ModulesMock
 
     public class MyApplicationModuleMock : NinjectModule
     {
-        private readonly IMyContext _context;
+        private readonly MyContext _context;
 
         public MyApplicationModuleMock()
         {
@@ -88,7 +88,7 @@ namespace MyExpenses.Application.Tests.ModulesMock
 
         public override void Load()
         {
-            Rebind<IMyContext>().ToConstant(_context);
+            Rebind<MyContext>().ToConstant(_context);
 
             LoadData();
         }

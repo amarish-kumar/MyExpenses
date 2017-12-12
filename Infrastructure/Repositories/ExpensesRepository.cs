@@ -13,7 +13,7 @@ namespace MyExpenses.Infrastructure.Repositories
 
     public class ExpensesRepository : Repository<Expense>, IExpensesRepository
     {
-        public ExpensesRepository(IMyContext context, ILogService log = null) : base(context, log)
+        public ExpensesRepository(MyContext context, ILogService log = null) : base(context, log)
         {
         }
     }

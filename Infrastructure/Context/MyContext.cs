@@ -9,7 +9,7 @@ namespace MyExpenses.Infrastructure.Context
     using Microsoft.EntityFrameworkCore;
     using MyExpenses.Infrastructure.Mapping;
 
-    public class MyContext : DbContext, IMyContext
+    public class MyContext : DbContext
     {
         /// <summary>
         /// Constructor

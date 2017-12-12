@@ -31,7 +31,7 @@ namespace MyExpenses.Infrastructure.Modules
             Bind<ITagsService>().To<TagsService>().InSingletonScope();
 
             // Context
-            Bind<IMyContext>().To<MyContext>().InSingletonScope();
+            Bind<MyContext>().To<MyContext>().InSingletonScope();
 
             // Unit of work
             Bind<IUnitOfWork>().To<UnitOfWork>();

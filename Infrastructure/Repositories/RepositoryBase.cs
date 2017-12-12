@@ -21,10 +21,10 @@ namespace MyExpenses.Infrastructure.Repositories
 
     public abstract class Repository<TDomain>: IRepository<TDomain> where TDomain : class, IDomain
     {
-        private readonly IMyContext _context;
+        private readonly MyContext _context;
         private readonly ILogService _log;
 
-        protected  Repository(IMyContext context, ILogService log)
+        protected  Repository(MyContext context, ILogService log)
         {
             _context = context;
             _log = log;
