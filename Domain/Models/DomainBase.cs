@@ -8,8 +8,9 @@ namespace MyExpenses.Domain.Models
 {
     using System;
 
+    using FluentValidation;
+
     using MyExpenses.Domain.Interfaces;
-    using MyExpenses.Domain.Properties;
     using MyExpenses.Util.Results;
     
     public abstract class DomainBase<TDomain> : IDomain, ICloneable
@@ -35,9 +36,9 @@ namespace MyExpenses.Domain.Models
         /// <returns cref="MyResults">Result of validation</returns>
         public MyResults Validate()
         {
-            return Validator != null ? 
-                Validator.Validate() : 
-                new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, Resources.Validation_MissingValidator);
+            return Validator == null ? 
+                new MyResults(MyResultsStatus.Ok, MyResultsAction.Validating) : 
+                new MyResults(Validator.Validate(this));
         }
 
         /// <summary>

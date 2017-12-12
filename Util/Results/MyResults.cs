@@ -6,13 +6,18 @@
 
 namespace MyExpenses.Util.Results
 {
+    using System;
+    using System.Linq;
+
+    using FluentValidation.Results;
+
     public class MyResults
     {
-        public MyResultsStatus Status { get; set; }
+        public MyResultsStatus Status { get; private set; }
 
-        public MyResultsAction Action { get; set; }
+        public MyResultsAction Action { get; private set; }
 
-        public string Message { get; set; }
+        public string Message { get; private set; }
 
         public bool IsValid => Status == MyResultsStatus.Ok;
 
@@ -21,6 +26,23 @@ namespace MyExpenses.Util.Results
             Status = status;
             Action = action;
             Message = message;
+        }
+
+        public MyResults(ValidationResult validationResults)
+        {
+            Message = string.Empty;
+
+            if (validationResults.IsValid)
+            {
+                Status = MyResultsStatus.Ok;
+                Action = MyResultsAction.Validating;
+            }
+            else
+            {
+                Status = MyResultsStatus.Error;
+                Action = MyResultsAction.Validating;
+                validationResults.Errors.ToList().ForEach(x => Message += x.ErrorMessage + Environment.NewLine);
+            }
         }
     }
 

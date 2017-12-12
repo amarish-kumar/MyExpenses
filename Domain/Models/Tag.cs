@@ -20,7 +20,7 @@ namespace MyExpenses.Domain.Models
         /// </summary>
         public Tag()
         {
-            Validator = new TagValidator(this);
+            Validator = new TagValidator();
             Id = -1;
         }
 

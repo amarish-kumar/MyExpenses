@@ -6,38 +6,24 @@
 
 namespace MyExpenses.Domain.Validator
 {
-    using MyExpenses.Domain.Interfaces;
+    using FluentValidation;
+
     using MyExpenses.Domain.Models;
     using MyExpenses.Domain.Properties;
-    using MyExpenses.Util.Results;
 
-    public class TagValidator : IValidator
+    public class TagValidator : AbstractValidator<Tag>
     {
-        private readonly Tag _domain;
-
-        public TagValidator(Tag obj)
+        public TagValidator()
         {
-            _domain = obj;
-        }
+            RuleFor(x => x.Id)
+                .LessThan(-1)
+                .WithMessage(string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
 
-        public MyResults Validate()
-        {
-            if (_domain.Id < 0)
-            {
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Id_Invalid, Resources.Tag));
-            }
-
-            if (string.IsNullOrEmpty(_domain.Name))
-            {
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
-            }
-
-            if (_domain.Name.Length > 128)
-            {
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
-            }
-
-            return new MyResults(MyResultsStatus.Ok, MyResultsAction.Validating);
+            RuleFor(x => x.Name)
+                .NotNull()
+                .NotEmpty()
+                .Length(3, 128)
+                .WithMessage(string.Format(Resources.Validate_Field_Invalid, Resources.Tag, Resources.Name));
         }
     }
 }

@@ -37,7 +37,7 @@ namespace MyExpenses.Domain.Models
         /// </summary>
         public Expense()
         {
-            Validator = new ExpenseValidator(this);
+            Validator = new ExpenseValidator();
             Id = -1;
         }
 

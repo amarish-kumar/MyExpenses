@@ -6,43 +6,27 @@
 
 namespace MyExpenses.Domain.Validator
 {
-    using MyExpenses.Domain.Interfaces;
+    using FluentValidation;
+
     using MyExpenses.Domain.Models;
     using MyExpenses.Domain.Properties;
-    using MyExpenses.Util.Results;
 
-    public class ExpenseValidator : IValidator
+    public class ExpenseValidator : AbstractValidator<Expense>
     {
-        private readonly Expense _domain;
-
-        public ExpenseValidator(Expense obj)
+        public ExpenseValidator()
         {
-            _domain = obj;
-        }
+            RuleFor(x => x.Id)
+                .LessThan(-1)
+                    .WithMessage(string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
 
-        public MyResults Validate()
-        {
-            if (_domain.Id < 0)
-            {
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Id_Invalid, Resources.Expense));
-            }
+            RuleFor(x => x.Name)
+                .NotEmpty()
+                .Length(3, 128)
+                    .WithMessage(string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
 
-            if (string.IsNullOrEmpty(_domain.Name))
-            {
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
-            }
-
-            if (_domain.Name.Length > 128)
-            {
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Name));
-            }
-
-            if (_domain.Value < 0)
-            {
-                return new MyResults(MyResultsStatus.Error, MyResultsAction.Validating, string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Value));
-            }
-
-            return new MyResults(MyResultsStatus.Ok, MyResultsAction.Validating);
+            RuleFor(x => x.Value)
+                .LessThan(0)
+                .WithMessage(string.Format(Resources.Validate_Field_Invalid, Resources.Expense, Resources.Value));
         }
     }
 }

@@ -82,7 +82,7 @@ namespace MyExpenses.Application.Services
             // remove
             var results = _domainService.Remove(domain);
 
-            if (results.Status == MyResultsStatus.Ok)
+            if (results.IsValid)
                 _unitOfWork.Commit();
 
             return results;
@@ -108,7 +108,7 @@ namespace MyExpenses.Application.Services
                     return results;
             }
 
-            if (results.Status == MyResultsStatus.Ok)
+            if (results.IsValid)
                 _unitOfWork.Commit();
 
             return results;
@@ -127,7 +127,7 @@ namespace MyExpenses.Application.Services
             // save and updates
             var results = _domainService.AddOrUpdate(domain);
 
-            if (results.Status == MyResultsStatus.Ok)
+            if (results.IsValid)
                 _unitOfWork.Commit();
 
             return results;
@@ -149,11 +149,11 @@ namespace MyExpenses.Application.Services
 
                 results = _domainService.AddOrUpdate(domain);
 
-                if (results.Status == MyResultsStatus.Error)
+                if (!results.IsValid)
                     return results;
             }
 
-            if (results.Status == MyResultsStatus.Ok)
+            if (results.IsValid)
                 _unitOfWork.Commit();
 
             return results;
