@@ -40,7 +40,7 @@ namespace MyExpenses.Util.IoC
 
         public static void AddModule(INinjectModule module)
         {
-            var exists = _kernel.GetModules().FirstOrDefault(x => x.Name == module.Name);
+            INinjectModule exists = _kernel.GetModules().FirstOrDefault(x => x.Name == module.Name);
             if (exists == null)
                 _kernel.Load(module);
         }
