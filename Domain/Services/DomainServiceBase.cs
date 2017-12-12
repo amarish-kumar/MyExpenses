@@ -19,10 +19,7 @@ namespace MyExpenses.Domain.Services
     {
         private readonly IRepository<TDomain> _repository;
 
-        protected DomainService(IRepository<TDomain> repository)
-        {
-            _repository = repository;
-        }
+        protected DomainService(IRepository<TDomain> repository) => _repository = repository;
 
         public virtual IEnumerable<TDomain> Get(Expression<Func<TDomain, bool>> filter, params Expression<Func<TDomain, object>>[] includes) => _repository.Get(filter, includes);
 
