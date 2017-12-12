@@ -29,6 +29,6 @@ namespace MyExpenses.Domain.Services
 
         public virtual MyResults Remove(TDomain domain) => _repository.Remove(domain);
 
-        public MyResults AddOrUpdate(TDomain domain) => _repository.AddOrUpdate(domain);
+        public virtual MyResults AddOrUpdate(TDomain domain) => _repository.AddOrUpdate(domain);
     }
 }
