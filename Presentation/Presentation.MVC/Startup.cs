@@ -1,4 +1,7 @@
-﻿/* 
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Presentation.MVC.Models;
+/* 
 *   Project: MyExpenses
 *   Author: Luiz Felipe Machado da Silva
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
@@ -24,6 +27,12 @@ namespace Presentation.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            //services.AddDbContext<PresentationMVCContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("PresentationMVCContext")));
+
+            services.AddDbContext<PresentationMVCContext>(options =>
+                options.UseSqlite("Data Source=Data/myexpenses.db"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
