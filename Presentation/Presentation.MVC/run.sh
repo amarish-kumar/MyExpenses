@@ -1,0 +1,1 @@
+﻿dotnet run --hosturl http://0.0.0.0:6001
