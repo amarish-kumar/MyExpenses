@@ -10,6 +10,7 @@ namespace MyExpenses.Infrastructure.Repositories
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -60,12 +61,33 @@ namespace MyExpenses.Infrastructure.Repositories
             foreach (var include in includes)
                 set = set.Include(include);
 
-            return set.FirstOrDefault();
+            return set.SingleOrDefault();
+        }
+
+        public async Task<TDomain> GetByIdAsync(long id, params Expression<Func<TDomain, object>>[] includes)
+        {
+            IQueryable<TDomain> set = _context.Set<TDomain>().Where(x => x.Id == id);
+
+            foreach (var include in includes)
+                set = set.Include(include);
+
+            return await set.SingleOrDefaultAsync();
         }
 
         public virtual MyResults Remove(TDomain domain)
         {
             TDomain exisTDomain = _context.Set<TDomain>().Find(domain.Id);
+            if (exisTDomain == null)
+                return new MyResults(MyResultsStatus.Error, MyResultsAction.Removing, MyResultsAction.Removing + " " + domain.GetType().Name);
+
+            _context.Set<TDomain>().Remove(exisTDomain);
+            _log?.AppendLog(LevelLog.Info, MyResultsAction.Removing + " " + domain.GetType().Name);
+            return new MyResults(MyResultsStatus.Ok, MyResultsAction.Removing, domain.GetType().Name);
+        }
+
+        public async Task<MyResults> RemoveAsync(TDomain domain)
+        {
+            TDomain exisTDomain = await _context.Set<TDomain>().FindAsync(domain.Id);
             if (exisTDomain == null)
                 return new MyResults(MyResultsStatus.Error, MyResultsAction.Removing, MyResultsAction.Removing + " " + domain.GetType().Name);
 
@@ -95,6 +117,31 @@ namespace MyExpenses.Infrastructure.Repositories
 
             // Save Add
             _context.Set<TDomain>().Add(domain);
+            _log?.AppendLog(LevelLog.Info, MyResultsAction.Creating + " " + domain.GetType().Name);
+            return new MyResults(MyResultsStatus.Ok, MyResultsAction.Creating, domain.GetType().Name);
+        }
+
+        public async Task<MyResults> AddOrUpdateAsync(TDomain domain)
+        {
+            MyResults validate = domain.Validate();
+            if (validate.Status != MyResultsStatus.Ok)
+                return validate;
+
+            // Update
+            if (domain.Id > 0)
+            {
+                TDomain existDomain = await _context.Set<TDomain>().FindAsync(domain.Id);
+                if (existDomain == null)
+                    return new MyResults(MyResultsStatus.Error, MyResultsAction.Updating, domain.GetType().Name);
+
+                // copy attributes
+                existDomain.Copy(domain);
+                _log?.AppendLog(LevelLog.Info, MyResultsAction.Updating + " " + domain.GetType().Name);
+                return new MyResults(MyResultsStatus.Ok, MyResultsAction.Updating, domain.GetType().Name);
+            }
+
+            // Save Add
+            await _context.Set<TDomain>().AddAsync(domain);
             _log?.AppendLog(LevelLog.Info, MyResultsAction.Creating + " " + domain.GetType().Name);
             return new MyResults(MyResultsStatus.Ok, MyResultsAction.Creating, domain.GetType().Name);
         }

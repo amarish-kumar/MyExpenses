@@ -19,23 +19,23 @@ namespace Presentation.MVC.Controllers
         }
 
         // GET: Expenses
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var presentationMVCContext = _context.Expenses.Include(e => e.Tag);
-            return View(await presentationMVCContext.ToListAsync());
+            return View(presentationMVCContext.ToList());
         }
 
         // GET: Expenses/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public IActionResult Details(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var expense = await _context.Expenses
+            var expense = _context.Expenses
                 .Include(e => e.Tag)
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefault(m => m.Id == id);
             if (expense == null)
             {
                 return NotFound();
@@ -56,12 +56,12 @@ namespace Presentation.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Value,Date,TagId")] Expense expense)
+        public IActionResult Create([Bind("Id,Name,Value,Date,TagId")] Expense expense)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(expense);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["TagId"] = new SelectList(_context.Set<Tag>(), "Id", "Name", expense.TagId);
@@ -69,14 +69,14 @@ namespace Presentation.MVC.Controllers
         }
 
         // GET: Expenses/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public IActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var expense = await _context.Expenses.SingleOrDefaultAsync(m => m.Id == id);
+            var expense = _context.Expenses.SingleOrDefault(m => m.Id == id);
             if (expense == null)
             {
                 return NotFound();
@@ -90,7 +90,7 @@ namespace Presentation.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Value,Date,TagId")] Expense expense)
+        public IActionResult Edit(long id, [Bind("Id,Name,Value,Date,TagId")] Expense expense)
         {
             if (id != expense.Id)
             {
@@ -102,7 +102,7 @@ namespace Presentation.MVC.Controllers
                 try
                 {
                     _context.Update(expense);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -122,16 +122,16 @@ namespace Presentation.MVC.Controllers
         }
 
         // GET: Expenses/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public IActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var expense = await _context.Expenses
+            var expense = _context.Expenses
                 .Include(e => e.Tag)
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefault(m => m.Id == id);
             if (expense == null)
             {
                 return NotFound();
@@ -143,11 +143,11 @@ namespace Presentation.MVC.Controllers
         // POST: Expenses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public IActionResult DeleteConfirmed(long id)
         {
-            var expense = await _context.Expenses.SingleOrDefaultAsync(m => m.Id == id);
+            var expense = _context.Expenses.SingleOrDefault(m => m.Id == id);
             _context.Expenses.Remove(expense);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 

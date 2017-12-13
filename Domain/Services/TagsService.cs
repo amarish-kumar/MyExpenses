@@ -24,7 +24,7 @@ namespace MyExpenses.Domain.Services
         public override MyResults Remove(Tag domain)
         {
             // get all expenses with this tag
-            foreach (Expense expense in _expensesRepository.Get(x => x.Tag.Id != domain.Id))
+            foreach (Expense expense in _expensesRepository.Get(x => x.Tag != null && x.Tag.Id == domain.Id))
             {
                 // remove tag ref
                 expense.Tag = null;
