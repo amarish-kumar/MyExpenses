@@ -1,3 +1,5 @@
+-- https://sqliteonline.com/
+
 DROP TABLE IF EXISTS Expenses;
 CREATE TABLE Expenses (
     Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -5,7 +7,7 @@ CREATE TABLE Expenses (
     Value real NOT NULL,
     Data date NOT NULL,
     TagId INTEGER NULL,
-    CONSTRAINT `Expenses_Tag` FOREIGN KEY (`TagId`) REFERENCES `Tags` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT `FK_Expenses_Tag` FOREIGN KEY (`TagId`) REFERENCES `Tags` (`Id`) NULL ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS Tags;

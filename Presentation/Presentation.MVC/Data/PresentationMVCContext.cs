@@ -25,11 +25,11 @@ namespace Presentation.MVC.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Expense>()
-                .HasOne(x => x.Tag)
-                .WithMany(x => x.Expenses)
-                .HasForeignKey(x => x.TagId)
-                .HasConstraintName("Expenses_Tag");
+            //modelBuilder.Entity<Expense>()
+            //    .HasOne(x => x.Tag)
+            //    .WithMany(x => x.Expenses)
+            //    .HasForeignKey(x => x.TagId)
+            //    .HasConstraintName("Expenses_Tag");
         }
 
         public DbSet<Expense> Expenses { get; set; }

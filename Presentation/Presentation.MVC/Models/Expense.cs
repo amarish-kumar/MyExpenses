@@ -37,8 +37,9 @@ namespace Presentation.MVC.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
-        public long TagId { get; set; }
+        public long? TagId { get; set; }
 
+        [ForeignKey("TagId")]
         public virtual Tag Tag { get; set; }
     }
 }
