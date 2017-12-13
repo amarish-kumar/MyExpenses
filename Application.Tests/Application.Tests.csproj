@@ -5,6 +5,15 @@
     <RootNamespace>MyExpenses.Application.Tests</RootNamespace>
     <AssemblyName>MyExpenses.Application.Tests</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Version>0.2.0</Version>
+    <Authors>Luiz Felipe Machado da Silva</Authors>
+    <Company>MyExpenses</Company>
+    <Product>MyExpenses</Product>
+    <PackageProjectUrl>lfmachadodasilva.zapto.org:6001</PackageProjectUrl>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
