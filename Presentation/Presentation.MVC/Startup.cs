@@ -6,20 +6,10 @@
 
 namespace Presentation.MVC
 {
-    using System;
-    using System.Linq;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-
-    using MyExpenses.Application.DataTransferObject;
-    using MyExpenses.Application.Modules;
-    using MyExpenses.Application.Services;
-    using MyExpenses.Infrastructure.Modules;
-    using MyExpenses.Infrastructure.Repositories;
-    using MyExpenses.Util.IoC;
 
     public class Startup
     {
@@ -34,19 +24,6 @@ namespace Presentation.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            // Loads only necessary modules
-            MyKernelService.Init();
-            MyApplicationModule.Init();
-            MyInfrastructureModule.Init();
-
-            var app = MyKernelService.GetInstance<ExpensesAppService>();
-            var all = app.GetAll(x => x.Tag).ToList();
-            
-            foreach (var e in all)
-            {
-                Console.WriteLine(e.Name);
-            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
