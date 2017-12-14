@@ -139,7 +139,16 @@ namespace Presentation.MVC.Controllers
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
             var tag = await _context.Tag.SingleOrDefaultAsync(m => m.Id == id);
+
+            // remove tag first
+            foreach (var item in _context.Expenses.Where(x => x.Tag != null && x.Tag.Id == id))
+            {
+                item.Tag = null;
+                item.TagId = null;
+            }
+
             _context.Tag.Remove(tag);
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
