@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Tests", "Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{15EF61F8-C4E8-483F-90A3-08EE2CE99048}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.Angular", "Presentation\Presentation.Angular\Presentation.Angular.csproj", "{9A86DBB2-9E16-4674-B0A7-5B39E4B38B7F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.Console", "Presentation\Presentation.Console\Presentation.Console.csproj", "{9483DEA8-B9AE-4447-A7E4-8D5A3B4A52B8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.MVC", "Presentation\Presentation.MVC\Presentation.MVC.csproj", "{13236F79-901C-45C9-B71B-01D9E975D17D}"
@@ -47,10 +45,6 @@ Global
 		{F34500CC-30BD-4F3F-95DB-56F73B1A2E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F34500CC-30BD-4F3F-95DB-56F73B1A2E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F34500CC-30BD-4F3F-95DB-56F73B1A2E2A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A86DBB2-9E16-4674-B0A7-5B39E4B38B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A86DBB2-9E16-4674-B0A7-5B39E4B38B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A86DBB2-9E16-4674-B0A7-5B39E4B38B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A86DBB2-9E16-4674-B0A7-5B39E4B38B7F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9483DEA8-B9AE-4447-A7E4-8D5A3B4A52B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9483DEA8-B9AE-4447-A7E4-8D5A3B4A52B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9483DEA8-B9AE-4447-A7E4-8D5A3B4A52B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -64,7 +58,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9A86DBB2-9E16-4674-B0A7-5B39E4B38B7F} = {15EF61F8-C4E8-483F-90A3-08EE2CE99048}
 		{9483DEA8-B9AE-4447-A7E4-8D5A3B4A52B8} = {15EF61F8-C4E8-483F-90A3-08EE2CE99048}
 		{13236F79-901C-45C9-B71B-01D9E975D17D} = {15EF61F8-C4E8-483F-90A3-08EE2CE99048}
 	EndGlobalSection
