@@ -10,8 +10,8 @@ namespace Presentation.MVC.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Tags")]
-    public class Tag
+    [Table("ExpenseTag")]
+    public class ExpenseTag
     {
         [Key]
         public long Id { get; set; }

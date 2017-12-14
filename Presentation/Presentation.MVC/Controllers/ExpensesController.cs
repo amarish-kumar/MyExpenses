@@ -19,23 +19,25 @@ namespace Presentation.MVC.Controllers
         }
 
         // GET: Expenses
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var presentationMVCContext = _context.Expenses.Include(e => e.Tag);
-            return View(presentationMVCContext.ToList());
+            var presentationMVCContext = _context.Expenses.Include(e => e.ExpenseHow).Include(e => e.ExpenseStatus).Include(e => e.ExpenseTag);
+            return View(await presentationMVCContext.ToListAsync());
         }
 
         // GET: Expenses/Details/5
-        public IActionResult Details(long? id)
+        public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var expense = _context.Expenses
-                .Include(e => e.Tag)
-                .SingleOrDefault(m => m.Id == id);
+            var expense = await _context.Expenses
+                .Include(e => e.ExpenseHow)
+                .Include(e => e.ExpenseStatus)
+                .Include(e => e.ExpenseTag)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
                 return NotFound();
@@ -47,7 +49,9 @@ namespace Presentation.MVC.Controllers
         // GET: Expenses/Create
         public IActionResult Create()
         {
-            ViewData["TagId"] = new SelectList(_context.Set<Tag>(), "Id", "Name");
+            ViewData["ExpenseHowId"] = new SelectList(_context.ExpenseHow, "Id", "Name");
+            ViewData["ExpenseStatusId"] = new SelectList(_context.ExpenseStatus, "Id", "Name");
+            ViewData["ExpenseTagId"] = new SelectList(_context.ExpenseTag, "Id", "Name");
             return View();
         }
 
@@ -56,32 +60,36 @@ namespace Presentation.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,Value,Date,TagId")] Expense expense)
+        public async Task<IActionResult> Create([Bind("Id,Name,Value,Date,Income,SplitAmount,ExpenseTagId,ExpenseHowId,ExpenseStatusId")] Expense expense)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(expense);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TagId"] = new SelectList(_context.Set<Tag>(), "Id", "Name", expense.TagId);
+            ViewData["ExpenseHowId"] = new SelectList(_context.ExpenseHow, "Id", "Name", expense.ExpenseHowId);
+            ViewData["ExpenseStatusId"] = new SelectList(_context.ExpenseStatus, "Id", "Name", expense.ExpenseStatusId);
+            ViewData["ExpenseTagId"] = new SelectList(_context.ExpenseTag, "Id", "Name", expense.ExpenseTagId);
             return View(expense);
         }
 
         // GET: Expenses/Edit/5
-        public IActionResult Edit(long? id)
+        public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var expense = _context.Expenses.SingleOrDefault(m => m.Id == id);
+            var expense = await _context.Expenses.SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
                 return NotFound();
             }
-            ViewData["TagId"] = new SelectList(_context.Set<Tag>(), "Id", "Name", expense.TagId);
+            ViewData["ExpenseHowId"] = new SelectList(_context.ExpenseHow, "Id", "Name", expense.ExpenseHowId);
+            ViewData["ExpenseStatusId"] = new SelectList(_context.ExpenseStatus, "Id", "Name", expense.ExpenseStatusId);
+            ViewData["ExpenseTagId"] = new SelectList(_context.ExpenseTag, "Id", "Name", expense.ExpenseTagId);
             return View(expense);
         }
 
@@ -90,7 +98,7 @@ namespace Presentation.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(long id, [Bind("Id,Name,Value,Date,TagId")] Expense expense)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Value,Date,Income,SplitAmount,ExpenseTagId,ExpenseHowId,ExpenseStatusId")] Expense expense)
         {
             if (id != expense.Id)
             {
@@ -102,7 +110,7 @@ namespace Presentation.MVC.Controllers
                 try
                 {
                     _context.Update(expense);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,21 +125,25 @@ namespace Presentation.MVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TagId"] = new SelectList(_context.Set<Tag>(), "Id", "Name", expense.TagId);
+            ViewData["ExpenseHowId"] = new SelectList(_context.ExpenseHow, "Id", "Name", expense.ExpenseHowId);
+            ViewData["ExpenseStatusId"] = new SelectList(_context.ExpenseStatus, "Id", "Name", expense.ExpenseStatusId);
+            ViewData["ExpenseTagId"] = new SelectList(_context.ExpenseTag, "Id", "Name", expense.ExpenseTagId);
             return View(expense);
         }
 
         // GET: Expenses/Delete/5
-        public IActionResult Delete(long? id)
+        public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var expense = _context.Expenses
-                .Include(e => e.Tag)
-                .SingleOrDefault(m => m.Id == id);
+            var expense = await _context.Expenses
+                .Include(e => e.ExpenseHow)
+                .Include(e => e.ExpenseStatus)
+                .Include(e => e.ExpenseTag)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
                 return NotFound();
@@ -143,11 +155,11 @@ namespace Presentation.MVC.Controllers
         // POST: Expenses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var expense = _context.Expenses.SingleOrDefault(m => m.Id == id);
+            var expense = await _context.Expenses.SingleOrDefaultAsync(m => m.Id == id);
             _context.Expenses.Remove(expense);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

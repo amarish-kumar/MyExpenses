@@ -11,7 +11,7 @@ namespace Presentation.MVC.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Expenses")]
+    [Table("Expense")]
     public class Expense
     {
         [Key]
@@ -37,9 +37,27 @@ namespace Presentation.MVC.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
-        public long? TagId { get; set; }
+        [Column("Income")]
+        [DisplayName("Income")]
+        public int? Income { get; set; }
 
-        [ForeignKey("TagId")]
-        public virtual Tag Tag { get; set; }
+        [Column("SplitAmount")]
+        [DisplayName("Split Amount")]
+        public int? SplitAmount { get; set; }
+
+        public long? ExpenseTagId { get; set; }
+
+        [ForeignKey("ExpenseTagId")]
+        public virtual ExpenseTag ExpenseTag { get; set; }
+
+        public long? ExpenseHowId { get; set; }
+
+        [ForeignKey("ExpenseHowId")]
+        public virtual ExpenseHow ExpenseHow { get; set; }
+
+        public long? ExpenseStatusId { get; set; }
+
+        [ForeignKey("ExpenseStatusId")]
+        public virtual ExpenseStatus ExpenseStatus { get; set; }
     }
 }

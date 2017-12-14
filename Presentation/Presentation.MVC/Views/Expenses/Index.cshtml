@@ -22,8 +22,20 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Date)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Income)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SplitAmount)
+                </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tag)
+                @Html.DisplayNameFor(model => model.ExpenseHow)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpenseTag)
             </th>
             <th></th>
         </tr>
@@ -41,7 +53,19 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tag.Name)
+                @Html.DisplayFor(modelItem => item.Income)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SplitAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseHow.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseStatus.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseTag.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -25,15 +25,14 @@ namespace Presentation.MVC.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Expense>()
-            //    .HasOne(x => x.Tag)
-            //    .WithMany(x => x.Expenses)
-            //    .HasForeignKey(x => x.TagId)
-            //    .HasConstraintName("Expenses_Tag");
         }
 
         public DbSet<Expense> Expenses { get; set; }
 
-        public DbSet<Presentation.MVC.Models.Tag> Tag { get; set; }
+        public DbSet<Presentation.MVC.Models.ExpenseTag> ExpenseTag { get; set; }
+
+        public DbSet<Presentation.MVC.Models.ExpenseHow> ExpenseHow { get; set; }
+
+        public DbSet<Presentation.MVC.Models.ExpenseStatus> ExpenseStatus { get; set; }
     }
 }
