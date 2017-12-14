@@ -34,22 +34,25 @@ platform:
 #  - x86
 #  - x64
 
-build:
-  project: MyExpenses.sln         # path to Visual Studio solution or project
-  parallel: true                  # enable MSBuild parallel builds
-  publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
-  publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
-  publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-  publish_nuget: true             # package projects with .nuspec files and push to artifacts
-  publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-  include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
-  verbosity: minimal              # MSBuild verbosity level
+# build:
+#   project: MyExpenses.sln         # path to Visual Studio solution or project
+#   parallel: true                  # enable MSBuild parallel builds
+#   publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
+#   publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
+#   publish_azure: true             # package Azure Cloud Service projects and push to artifacts
+#   publish_nuget: true             # package projects with .nuspec files and push to artifacts
+#   publish_nuget_symbols: true     # generate and publish NuGet symbol packages
+#   include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
+#   verbosity: minimal              # MSBuild verbosity level
+
+build_script:
+- dotnet build "Presentation/Presentation.MVC" -c $(configuration) --no-dependencies
 
 before_build:
  - nuget restore
 
-after_build:
- - dotnet pack --no-build --configuration $(configuration)
+# after_build:
+#  - dotnet pack --no-build --configuration $(configuration)
 
 #---------------------------------#
 #    environment configuration    #
