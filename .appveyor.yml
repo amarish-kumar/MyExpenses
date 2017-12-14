@@ -50,6 +50,7 @@ platform:
 
 build_script:
 - dotnet build "Presentation/Presentation.MVC" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Util" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 - dotnet build "Domain" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 
 before_build:
@@ -58,6 +59,7 @@ before_build:
 
 after_build:
  - dotnet pack "Presentation/Presentation.MVC" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
+ - dotnet pack "Util" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
  - dotnet pack "Domain" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
 
 artifacts:
