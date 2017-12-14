@@ -80,15 +80,15 @@ notifications:
 #---------------------------------#
 
 # to run your custom scripts instead of automatic tests
-test_script:
- - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Tests\MyExpenses.Application.Tests\bin\$(configuration)\netcoreapp2.0\MyExpenses.Application.Tests.dll" -output:"TestResult.xml"
+# test_script:
+#  - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:".\packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"Tests\MyExpenses.Application.Tests\bin\$(configuration)\netcoreapp2.0\MyExpenses.Application.Tests.dll" -output:"TestResult.xml"
 
-# scripts to run before tests
-before_test:
-- "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
- - pip install codecov
- - pip install git+git://github.com/codecov/codecov-python.git
+# # scripts to run before tests
+# before_test:
+#  - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
+#  - pip install codecov
+#  - pip install git+git://github.com/codecov/codecov-python.git
 
-# scripts to run after tests
-after_test:
- - codecov -f "TestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
+# # scripts to run after tests
+# after_test:
+#  - codecov -f "TestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
