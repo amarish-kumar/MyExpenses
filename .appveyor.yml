@@ -10,6 +10,7 @@ branches:
   only:
   - master
   - dev
+  - core
 
 # Do not build on tags (GitHub and BitBucket)
 skip_tags: true
