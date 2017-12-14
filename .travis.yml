@@ -2,7 +2,9 @@ language: csharp
 solution: MyExpenses.sln
 install:
   - sudo apt-get install -y gtk-sharp2
-  - nuget restore MyExpenses.sln
+  - nuget # lets get version number
+  - nuget restore MyExpenses.sln -Verbosity detailed
+  - nuget update MyExpenses.sln -Verbosity detailed
 notifications:
   email:
     on_success: never # default: change
