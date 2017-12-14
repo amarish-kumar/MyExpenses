@@ -13,7 +13,8 @@
     <PackageProjectUrl>lfmachadodasilva.zapto.org:6001</PackageProjectUrl>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseUrl></PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

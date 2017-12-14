@@ -5,7 +5,7 @@
     <RootNamespace>MyExpenses.Application</RootNamespace>
     <AssemblyName>MyExpenses.Application</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Version>0.2.0</Version>
     <Authors>Luiz Felipe Machado da Silva</Authors>
     <Product>MyExpenses</Product>

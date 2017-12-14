@@ -1,1 +1,1 @@
-﻿dotnet run --hosturl http://0.0.0.0:6001
+﻿dotnet run --project Presentation/Presentation.MVC/Presentation.MVC.csproj --configuration Release --hosturl http://0.0.0.0:6001
