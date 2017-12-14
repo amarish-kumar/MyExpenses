@@ -43,7 +43,7 @@ build:
   publish_nuget: true             # package projects with .nuspec files and push to artifacts
   publish_nuget_symbols: true     # generate and publish NuGet symbol packages
   include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
-  verbosity: normal               # MSBuild verbosity level
+  verbosity: minimal              # MSBuild verbosity level
 
 before_build:
  - nuget restore
