@@ -46,7 +46,10 @@ build:
   verbosity: normal               # MSBuild verbosity level
 
 before_build:
-  - nuget restore
+ - nuget restore
+
+after_build:
+ - dotnet pack MyExpenses.sln
 
 #---------------------------------#
 #    environment configuration    #
