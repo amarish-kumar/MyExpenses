@@ -39,11 +39,14 @@ namespace Presentation.MVC.Models
 
         [Column("Income")]
         [DisplayName("Income")]
-        public int? Income { get; set; }
+        public int Income { get; set; }
 
         [Column("SplitAmount")]
         [DisplayName("Split Amount")]
-        public int? SplitAmount { get; set; }
+        public int SplitAmount { get; set; }
+
+        [Column("SplitCurrent")]
+        public int SplitCurrent { get; set; }
 
         public long? ExpenseTagId { get; set; }
 
