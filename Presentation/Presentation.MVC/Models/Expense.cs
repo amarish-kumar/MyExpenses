@@ -41,8 +41,17 @@ namespace Presentation.MVC.Models
         [DisplayName("Income")]
         public int Income { get; set; }
 
+        [NotMapped]
+        public bool IsIncome
+        {
+            get => Income == 1;
+
+            set => Income = value ? 1 : 0;
+        }
+
         [Column("SplitAmount")]
-        [DisplayName("Split Amount")]
+        [DisplayName("Split")]
+        [Range(1, int.MaxValue)]
         public int SplitAmount { get; set; }
 
         [Column("SplitCurrent")]
@@ -50,16 +59,19 @@ namespace Presentation.MVC.Models
 
         public long? ExpenseTagId { get; set; }
 
+        [DisplayName("Tag")]
         [ForeignKey("ExpenseTagId")]
         public virtual ExpenseTag ExpenseTag { get; set; }
 
         public long? ExpenseHowId { get; set; }
 
+        [DisplayName("How")]
         [ForeignKey("ExpenseHowId")]
         public virtual ExpenseHow ExpenseHow { get; set; }
 
         public long? ExpenseStatusId { get; set; }
 
+        [DisplayName("Status")]
         [ForeignKey("ExpenseStatusId")]
         public virtual ExpenseStatus ExpenseStatus { get; set; }
     }

@@ -60,7 +60,7 @@ namespace Presentation.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Value,Date,Income,SplitAmount,ExpenseTagId,ExpenseHowId,ExpenseStatusId")] Expense expense)
+        public async Task<IActionResult> Create([Bind("Id,Name,Value,Date,IsIncome,SplitAmount,ExpenseTagId,ExpenseHowId,ExpenseStatusId")] Expense expense)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace Presentation.MVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Value,Date,Income,SplitAmount,ExpenseTagId,ExpenseHowId,ExpenseStatusId")] Expense expense)
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,Value,Date,IsIncome,SplitAmount,ExpenseTagId,ExpenseHowId,ExpenseStatusId")] Expense expense)
         {
             if (id != expense.Id)
             {
