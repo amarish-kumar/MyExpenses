@@ -16,27 +16,34 @@ namespace Presentation.MVC
     {
         public static void Main(string[] args)
         {
-            // use this to allow command line parameters in the config
-            var configuration = new ConfigurationBuilder()
-                .AddCommandLine(args)
-                .Build();
+            if (args.Length > 0)
+            {
+                // use this to allow command line parameters in the config
+                var configuration = new ConfigurationBuilder()
+                    .AddCommandLine(args)
+                    .Build();
 
 
-            var hostUrl = configuration["hosturl"];
-            if (string.IsNullOrEmpty(hostUrl))
-                hostUrl = "http://0.0.0.0:6000";
+                var hostUrl = configuration["hosturl"];
+                if (string.IsNullOrEmpty(hostUrl))
+                    hostUrl = "http://0.0.0.0:6000";
 
 
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseUrls(hostUrl)   // <!-- this 
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .UseConfiguration(configuration)
-                .Build();
+                var host = new WebHostBuilder()
+                    .UseKestrel()
+                    .UseUrls(hostUrl)   // <!-- this 
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseIISIntegration()
+                    .UseStartup<Startup>()
+                    .UseConfiguration(configuration)
+                    .Build();
 
-            host.Run();
+                host.Run();
+            }
+            else
+            {
+                BuildWebHost(args).Run();
+            }
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
