@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Services\" />
+    <Folder Include="Domain\" />
     <Folder Include="Infrastructure\Contexts\" />
     <Folder Include="Infrastructure\Modules\" />
     <Folder Include="Infrastructure\Repositories\" />

@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace WebApplication.Domain.Interfaces
+namespace MyExpenses.Domain.Interfaces
 {
     public interface IModel
     {

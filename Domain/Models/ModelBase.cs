@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace WebApplication.Domain.Models
+namespace MyExpenses.Domain.Models
 {
     using System.ComponentModel.DataAnnotations;
     using WebApplication.Domain.Interfaces;
