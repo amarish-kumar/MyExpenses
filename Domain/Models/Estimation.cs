@@ -14,7 +14,7 @@ namespace MyExpenses.Domain.Models
     {
         [Required]
         [ForeignKey("TypeId")]
-        public Type Type { get; set; }
+        public ExpenseType Type { get; set; }
 
         [Required]
         [Range(0.0f, float.MaxValue)]

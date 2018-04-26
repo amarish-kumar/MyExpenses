@@ -7,7 +7,8 @@
 namespace MyExpenses.Domain.Models
 {
     using System.ComponentModel.DataAnnotations;
-    using WebApplication.Domain.Interfaces;
+
+    using MyExpenses.Domain.Interfaces;
 
     public class ModelBase : IModel
     {

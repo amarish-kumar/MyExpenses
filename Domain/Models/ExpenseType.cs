@@ -10,7 +10,7 @@ namespace MyExpenses.Domain.Models
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("Type")]
-    public class Type : ModelBase
+    public class ExpenseType : ModelBase
     {
         [Required]
         [StringLength(128, MinimumLength = 3)]
