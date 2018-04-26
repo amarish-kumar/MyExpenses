@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Models;
+using MyExpenses.Domain.Models;
 
 namespace WebApplication.Data
 {
@@ -22,5 +23,9 @@ namespace WebApplication.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<MyExpenses.Domain.Models.ExpenseType> ExpenseType { get; set; }
+
+        public DbSet<MyExpenses.Domain.Models.Expense> Expense { get; set; }
     }
 }
