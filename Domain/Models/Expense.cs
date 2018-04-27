@@ -20,12 +20,15 @@ namespace MyExpenses.Domain.Models
         public string Name { get; set; }
 
         [Required]
-        [Range(0.0f, float.MaxValue)]
         [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
         public float Value { get; set; }
 
+        [Column("Data")]
+        [DisplayName("Date")]
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Data { get; set; }
 
         [ForeignKey("LabelId")]

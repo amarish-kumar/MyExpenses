@@ -60,7 +60,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         public IActionResult Create()
         {
             ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", null);
-            return View();
+            return View(new Expense { Data = DateTime.Today });
         }
 
         // POST: Expenses/Create
@@ -68,7 +68,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Value,Date,Id,LabelId")] Expense expense)
+        public async Task<IActionResult> Create(Expense expense)
         {
             if (ModelState.IsValid)
             { 
@@ -93,6 +93,8 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             var expense = await _context.Expense
                 .Include(x => x.Label)
                 .SingleOrDefaultAsync(m => m.Id == id);
+
+            expense.Value = 2.2f;
             if (expense == null)
             {
                 return NotFound();
@@ -107,7 +109,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Value,Date,Id,LabelId")] Expense expense)
+        public async Task<IActionResult> Edit(long id, Expense expense)
         {
             if (id != expense.Id)
             {

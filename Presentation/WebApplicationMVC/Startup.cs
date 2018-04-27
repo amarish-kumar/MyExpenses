@@ -1,4 +1,7 @@
-﻿/* 
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.WebApplicationMVC.Models;
+/* 
 *   Project: MyExpenses
 *   Author: Luiz Felipe Machado da Silva
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
