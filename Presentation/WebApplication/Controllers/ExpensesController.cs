@@ -22,7 +22,7 @@ namespace WebApplication.Controllers
         // GET: Expenses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Expense.ToListAsync());
+            return View(await _context.Expenses.ToListAsync());
         }
 
         // GET: Expenses/Details/5
@@ -33,7 +33,7 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
 
-            var expense = await _context.Expense
+            var expense = await _context.Expenses
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
@@ -73,7 +73,7 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
 
-            var expense = await _context.Expense.SingleOrDefaultAsync(m => m.Id == id);
+            var expense = await _context.Expenses.SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
 
-            var expense = await _context.Expense
+            var expense = await _context.Expenses
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
@@ -139,15 +139,15 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var expense = await _context.Expense.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Expense.Remove(expense);
+            var expense = await _context.Expenses.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Expenses.Remove(expense);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExpenseExists(long id)
         {
-            return _context.Expense.Any(e => e.Id == id);
+            return _context.Expenses.Any(e => e.Id == id);
         }
     }
 }

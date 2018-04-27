@@ -1,31 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using MyExpenses.Domain.Models;
-using WebApplication.Data;
+﻿/* 
+*   Project: MyExpenses
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyExpenses
+*/
 
 namespace WebApplication.Controllers
 {
-    public class ExpenseTypesController : Controller
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using MyExpenses.Domain.Models;
+    using WebApplication.Data;
+
+    public class LabelsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ExpenseTypesController(ApplicationDbContext context)
+        public LabelsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: ExpenseTypes
+        // GET: Labels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ExpenseType.ToListAsync());
+            return View(await _context.Labels.ToListAsync());
         }
 
-        // GET: ExpenseTypes/Details/5
+        // GET: Labels/Details/5
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -33,39 +37,39 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
 
-            var expenseType = await _context.ExpenseType
+            var label = await _context.Labels
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (expenseType == null)
+            if (label == null)
             {
                 return NotFound();
             }
 
-            return View(expenseType);
+            return View(label);
         }
 
-        // GET: ExpenseTypes/Create
+        // GET: Labels/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ExpenseTypes/Create
+        // POST: Labels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Id")] ExpenseType expenseType)
+        public async Task<IActionResult> Create([Bind("Name,Id")] Label label)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(expenseType);
+                _context.Add(label);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(expenseType);
+            return View(label);
         }
 
-        // GET: ExpenseTypes/Edit/5
+        // GET: Labels/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -73,22 +77,22 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
 
-            var expenseType = await _context.ExpenseType.SingleOrDefaultAsync(m => m.Id == id);
-            if (expenseType == null)
+            var label = await _context.Labels.SingleOrDefaultAsync(m => m.Id == id);
+            if (label == null)
             {
                 return NotFound();
             }
-            return View(expenseType);
+            return View(label);
         }
 
-        // POST: ExpenseTypes/Edit/5
+        // POST: Labels/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Id")] ExpenseType expenseType)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Id")] Label label)
         {
-            if (id != expenseType.Id)
+            if (id != label.Id)
             {
                 return NotFound();
             }
@@ -97,12 +101,12 @@ namespace WebApplication.Controllers
             {
                 try
                 {
-                    _context.Update(expenseType);
+                    _context.Update(label);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ExpenseTypeExists(expenseType.Id))
+                    if (!LabelExists(label.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +117,10 @@ namespace WebApplication.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(expenseType);
+            return View(label);
         }
 
-        // GET: ExpenseTypes/Delete/5
+        // GET: Labels/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -124,30 +128,30 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
 
-            var expenseType = await _context.ExpenseType
+            var label = await _context.Labels
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (expenseType == null)
+            if (label == null)
             {
                 return NotFound();
             }
 
-            return View(expenseType);
+            return View(label);
         }
 
-        // POST: ExpenseTypes/Delete/5
+        // POST: Labels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var expenseType = await _context.ExpenseType.SingleOrDefaultAsync(m => m.Id == id);
-            _context.ExpenseType.Remove(expenseType);
+            var label = await _context.Labels.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Labels.Remove(label);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ExpenseTypeExists(long id)
+        private bool LabelExists(long id)
         {
-            return _context.ExpenseType.Any(e => e.Id == id);
+            return _context.Labels.Any(e => e.Id == id);
         }
     }
 }

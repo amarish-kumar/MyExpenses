@@ -1,12 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using WebApplication.Services;
-
-namespace WebApplication.Services
+namespace WebApplication.Extensions
 {
+    using System.Text.Encodings.Web;
+    using System.Threading.Tasks;
+
+    using WebApplication.Services;
+
     public static class EmailSenderExtensions
     {
         public static Task SendEmailConfirmationAsync(this IEmailSender emailSender, string email, string link)

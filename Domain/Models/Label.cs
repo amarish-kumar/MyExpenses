@@ -9,8 +9,8 @@ namespace MyExpenses.Domain.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("Type")]
-    public class ExpenseType : ModelBase
+    [Table("Label")]
+    public class Label : ModelBase
     {
         [Required]
         [StringLength(128, MinimumLength = 3)]

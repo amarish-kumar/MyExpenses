@@ -16,6 +16,8 @@ using WebApplication.Services;
 
 namespace WebApplication.Controllers
 {
+    using WebApplication.Extensions;
+
     [Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller

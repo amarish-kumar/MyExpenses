@@ -13,8 +13,8 @@ namespace MyExpenses.Domain.Models
     public class Estimation : ModelBase
     {
         [Required]
-        [ForeignKey("TypeId")]
-        public ExpenseType Type { get; set; }
+        [ForeignKey("LabelId")]
+        public Label Label { get; set; }
 
         [Required]
         [Range(0.0f, float.MaxValue)]

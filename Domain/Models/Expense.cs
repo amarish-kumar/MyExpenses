@@ -28,7 +28,7 @@ namespace MyExpenses.Domain.Models
         public DateTime Date { get; set; }
 
         [Required]
-        [ForeignKey("TypeId")]
-        public ExpenseType Type { get; set; }
+        [ForeignKey("LabelId")]
+        public Label Label { get; set; }
     }
 }
