@@ -6,6 +6,7 @@
 
 namespace MyExpenses.WebApplicationMVC.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -15,14 +16,19 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Infrastructure.Interfaces;
 
     public class ExpensesController : Controller
     {
         private readonly MyExpensesContext _context;
+        private readonly IExpensesRepository _expensesRepository;
+        private readonly ILabelRepository _labelRepository;
 
-        public ExpensesController(MyExpensesContext context)
+        public ExpensesController(MyExpensesContext context, IExpensesRepository expensesRepository, ILabelRepository labelRepository)
         {
             _context = context;
+            _expensesRepository = expensesRepository;
+            _labelRepository = labelRepository;
         }
 
         // GET: Expenses
@@ -65,18 +71,13 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         public async Task<IActionResult> Create([Bind("Name,Value,Date,Id,LabelId")] Expense expense)
         {
             if (ModelState.IsValid)
-            {
-                if (expense.LabelId > 0)
-                {
-                    expense.Label = await _context.Label.SingleOrDefaultAsync(x => x.Id == expense.LabelId);
-                }
-                
+            { 
                 _context.Add(expense);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", expense.LabelId);
+            ViewData["Labels"] = new SelectList(_labelRepository.GetAll().ToEnumerable(), "Id", "Name", expense.LabelId);
 
             return View(expense);
         }
@@ -117,11 +118,6 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             {
                 try
                 {
-                    if (expense.LabelId > 0)
-                    {
-                        expense.Label = await _context.Label.SingleOrDefaultAsync(x => x.Id == expense.LabelId);
-                    }
-
                     _context.Update(expense);
                     await _context.SaveChangesAsync();
                 }
