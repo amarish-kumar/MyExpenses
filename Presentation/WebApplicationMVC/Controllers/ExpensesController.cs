@@ -41,8 +41,10 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 .ToListAsync();
             ExpenseViewModel viewModel = new ExpenseViewModel
             {
-                Expenses = expenses,
-                Total = expenses.Sum(x => x.Value)
+                Incoming = expenses.Where(x => x.IsIncoming).ToList(),
+                Outcoming = expenses.Where(x => !x.IsIncoming).ToList(),
+                TotalIncoming = expenses.Where(x => x.IsIncoming).Sum(x => x.Value),
+                TotalOutcoming = expenses.Where(x => !x.IsIncoming).Sum(x => x.Value)
             };
 
             return View(viewModel);

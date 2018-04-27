@@ -13,12 +13,18 @@ namespace MyExpenses.WebApplicationMVC.Models
 
     public class ExpenseViewModel
     {
-        public ICollection<Expense> Expenses { get; set; }
+        public ICollection<Expense> Incoming { get; set; }
+
+        public ICollection<Expense> Outcoming { get; set; }
 
         public Expense Expense { get; set; }
 
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C2}")]
-        public float Total { get; set; }
-     }
+        public float TotalIncoming { get; set; }
+
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public float TotalOutcoming { get; set; }
+    }
 }

@@ -6,29 +6,38 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<h4>
+    Total Incoming: @Html.DisplayFor(model => model.TotalIncoming)
+</h4>
+
+<h4>
+    Total Outcoming: @Html.DisplayFor(model => model.TotalOutcoming)
+</h4>
+
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Expense.Data)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Expense.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Expense.Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Expense.Label)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Expense.How)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.Label)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.How)
+        </th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model.Expenses)
+    @foreach (var item in Model.Incoming)
     {
         <tr>
             <td>
@@ -54,7 +63,54 @@
         </tr>
     }
     </tbody>
-    <h4>
-        Total: @Html.DisplayFor(model => model.Total)
-    </h4>
+</table>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.Label)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expense.How)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Outcoming)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Label.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.How.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
 </table>
