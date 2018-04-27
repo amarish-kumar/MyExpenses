@@ -7,12 +7,14 @@
 namespace MyExpenses.Domain.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using MyExpenses.Domain.Interfaces;
 
     public class ModelBase : IModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
     }
 }

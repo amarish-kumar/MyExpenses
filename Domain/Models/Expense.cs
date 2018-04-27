@@ -23,11 +23,11 @@ namespace MyExpenses.Domain.Models
         [DataType(DataType.Currency)]
         public float Value { get; set; }
 
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        //[Required]
+        //[DataType(DataType.Date)]
+        public DateTime Data { get; set; }
 
-        [Required]
+        //[Required]
         [ForeignKey("LabelId")]
         public Label Label { get; set; }
     }

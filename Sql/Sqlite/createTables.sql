@@ -1,0 +1,19 @@
+-- https://sqliteonline.com/
+
+DROP TABLE IF EXISTS Expense;
+CREATE TABLE Expense (
+    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    Value REAL NOT NULL,
+    Data DATE NOT NULL,
+
+    LabelId INTEGER NULL,
+
+    CONSTRAINT 'FK_Expense_Label' FOREIGN KEY ('LabelId') REFERENCES 'Label' ('Id') ON UPDATE CASCADE,
+);
+
+DROP TABLE IF EXISTS Label;
+CREATE TABLE Label (
+    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    Name text NOT NULL
+);
