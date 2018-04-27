@@ -13,13 +13,13 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Models;
-    using MyExpenses.WebApplicationMVC.Data;
+    using MyExpenses.Infrastructure.Context;
 
     public class LabelsController : Controller
     {
-        private readonly WebApplicationMVCContext _context;
+        private readonly MyExpensesContext _context;
 
-        public LabelsController(WebApplicationMVCContext context)
+        public LabelsController(MyExpensesContext context)
         {
             _context = context;
         }

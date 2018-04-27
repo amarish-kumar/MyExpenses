@@ -13,13 +13,13 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Models;
-    using MyExpenses.WebApplicationMVC.Data;
+    using MyExpenses.Infrastructure.Context;
 
     public class ExpensesController : Controller
     {
-        private readonly WebApplicationMVCContext _context;
+        private readonly MyExpensesContext _context;
 
-        public ExpensesController(WebApplicationMVCContext context)
+        public ExpensesController(MyExpensesContext context)
         {
             _context = context;
         }

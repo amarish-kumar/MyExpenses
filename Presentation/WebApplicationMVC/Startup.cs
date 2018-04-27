@@ -12,7 +12,7 @@ namespace MyExpenses.WebApplicationMVC
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    using MyExpenses.WebApplicationMVC.Data;
+    using MyExpenses.Infrastructure.Context;
 
     public class Startup
     {
@@ -29,7 +29,7 @@ namespace MyExpenses.WebApplicationMVC
             services.AddMvc();
 
             string connectionStrings = Configuration.GetConnectionString("SqliteConnectionStrings");
-            services.AddDbContext<WebApplicationMVCContext>(options => options.UseSqlite(connectionStrings));
+            services.AddDbContext<MyExpensesContext>(options => options.UseSqlite(connectionStrings));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
