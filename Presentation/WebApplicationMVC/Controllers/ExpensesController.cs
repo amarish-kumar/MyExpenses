@@ -10,6 +10,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Models;
@@ -27,7 +28,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Expense.ToListAsync());
+            return View(await _context.Expense.Include(x => x.Label).ToListAsync());
         }
 
         // GET: Expenses/Details/5
@@ -39,6 +40,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             }
 
             var expense = await _context.Expense
+                .Include(x => x.Label)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
@@ -51,6 +53,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses/Create
         public IActionResult Create()
         {
+            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", null);
             return View();
         }
 
@@ -59,14 +62,22 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Value,Date,Id")] Expense expense)
+        public async Task<IActionResult> Create([Bind("Name,Value,Date,Id,LabelId")] Expense expense)
         {
             if (ModelState.IsValid)
             {
+                if (expense.LabelId > 0)
+                {
+                    expense.Label = await _context.Label.SingleOrDefaultAsync(x => x.Id == expense.LabelId);
+                }
+                
                 _context.Add(expense);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", expense.LabelId);
+
             return View(expense);
         }
 
@@ -78,11 +89,15 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _context.Expense.SingleOrDefaultAsync(m => m.Id == id);
+            var expense = await _context.Expense
+                .Include(x => x.Label)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
                 return NotFound();
             }
+
+            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", expense.LabelId);
             return View(expense);
         }
 
@@ -91,7 +106,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Value,Date,Id")] Expense expense)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Value,Date,Id,LabelId")] Expense expense)
         {
             if (id != expense.Id)
             {
@@ -102,6 +117,11 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             {
                 try
                 {
+                    if (expense.LabelId > 0)
+                    {
+                        expense.Label = await _context.Label.SingleOrDefaultAsync(x => x.Id == expense.LabelId);
+                    }
+
                     _context.Update(expense);
                     await _context.SaveChangesAsync();
                 }
@@ -130,6 +150,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             }
 
             var expense = await _context.Expense
+                .Include(x => x.Label)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
@@ -144,7 +165,9 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var expense = await _context.Expense.SingleOrDefaultAsync(m => m.Id == id);
+            var expense = await _context.Expense
+                .Include(x => x.Label)
+                .SingleOrDefaultAsync(m => m.Id == id);
             _context.Expense.Remove(expense);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -152,7 +175,9 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
         private bool ExpenseExists(long id)
         {
-            return _context.Expense.Any(e => e.Id == id);
+            return _context.Expense
+                .Include(x => x.Label)
+                .Any(e => e.Id == id);
         }
     }
 }

@@ -7,6 +7,7 @@
 namespace MyExpenses.Domain.Models
 {
     using System;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -25,10 +26,11 @@ namespace MyExpenses.Domain.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Data { get; set; }
 
         [ForeignKey("LabelId")]
+        [DisplayName("Label")]
+        public long? LabelId { get; set; }
         public Label Label { get; set; }
     }
 }
