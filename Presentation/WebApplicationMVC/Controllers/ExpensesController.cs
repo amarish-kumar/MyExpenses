@@ -35,7 +35,10 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses
         public async Task<IActionResult> Index()
         {
-            var expenses = await _context.Expense.Include(x => x.Label).ToListAsync();
+            var expenses = await _context.Expense
+                .Include(x => x.Label)
+                .Include(x => x.How)
+                .ToListAsync();
             ExpenseViewModel viewModel = new ExpenseViewModel
             {
                 Expenses = expenses,
@@ -55,6 +58,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
             var expense = await _context.Expense
                 .Include(x => x.Label)
+                .Include(x => x.How)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
@@ -67,7 +71,9 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses/Create
         public IActionResult Create()
         {
-            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", null);
+            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name");
+            ViewData["Hows"] = new SelectList(_context.How, "Id", "Name");
+
             return View(new Expense { Data = DateTime.Today });
         }
 
@@ -85,7 +91,8 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["Labels"] = new SelectList(_labelRepository.GetAll().ToEnumerable(), "Id", "Name", expense.LabelId);
+            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", expense.LabelId);
+            ViewData["Hows"] = new SelectList(_context.How, "Id", "Name", expense.HowId);
 
             return View(expense);
         }
@@ -100,6 +107,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
             var expense = await _context.Expense
                 .Include(x => x.Label)
+                .Include(x => x.How)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             if (expense == null)
@@ -108,6 +116,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             }
 
             ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", expense.LabelId);
+            ViewData["Hows"] = new SelectList(_context.How, "Id", "Name", expense.HowId);
             return View(expense);
         }
 
@@ -156,6 +165,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
             var expense = await _context.Expense
                 .Include(x => x.Label)
+                .Include(x => x.How)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (expense == null)
             {
@@ -172,6 +182,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             var expense = await _context.Expense
                 .Include(x => x.Label)
+                .Include(x => x.How)
                 .SingleOrDefaultAsync(m => m.Id == id);
             _context.Expense.Remove(expense);
             await _context.SaveChangesAsync();
@@ -182,6 +193,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             return _context.Expense
                 .Include(x => x.Label)
+                .Include(x => x.How)
                 .Any(e => e.Id == id);
         }
     }

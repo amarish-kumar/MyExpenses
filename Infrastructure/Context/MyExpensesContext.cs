@@ -25,5 +25,7 @@ namespace MyExpenses.Infrastructure.Context
         public DbSet<Label> Label { get; set; }
 
         public DbSet<Expense> Expense { get; set; }
+
+        public DbSet<How> How { get; set; }
     }
 }

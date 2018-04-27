@@ -31,9 +31,36 @@ namespace MyExpenses.Domain.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Data { get; set; }
 
+        [Column("Incoming")]
+        public int Incoming { get; set; }
+
+        [NotMapped]
+        [DisplayName("Incoming/Outcoming")]
+        public bool IsIncoming
+        {
+            get => Incoming == 1;
+            set => Incoming = value ? 1 : 0;
+        }
+
+        [Column("Fixed")]
+        public int InFixed { get; set; }
+
+        [NotMapped]
+        [DisplayName("Fixed")]
+        public bool IsFixed
+        {
+            get => InFixed == 1;
+            set => InFixed = value ? 1 : 0;
+        }
+
         [ForeignKey("LabelId")]
         [DisplayName("Label")]
         public long? LabelId { get; set; }
         public Label Label { get; set; }
+
+        [ForeignKey("HowId")]
+        [DisplayName("How")]
+        public long? HowId { get; set; }
+        public How How { get; set; }
     }
 }
