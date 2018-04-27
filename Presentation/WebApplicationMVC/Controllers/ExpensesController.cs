@@ -17,6 +17,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Interfaces;
+    using MyExpenses.WebApplicationMVC.Models;
 
     public class ExpensesController : Controller
     {
@@ -34,7 +35,14 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Expense.Include(x => x.Label).ToListAsync());
+            var expenses = await _context.Expense.Include(x => x.Label).ToListAsync();
+            ExpenseViewModel viewModel = new ExpenseViewModel
+            {
+                Expenses = expenses,
+                Total = expenses.Sum(x => x.Value)
+            };
+
+            return View(viewModel);
         }
 
         // GET: Expenses/Details/5
@@ -94,7 +102,6 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 .Include(x => x.Label)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
-            expense.Value = 2.2f;
             if (expense == null)
             {
                 return NotFound();
