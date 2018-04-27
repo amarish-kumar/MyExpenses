@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using MyExpenses.Domain.Models;
-using WebApplication.Data;
+﻿/* 
+*   Project: MyExpenses
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyExpenses
+*/
 
 namespace WebApplication.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using MyExpenses.Domain.Models;
+    using WebApplication.Data;
+
     public class ExpensesController : Controller
     {
         private readonly ApplicationDbContext _context;
