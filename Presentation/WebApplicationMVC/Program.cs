@@ -1,4 +1,10 @@
-﻿namespace MyExpenses.WebApplicationMVC
+﻿/* 
+*   Project: MyExpenses
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyExpenses
+*/
+
+namespace MyExpenses.WebApplicationMVC
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;

@@ -1,4 +1,10 @@
-﻿namespace MyExpenses.WebApplicationMVC.Controllers
+﻿/* 
+*   Project: MyExpenses
+*   Author: Luiz Felipe Machado da Silva
+*   Github: http://github.com/lfmachadodasilva/MyExpenses
+*/
+
+namespace MyExpenses.WebApplicationMVC.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;

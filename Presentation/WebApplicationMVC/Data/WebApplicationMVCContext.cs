@@ -16,9 +16,6 @@ namespace MyExpenses.WebApplicationMVC.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            //LabelMap.Map(modelBuilder);
-            //ExpenseMap.Map(modelBuilder);
         }
 
         public DbSet<MyExpenses.Domain.Models.Label> Label { get; set; }
