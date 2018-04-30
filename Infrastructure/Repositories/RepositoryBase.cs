@@ -28,14 +28,60 @@ namespace MyExpenses.Infrastructure.Repositories
             _context = context;
         }
 
-        public virtual IAsyncEnumerable<TModel> GetAll(params Expression<Func<TModel, object>>[] includes)
+        public virtual IEnumerable<TModel> Get(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
         {
             IQueryable<TModel> set = _context.Set<TModel>();
 
             foreach (var include in includes)
                 set = set.Include(include);
 
-            return set.ToAsyncEnumerable();
+            if (filter != null)
+                set = set?.Where(filter);
+
+            return set;
+        }
+
+        public virtual IEnumerable<TModel> GetAll(params Expression<Func<TModel, object>>[] includes)
+        {
+            IQueryable<TModel> set = _context.Set<TModel>();
+
+            foreach (var include in includes)
+                set = set.Include(include);
+
+            return set;
+        }
+
+        public virtual TModel GetById(long id, params Expression<Func<TModel, object>>[] includes)
+        {
+            IQueryable<TModel> set = _context.Set<TModel>();
+
+            foreach (var include in includes)
+                set = set.Include(include);
+
+            return set.SingleOrDefault(x => x.Id == id);
+        }
+
+        public virtual async Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
+        {
+            IQueryable<TModel> set = _context.Set<TModel>();
+
+            foreach (var include in includes)
+                set = set.Include(include);
+
+            if (filter != null)
+                set = set?.Where(filter);
+
+            return await set.ToArrayAsync();
+        }
+
+        public virtual async Task<IEnumerable<TModel>> GetAllAsync(params Expression<Func<TModel, object>>[] includes)
+        {
+            IQueryable<TModel> set = _context.Set<TModel>();
+
+            foreach (var include in includes)
+                set = set.Include(include);
+
+            return await set.ToArrayAsync();
         }
 
         public virtual async Task<TModel> GetByIdAsync(long id, params Expression<Func<TModel, object>>[] includes)

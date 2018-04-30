@@ -24,21 +24,25 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         private readonly MyExpensesContext _context;
         private readonly IExpensesRepository _expensesRepository;
         private readonly ILabelRepository _labelRepository;
+        private readonly IHowRepository _howRepository;
 
-        public ExpensesController(MyExpensesContext context, IExpensesRepository expensesRepository, ILabelRepository labelRepository)
+        public ExpensesController(
+            MyExpensesContext context,
+            IExpensesRepository expensesRepository,
+            ILabelRepository labelRepository,
+            IHowRepository howRepository)
         {
             _context = context;
             _expensesRepository = expensesRepository;
             _labelRepository = labelRepository;
+            _howRepository = howRepository;
         }
 
         // GET: Expenses
         public async Task<IActionResult> Index()
         {
-            var expenses = await _context.Expense
-                .Include(x => x.Label)
-                .Include(x => x.How)
-                .ToListAsync();
+            var expenses = _expensesRepository.GetAll(x => x.Label, x => x.How);
+
             ExpenseViewModel viewModel = new ExpenseViewModel
             {
                 Incoming = expenses.Where(x => x.IsIncoming).ToList(),
@@ -58,10 +62,8 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _context.Expense
-                .Include(x => x.Label)
-                .Include(x => x.How)
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.How);
+
             if (expense == null)
             {
                 return NotFound();
@@ -73,8 +75,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses/Create
         public IActionResult Create()
         {
-            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name");
-            ViewData["Hows"] = new SelectList(_context.How, "Id", "Name");
+            CreateSelectLists();
 
             return View(new Expense { Data = DateTime.Today });
         }
@@ -88,13 +89,12 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             if (ModelState.IsValid)
             { 
-                _context.Add(expense);
+                await _expensesRepository.AddOrUpdateAsync(expense);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", expense.LabelId);
-            ViewData["Hows"] = new SelectList(_context.How, "Id", "Name", expense.HowId);
+            CreateSelectLists(expense.LabelId, expense.HowId);
 
             return View(expense);
         }
@@ -107,18 +107,15 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _context.Expense
-                .Include(x => x.Label)
-                .Include(x => x.How)
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.How);
 
             if (expense == null)
             {
                 return NotFound();
             }
 
-            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", expense.LabelId);
-            ViewData["Hows"] = new SelectList(_context.How, "Id", "Name", expense.HowId);
+            CreateSelectLists(expense.LabelId, expense.HowId);
+
             return View(expense);
         }
 
@@ -138,7 +135,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             {
                 try
                 {
-                    _context.Update(expense);
+                    await _expensesRepository.AddOrUpdateAsync(expense);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -165,10 +162,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _context.Expense
-                .Include(x => x.Label)
-                .Include(x => x.How)
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.How);
             if (expense == null)
             {
                 return NotFound();
@@ -182,10 +176,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var expense = await _context.Expense
-                .Include(x => x.Label)
-                .Include(x => x.How)
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var expense = await _expensesRepository.GetByIdAsync(id, x => x.Label, x => x.How);
             _context.Expense.Remove(expense);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -193,10 +184,17 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
         private bool ExpenseExists(long id)
         {
-            return _context.Expense
-                .Include(x => x.Label)
-                .Include(x => x.How)
-                .Any(e => e.Id == id);
+            //return _context.Expense
+            //    .Include(x => x.Label)
+            //    .Include(x => x.How)
+            //    .Any(e => e.Id == id);
+            return _expensesRepository.Get(x => x.Id == id).Any();
+        }
+
+        private void CreateSelectLists(long? labelId = null, long? howId = null)
+        {
+            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", labelId);
+            ViewData["Hows"] = new SelectList(_context.How, "Id", "Name", howId);
         }
     }
 }
