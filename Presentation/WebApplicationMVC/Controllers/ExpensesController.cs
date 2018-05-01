@@ -94,7 +94,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            CreateSelectLists(expense.LabelId, expense.HowId);
+            CreateSelectLists(expense.LabelId, expense.PaymentId);
 
             return View(expense);
         }
@@ -114,7 +114,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            CreateSelectLists(expense.LabelId, expense.HowId);
+            CreateSelectLists(expense.LabelId, expense.PaymentId);
 
             return View(expense);
         }

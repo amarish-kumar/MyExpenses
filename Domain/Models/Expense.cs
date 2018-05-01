@@ -42,25 +42,14 @@ namespace MyExpenses.Domain.Models
             set => Incoming = value ? 1 : 0;
         }
 
-        [Column("Fixed")]
-        public int InFixed { get; set; }
-
-        [NotMapped]
-        [DisplayName("Fixed")]
-        public bool IsFixed
-        {
-            get => InFixed == 1;
-            set => InFixed = value ? 1 : 0;
-        }
-
         [ForeignKey("LabelId")]
         [DisplayName("Label")]
         public long? LabelId { get; set; }
         public Label Label { get; set; }
 
-        [ForeignKey("HowId")]
-        [DisplayName("How")]
-        public long? HowId { get; set; }
+        [ForeignKey("PaymentId")]
+        [DisplayName("Payment")]
+        public long? PaymentId { get; set; }
         public Payment Payment { get; set; }
     }
 }

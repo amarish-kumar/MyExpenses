@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using MyExpenses.WebApplicationMVC.Models;
-/* 
+﻿/* 
 *   Project: MyExpenses
 *   Author: Luiz Felipe Machado da Silva
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
@@ -9,8 +6,6 @@ using MyExpenses.WebApplicationMVC.Models;
 
 namespace MyExpenses.WebApplicationMVC
 {
-    using System.Reflection;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -18,10 +13,7 @@ namespace MyExpenses.WebApplicationMVC
     using Microsoft.Extensions.DependencyInjection;
 
     using MyExpenses.Infrastructure.Context;
-    using MyExpenses.Infrastructure.Interfaces;
     using MyExpenses.Infrastructure.Modules;
-    using MyExpenses.Infrastructure.Repositories;
-    using MyExpenses.WebApplicationMVC.Data;
 
     public class Startup
     {
@@ -41,9 +33,6 @@ namespace MyExpenses.WebApplicationMVC
             services.AddDbContext<MyExpensesContext>(options => options.UseSqlite(connectionStrings));
 
             InfrastructureModule.ConfigureServices(services);
-
-            services.AddDbContext<MyExpensesWebApplicationMVCContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("MyExpensesWebApplicationMVCContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
