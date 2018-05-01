@@ -26,6 +26,6 @@ namespace MyExpenses.Infrastructure.Context
 
         public DbSet<Expense> Expense { get; set; }
 
-        public DbSet<How> How { get; set; }
+        public DbSet<Payment> Payment { get; set; }
     }
 }

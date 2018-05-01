@@ -9,8 +9,8 @@ namespace MyExpenses.Domain.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("How")]
-    public class How : ModelBase
+    [Table("Payment")]
+    public class Payment : ModelBase
     {
         [Required]
         [StringLength(128, MinimumLength = 2)]

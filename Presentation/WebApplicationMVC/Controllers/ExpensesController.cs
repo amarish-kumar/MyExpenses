@@ -24,13 +24,13 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         private readonly MyExpensesContext _context;
         private readonly IExpensesRepository _expensesRepository;
         private readonly ILabelRepository _labelRepository;
-        private readonly IHowRepository _howRepository;
+        private readonly IPaymentRepository _howRepository;
 
         public ExpensesController(
             MyExpensesContext context,
             IExpensesRepository expensesRepository,
             ILabelRepository labelRepository,
-            IHowRepository howRepository)
+            IPaymentRepository howRepository)
         {
             _context = context;
             _expensesRepository = expensesRepository;
@@ -41,7 +41,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses
         public async Task<IActionResult> Index()
         {
-            var expenses = _expensesRepository.GetAll(x => x.Label, x => x.How);
+            var expenses = _expensesRepository.GetAll(x => x.Label, x => x.Payment);
 
             ExpenseViewModel viewModel = new ExpenseViewModel
             {
@@ -62,7 +62,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.How);
+            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
 
             if (expense == null)
             {
@@ -107,7 +107,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.How);
+            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
 
             if (expense == null)
             {
@@ -162,7 +162,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.How);
+            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
             if (expense == null)
             {
                 return NotFound();
@@ -176,7 +176,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var expense = await _expensesRepository.GetByIdAsync(id, x => x.Label, x => x.How);
+            var expense = await _expensesRepository.GetByIdAsync(id, x => x.Label, x => x.Payment);
             _context.Expense.Remove(expense);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -194,7 +194,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         private void CreateSelectLists(long? labelId = null, long? howId = null)
         {
             ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", labelId);
-            ViewData["Hows"] = new SelectList(_context.How, "Id", "Name", howId);
+            ViewData["Hows"] = new SelectList(_context.Payment, "Id", "Name", howId);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MyExpenses.Infrastructure.Modules
         {
             services.AddScoped<IExpensesRepository, ExpensesRepository>();
             services.AddScoped<ILabelRepository, LabelRepository>();
-            services.AddScoped<IHowRepository, HowRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
         }
     }
 }

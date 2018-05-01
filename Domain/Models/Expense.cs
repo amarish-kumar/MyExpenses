@@ -61,6 +61,6 @@ namespace MyExpenses.Domain.Models
         [ForeignKey("HowId")]
         [DisplayName("How")]
         public long? HowId { get; set; }
-        public How How { get; set; }
+        public Payment Payment { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace MyExpenses.Infrastructure.Interfaces
 {
     using MyExpenses.Domain.Models;
 
-    public interface IHowRepository : IRepository<How>
+    public interface IPaymentRepository : IRepository<Payment>
     {
     }
 }

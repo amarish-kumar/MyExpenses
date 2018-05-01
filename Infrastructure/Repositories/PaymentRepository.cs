@@ -10,9 +10,9 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Infrastructure.Context;
     using MyExpenses.Infrastructure.Interfaces;
 
-    public class HowRepository : RepositoryBase<How>, IHowRepository
+    public class PaymentRepository : RepositoryBase<Payment>, IPaymentRepository
     {
-        public HowRepository(MyExpensesContext context) : base(context)
+        public PaymentRepository(MyExpensesContext context) : base(context)
         {
         }
     }

@@ -15,11 +15,11 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
 
-    public class HowsController : Controller
+    public class PaymentsController : Controller
     {
         private readonly MyExpensesContext _context;
 
-        public HowsController(MyExpensesContext context)
+        public PaymentsController(MyExpensesContext context)
         {
             _context = context;
         }
@@ -27,7 +27,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Hows
         public async Task<IActionResult> Index()
         {
-            return View(await _context.How.ToListAsync());
+            return View(await _context.Payment.ToListAsync());
         }
 
         // GET: Hows/Details/5
@@ -38,7 +38,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var how = await _context.How
+            var how = await _context.Payment
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (how == null)
             {
@@ -59,15 +59,15 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Id")] How how)
+        public async Task<IActionResult> Create([Bind("Name,Id")] Payment payment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(how);
+                _context.Add(payment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(how);
+            return View(payment);
         }
 
         // GET: Hows/Edit/5
@@ -78,7 +78,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var how = await _context.How.SingleOrDefaultAsync(m => m.Id == id);
+            var how = await _context.Payment.SingleOrDefaultAsync(m => m.Id == id);
             if (how == null)
             {
                 return NotFound();
@@ -91,9 +91,9 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Id")] How how)
+        public async Task<IActionResult> Edit(long id, [Bind("Name,Id")] Payment payment)
         {
-            if (id != how.Id)
+            if (id != payment.Id)
             {
                 return NotFound();
             }
@@ -102,12 +102,12 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             {
                 try
                 {
-                    _context.Update(how);
+                    _context.Update(payment);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!HowExists(how.Id))
+                    if (!HowExists(payment.Id))
                     {
                         return NotFound();
                     }
@@ -118,7 +118,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(how);
+            return View(payment);
         }
 
         // GET: Hows/Delete/5
@@ -129,7 +129,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var how = await _context.How
+            var how = await _context.Payment
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (how == null)
             {
@@ -144,15 +144,15 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var how = await _context.How.SingleOrDefaultAsync(m => m.Id == id);
-            _context.How.Remove(how);
+            var how = await _context.Payment.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Payment.Remove(how);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool HowExists(long id)
         {
-            return _context.How.Any(e => e.Id == id);
+            return _context.Payment.Any(e => e.Id == id);
         }
     }
 }
