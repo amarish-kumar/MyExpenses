@@ -26,5 +26,9 @@ namespace MyExpenses.WebApplicationMVC.Models
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public float TotalOutcoming { get; set; }
+
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public float TotalLeft { get; set; }
     }
 }

@@ -51,6 +51,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 TotalIncoming = expenses.Where(x => x.IsIncoming).Sum(x => x.Value),
                 TotalOutcoming = expenses.Where(x => !x.IsIncoming).Sum(x => x.Value)
             };
+            viewModel.TotalLeft = viewModel.TotalIncoming - viewModel.TotalOutcoming;
 
             return View(viewModel);
         }

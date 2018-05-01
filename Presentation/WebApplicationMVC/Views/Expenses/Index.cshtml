@@ -7,17 +7,28 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<br/>
+<br />
 
-<h2>
-    Incoming)
-</h2>
 <h4>
     Total Incoming: @Html.DisplayFor(model => model.TotalIncoming)
 </h4>
 
+<h4>
+    Total Outcoming: @Html.DisplayFor(model => model.TotalOutcoming)
+</h4>
+
+<h4>
+    Total Left: @Html.DisplayFor(model => model.TotalLeft)
+</h4>
+
+<br />
+
 @if (Model.Incoming.Any())
 {
+    <h2>
+        Incoming
+    </h2>
+
     <table class="table">
         <thead>
             <tr>
@@ -71,15 +82,12 @@
 
 <br />
 
-<h2>
-    Outcoming)
-</h2>
-<h4>
-    Total Outcoming: @Html.DisplayFor(model => model.TotalOutcoming)
-</h4>
-
 @if (Model.Outcoming.Any())
 {
+    <h2>
+        Outcoming
+    </h2>
+
     <table class="table">
         <thead>
         <tr>
