@@ -6,9 +6,9 @@
 
 namespace MyExpenses.Infrastructure.Repositories
 {
+    using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
-    using MyExpenses.Infrastructure.Interfaces;
 
     public class PaymentRepository : RepositoryBase<Payment>, IPaymentRepository
     {

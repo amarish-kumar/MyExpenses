@@ -14,9 +14,9 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
+    using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
-    using MyExpenses.Infrastructure.Interfaces;
     using MyExpenses.WebApplicationMVC.Models;
 
     public class ExpensesController : Controller
@@ -142,7 +142,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ExpenseExists(expense.Id))
+                    if (!await ExpenseExists(expense.Id))
                     {
                         return NotFound();
                     }
@@ -184,13 +184,10 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ExpenseExists(long id)
+        private async Task<bool> ExpenseExists(long id)
         {
-            //return _context.Expense
-            //    .Include(x => x.Label)
-            //    .Include(x => x.Payment)
-            //    .Any(e => e.Id == id);
-            return _expensesRepository.Get(x => x.Id == id).Any();
+            var expense = await _expensesRepository.GetByIdAsync(id);
+            return expense != null;
         }
 
         private void CreateSelectLists(long? labelId = null, long? paymentId = null)

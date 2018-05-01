@@ -17,9 +17,8 @@ namespace MyExpenses.Infrastructure.Repositories
 
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
-    using MyExpenses.Infrastructure.Interfaces;
 
-    public class RepositoryBase<TModel> : IRepository<TModel> where TModel : class, IModel
+    public class RepositoryBase<TModel> : IService<TModel> where TModel : class, IModel
     {
         private readonly MyExpensesContext _context;
 
@@ -27,6 +26,8 @@ namespace MyExpenses.Infrastructure.Repositories
         {
             _context = context;
         }
+
+        #region Regular
 
         public virtual IEnumerable<TModel> Get(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
         {
@@ -51,15 +52,9 @@ namespace MyExpenses.Infrastructure.Repositories
             return set;
         }
 
-        public virtual TModel GetById(long id, params Expression<Func<TModel, object>>[] includes)
-        {
-            IQueryable<TModel> set = _context.Set<TModel>();
+        #endregion
 
-            foreach (var include in includes)
-                set = set.Include(include);
-
-            return set.SingleOrDefault(x => x.Id == id);
-        }
+        #region Async
 
         public virtual async Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
         {
@@ -124,9 +119,11 @@ namespace MyExpenses.Infrastructure.Repositories
                 return existModel;
             }
 
-            // Save Add
+            // Add
             EntityEntry<TModel> addModel = await _context.Set<TModel>().AddAsync(model);
             return addModel.Entity;
         }
+
+        #endregion
     }
 }

@@ -4,11 +4,11 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Infrastructure.Interfaces
+namespace MyExpenses.Domain.Interfaces.Repositories
 {
     using MyExpenses.Domain.Models;
 
-    public interface ILabelRepository : IRepository<Label>
+    public interface IExpensesRepository : IService<Expense>
     {
     }
 }

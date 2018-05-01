@@ -8,7 +8,9 @@ namespace MyExpenses.Infrastructure.Modules
 {
     using Microsoft.Extensions.DependencyInjection;
 
-    using MyExpenses.Infrastructure.Interfaces;
+    using MyExpenses.Domain.Interfaces.Repositories;
+    using MyExpenses.Domain.Interfaces.Services;
+    using MyExpenses.Domain.Services;
     using MyExpenses.Infrastructure.Repositories;
 
     public static class InfrastructureModule
@@ -18,6 +20,14 @@ namespace MyExpenses.Infrastructure.Modules
             services.AddScoped<IExpensesRepository, ExpensesRepository>();
             services.AddScoped<ILabelRepository, LabelRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+            services.AddScoped<IExpenseService, ExpenseService>();
+            services.AddScoped<ILabelService, LabelService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+
+            //services.AddScoped<IExpenseAppService, ExpenseAppService>();
+            //services.AddScoped<ILabelAppService, LabelAppService>();
+            //services.AddScoped<IPaymentAppService, PaymentAppService>();
         }
     }
 }
