@@ -6,9 +6,10 @@
 
 namespace MyExpenses.Application.Interfaces
 {
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Models;
 
-    public interface IExpenseAppService : IAppService<Expense>
+    public interface IExpenseAppService : IService<Expense>
     {
     }
 }

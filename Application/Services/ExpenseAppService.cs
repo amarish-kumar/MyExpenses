@@ -8,11 +8,12 @@ namespace MyExpenses.Application.Services
 {
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Domain.Interfaces;
+    using MyExpenses.Domain.Interfaces.Services;
     using MyExpenses.Domain.Models;
 
     public class ExpenseAppService : AppServiceBase<Expense>, IExpenseAppService
     {
-        public ExpenseAppService(IAppService<Expense> service, IUnitOfWork unitOfWork)
+        public ExpenseAppService(IExpenseService service, IUnitOfWork unitOfWork)
             : base(service, unitOfWork)
         {
         }

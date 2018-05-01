@@ -14,12 +14,12 @@ namespace MyExpenses.Application.Services
     using MyExpenses.Application.Interfaces;
     using MyExpenses.Domain.Interfaces;
 
-    public abstract class AppServiceBase<TModel> : IAppService<TModel> where TModel : IModel
+    public abstract class AppServiceBase<TModel> : IService<TModel> where TModel : IModel
     {
-        private readonly IAppService<TModel> _service;
+        private readonly IService<TModel> _service;
         private readonly IUnitOfWork _unitOfWork;
 
-        protected AppServiceBase(IAppService<TModel> service, IUnitOfWork unitOfWork)
+        protected AppServiceBase(IService<TModel> service, IUnitOfWork unitOfWork)
         {
             _service = service;
             _unitOfWork = unitOfWork;

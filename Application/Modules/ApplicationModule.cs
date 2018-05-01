@@ -1,4 +1,4 @@
-﻿/* 
+/* 
 *   Project: MyExpenses
 *   Author: Luiz Felipe Machado da Silva
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
@@ -23,7 +23,7 @@ namespace MyExpenses.Application.Modules
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<IExpensesRepository, ExpensesRepository>();
+            services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<ILabelRepository, LabelRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
 

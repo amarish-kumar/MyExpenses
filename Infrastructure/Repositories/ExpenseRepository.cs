@@ -10,9 +10,9 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
 
-    public class ExpensesRepository : RepositoryBase<Expense>, IExpensesRepository
+    public class ExpenseRepository : RepositoryBase<Expense>, IExpenseRepository
     {
-        public ExpensesRepository(MyExpensesContext context) : base(context)
+        public ExpenseRepository(MyExpensesContext context) : base(context)
         {
         }
     }
