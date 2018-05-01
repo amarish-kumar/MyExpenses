@@ -120,7 +120,7 @@ namespace MyExpenses.Infrastructure.Repositories
                     return null;
 
                 // copy attributes
-                existModel = model;
+                existModel.Copy(model);
                 return existModel;
             }
 

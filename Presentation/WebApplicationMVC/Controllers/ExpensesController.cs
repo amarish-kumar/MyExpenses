@@ -24,24 +24,25 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         private readonly MyExpensesContext _context;
         private readonly IExpensesRepository _expensesRepository;
         private readonly ILabelRepository _labelRepository;
-        private readonly IPaymentRepository _howRepository;
+        private readonly IPaymentRepository _paymentRepository;
 
         public ExpensesController(
             MyExpensesContext context,
             IExpensesRepository expensesRepository,
             ILabelRepository labelRepository,
-            IPaymentRepository howRepository)
+            IPaymentRepository paymentRepository)
         {
             _context = context;
+
             _expensesRepository = expensesRepository;
             _labelRepository = labelRepository;
-            _howRepository = howRepository;
+            _paymentRepository = paymentRepository;
         }
 
         // GET: Expenses
         public async Task<IActionResult> Index()
         {
-            var expenses = _expensesRepository.GetAll(x => x.Label, x => x.Payment);
+            var expenses = await _expensesRepository.GetAllAsync(x => x.Label, x => x.Payment);
 
             ExpenseViewModel viewModel = new ExpenseViewModel
             {
@@ -186,15 +187,15 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             //return _context.Expense
             //    .Include(x => x.Label)
-            //    .Include(x => x.How)
+            //    .Include(x => x.Payment)
             //    .Any(e => e.Id == id);
             return _expensesRepository.Get(x => x.Id == id).Any();
         }
 
-        private void CreateSelectLists(long? labelId = null, long? howId = null)
+        private void CreateSelectLists(long? labelId = null, long? paymentId = null)
         {
             ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", labelId);
-            ViewData["Hows"] = new SelectList(_context.Payment, "Id", "Name", howId);
+            ViewData["Payments"] = new SelectList(_context.Payment, "Id", "Name", paymentId);
         }
     }
 }

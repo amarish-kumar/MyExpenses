@@ -11,6 +11,8 @@ namespace MyExpenses.Domain.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    using MyExpenses.Domain.Interfaces;
+
     [Table("Expense")]
     public class Expense : ModelBase
     {
@@ -51,5 +53,22 @@ namespace MyExpenses.Domain.Models
         [DisplayName("Payment")]
         public long? PaymentId { get; set; }
         public Payment Payment { get; set; }
+
+        public override void Copy(IModel obj)
+        {
+            if (obj is Expense expense)
+            {
+                Name = expense.Name;
+                Value = expense.Value;
+                Data = expense.Data;
+                IsIncoming = expense.IsIncoming;
+
+                LabelId = expense.LabelId;
+                Label = expense.Label;
+
+                PaymentId = expense.PaymentId;
+                Payment = expense.Payment;
+            }
+        }
     }
 }

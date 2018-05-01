@@ -9,5 +9,7 @@ namespace MyExpenses.Domain.Interfaces
     public interface IModel
     {
         long Id { get; set; }
+
+        void Copy(IModel obj);
     }
 }

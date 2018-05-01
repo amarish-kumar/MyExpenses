@@ -11,10 +11,12 @@ namespace MyExpenses.Domain.Models
 
     using MyExpenses.Domain.Interfaces;
 
-    public class ModelBase : IModel
+    public abstract class ModelBase : IModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
+
+        public abstract void Copy(IModel obj);
     }
 }

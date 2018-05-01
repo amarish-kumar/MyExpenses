@@ -33,17 +33,12 @@
                 <span asp-validation-for="IsIncoming" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IsFixed" class="control-label"></label>
-                <input asp-for="IsFixed" class="form-control" />
-                <span asp-validation-for="IsFixed" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="LabelId" class="control-label"></label>
                 <select asp-for="LabelId" class="form-control" asp-items="ViewBag.Labels"></select>
             </div>
             <div class="form-group">
-                <label asp-for="HowId" class="control-label"></label>
-                <select asp-for="HowId" class="form-control" asp-items="ViewBag.Hows"></select>
+                <label asp-for="PaymentId" class="control-label"></label>
+                <select asp-for="PaymentId" class="form-control" asp-items="ViewBag.Payments"></select>
             </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
