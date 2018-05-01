@@ -6,10 +6,9 @@
 
 namespace MyExpenses.Application.Interfaces
 {
-    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Models;
 
-    public interface IPaymentAppService : IService<Payment>
+    public interface IPaymentAppService : IAppService<Payment>
     {
     }
 }

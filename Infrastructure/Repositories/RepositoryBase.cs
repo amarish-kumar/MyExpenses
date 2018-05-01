@@ -18,11 +18,11 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
 
-    public class RepositoryBase<TModel> : IService<TModel> where TModel : class, IModel
+    public abstract class RepositoryBase<TModel> : IService<TModel> where TModel : class, IModel
     {
         private readonly MyExpensesContext _context;
 
-        public RepositoryBase(MyExpensesContext context)
+        protected RepositoryBase(MyExpensesContext context)
         {
             _context = context;
         }

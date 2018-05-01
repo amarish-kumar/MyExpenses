@@ -12,7 +12,7 @@ namespace MyExpenses.Application.Services
 
     public class PaymentAppService : AppServiceBase<Payment>, IPaymentAppService
     {
-        public PaymentAppService(IService<Payment> service, IUnitOfWork unitOfWork)
+        public PaymentAppService(IAppService<Payment> service, IUnitOfWork unitOfWork)
             : base(service, unitOfWork)
         {
         }

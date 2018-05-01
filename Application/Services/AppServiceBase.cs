@@ -11,14 +11,15 @@ namespace MyExpenses.Application.Services
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
+    using MyExpenses.Application.Interfaces;
     using MyExpenses.Domain.Interfaces;
 
-    public class AppServiceBase<TModel> : IService<TModel> where TModel : IModel
+    public abstract class AppServiceBase<TModel> : IAppService<TModel> where TModel : IModel
     {
-        private readonly IService<TModel> _service;
+        private readonly IAppService<TModel> _service;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AppServiceBase(IService<TModel> service, IUnitOfWork unitOfWork)
+        protected AppServiceBase(IAppService<TModel> service, IUnitOfWork unitOfWork)
         {
             _service = service;
             _unitOfWork = unitOfWork;

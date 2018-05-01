@@ -7,6 +7,7 @@
 namespace MyExpenses.WebApplicationMVC.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -14,27 +15,24 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
+    using MyExpenses.Application.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
-    using MyExpenses.Infrastructure.Context;
     using MyExpenses.WebApplicationMVC.Models;
 
     public class ExpensesController : Controller
     {
-        private readonly MyExpensesContext _context;
-        private readonly IExpensesRepository _expensesRepository;
+        private readonly IExpenseAppService _service;
         private readonly ILabelRepository _labelRepository;
         private readonly IPaymentRepository _paymentRepository;
 
         public ExpensesController(
-            MyExpensesContext context,
-            IExpensesRepository expensesRepository,
+            IExpenseAppService service,
             ILabelRepository labelRepository,
             IPaymentRepository paymentRepository)
         {
-            _context = context;
+            _service = service;
 
-            _expensesRepository = expensesRepository;
             _labelRepository = labelRepository;
             _paymentRepository = paymentRepository;
         }
@@ -42,7 +40,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses
         public async Task<IActionResult> Index()
         {
-            var expenses = await _expensesRepository.GetAllAsync(x => x.Label, x => x.Payment);
+            var expenses = await _service.GetAllAsync(x => x.Label, x => x.Payment);
 
             ExpenseViewModel viewModel = new ExpenseViewModel
             {
@@ -64,7 +62,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
+            var expense = await _service.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
 
             if (expense == null)
             {
@@ -91,8 +89,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             if (ModelState.IsValid)
             { 
-                await _expensesRepository.AddOrUpdateAsync(expense);
-                await _context.SaveChangesAsync();
+                await _service.AddOrUpdateAsync(expense);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -109,7 +106,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
+            var expense = await _service.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
 
             if (expense == null)
             {
@@ -137,8 +134,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             {
                 try
                 {
-                    await _expensesRepository.AddOrUpdateAsync(expense);
-                    await _context.SaveChangesAsync();
+                    await _service.AddOrUpdateAsync(expense);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -164,7 +160,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 return NotFound();
             }
 
-            var expense = await _expensesRepository.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
+            var expense = await _service.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
             if (expense == null)
             {
                 return NotFound();
@@ -178,22 +174,23 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
-            var expense = await _expensesRepository.GetByIdAsync(id, x => x.Label, x => x.Payment);
-            _context.Expense.Remove(expense);
-            await _context.SaveChangesAsync();
+            var expense = await _service.GetByIdAsync(id, x => x.Label, x => x.Payment);
+            await _service.RemoveAsync(expense);
             return RedirectToAction(nameof(Index));
         }
 
         private async Task<bool> ExpenseExists(long id)
         {
-            var expense = await _expensesRepository.GetByIdAsync(id);
+            var expense = await _service.GetByIdAsync(id);
             return expense != null;
         }
 
-        private void CreateSelectLists(long? labelId = null, long? paymentId = null)
+        private async void CreateSelectLists(long? labelId = null, long? paymentId = null)
         {
-            ViewData["Labels"] = new SelectList(_context.Label, "Id", "Name", labelId);
-            ViewData["Payments"] = new SelectList(_context.Payment, "Id", "Name", paymentId);
+            IEnumerable<Label> lables = await _labelRepository.GetAllAsync();
+            IEnumerable<Payment> payments = await _paymentRepository.GetAllAsync();
+            ViewData["Labels"] = new SelectList(lables, "Id", "Name", labelId);
+            ViewData["Payments"] = new SelectList(payments, "Id", "Name", paymentId);
         }
     }
 }
