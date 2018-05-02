@@ -11,7 +11,6 @@ namespace MyExpenses.Application.Services
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    using MyExpenses.Application.Interfaces;
     using MyExpenses.Domain.Interfaces;
 
     public abstract class AppServiceBase<TModel> : IService<TModel> where TModel : IModel
