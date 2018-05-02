@@ -42,10 +42,10 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             var expenses = await _service.GetAllAsync(x => x.Label, x => x.Payment);
 
-            ExpenseViewModel viewModel = new ExpenseViewModel
+            IndexExpenseViewModel viewModel = new IndexExpenseViewModel
             {
-                Incoming = expenses.Where(x => x.IsIncoming).ToList(),
-                Outcoming = expenses.Where(x => !x.IsIncoming).ToList(),
+                Incoming = expenses.Where(x => x.IsIncoming).Select(x => new ExpenseViewModel(x)).ToList(),
+                Outcoming = expenses.Where(x => !x.IsIncoming).Select(x => new ExpenseViewModel(x)).ToList(),
                 TotalIncoming = expenses.Where(x => x.IsIncoming).Sum(x => x.Value),
                 TotalOutcoming = expenses.Where(x => !x.IsIncoming).Sum(x => x.Value)
             };
@@ -77,7 +77,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             CreateSelectLists();
 
-            return View(new Expense { Data = DateTime.Today });
+            return View(new ExpenseViewModel { Data = DateTime.Today });
         }
 
         // POST: Expenses/Create
@@ -85,11 +85,11 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Expense expense)
+        public async Task<IActionResult> Create(ExpenseViewModel expense)
         {
             if (ModelState.IsValid)
             { 
-                await _service.AddOrUpdateAsync(expense);
+                await _service.AddOrUpdateAsync(expense.ToModel());
                 return RedirectToAction(nameof(Index));
             }
 
@@ -115,7 +115,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
             CreateSelectLists(expense.LabelId, expense.PaymentId);
 
-            return View(expense);
+            return View(new ExpenseViewModel(expense));
         }
 
         // POST: Expenses/Edit/5
@@ -123,7 +123,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, Expense expense)
+        public async Task<IActionResult> Edit(long id, ExpenseViewModel expense)
         {
             if (id != expense.Id)
             {
@@ -134,7 +134,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             {
                 try
                 {
-                    await _service.AddOrUpdateAsync(expense);
+                    await _service.AddOrUpdateAsync(expense.ToModel());
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -189,6 +189,13 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             IEnumerable<Label> lables = await _labelRepository.GetAllAsync();
             IEnumerable<Payment> payments = await _paymentRepository.GetAllAsync();
+
+            Label[] l = { new Label { Id = -1, Name = string.Empty } };
+            lables = lables.Concat(l).OrderBy(x => x.Id);
+
+            Payment[] p = { new Payment { Id = -1, Name = string.Empty } };
+            payments = payments.Concat(p).OrderBy(x => x.Id);
+
             ViewData["Labels"] = new SelectList(lables, "Id", "Name", labelId);
             ViewData["Payments"] = new SelectList(payments, "Id", "Name", paymentId);
         }
