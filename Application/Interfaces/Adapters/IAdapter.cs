@@ -4,9 +4,9 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Adapters
+namespace MyExpenses.Application.Interfaces.Adapters
 {
-    using MyExpenses.Application.Dtos;
+    using MyExpenses.Application.Interfaces.Dtos;
     using MyExpenses.Domain.Interfaces;
 
     public interface IAdapter<TModel, TDto> where TModel : IModel where TDto : IDto

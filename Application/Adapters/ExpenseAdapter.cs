@@ -4,15 +4,26 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-using MyExpenses.Application.Dtos;
-using MyExpenses.Domain.Models;
-
 namespace MyExpenses.Application.Adapters
 {
+    using MyExpenses.Application.Dtos;
+    using MyExpenses.Application.Interfaces.Adapters;
+    using MyExpenses.Domain.Models;
+
     public class ExpenseAdapter : IExpenseAdapter
     {
+        private readonly ILabelAdapter _labelAdapter;
+        private readonly IPaymentAdapter _paymentAdapter;
+
+        public ExpenseAdapter(ILabelAdapter labelAdapter, IPaymentAdapter paymentAdapter)
+        {
+            _labelAdapter = labelAdapter;
+            _paymentAdapter = paymentAdapter;
+        }
+
         public ExpenseDto ModelToDto(Expense model)
         {
+            if (model == null) return null;
             return new ExpenseDto
             {
                 Id = model.Id,
@@ -21,14 +32,15 @@ namespace MyExpenses.Application.Adapters
                 Data = model.Data,
                 IsIncoming = model.IsIncoming,
                 LabelId = model.LabelId,
-                Label = model.Label,
+                Label = _labelAdapter.ModelToDto(model.Label),
                 PaymentId = model.PaymentId,
-                Payment = model.Payment
+                Payment = _paymentAdapter.ModelToDto(model.Payment)
             };
         }
 
         public Expense DtoToModel(ExpenseDto dto)
         {
+            if (dto == null) return null;
             return new Expense
             {
                 Id = dto.Id,
@@ -37,9 +49,9 @@ namespace MyExpenses.Application.Adapters
                 Data = dto.Data,
                 IsIncoming = dto.IsIncoming,
                 LabelId = dto.LabelId,
-                Label = dto.Label,
+                Label = _labelAdapter.DtoToModel(dto.Label),
                 PaymentId = dto.PaymentId,
-                Payment = dto.Payment
+                Payment = _paymentAdapter.DtoToModel(dto.Payment)
             };
         }
     }

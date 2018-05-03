@@ -9,13 +9,14 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
+    using MyExpenses.Application.Dtos;
     using MyExpenses.Application.Interfaces;
+    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.WebApplicationMVC.Models;
@@ -38,16 +39,17 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         }
 
         // GET: Expenses
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var expenses = await _service.GetAllAsync(x => x.Label, x => x.Payment);
+            var allIncoming = _service.GetAllIncoming();
+            var allOutComing = _service.GetAllOutcoming();
 
             IndexExpenseViewModel viewModel = new IndexExpenseViewModel
             {
-                Incoming = expenses.Where(x => x.IsIncoming).Select(x => new ExpenseViewModel(x)).ToList(),
-                Outcoming = expenses.Where(x => !x.IsIncoming).Select(x => new ExpenseViewModel(x)).ToList(),
-                TotalIncoming = expenses.Where(x => x.IsIncoming).Sum(x => x.Value),
-                TotalOutcoming = expenses.Where(x => !x.IsIncoming).Sum(x => x.Value)
+                Incoming = allIncoming.ToList(),
+                Outcoming = allOutComing.ToList(),
+                TotalIncoming = allIncoming.Sum(x => x.Value),
+                TotalOutcoming = allOutComing.Sum(x => x.Value)
             };
             viewModel.TotalLeft = viewModel.TotalIncoming - viewModel.TotalOutcoming;
 
@@ -55,14 +57,14 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         }
 
         // GET: Expenses/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public IActionResult Details(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var expense = await _service.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
+            var expense = _service.GetById(id.Value);
 
             if (expense == null)
             {
@@ -77,7 +79,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             CreateSelectLists();
 
-            return View(new ExpenseViewModel { Data = DateTime.Today });
+            return View(new ExpenseDto { Data = DateTime.Today });
         }
 
         // POST: Expenses/Create
@@ -85,11 +87,11 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ExpenseViewModel expense)
+        public IActionResult Create(ExpenseDto expense)
         {
             if (ModelState.IsValid)
             { 
-                await _service.AddOrUpdateAsync(expense.ToModel());
+                _service.AddOrUpdate(expense);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -99,14 +101,14 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         }
 
         // GET: Expenses/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public IActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var expense = await _service.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
+            var expense = _service.GetById(id.Value);
 
             if (expense == null)
             {
@@ -115,7 +117,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
             CreateSelectLists(expense.LabelId, expense.PaymentId);
 
-            return View(new ExpenseViewModel(expense));
+            return View(expense);
         }
 
         // POST: Expenses/Edit/5
@@ -123,7 +125,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, ExpenseViewModel expense)
+        public IActionResult Edit(long id, ExpenseDto expense)
         {
             if (id != expense.Id)
             {
@@ -134,11 +136,11 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             {
                 try
                 {
-                    await _service.AddOrUpdateAsync(expense.ToModel());
+                    _service.AddOrUpdate(expense);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await ExpenseExists(expense.Id))
+                    if (!ExpenseExists(expense.Id))
                     {
                         return NotFound();
                     }
@@ -153,14 +155,14 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         }
 
         // GET: Expenses/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public IActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var expense = await _service.GetByIdAsync(id.Value, x => x.Label, x => x.Payment);
+            var expense = _service.GetById(id.Value);
             if (expense == null)
             {
                 return NotFound();
@@ -172,23 +174,21 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // POST: Expenses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public IActionResult DeleteConfirmed(long id)
         {
-            var expense = await _service.GetByIdAsync(id, x => x.Label, x => x.Payment);
-            await _service.RemoveAsync(expense);
+            _service.Remove(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task<bool> ExpenseExists(long id)
+        private bool ExpenseExists(long id)
         {
-            var expense = await _service.GetByIdAsync(id);
-            return expense != null;
+            return _service.GetById(id) != null;
         }
 
-        private async void CreateSelectLists(long? labelId = null, long? paymentId = null)
+        private void CreateSelectLists(long? labelId = null, long? paymentId = null)
         {
-            IEnumerable<Label> lables = await _labelRepository.GetAllAsync();
-            IEnumerable<Payment> payments = await _paymentRepository.GetAllAsync();
+            IEnumerable<Label> lables = _labelRepository.GetAll();
+            IEnumerable<Payment> payments = _paymentRepository.GetAll();
 
             Label[] l = { new Label { Id = -1, Name = string.Empty } };
             lables = lables.Concat(l).OrderBy(x => x.Id);

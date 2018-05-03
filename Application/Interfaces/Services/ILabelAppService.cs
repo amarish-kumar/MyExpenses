@@ -4,12 +4,11 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Interfaces
+namespace MyExpenses.Application.Interfaces.Services
 {
-    using MyExpenses.Domain.Interfaces;
-    using MyExpenses.Domain.Models;
+    using MyExpenses.Application.Dtos;
 
-    public interface ILabelAppService : IService<Label>
+    public interface ILabelAppService : IAppService<LabelDto>
     {
     }
 }

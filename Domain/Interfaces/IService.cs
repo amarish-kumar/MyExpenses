@@ -9,20 +9,19 @@ namespace MyExpenses.Domain.Interfaces
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
-    using System.Threading.Tasks;
 
     public interface IService<TModel> where TModel : IModel
     {
-        Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes);
+        IEnumerable<TModel> Get(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes);
 
-        Task<IEnumerable<TModel>> GetAllAsync(params Expression<Func<TModel, object>>[] includes);
+        IEnumerable<TModel> GetAll(params Expression<Func<TModel, object>>[] includes);
 
-        Task<TModel> GetByIdAsync(long id, params Expression<Func<TModel, object>>[] includes);
+        TModel GetById(long id, params Expression<Func<TModel, object>>[] includes);
 
-        Task<bool> RemoveAsync(TModel model);
+        bool Remove(TModel model);
 
-        Task<bool> RemoveAsync(long id);
+        bool Remove(long id);
 
-        Task<TModel> AddOrUpdateAsync(TModel model);
+        TModel AddOrUpdate(TModel model);
     }
 }

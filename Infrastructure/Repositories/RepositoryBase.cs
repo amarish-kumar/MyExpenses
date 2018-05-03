@@ -10,10 +10,8 @@ namespace MyExpenses.Infrastructure.Repositories
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-    using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.ChangeTracking;
 
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
@@ -26,8 +24,6 @@ namespace MyExpenses.Infrastructure.Repositories
         {
             _context = context;
         }
-
-        #region Regular
 
         public virtual IEnumerable<TModel> Get(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
         {
@@ -52,51 +48,24 @@ namespace MyExpenses.Infrastructure.Repositories
             return set;
         }
 
-        #endregion
-
-        #region Async
-
-        public virtual async Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
+        public virtual TModel GetById(long id, params Expression<Func<TModel, object>>[] includes)
         {
             IQueryable<TModel> set = _context.Set<TModel>();
 
             foreach (var include in includes)
                 set = set.Include(include);
 
-            if (filter != null)
-                set = set?.Where(filter);
-
-            return await set.ToArrayAsync();
+            return set.SingleOrDefault(x => x.Id == id);
         }
 
-        public virtual async Task<IEnumerable<TModel>> GetAllAsync(params Expression<Func<TModel, object>>[] includes)
+        public bool Remove(TModel model)
         {
-            IQueryable<TModel> set = _context.Set<TModel>();
-
-            foreach (var include in includes)
-                set = set.Include(include);
-
-            return await set.ToArrayAsync();
+            return Remove(model.Id);
         }
 
-        public virtual async Task<TModel> GetByIdAsync(long id, params Expression<Func<TModel, object>>[] includes)
+        public bool Remove(long id)
         {
-            IQueryable<TModel> set = _context.Set<TModel>();
-
-            foreach (var include in includes)
-                set = set.Include(include);
-
-            return await set.SingleOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<bool> RemoveAsync(TModel model)
-        {
-            return await RemoveAsync(model.Id);
-        }
-
-        public async Task<bool> RemoveAsync(long id)
-        {
-            TModel model = await _context.Set<TModel>().FindAsync(id);
+            TModel model = _context.Set<TModel>().Find(id);
             if (model == null)
                 return false;
 
@@ -105,12 +74,12 @@ namespace MyExpenses.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<TModel> AddOrUpdateAsync(TModel model)
+        public TModel AddOrUpdate(TModel model)
         {
             // Update
             if (model.Id > 0)
             {
-                TModel existModel = await _context.Set<TModel>().FindAsync(model.Id);
+                TModel existModel = _context.Set<TModel>().Find(model.Id);
                 if (existModel == null)
                     return null;
 
@@ -120,10 +89,8 @@ namespace MyExpenses.Infrastructure.Repositories
             }
 
             // Add
-            EntityEntry<TModel> addModel = await _context.Set<TModel>().AddAsync(model);
-            return addModel.Entity;
+            var newModel = _context.Set<TModel>().Add(model);
+            return newModel?.Entity;
         }
-
-        #endregion
     }
 }

@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Dtos
+namespace MyExpenses.Application.Interfaces.Dtos
 {
     public interface IDto
     {

@@ -8,7 +8,9 @@ namespace MyExpenses.Application.Modules
 {
     using Microsoft.Extensions.DependencyInjection;
 
-    using MyExpenses.Application.Interfaces;
+    using MyExpenses.Application.Adapters;
+    using MyExpenses.Application.Interfaces.Adapters;
+    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Application.Services;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
@@ -34,6 +36,10 @@ namespace MyExpenses.Application.Modules
             services.AddScoped<IExpenseAppService, ExpenseAppService>();
             services.AddScoped<ILabelAppService, LabelAppService>();
             services.AddScoped<IPaymentAppService, PaymentAppService>();
+
+            services.AddScoped<IExpenseAdapter, ExpenseAdapter>();
+            services.AddScoped<ILabelAdapter, LabelAdapter>();
+            services.AddScoped<IPaymentAdapter, PaymentAdapter>();
         }
     }
 }

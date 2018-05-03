@@ -16,8 +16,13 @@ namespace MyExpenses.Domain.Interfaces
         void BeginTransaction();
 
         /// <summary>
-        /// Commit
+        /// Commit Async
         /// </summary>
         Task<int> CommitAsync();
+
+        /// <summary>
+        /// Commit
+        /// </summary>
+        int Commit();
     }
 }

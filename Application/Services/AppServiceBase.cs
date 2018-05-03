@@ -8,71 +8,76 @@ namespace MyExpenses.Application.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using System.Threading.Tasks;
+    using System.Linq;
 
+    using MyExpenses.Application.Interfaces.Adapters;
+    using MyExpenses.Application.Interfaces.Dtos;
+    using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Domain.Interfaces;
 
-    public abstract class AppServiceBase<TModel> : IService<TModel> where TModel : IModel
+    public abstract class AppServiceBase<TModel, TDto> : IAppService<TDto> where TDto : IDto where TModel : IModel
     {
         private readonly IService<TModel> _service;
+        private readonly IAdapter<TModel, TDto> _adapter;
         private readonly IUnitOfWork _unitOfWork;
 
-        protected AppServiceBase(IService<TModel> service, IUnitOfWork unitOfWork)
+        protected AppServiceBase(IService<TModel> service, IAdapter<TModel, TDto> adapter, IUnitOfWork unitOfWork)
         {
             _service = service;
+            _adapter = adapter;
             _unitOfWork = unitOfWork;
         }
 
-        public Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
+        public virtual IEnumerable<TDto> GetAll()
         {
-            return _service.GetAsync(filter, includes);
+            return _service.GetAll().Select(x => _adapter.ModelToDto(x));
         }
 
-        public Task<IEnumerable<TModel>> GetAllAsync(params Expression<Func<TModel, object>>[] includes)
+        public virtual TDto GetById(long id)
         {
-            return _service.GetAllAsync( includes);
+            return _adapter.ModelToDto(_service.GetById(id));
         }
 
-        public Task<TModel> GetByIdAsync(long id, params Expression<Func<TModel, object>>[] includes)
+        public virtual bool Remove(TDto model)
         {
-            return _service.GetByIdAsync(id, includes);
-        }
+            _unitOfWork.BeginTransaction();
 
-        public async Task<bool> RemoveAsync(TModel model)
-        {
-            bool ret = await _service.RemoveAsync(model);
+            bool ret = _service.Remove(_adapter.DtoToModel(model));
 
             if (ret)
             {
-                await _unitOfWork.CommitAsync();
+                _unitOfWork.Commit();
             }
 
             return ret;
         }
 
-        public async Task<bool> RemoveAsync(long id)
+        public virtual bool Remove(long id)
         {
-            bool ret = await _service.RemoveAsync(id);
+            _unitOfWork.BeginTransaction();
+
+            bool ret = _service.Remove(id);
 
             if (ret)
             {
-                await _unitOfWork.CommitAsync();
+                _unitOfWork.CommitAsync();
             }
 
             return ret;
         }
 
-        public async Task<TModel> AddOrUpdateAsync(TModel model)
+        public virtual TDto AddOrUpdate(TDto model)
         {
-            var ret = await _service.AddOrUpdateAsync(model);
+            _unitOfWork.BeginTransaction();
+
+            var ret = _service.AddOrUpdate(_adapter.DtoToModel(model));
 
             if (ret != null)
             {
-                await _unitOfWork.CommitAsync();
+                _unitOfWork.Commit();
             }
 
-            return ret;
+            return _adapter.ModelToDto(ret);
         }
     }
 }

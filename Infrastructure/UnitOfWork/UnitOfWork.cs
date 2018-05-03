@@ -39,6 +39,19 @@ namespace MyExpenses.Infrastructure.UnitOfWork
             }
         }
 
+        public int Commit()
+        {
+            try
+            {
+                return _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw new Exception(e.Message);
+            }
+        }
+
         public void Dispose()
         {
             _context.Dispose();

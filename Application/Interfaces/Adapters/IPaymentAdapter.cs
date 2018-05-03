@@ -9,7 +9,7 @@ namespace MyExpenses.Application.Interfaces.Adapters
     using MyExpenses.Application.Dtos;
     using MyExpenses.Domain.Models;
 
-    public interface IExpenseAdapter : IAdapter<Expense, ExpenseDto>
+    public interface IPaymentAdapter : IAdapter<Payment, PaymentDto>
     {
     }
 }

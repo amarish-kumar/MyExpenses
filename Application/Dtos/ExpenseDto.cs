@@ -6,10 +6,11 @@
 
 namespace MyExpenses.Application.Dtos
 {
-    using MyExpenses.Domain.Models;
     using System;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+
+    using MyExpenses.Application.Interfaces.Dtos;
 
     public class ExpenseDto : IDto
     {
@@ -20,10 +21,20 @@ namespace MyExpenses.Application.Dtos
         [DataType(DataType.Text)]
         public string Name { get; set; }
 
-        [Required]
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public float Value { get; set; }
+
+        /// <summary>
+        /// Dotnet core not handle float values. For that, the value will always get the input without '.' or ',' to separete the decimal.
+        /// Pog - Programacao orientada a gambiarra or WOP – Workaround-oriented programming
+        /// </summary>
+        [Required]
+        public int ValuePog
+        {
+            get => (int)(Value * 100);
+            set => Value = (float)value / 100;
+        }
 
         [DisplayName("Date")]
         [Required]
@@ -42,15 +53,10 @@ namespace MyExpenses.Application.Dtos
 
         [DisplayName("Label")]
         public long? LabelId { get; set; }
-        public Label Label { get; set; }
+        public LabelDto Label { get; set; }
 
         [DisplayName("Payment")]
         public long? PaymentId { get; set; }
-        public Payment Payment { get; set; }
-
-        public ExpenseDto()
-        {
-
-        }
+        public PaymentDto Payment { get; set; }
     }
 }

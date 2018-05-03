@@ -9,7 +9,6 @@ namespace MyExpenses.Domain.Services
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
-    using System.Threading.Tasks;
     using MyExpenses.Domain.Interfaces;
 
     public abstract class ServiceBase<TModel> : IService<TModel> where TModel : IModel
@@ -21,34 +20,34 @@ namespace MyExpenses.Domain.Services
             _repository = repository;
         }
 
-        public virtual Task<TModel> AddOrUpdateAsync(TModel model)
+        public virtual TModel AddOrUpdate(TModel model)
         {
-            return _repository.AddOrUpdateAsync(model);
+            return _repository.AddOrUpdate(model);
         }
 
-        public virtual Task<IEnumerable<TModel>> GetAllAsync(params Expression<Func<TModel, object>>[] includes)
+        public virtual IEnumerable<TModel> GetAll(params Expression<Func<TModel, object>>[] includes)
         {
-            return _repository.GetAllAsync(includes);
+            return _repository.GetAll(includes);
         }
 
-        public virtual Task<IEnumerable<TModel>> GetAsync(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
+        public virtual IEnumerable<TModel> Get(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
         {
-            return _repository.GetAsync(filter, includes);
+            return _repository.Get(filter, includes);
         }
 
-        public virtual Task<TModel> GetByIdAsync(long id, params Expression<Func<TModel, object>>[] includes)
+        public virtual TModel GetById(long id, params Expression<Func<TModel, object>>[] includes)
         {
-            return _repository.GetByIdAsync(id, includes);
+            return _repository.GetById(id, includes);
         }
 
-        public virtual Task<bool> RemoveAsync(TModel model)
+        public virtual bool Remove(TModel model)
         {
-            return _repository.RemoveAsync(model);
+            return _repository.Remove(model);
         }
 
-        public virtual Task<bool> RemoveAsync(long id)
+        public virtual bool Remove(long id)
         {
-            return _repository.RemoveAsync(id);
+            return _repository.Remove(id);
         }
     }
 }

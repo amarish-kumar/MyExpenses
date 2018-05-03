@@ -4,12 +4,16 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Interfaces
+namespace MyExpenses.Application.Interfaces.Services
 {
-    using MyExpenses.Domain.Interfaces;
-    using MyExpenses.Domain.Models;
+    using System.Collections.Generic;
 
-    public interface IExpenseAppService : IService<Expense>
+    using MyExpenses.Application.Dtos;
+
+    public interface IExpenseAppService : IAppService<ExpenseDto>
     {
+        IEnumerable<ExpenseDto> GetAllIncoming();
+
+        IEnumerable<ExpenseDto> GetAllOutcoming();
     }
 }
