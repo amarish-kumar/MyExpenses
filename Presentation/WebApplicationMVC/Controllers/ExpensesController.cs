@@ -15,27 +15,26 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Application.Dtos;
-    using MyExpenses.Application.Interfaces;
     using MyExpenses.Application.Interfaces.Services;
-    using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.WebApplicationMVC.Models;
+    using MyExpenses.Domain.Interfaces.Services;
 
     public class ExpensesController : Controller
     {
         private readonly IExpenseAppService _service;
-        private readonly ILabelRepository _labelRepository;
-        private readonly IPaymentRepository _paymentRepository;
+        private readonly ILabelService _labelService;
+        private readonly IPaymentService _paymentService;
 
         public ExpensesController(
             IExpenseAppService service,
-            ILabelRepository labelRepository,
-            IPaymentRepository paymentRepository)
+            ILabelService labelService,
+            IPaymentService paymentService)
         {
             _service = service;
 
-            _labelRepository = labelRepository;
-            _paymentRepository = paymentRepository;
+            _labelService = labelService;
+            _paymentService = paymentService;
         }
 
         // GET: Expenses
@@ -187,8 +186,8 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
         private void CreateSelectLists(long? labelId = null, long? paymentId = null)
         {
-            IEnumerable<Label> lables = _labelRepository.GetAll();
-            IEnumerable<Payment> payments = _paymentRepository.GetAll();
+            IEnumerable<Label> lables = _labelService.GetAll();
+            IEnumerable<Payment> payments = _paymentService.GetAll();
 
             Label[] l = { new Label { Id = -1, Name = string.Empty } };
             lables = lables.Concat(l).OrderBy(x => x.Id);

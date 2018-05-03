@@ -6,40 +6,35 @@
 
 namespace MyExpenses.WebApplicationMVC.Controllers
 {
-    using System.Linq;
-    using System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-
-    using MyExpenses.Domain.Models;
-    using MyExpenses.Infrastructure.Context;
+    using MyExpenses.Application.Interfaces.Services;
+    using MyExpenses.Application.Dtos;
 
     public class PaymentsController : Controller
     {
-        private readonly MyExpensesContext _context;
+        private readonly IPaymentAppService _appService;
 
-        public PaymentsController(MyExpensesContext context)
+        public PaymentsController(IPaymentAppService paymentAppService)
         {
-            _context = context;
+            _appService = paymentAppService;
         }
 
         // GET: Payments
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Payment.ToListAsync());
+            return View(_appService.GetAll());
         }
 
         // GET: Payments/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public IActionResult Details(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var payment = await _context.Payment
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var payment = _appService.GetById(id.Value);
             if (payment == null)
             {
                 return NotFound();
@@ -59,26 +54,25 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Id")] Payment payment)
+        public IActionResult Create([Bind("Name,Id")] PaymentDto payment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(payment);
-                await _context.SaveChangesAsync();
+                _appService.AddOrUpdate(payment);
                 return RedirectToAction(nameof(Index));
             }
             return View(payment);
         }
 
         // GET: Payments/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public IActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var payment = await _context.Payment.SingleOrDefaultAsync(m => m.Id == id);
+            var payment = _appService.GetById(id.Value);
             if (payment == null)
             {
                 return NotFound();
@@ -91,7 +85,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Name,Id")] Payment payment)
+        public IActionResult Edit(long id, [Bind("Name,Id")] PaymentDto payment)
         {
             if (id != payment.Id)
             {
@@ -102,8 +96,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             {
                 try
                 {
-                    _context.Update(payment);
-                    await _context.SaveChangesAsync();
+                    _appService.AddOrUpdate(payment);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -122,15 +115,14 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         }
 
         // GET: Payments/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public IActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var payment = await _context.Payment
-                .SingleOrDefaultAsync(m => m.Id == id);
+            var payment = _appService.GetById(id.Value);
             if (payment == null)
             {
                 return NotFound();
@@ -142,17 +134,15 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // POST: Payments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public IActionResult DeleteConfirmed(long id)
         {
-            var payment = await _context.Payment.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Payment.Remove(payment);
-            await _context.SaveChangesAsync();
+            _appService.Remove(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool PaymentExists(long id)
         {
-            return _context.Payment.Any(e => e.Id == id);
+            return _appService.GetById(id) != null;
         }
     }
 }

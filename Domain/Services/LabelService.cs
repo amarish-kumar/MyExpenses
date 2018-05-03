@@ -6,7 +6,6 @@
 
 namespace MyExpenses.Domain.Services
 {
-    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Interfaces.Services;
     using MyExpenses.Domain.Models;
