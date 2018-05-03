@@ -27,6 +27,16 @@ namespace MyExpenses.WebApplicationMVC.Models
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public float Value { get; set; }
 
+        /// <summary>
+        /// Dotnet core not handle float values. For that, the value will always get the input without '.' or ',' to separete the decimal.
+        /// Pog - Programacao orientada a gambiarra or WOP – Workaround-oriented programming
+        /// </summary>
+        public int ValuePog
+        {
+            get => (int)(Value * 100);
+            set => Value = (float)value / 100;
+        }
+
         [DisplayName("Date")]
         [Required]
         [DataType(DataType.Date)]
