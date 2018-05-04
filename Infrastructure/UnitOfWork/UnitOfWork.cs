@@ -34,7 +34,12 @@ namespace MyExpenses.Infrastructure.UnitOfWork
             {
                 return _context.SaveChangesAsync();
             }
-            catch (Exception e)
+            catch (DbUpdateConcurrencyException e)
+            {
+                Console.WriteLine(e);
+                throw new Exception(e.Message);
+            }
+            catch (DbUpdateException e)
             {
                 Console.WriteLine(e);
                 throw new Exception(e.Message);
