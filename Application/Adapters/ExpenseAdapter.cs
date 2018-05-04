@@ -31,9 +31,9 @@ namespace MyExpenses.Application.Adapters
                 Value = model.Value,
                 Data = model.Data,
                 IsIncoming = model.IsIncoming,
-                LabelId = model.LabelId,
+                LabelId = model.LabelId < 1 ? null : model.LabelId,
                 Label = _labelAdapter.ModelToDto(model.Label),
-                PaymentId = model.PaymentId,
+                PaymentId = model.PaymentId < 1 ? null : model.PaymentId,
                 Payment = _paymentAdapter.ModelToDto(model.Payment)
             };
         }
@@ -48,9 +48,9 @@ namespace MyExpenses.Application.Adapters
                 Value = dto.Value,
                 Data = dto.Data,
                 IsIncoming = dto.IsIncoming,
-                LabelId = dto.LabelId,
+                LabelId = dto.LabelId < 1 ? null : dto.LabelId,
                 Label = _labelAdapter.DtoToModel(dto.Label),
-                PaymentId = dto.PaymentId,
+                PaymentId = dto.PaymentId < 1 ? null : dto.PaymentId,
                 Payment = _paymentAdapter.DtoToModel(dto.Payment)
             };
         }

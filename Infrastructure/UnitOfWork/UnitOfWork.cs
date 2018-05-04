@@ -9,6 +9,8 @@ namespace MyExpenses.Infrastructure.UnitOfWork
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Infrastructure.Context;
 
@@ -45,7 +47,12 @@ namespace MyExpenses.Infrastructure.UnitOfWork
             {
                 return _context.SaveChanges();
             }
-            catch (Exception e)
+            catch (DbUpdateConcurrencyException e)
+            {
+                Console.WriteLine(e);
+                throw new Exception(e.Message);
+            }
+            catch (DbUpdateException e)
             {
                 Console.WriteLine(e);
                 throw new Exception(e.Message);
