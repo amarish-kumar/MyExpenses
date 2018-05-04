@@ -60,7 +60,7 @@ namespace MyExpenses.Infrastructure.Repositories
 
         public bool Remove(TModel model)
         {
-            return Remove(model.Id);
+            return _context.Set<TModel>().Remove(model) != null;
         }
 
         public bool Remove(long id)
@@ -69,9 +69,7 @@ namespace MyExpenses.Infrastructure.Repositories
             if (model == null)
                 return false;
 
-            _context.Set<TModel>().Remove(model);
-
-            return true;
+            return Remove(model);
         }
 
         public TModel AddOrUpdate(TModel model)

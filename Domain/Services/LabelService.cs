@@ -12,9 +12,26 @@ namespace MyExpenses.Domain.Services
 
     public class LabelService : ServiceBase<Label>, ILabelService
     {
-        public LabelService(ILabelRepository repository)
+        private readonly IExpenseService _expenseService;
+
+        public LabelService(ILabelRepository repository, IExpenseService expenseService)
             : base(repository)
         {
+            _expenseService = expenseService;
+        }
+
+        public override bool Remove(long id)
+        {
+            _expenseService.RemoveLabelFromExpenses(id);
+
+            return base.Remove(id);
+        }
+
+        public override bool Remove(Label model)
+        {
+            _expenseService.RemoveLabelFromExpenses(model.Id);
+
+            return base.Remove(model);
         }
     }
 }
