@@ -48,12 +48,13 @@ platform:
 #   verbosity: minimal              # MSBuild verbosity level
 
 build_script:
-# - dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 - dotnet build "Util" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 - dotnet build "Domain" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 - dotnet build "Infrastructure" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 - dotnet build "Application" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "ApplicationTests" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+
+- dotnet build "ApplicationTest" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 
 before_build:
  - nuget restore
@@ -65,7 +66,7 @@ after_build:
  - dotnet pack "Domain" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
  - dotnet pack "Infrastructure" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
  - dotnet pack "Application" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
- - dotnet pack "ApplicationTests" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
+ - dotnet pack "ApplicationTest" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
 
 artifacts:
 - path: artifacts\**\*.*
@@ -107,7 +108,7 @@ notifications:
 test:
   # only assemblies to test
   assemblies:
-    - '**\*Test.dll'
+    - '**\Test.dll'
 
 # to run your custom scripts instead of automatic tests
 # test_script:
