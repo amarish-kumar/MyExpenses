@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ApplicationTest\**" />
+    <Compile Remove="Test\**" />
+    <EmbeddedResource Remove="ApplicationTest\**" />
+    <EmbeddedResource Remove="Test\**" />
+    <None Remove="ApplicationTest\**" />
+    <None Remove="Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Util\Util.csproj" />
