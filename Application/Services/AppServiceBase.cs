@@ -6,7 +6,6 @@
 
 namespace MyExpenses.Application.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -60,7 +59,7 @@ namespace MyExpenses.Application.Services
 
             if (ret)
             {
-                _unitOfWork.CommitAsync();
+                _unitOfWork.Commit();
             }
 
             return ret;

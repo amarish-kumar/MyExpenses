@@ -12,9 +12,26 @@ namespace MyExpenses.Domain.Services
 
     public class PaymentService : ServiceBase<Payment>, IPaymentService
     {
-        public PaymentService(IPaymentRepository repository)
+        private readonly IExpenseService _expenseService;
+
+        public PaymentService(IPaymentRepository repository, IExpenseService expenseService)
             : base(repository)
         {
+            _expenseService = expenseService;
+        }
+
+        public override bool Remove(long id)
+        {
+            _expenseService.RemovePaymentFromExpenses(id);
+
+            return base.Remove(id);
+        }
+
+        public override bool Remove(Payment model)
+        {
+            _expenseService.RemovePaymentFromExpenses(model.Id);
+
+            return base.Remove(model);
         }
     }
 }

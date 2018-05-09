@@ -12,8 +12,16 @@ namespace MyExpenses.Application.Interfaces.Services
 
     public interface IExpenseAppService : IAppService<ExpenseDto>
     {
+        /// <summary>
+        /// Get all incoming expenses
+        /// </summary>
+        /// <returns>Set of incoming expenses</returns>
         IEnumerable<ExpenseDto> GetAllIncoming();
 
+        /// <summary>
+        /// Get all outcoming expenses
+        /// </summary>
+        /// <returns>Set of outcoming expenses</returns>
         IEnumerable<ExpenseDto> GetAllOutcoming();
     }
 }

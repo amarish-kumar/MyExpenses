@@ -11,15 +11,7 @@ namespace MyExpenses.Infrastructure.Mapping
 
     using MyExpenses.Domain.Models;
 
-    public static class LabelMap
-    {
-        public static void Map(ModelBuilder builder)
-        {
-            builder.Entity<Label>().ToTable("Label").HasKey(x => x.Id);
-        }
-    }
-
-    internal class LabelMap1 : IEntityTypeConfiguration<Label>
+    internal class LabelMap : IEntityTypeConfiguration<Label>
     {
         public void Configure(EntityTypeBuilder<Label> builder)
         {
