@@ -54,7 +54,7 @@ build_script:
 - dotnet build "Application" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 - dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 
-- dotnet build "Application/Test/ApplicationTest" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Application/Test" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 
 before_build:
  - nuget restore
@@ -66,7 +66,7 @@ after_build:
  - dotnet pack "Domain" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
  - dotnet pack "Infrastructure" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
  - dotnet pack "Application" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
- - dotnet pack "Application/Test/ApplicationTest" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
+ - dotnet pack "Application/Test" -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts
 
 artifacts:
 - path: artifacts\**\*.*
