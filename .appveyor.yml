@@ -32,29 +32,17 @@ configuration:
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional
 platform:
-  # - Any CPU
-  # - x86
+  - x86
   - x64
 
-# build:
-#   project: MyExpenses.sln         # path to Visual Studio solution or project
-#   parallel: true                  # enable MSBuild parallel builds
-#   publish_wap: true               # package Web Application Projects (WAP) for Web Deploy
-#   publish_wap_xcopy: true         # package Web Application Projects (WAP) for XCopy deployment
-#   publish_azure: true             # package Azure Cloud Service projects and push to artifacts
-#   publish_nuget: true             # package projects with .nuspec files and push to artifacts
-#   publish_nuget_symbols: true     # generate and publish NuGet symbol packages
-#   include_nuget_references: true  # add -IncludeReferencedProjects option while packaging NuGet artifacts
-#   verbosity: minimal              # MSBuild verbosity level
-
 build_script:
-- dotnet build -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-# - dotnet build "Domain" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-# - dotnet build "Infrastructure" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-# - dotnet build "Application" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-# - dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Util" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Domain" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Infrastructure" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Application" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 
-# - dotnet build "Application/Test" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+- dotnet build "Application/Test" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 
 before_build:
  - nuget restore
@@ -93,11 +81,6 @@ notifications:
 #---------------------------------#
 #       tests configuration       #
 #---------------------------------#
-
-test:
-  # only assemblies to test
-  assemblies:
-    - '**\*Test.dll'
 
 # to run your custom scripts instead of automatic tests
 test_script:
