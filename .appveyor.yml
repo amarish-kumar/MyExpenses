@@ -27,12 +27,12 @@ init:
 
 # build Configuration, i.e. Debug, Release, etc.
 configuration:
- - Debug
+#  - Debug
  - Release
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional
 platform:
-  - x86
+  # - x86
   - x64
 
 build_script:
