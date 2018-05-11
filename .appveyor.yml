@@ -27,13 +27,13 @@ init:
 
 # build Configuration, i.e. Debug, Release, etc.
 configuration:
-#  - Debug
  - Release
+#  - Debug
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional
 platform:
-  # - x86
   - x64
+#  - x86
 
 build_script:
 - dotnet build "Util" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%

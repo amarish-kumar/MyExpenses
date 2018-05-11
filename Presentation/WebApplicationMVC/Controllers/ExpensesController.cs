@@ -48,9 +48,17 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 Incoming = allIncoming.ToList(),
                 Outcoming = allOutComing.ToList(),
                 TotalIncoming = allIncoming.Sum(x => x.Value),
-                TotalOutcoming = allOutComing.Sum(x => x.Value)
+                TotalOutcoming = allOutComing.Sum(x => x.Value),
+                Month = DateTime.Today.ToString("MMMM"),
+                Year = DateTime.Today.Year
             };
             viewModel.TotalLeft = viewModel.TotalIncoming - viewModel.TotalOutcoming;
+
+            var months = _service.GetAll().GroupBy(x => x.Data.Month).Select(x => x.FirstOrDefault().Data.ToString("MMMM"));
+            var years = _service.GetAll().GroupBy(x => x.Data.Year).Select(x => x.FirstOrDefault().Data.Year);
+
+            ViewData["Months"] = new SelectList(months, viewModel.Month);
+            ViewData["Years"] = new SelectList(years, viewModel.Year);
 
             return View(viewModel);
         }

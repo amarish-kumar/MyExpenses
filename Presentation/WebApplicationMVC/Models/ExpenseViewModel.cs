@@ -19,6 +19,10 @@ namespace MyExpenses.WebApplicationMVC.Models
 
         public ExpenseDto Expense { get; set; }
 
+        public string Month { get; set; }
+
+        public int Year { get; set; }
+
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public float TotalIncoming { get; set; }
