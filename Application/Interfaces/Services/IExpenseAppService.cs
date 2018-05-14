@@ -6,6 +6,7 @@
 
 namespace MyExpenses.Application.Interfaces.Services
 {
+    using System;
     using System.Collections.Generic;
 
     using MyExpenses.Application.Dtos;
@@ -15,13 +16,17 @@ namespace MyExpenses.Application.Interfaces.Services
         /// <summary>
         /// Get all incoming expenses
         /// </summary>
-        /// <returns>Set of incoming expenses</returns>
-        IEnumerable<ExpenseDto> GetAllIncoming();
+        /// <param name="startTime">Start time</param>
+        /// <param name="endTime">End time</param>
+        /// <returns>Set of expenses</returns>
+        IEnumerable<ExpenseDto> GetAllIncoming(DateTime startTime, DateTime endTime);
 
         /// <summary>
         /// Get all outcoming expenses
         /// </summary>
-        /// <returns>Set of outcoming expenses</returns>
-        IEnumerable<ExpenseDto> GetAllOutcoming();
+        /// <param name="startTime">Start time</param>
+        /// <param name="endTime">End time</param>
+        /// <returns>Set of expenses</returns>
+        IEnumerable<ExpenseDto> GetAllOutcoming(DateTime startTime, DateTime endTime);
     }
 }

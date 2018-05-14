@@ -40,8 +40,11 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses
         public IActionResult Index()
         {
-            var allIncoming = _service.GetAllIncoming();
-            var allOutComing = _service.GetAllOutcoming();
+            var firstDayOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            var allIncoming = _service.GetAllIncoming(firstDayOfMonth, lastDayOfMonth);
+            var allOutComing = _service.GetAllOutcoming(firstDayOfMonth, lastDayOfMonth);
 
             IndexExpenseViewModel viewModel = new IndexExpenseViewModel
             {
