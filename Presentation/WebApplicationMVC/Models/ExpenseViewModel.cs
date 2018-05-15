@@ -19,7 +19,7 @@ namespace MyExpenses.WebApplicationMVC.Models
 
         public ExpenseDto Expense { get; set; }
 
-        public string Month { get; set; }
+        public int Month { get; set; }
 
         public int Year { get; set; }
 

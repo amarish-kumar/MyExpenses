@@ -38,10 +38,18 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         }
 
         // GET: Expenses
-        public IActionResult Index()
+        public IActionResult Index(int month, int year)
         {
-            var firstDayOfMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
-            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            DateTime firstDayOfMonth, lastDayOfMonth;
+
+            if (month <= 0 && year <= 0)
+            {
+                month = DateTime.Today.Month;
+                year = DateTime.Today.Year;
+            }
+
+            firstDayOfMonth = new DateTime(year, month, 1);
+            lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
 
             var allIncoming = _service.GetAllIncoming(firstDayOfMonth, lastDayOfMonth);
             var allOutComing = _service.GetAllOutcoming(firstDayOfMonth, lastDayOfMonth);
@@ -52,18 +60,25 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 Outcoming = allOutComing.ToList(),
                 TotalIncoming = allIncoming.Sum(x => x.Value),
                 TotalOutcoming = allOutComing.Sum(x => x.Value),
-                Month = DateTime.Today.ToString("MMMM"),
-                Year = DateTime.Today.Year
+                Month = firstDayOfMonth.Month,
+                Year = firstDayOfMonth.Year
             };
             viewModel.TotalLeft = viewModel.TotalIncoming - viewModel.TotalOutcoming;
 
-            var months = _service.GetAll().GroupBy(x => x.Data.Month).Select(x => x.FirstOrDefault().Data.ToString("MMMM"));
+            // TODO improve
+            var months = _service.GetAll().GroupBy(x => x.Data.Month).OrderBy(x => x.FirstOrDefault().Data.Month).Select(x => x.FirstOrDefault().Data.ToString("MM"));
             var years = _service.GetAll().GroupBy(x => x.Data.Year).Select(x => x.FirstOrDefault().Data.Year);
 
             ViewData["Months"] = new SelectList(months, viewModel.Month);
             ViewData["Years"] = new SelectList(years, viewModel.Year);
 
             return View(viewModel);
+        }
+
+        // GET: Expenses/052010
+        public IActionResult Test(string filter)
+        {
+            return View();
         }
 
         // GET: Expenses/Details/5
