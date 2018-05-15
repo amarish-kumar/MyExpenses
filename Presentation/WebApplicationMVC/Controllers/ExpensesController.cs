@@ -65,12 +65,20 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             };
             viewModel.TotalLeft = viewModel.TotalIncoming - viewModel.TotalOutcoming;
 
-            // TODO improve
-            var months = _service.GetAll().GroupBy(x => x.Data.Month).OrderBy(x => x.FirstOrDefault().Data.Month).Select(x => x.FirstOrDefault().Data.ToString("MM"));
-            var years = _service.GetAll().GroupBy(x => x.Data.Year).Select(x => x.FirstOrDefault().Data.Year);
+            var allMonths = _service
+                .GetAll()
+                .OrderBy(x => x.Data.Month)
+                .Select(x => x.Data.ToString("MM"))
+                .Distinct();
 
-            ViewData["Months"] = new SelectList(months, viewModel.Month);
-            ViewData["Years"] = new SelectList(years, viewModel.Year);
+            var allYears = _service
+                .GetAll()
+                .OrderBy(x => x.Data.Year)
+                .Select(x => x.Data.Year)
+                .Distinct();
+
+            ViewData["Months"] = new SelectList(allMonths, viewModel.Month);
+            ViewData["Years"] = new SelectList(allYears, viewModel.Year);
 
             return View(viewModel);
         }
