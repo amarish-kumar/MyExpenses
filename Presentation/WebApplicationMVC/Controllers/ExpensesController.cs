@@ -83,12 +83,6 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             return View(viewModel);
         }
 
-        // GET: Expenses/052010
-        public IActionResult Test(string filter)
-        {
-            return View();
-        }
-
         // GET: Expenses/Details/5
         public IActionResult Details(long? id)
         {
