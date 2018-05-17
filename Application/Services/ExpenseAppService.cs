@@ -52,5 +52,27 @@ namespace MyExpenses.Application.Services
             var model = _service.GetById(id, x => x.Label, x => x.Payment);
             return _adapter.ModelToDto(model);
         }
+
+        public IEnumerable<DateTime> GetAllMonthsAndYears()
+        {
+            return _service
+                .GetAll()
+                .Select(x => x.Data)
+                .Distinct();
+        }
+
+        public int CountByLabel(long labelId)
+        {
+            return _service
+                .Get(x => x.LabelId == labelId)
+                .Count();
+        }
+
+        public float SumValuesByLabel(long labelId)
+        {
+            return _service
+                .Get(x => x.LabelId == labelId)
+                .Sum(x => x.Value);
+        }
     }
 }

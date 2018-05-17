@@ -10,7 +10,7 @@ namespace MyExpenses.Application.Adapters
     using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Domain.Models;
 
-    public class ExpenseAdapter : IExpenseAdapter
+    internal class ExpenseAdapter : IExpenseAdapter
     {
         private readonly ILabelAdapter _labelAdapter;
         private readonly IPaymentAdapter _paymentAdapter;

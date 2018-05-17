@@ -10,20 +10,35 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using Microsoft.EntityFrameworkCore;
     using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Application.Dtos;
+    using MyExpenses.WebApplicationMVC.Models;
+    using System.Linq;
 
     public class LabelsController : Controller
     {
         private readonly ILabelAppService _appService;
+        private readonly IExpenseAppService _expenseAppService;
 
-        public LabelsController(ILabelAppService labelAppService)
+        public LabelsController(ILabelAppService labelAppService,
+            IExpenseAppService expenseAppService)
         {
             _appService = labelAppService;
+            _expenseAppService = expenseAppService;
         }
 
         // GET: Labels
         public IActionResult Index()
         {
-            return View(_appService.GetAll());
+            LabelIndexViewModel viewModel = new LabelIndexViewModel
+            {
+                Labels = _appService.GetAll().Select(x => new LabelViewModel
+                {
+                    Label = x,
+                    QuantityOfExpenses = _expenseAppService.CountByLabel(x.Id),
+                    Value = _expenseAppService.SumValuesByLabel(x.Id)
+                }).ToList()
+            };
+
+            return View(viewModel);
         }
 
         // GET: Labels/Details/5

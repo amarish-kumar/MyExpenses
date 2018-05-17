@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyExpenses.Application.Dtos.LabelDto>
+﻿@model MyExpenses.WebApplicationMVC.Models.LabelIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,25 +9,57 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="SelectedMonth" class="control-label"></label>
+        <select asp-for="SelectedMonth" name="SelectedMonth" value="Model.SelectedMonth" class="form-control" asp-items="ViewBag.Months"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="SelectedYear" class="control-label"></label>
+        <select asp-for="SelectedMonth" name="SelectedYear" value="Model.SelectedYear" class="form-control" asp-items="ViewBag.Years"></select>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Filter" class="btn btn-default" />
+    </div>
+
+</form>
+
+<br />
+
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Label.Label.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Label.QuantityOfExpenses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Label.Value)
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Labels) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Label.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.QuantityOfExpenses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Label.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Label.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Label.Id">Delete</a>
             </td>
         </tr>
 }

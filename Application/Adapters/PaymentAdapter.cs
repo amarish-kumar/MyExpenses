@@ -10,7 +10,7 @@ namespace MyExpenses.Application.Adapters
     using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Domain.Models;
 
-    public class PaymentAdapter : IPaymentAdapter
+    internal class PaymentAdapter : IPaymentAdapter
     {
         public PaymentDto ModelToDto(Payment model)
         {

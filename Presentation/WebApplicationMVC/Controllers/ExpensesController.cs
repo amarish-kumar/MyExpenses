@@ -65,16 +65,16 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             };
             viewModel.TotalLeft = viewModel.TotalIncoming - viewModel.TotalOutcoming;
 
-            var allMonths = _service
-                .GetAll()
-                .OrderBy(x => x.Data.Month)
-                .Select(x => x.Data.ToString("MM"))
+            var allDates = _service.GetAllMonthsAndYears();
+
+            var allMonths = allDates
+                .OrderBy(x => x.Month)
+                .Select(x => x.ToString("MM"))
                 .Distinct();
 
-            var allYears = _service
-                .GetAll()
-                .OrderBy(x => x.Data.Year)
-                .Select(x => x.Data.Year)
+            var allYears = allDates
+                .OrderBy(x => x.Year)
+                .Select(x => x.Year)
                 .Distinct();
 
             ViewData["Months"] = new SelectList(allMonths, viewModel.Month);

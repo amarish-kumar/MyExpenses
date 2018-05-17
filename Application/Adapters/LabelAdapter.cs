@@ -10,7 +10,7 @@ namespace MyExpenses.Application.Adapters
     using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Domain.Models;
 
-    public class LabelAdapter : ILabelAdapter
+    internal class LabelAdapter : ILabelAdapter
     {
         public LabelDto ModelToDto(Label model)
         {
