@@ -51,7 +51,8 @@ namespace MyExpenses.WebApplicationMVC.Models
 
         public override string ToString()
         {
-            return Month + " - " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Month);
+            CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture("en-US");
+            return Month + " - " + cultureInfo.DateTimeFormat.GetMonthName(Month);
         }
 
         public static SelectList GetAll(int selectedMonth)
