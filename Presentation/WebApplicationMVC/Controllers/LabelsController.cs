@@ -7,17 +7,15 @@
 namespace MyExpenses.WebApplicationMVC.Controllers
 {
     using System;
-    using System.Collections.Generic;
-
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using MyExpenses.Application.Interfaces.Services;
-    using MyExpenses.Application.Dtos;
-    using MyExpenses.WebApplicationMVC.Models;
     using System.Linq;
 
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
 
+    using MyExpenses.Application.Dtos;
+    using MyExpenses.Application.Interfaces.Services;
+    using MyExpenses.WebApplicationMVC.Models;
     using MyExpenses.WebApplicationMVC.Properties;
 
     public class LabelsController : Controller
@@ -25,8 +23,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         private readonly ILabelAppService _appService;
         private readonly IExpenseAppService _expenseAppService;
 
-        public LabelsController(ILabelAppService labelAppService,
-            IExpenseAppService expenseAppService)
+        public LabelsController(ILabelAppService labelAppService, IExpenseAppService expenseAppService)
         {
             _appService = labelAppService;
             _expenseAppService = expenseAppService;
@@ -41,11 +38,11 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             LabelIndexViewModel viewModel = new LabelIndexViewModel
             {
                 Labels = _appService.GetAll(startDateTime, endDateTime).ToList(),
-                Month = month,
-                Year = year
+                Month = startDateTime.Month,
+                Year = startDateTime.Year
             };
 
-            CreateDateLists(month, year);
+            CreateDateLists(viewModel.Month, viewModel.Year);
 
             return View(viewModel);
         }

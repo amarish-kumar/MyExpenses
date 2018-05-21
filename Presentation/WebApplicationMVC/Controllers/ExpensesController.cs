@@ -58,7 +58,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             };
             viewModel.TotalLeft = viewModel.TotalIncoming - viewModel.TotalOutcoming;
 
-            CreateDateLists(month, year);
+            CreateDateLists(viewModel.Month, viewModel.Year);
 
             return View(viewModel);
         }

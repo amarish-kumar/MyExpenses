@@ -6,24 +6,45 @@
 
 namespace MyExpenses.WebApplicationMVC.Controllers
 {
+    using System;
+    using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
+
     using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Application.Dtos;
+    using MyExpenses.WebApplicationMVC.Models;
+    using MyExpenses.WebApplicationMVC.Properties;
 
     public class PaymentsController : Controller
     {
+        private readonly IExpenseAppService _expenseAppService;
         private readonly IPaymentAppService _appService;
 
-        public PaymentsController(IPaymentAppService paymentAppService)
+        public PaymentsController(IPaymentAppService paymentAppService, IExpenseAppService expenseAppService)
         {
             _appService = paymentAppService;
+            _expenseAppService = expenseAppService;
         }
 
         // GET: Payments
-        public IActionResult Index()
+        public IActionResult Index(int month, int year)
         {
-            return View(_appService.GetAll());
+            DateTime startDateTime = MyDateViewModel.GetStartDateTime(month, year);
+            DateTime endDateTime = MyDateViewModel.GetEndDateTime(month, year);
+
+            PaymentIndexViewModel viewModel = new PaymentIndexViewModel
+            {
+                Payments = _appService.GetAll(startDateTime, endDateTime).ToList(),
+                Month = startDateTime.Month,
+                Year = startDateTime.Year
+            };
+
+            CreateDateLists(startDateTime.Month, startDateTime.Year);
+
+            return View(viewModel);
         }
 
         // GET: Payments/Details/5
@@ -143,6 +164,12 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         private bool PaymentExists(long id)
         {
             return _appService.GetById(id) != null;
+        }
+
+        private void CreateDateLists(int selectedMonth, int selectedYear)
+        {
+            ViewData[Resource.MonthsViewData] = MonthViewModel.GetAll(selectedMonth);
+            ViewData[Resource.YearsViewData] = new SelectList(_expenseAppService.GetAllYears(), selectedYear);
         }
     }
 }
