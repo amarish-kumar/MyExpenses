@@ -19,6 +19,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
     using MyExpenses.Domain.Models;
     using MyExpenses.WebApplicationMVC.Models;
     using MyExpenses.Domain.Interfaces.Services;
+    using MyExpenses.WebApplicationMVC.Properties;
 
     public class ExpensesController : Controller
     {
@@ -40,19 +41,11 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses
         public IActionResult Index(int month, int year)
         {
-            DateTime firstDayOfMonth, lastDayOfMonth;
+            DateTime startDateTime = MyDateViewModel.GetStartDateTime(month, year);
+            DateTime endDateTime = MyDateViewModel.GetEndDateTime(month, year);
 
-            if (month <= 0 && year <= 0)
-            {
-                month = DateTime.Today.Month;
-                year = DateTime.Today.Year;
-            }
-
-            firstDayOfMonth = new DateTime(year, month, 1);
-            lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
-
-            var allIncoming = _service.GetAllIncoming(firstDayOfMonth, lastDayOfMonth);
-            var allOutComing = _service.GetAllOutcoming(firstDayOfMonth, lastDayOfMonth);
+            var allIncoming = _service.GetAllIncoming(startDateTime, endDateTime);
+            var allOutComing = _service.GetAllOutcoming(startDateTime, endDateTime);
 
             IndexExpenseViewModel viewModel = new IndexExpenseViewModel
             {
@@ -60,25 +53,12 @@ namespace MyExpenses.WebApplicationMVC.Controllers
                 Outcoming = allOutComing.ToList(),
                 TotalIncoming = allIncoming.Sum(x => x.Value),
                 TotalOutcoming = allOutComing.Sum(x => x.Value),
-                Month = firstDayOfMonth.Month,
-                Year = firstDayOfMonth.Year
+                Month = startDateTime.Month,
+                Year = startDateTime.Year
             };
             viewModel.TotalLeft = viewModel.TotalIncoming - viewModel.TotalOutcoming;
 
-            var allDates = _service.GetAllMonthsAndYears();
-
-            var allMonths = allDates
-                .OrderBy(x => x.Month)
-                .Select(x => x.ToString("MM"))
-                .Distinct();
-
-            var allYears = allDates
-                .OrderBy(x => x.Year)
-                .Select(x => x.Year)
-                .Distinct();
-
-            ViewData["Months"] = new SelectList(allMonths, viewModel.Month);
-            ViewData["Years"] = new SelectList(allYears, viewModel.Year);
+            CreateDateLists(month, year);
 
             return View(viewModel);
         }
@@ -223,8 +203,14 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             Payment[] p = { new Payment { Id = -1, Name = string.Empty } };
             payments = payments.Concat(p).OrderBy(x => x.Id);
 
-            ViewData["Labels"] = new SelectList(lables, "Id", "Name", labelId);
-            ViewData["Payments"] = new SelectList(payments, "Id", "Name", paymentId);
+            ViewData[Resource.LabelsViewData] = new SelectList(lables, "Id", "Name", labelId);
+            ViewData[Resource.PaymentsViewData] = new SelectList(payments, "Id", "Name", paymentId);
+        }
+
+        private void CreateDateLists(int selectedMonth, int selectedYear)
+        {
+            ViewData[Resource.MonthsViewData] = MonthViewModel.GetAll(selectedMonth);
+            ViewData[Resource.YearsViewData] = new SelectList(_service.GetAllYears(), selectedYear);
         }
     }
 }

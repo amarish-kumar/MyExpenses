@@ -7,23 +7,11 @@
 namespace MyExpenses.WebApplicationMVC.Models
 {
     using System.ComponentModel.DataAnnotations;
-
-    using MyExpenses.Application.Dtos;
     using System.Collections.Generic;
     using System.ComponentModel;
 
-    public class LabelViewModel
-    {
-        public LabelDto Label { get; set; }
-
-        [DisplayName("#")]
-        public int QuantityOfExpenses { get; set; }
-
-        [DisplayName("Total")]
-        [DataType(DataType.Currency)]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        public float Value { get; set; }
-    }
+    using MyExpenses.Application.Dtos;
+    using MyExpenses.Application.ViewModels;
 
     public class LabelIndexViewModel
     {
@@ -32,9 +20,9 @@ namespace MyExpenses.WebApplicationMVC.Models
         public LabelViewModel Label { get; set; }
 
         [DisplayName("Month")]
-        public int SelectedMonth { get; set; }
+        public int Month { get; set; }
 
         [DisplayName("Year")]
-        public int SelectedYear { get; set; }
+        public int Year { get; set; }
     }
 }

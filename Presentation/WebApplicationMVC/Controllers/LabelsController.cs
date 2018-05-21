@@ -6,12 +6,19 @@
 
 namespace MyExpenses.WebApplicationMVC.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Application.Dtos;
     using MyExpenses.WebApplicationMVC.Models;
     using System.Linq;
+
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
+    using MyExpenses.WebApplicationMVC.Properties;
 
     public class LabelsController : Controller
     {
@@ -26,17 +33,19 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         }
 
         // GET: Labels
-        public IActionResult Index()
+        public IActionResult Index(int month, int year)
         {
+            DateTime startDateTime = MyDateViewModel.GetStartDateTime(month, year);
+            DateTime endDateTime = MyDateViewModel.GetEndDateTime(month, year);
+
             LabelIndexViewModel viewModel = new LabelIndexViewModel
             {
-                Labels = _appService.GetAll().Select(x => new LabelViewModel
-                {
-                    Label = x,
-                    QuantityOfExpenses = _expenseAppService.CountByLabel(x.Id),
-                    Value = _expenseAppService.SumValuesByLabel(x.Id)
-                }).ToList()
+                Labels = _appService.GetAll(startDateTime, endDateTime).ToList(),
+                Month = month,
+                Year = year
             };
+
+            CreateDateLists(month, year);
 
             return View(viewModel);
         }
@@ -158,6 +167,12 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         private bool LabelExists(long id)
         {
             return _appService.GetById(id) != null;
+        }
+
+        private void CreateDateLists(int selectedMonth, int selectedYear)
+        {
+            ViewData[Resource.MonthsViewData] = MonthViewModel.GetAll(selectedMonth);
+            ViewData[Resource.YearsViewData] = new SelectList(_expenseAppService.GetAllYears(), selectedYear);
         }
     }
 }

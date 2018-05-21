@@ -14,9 +14,6 @@ namespace MyExpenses.Application.Dtos
     {
         public long Id { get; set; }
 
-        [Required]
-        [StringLength(128, MinimumLength = 3)]
-        [DataType(DataType.Text)]
         public string Name { get; set; }
     }
 }

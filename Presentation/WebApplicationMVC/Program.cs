@@ -6,7 +6,9 @@
 
 namespace MyExpenses.WebApplicationMVC
 {
+    using System.Globalization;
     using System.IO;
+    using System.Threading;
 
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
@@ -16,6 +18,10 @@ namespace MyExpenses.WebApplicationMVC
     {
         public static void Main(string[] args)
         {
+            CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture("en-US");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+
             if (args.Length > 0)
             {
                 // use this to allow command line parameters in the config

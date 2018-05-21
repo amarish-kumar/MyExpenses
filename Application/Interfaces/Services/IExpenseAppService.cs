@@ -30,10 +30,10 @@ namespace MyExpenses.Application.Interfaces.Services
         IEnumerable<ExpenseDto> GetAllOutcoming(DateTime startTime, DateTime endTime);
 
         /// <summary>
-        /// Get all dates
+        /// Get all years
         /// </summary>
-        /// <returns>All dates</returns>
-        IEnumerable<DateTime> GetAllMonthsAndYears();
+        /// <returns>All years</returns>
+        IEnumerable<int> GetAllYears();
 
         /// <summary>
         /// Count expenses by label

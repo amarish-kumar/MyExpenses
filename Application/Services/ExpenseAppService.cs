@@ -53,11 +53,11 @@ namespace MyExpenses.Application.Services
             return _adapter.ModelToDto(model);
         }
 
-        public IEnumerable<DateTime> GetAllMonthsAndYears()
+        public IEnumerable<int> GetAllYears()
         {
             return _service
                 .GetAll()
-                .Select(x => x.Data)
+                .Select(x => x.Data.Year)
                 .Distinct();
         }
 
