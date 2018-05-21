@@ -38,11 +38,11 @@ namespace MyExpenses.Application.Services
                     expense => expense.PaymentId,
                     (payment, expenses) => new { payment, expenses })
                 .Select(x => new PaymentViewModel
-                                 {
-                                     Payment = x.payment,
-                                     QuantityOfExpenses = x.expenses.Count(),
-                                     Value = x.expenses.Sum(y => y.Value)
-                                 });
+                {
+                    Payment = x.payment,
+                    QuantityOfExpenses = x.expenses.Count(),
+                    Value = x.expenses.Sum(y => y.Value)
+                });
         }
     }
 }

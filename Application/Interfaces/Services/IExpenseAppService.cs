@@ -34,19 +34,5 @@ namespace MyExpenses.Application.Interfaces.Services
         /// </summary>
         /// <returns>All years</returns>
         IEnumerable<int> GetAllYears();
-
-        /// <summary>
-        /// Count expenses by label
-        /// </summary>
-        /// <param name="labelId">Label id</param>
-        /// <returns>Number of expenses</returns>
-        int CountByLabel(long labelId);
-
-        /// <summary>
-        /// Sum all values by label
-        /// </summary>
-        /// <param name="labelId">Label id</param>
-        /// <returns>Sum values</returns>
-        float SumValuesByLabel(long labelId);
     }
 }

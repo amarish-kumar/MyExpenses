@@ -30,19 +30,25 @@ namespace MyExpenses.Application.Services
 
         public IEnumerable<LabelViewModel> GetAll(DateTime starDateTime, DateTime endDateTime)
         {
-            IEnumerable<ExpenseDto> allExpenses = _expenseAppService.GetAll().Where(x => x.Data >= starDateTime && x.Data <= endDateTime);
+            DateTime startLastMonth = Util.MyDate.GetStartLastMonth(starDateTime.Month, starDateTime.Year);
+            DateTime endLastMonth = Util.MyDate.GetEndLastMonth(endDateTime.Month, endDateTime.Year);
 
-            return GetAll().GroupJoin(
-                    allExpenses,
+            return GetAll()
+                .GroupJoin(
+                    _expenseAppService.GetAll(),
                     label => label.Id,
                     expense => expense.LabelId,
                     (label, expenses) => new { label, expenses })
                 .Select(x => new LabelViewModel
-                                 {
-                                     Label = x.label,
-                                     QuantityOfExpenses = x.expenses.Count(),
-                                     Value = x.expenses.Sum(y => y.Value)
-                                 });
+                {
+                    Label = x.label,
+                    QuantityOfExpenses = x.expenses.Count(y => y.Data >= starDateTime && y.Data <= endDateTime),
+                    Value = x.expenses.Where(y => y.Data >= starDateTime && y.Data <= endDateTime).Sum(y => y.Value),
+
+                    LastMonth = x.expenses.Any(y => y.Data >= startLastMonth && y.Data <= endLastMonth) ?
+                        x.expenses.Where(y => y.Data >= startLastMonth && y.Data <= endLastMonth).Average(y => y.Value) : 0,
+                    Average = x.expenses.Any() ? x.expenses.Average(y => y.Value) : 0
+                });
         }
     }
 }

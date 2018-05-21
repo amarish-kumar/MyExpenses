@@ -25,5 +25,15 @@ namespace MyExpenses.Application.ViewModels
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public float Value { get; set; }
+
+        [DisplayName("Last Month")]
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public float LastMonth { get; set; }
+
+        [DisplayName("Average")]
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C2}")]
+        public float Average { get; set; }
     }
 }

@@ -32,8 +32,8 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Payments
         public IActionResult Index(int month, int year)
         {
-            DateTime startDateTime = MyDateViewModel.GetStartDateTime(month, year);
-            DateTime endDateTime = MyDateViewModel.GetEndDateTime(month, year);
+            DateTime startDateTime = Util.MyDate.GetStartDateTime(month, year);
+            DateTime endDateTime = Util.MyDate.GetEndDateTime(month, year);
 
             PaymentIndexViewModel viewModel = new PaymentIndexViewModel
             {

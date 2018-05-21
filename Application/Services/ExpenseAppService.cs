@@ -60,19 +60,5 @@ namespace MyExpenses.Application.Services
                 .Select(x => x.Data.Year)
                 .Distinct();
         }
-
-        public int CountByLabel(long labelId)
-        {
-            return _service
-                .Get(x => x.LabelId == labelId)
-                .Count();
-        }
-
-        public float SumValuesByLabel(long labelId)
-        {
-            return _service
-                .Get(x => x.LabelId == labelId)
-                .Sum(x => x.Value);
-        }
     }
 }

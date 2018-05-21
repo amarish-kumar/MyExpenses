@@ -41,8 +41,8 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         // GET: Expenses
         public IActionResult Index(int month, int year)
         {
-            DateTime startDateTime = MyDateViewModel.GetStartDateTime(month, year);
-            DateTime endDateTime = MyDateViewModel.GetEndDateTime(month, year);
+            DateTime startDateTime = Util.MyDate.GetStartDateTime(month, year);
+            DateTime endDateTime = Util.MyDate.GetEndDateTime(month, year);
 
             var allIncoming = _service.GetAllIncoming(startDateTime, endDateTime);
             var allOutComing = _service.GetAllOutcoming(startDateTime, endDateTime);
