@@ -12,46 +12,34 @@ namespace MyExpenses.Util
     {
         public static DateTime GetStartDateTime(int month, int year)
         {
-            if (month <= 0 && year <= 0)
-            {
-                month = DateTime.Today.Month;
-                year = DateTime.Today.Year;
-            }
+            int m = month <= 0 ? DateTime.Today.Month : month;
+            int y = year <= 0 ? DateTime.Today.Year : year;
 
-            return new DateTime(year, month, 1);
+            return new DateTime(y, m, 1);
         }
 
         public static DateTime GetEndDateTime(int month, int year)
         {
-            if (month <= 0 && year <= 0)
-            {
-                month = DateTime.Today.Month;
-                year = DateTime.Today.Year;
-            }
+            int m = month <= 0 ? DateTime.Today.Month : month;
+            int y = year <= 0 ? DateTime.Today.Year : year;
 
-            return new DateTime(year, month, 1).AddMonths(1).AddDays(-1);
+            return new DateTime(y, m, 1).AddMonths(1).AddDays(-1);
         }
 
         public static DateTime GetStartLastMonth(int month, int year)
         {
-            if (month - 1 < 1)
-            {
-                month = 12;
-                year = year - 1;
-            }
+            int m = month - 1 < 1 ? 12 : month;
+            int y = month - 1 < 1 ? year - 1 : year;
 
-            return new DateTime(year, month, 1);
+            return new DateTime(y, m, 1);
         }
 
         public static DateTime GetEndLastMonth(int month, int year)
         {
-            if (month - 1 < 1)
-            {
-                month = 12;
-                year = year - 1;
-            }
+            int m = month - 1 < 1 ? 12 : month;
+            int y = month - 1 < 1 ? year - 1 : year;
 
-            return new DateTime(year, month, 1).AddMonths(1).AddDays(-1);
+            return new DateTime(y, m, 1).AddMonths(1).AddDays(-1);
         }
     }
 }
