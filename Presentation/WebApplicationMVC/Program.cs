@@ -18,10 +18,6 @@ namespace MyExpenses.WebApplicationMVC
     {
         public static void Main(string[] args)
         {
-            //CultureInfo cultureInfo = CultureInfo.CreateSpecificCulture("en-US");
-            //Thread.CurrentThread.CurrentCulture = cultureInfo;
-            //Thread.CurrentThread.CurrentUICulture = cultureInfo;
-
             if (args.Length > 0)
             {
                 // use this to allow command line parameters in the config
