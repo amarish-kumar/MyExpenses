@@ -7,7 +7,6 @@
 namespace MyExpenses.Infrastructure.UnitOfWork
 {
     using System;
-    using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -26,24 +25,6 @@ namespace MyExpenses.Infrastructure.UnitOfWork
         public void BeginTransaction()
         {
             // Method intentionally left empty.
-        }
-
-        public Task<int> CommitAsync()
-        {
-            try
-            {
-                return _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException e)
-            {
-                Console.WriteLine(e);
-                throw new Exception(e.Message);
-            }
-            catch (DbUpdateException e)
-            {
-                Console.WriteLine(e);
-                throw new Exception(e.Message);
-            }
         }
 
         public int Commit()

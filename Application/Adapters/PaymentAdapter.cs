@@ -14,7 +14,9 @@ namespace MyExpenses.Application.Adapters
     {
         public PaymentDto ModelToDto(Payment model)
         {
-            if (model == null) return null;
+            if (model == null)
+                return null;
+
             return new PaymentDto
             {
                 Id = model.Id,
@@ -24,7 +26,9 @@ namespace MyExpenses.Application.Adapters
 
         public Payment DtoToModel(PaymentDto dto)
         {
-            if (dto == null) return null;
+            if (dto == null)
+                return null;
+
             return new Payment
             {
                 Id = dto.Id,

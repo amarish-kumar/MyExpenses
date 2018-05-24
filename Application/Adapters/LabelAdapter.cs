@@ -14,7 +14,9 @@ namespace MyExpenses.Application.Adapters
     {
         public LabelDto ModelToDto(Label model)
         {
-            if (model == null) return null;
+            if (model == null)
+                return null;
+
             return new LabelDto
             {
                 Id = model.Id,
@@ -24,7 +26,9 @@ namespace MyExpenses.Application.Adapters
 
         public Label DtoToModel(LabelDto dto)
         {
-            if (dto == null) return null;
+            if (dto == null)
+                return null;
+
             return new Label
             {
                 Id = dto.Id,

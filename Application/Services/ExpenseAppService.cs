@@ -47,6 +47,13 @@ namespace MyExpenses.Application.Services
                 .Select(x => _adapter.ModelToDto(x));
         }
 
+        public override IEnumerable<ExpenseDto> GetAll()
+        {
+            return _service
+                .GetAll(x => x.Label, x => x.Payment)
+                .Select(x => _adapter.ModelToDto(x));
+        }
+
         public override ExpenseDto GetById(long id)
         {
             var model = _service.GetById(id, x => x.Label, x => x.Payment);

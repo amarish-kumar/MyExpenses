@@ -8,9 +8,11 @@ namespace MyExpenses.ApplicationTest
 {
     using System;
     using System.Linq;
+    using System.Reflection;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    using MyExpenses.Application.Dtos;
     using MyExpenses.Application.Interfaces.Services;
 
     [TestClass]
@@ -54,23 +56,107 @@ namespace MyExpenses.ApplicationTest
         }
 
         [TestMethod]
+        public void AppServiceTestUpdateAllLabels()
+        {
+            var allLabels = _labelAppService.GetAll().ToList();
+
+            // update model
+            for (int i = 0; i < allLabels.Count; i++)
+            {
+                allLabels[i].Name = $"Label100{i}";
+            }
+
+            // update database
+            allLabels.ForEach(x => _labelAppService.AddOrUpdate(x));
+
+            // get again
+            allLabels = _labelAppService.GetAll().ToList();
+
+            // check if all expenses were updated
+            // update model
+            for (int i = 0; i < allLabels.Count; i++)
+            {
+                Assert.AreEqual($"Label100{i}", allLabels[i].Name);
+            }
+        }
+
+        [TestMethod]
+        public void AppServiceTestUpdateAllPayments()
+        {
+            var allPayments = _paymentAppService.GetAll().ToList();
+
+            // update model
+            for (int i = 0; i < allPayments.Count; i++)
+            {
+                allPayments[i].Name = $"Payment100{i}";
+            }
+
+            // update database
+            allPayments.ForEach(x => _paymentAppService.AddOrUpdate(x));
+
+            // get again
+            allPayments = _paymentAppService.GetAll().ToList();
+
+            // check if all expenses were updated
+            // update model
+            for (int i = 0; i < allPayments.Count; i++)
+            {
+                Assert.AreEqual($"Payment100{i}", allPayments[i].Name);
+            }
+        }
+
+        [TestMethod]
         public void AppServiceTestPogValue()
         {
             var allExpenses = _expenseAppService.GetAll().ToList();
+
+            foreach (ExpenseDto expense in allExpenses)
+            {
+                // set to $22.44
+                expense.ValuePog = 2244;
+            }
 
             allExpenses.ForEach(x => Assert.AreEqual(x.Value * 100, x.ValuePog));
         }
 
         [TestMethod]
+        public void AppServiceTestAddOrUpdateNullExpense()
+        {
+            Assert.IsNull(_expenseAppService.AddOrUpdate(null));
+        }
+
+        [TestMethod]
+        public void AppServiceTestAddOrUpdateNonExistimExpense()
+        {
+            Assert.IsNull(_expenseAppService.AddOrUpdate(new ExpenseDto { Id = 1000 }));
+        }
+
+        [TestMethod]
+        public void AppServiceTestAddOrUpdateDefaultEmptyExpense()
+        {
+            Assert.IsNotNull(_expenseAppService.AddOrUpdate(new ExpenseDto()));
+        }
+
+        [TestMethod]
         public void AppServiceTestRemoveAll()
         {
-            _labelAppService.GetAll().ToList().ForEach(x => _labelAppService.Remove(x.Id));
-            _paymentAppService.GetAll().ToList().ForEach(x => _paymentAppService.Remove(x.Id));
-            _expenseAppService.GetAll().ToList().ForEach(x => _expenseAppService.Remove(x.Id));
+            _labelAppService.GetAll().ToList().ForEach(x => Assert.IsTrue(_labelAppService.Remove(x.Id)));
+            _paymentAppService.GetAll().ToList().ForEach(x => Assert.IsTrue(_paymentAppService.Remove(x.Id)));
+            _expenseAppService.GetAll().ToList().ForEach(x => Assert.IsTrue(_expenseAppService.Remove(x.Id)));
             
             Assert.IsFalse(_labelAppService.GetAll().Any());
             Assert.IsFalse(_paymentAppService.GetAll().Any());
             Assert.IsFalse(_expenseAppService.GetAll().Any());
+        }
+
+        [TestMethod]
+        public void AppServiceTestRemoveAllWithInvalidId()
+        {
+            const int INVALID_ID = 1000;
+
+            Assert.IsFalse(_labelAppService.Remove(INVALID_ID));
+            Assert.IsFalse(_paymentAppService.Remove(INVALID_ID));
+            Assert.IsFalse(_expenseAppService.Remove(INVALID_ID));
         }
 
         [TestMethod]
@@ -124,8 +210,8 @@ namespace MyExpenses.ApplicationTest
         {
             var today = DateTime.Today;
 
-            var start = Util.MyDate.GetStartDateTime(today);
-            var end = Util.MyDate.GetEndDateTime(today);
+            var start = Util.MyDate.GetStartDateTime(today.Month, today.Year);
+            var end = Util.MyDate.GetEndDateTime(today.Month, today.Year);
 
             var incoming = _expenseAppService.GetAllIncoming(start, end).ToList();
             var outcoming = _expenseAppService.GetAllOutcoming(start, end).ToList();
@@ -165,6 +251,8 @@ namespace MyExpenses.ApplicationTest
             Assert.IsTrue(labels.Any());
             Assert.IsTrue(labels.All(x => x.QuantityOfExpenses > 0));
             Assert.IsTrue(labels.All(x => x.Value > 0));
+            Assert.IsTrue(labels.All(x => x.Average > 0));
+            Assert.IsTrue(labels.All(x => x.LastMonth.Equals(0)));
         }
 
         [TestMethod]
@@ -178,6 +266,7 @@ namespace MyExpenses.ApplicationTest
             var labels = _labelAppService.GetAll(start, end).ToList();
 
             Assert.IsTrue(labels.Any());
+            Assert.IsTrue(labels.All(x => x.Label != null));
             Assert.IsFalse(labels.All(x => x.QuantityOfExpenses > 0));
             Assert.IsFalse(labels.All(x => x.Value > 0));
         }
@@ -193,6 +282,7 @@ namespace MyExpenses.ApplicationTest
             var payments = _paymentAppService.GetAll(start, end).ToList();
 
             Assert.IsTrue(payments.Any());
+            Assert.IsTrue(payments.All(x => x.Payment != null));
             Assert.IsTrue(payments.All(x => x.QuantityOfExpenses > 0));
             Assert.IsTrue(payments.All(x => x.Value > 0));
         }

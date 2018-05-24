@@ -58,22 +58,20 @@ namespace MyExpenses.Infrastructure.Repositories
             return set.SingleOrDefault(x => x.Id == id);
         }
 
-        public bool Remove(TModel model)
-        {
-            return _context.Set<TModel>().Remove(model) != null;
-        }
-
         public bool Remove(long id)
         {
             TModel model = _context.Set<TModel>().Find(id);
             if (model == null)
                 return false;
 
-            return Remove(model);
+            return _context.Set<TModel>().Remove(model) != null;
         }
 
         public TModel AddOrUpdate(TModel model)
         {
+            if (model == null)
+                return null;
+
             // Update
             if (model.Id > 0)
             {

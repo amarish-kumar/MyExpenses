@@ -23,7 +23,9 @@ namespace MyExpenses.Application.Adapters
 
         public ExpenseDto ModelToDto(Expense model)
         {
-            if (model == null) return null;
+            if (model == null)
+                return null;
+
             return new ExpenseDto
             {
                 Id = model.Id,
@@ -40,7 +42,9 @@ namespace MyExpenses.Application.Adapters
 
         public Expense DtoToModel(ExpenseDto dto)
         {
-            if (dto == null) return null;
+            if (dto == null)
+                return null;
+
             return new Expense
             {
                 Id = dto.Id,

@@ -30,12 +30,5 @@ namespace MyExpenses.Domain.Services
 
             return base.Remove(id);
         }
-
-        public override bool Remove(Label model)
-        {
-            _expenseService.RemoveLabelFromExpenses(model.Id);
-
-            return base.Remove(model);
-        }
     }
 }

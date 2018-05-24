@@ -44,7 +44,7 @@ namespace MyExpenses.Util
 
         public static DateTime GetStartLastMonth(int month, int year)
         {
-            int m = month - 1 < 1 ? 12 : month;
+            int m = month - 1 < 1 ? 12 : month - 1;
             int y = month - 1 < 1 ? year - 1 : year;
 
             return new DateTime(y, m, 1);
@@ -52,7 +52,7 @@ namespace MyExpenses.Util
 
         public static DateTime GetEndLastMonth(int month, int year)
         {
-            int m = month - 1 < 1 ? 12 : month;
+            int m = month - 1 < 1 ? 12 : month - 1;
             int y = month - 1 < 1 ? year - 1 : year;
 
             return new DateTime(y, m, 1).AddMonths(1).AddDays(-1);

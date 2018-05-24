@@ -29,13 +29,6 @@ namespace MyExpenses.Application.Interfaces.Services
         /// <summary>
         /// Remove object <see cref="IService{TModel}"/>
         /// </summary>
-        /// <param name="model">Object to remove</param>
-        /// <returns>True if could remove and false otherwise</returns>
-        bool Remove(TModel model);
-
-        /// <summary>
-        /// Remove object <see cref="IService{TModel}"/>
-        /// </summary>
         /// <param name="id">If of the object to remove</param>
         /// <returns>True if could remove and false otherwise</returns>
         bool Remove(long id);

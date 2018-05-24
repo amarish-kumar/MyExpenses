@@ -26,12 +26,5 @@ namespace MyExpenses.Domain.Services
 
             return base.Remove(id);
         }
-
-        public override bool Remove(Payment model)
-        {
-            _expenseService.RemovePaymentFromExpenses(model.Id);
-
-            return base.Remove(model);
-        }
     }
 }

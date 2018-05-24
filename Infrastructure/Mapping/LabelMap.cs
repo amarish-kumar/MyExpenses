@@ -4,24 +4,24 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Infrastructure.Mapping
-{
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+//namespace MyExpenses.Infrastructure.Mapping
+//{
+//    using Microsoft.EntityFrameworkCore;
+//    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    using MyExpenses.Domain.Models;
+//    using MyExpenses.Domain.Models;
 
-    internal class LabelMap : IEntityTypeConfiguration<Label>
-    {
-        public void Configure(EntityTypeBuilder<Label> builder)
-        {
-            // Primary key
-            builder.HasKey(x => x.Id);
+//    internal class LabelMap : IEntityTypeConfiguration<Label>
+//    {
+//        public void Configure(EntityTypeBuilder<Label> builder)
+//        {
+//            // Primary key
+//            builder.HasKey(x => x.Id);
 
-            // Columns
-            builder.Property(x => x.Name).HasColumnName("Name");
+//            // Columns
+//            builder.Property(x => x.Name).HasColumnName("Name");
 
-            builder.ToTable("Label");
-        }
-    }
-}
+//            builder.ToTable("Label");
+//        }
+//    }
+//}

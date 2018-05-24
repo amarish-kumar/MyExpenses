@@ -37,20 +37,6 @@ namespace MyExpenses.Application.Services
             return _adapter.ModelToDto(_service.GetById(id));
         }
 
-        public virtual bool Remove(TDto model)
-        {
-            _unitOfWork.BeginTransaction();
-
-            bool ret = _service.Remove(_adapter.DtoToModel(model));
-
-            if (ret)
-            {
-                _unitOfWork.Commit();
-            }
-
-            return ret;
-        }
-
         public virtual bool Remove(long id)
         {
             _unitOfWork.BeginTransaction();

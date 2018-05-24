@@ -40,11 +40,6 @@ namespace MyExpenses.Domain.Services
             return _repository.GetById(id, includes);
         }
 
-        public virtual bool Remove(TModel model)
-        {
-            return _repository.Remove(model);
-        }
-
         public virtual bool Remove(long id)
         {
             return _repository.Remove(id);
