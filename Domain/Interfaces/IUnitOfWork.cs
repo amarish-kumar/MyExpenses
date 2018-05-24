@@ -6,8 +6,6 @@
 
 namespace MyExpenses.Domain.Interfaces
 {
-    using System.Threading.Tasks;
-
     /// <summary>
     /// Maintains a list of objects affected by a business transaction and coordinates the writing out of changes and the resolution of concurrency problems.
     /// </summary>

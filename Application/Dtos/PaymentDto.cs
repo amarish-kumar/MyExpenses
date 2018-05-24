@@ -6,8 +6,6 @@
 
 namespace MyExpenses.Application.Dtos
 {
-    using System.ComponentModel.DataAnnotations;
-
     using MyExpenses.Application.Interfaces.Dtos;
 
     public class PaymentDto : IDto

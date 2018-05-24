@@ -9,6 +9,7 @@ namespace MyExpenses.Domain.Services
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+
     using MyExpenses.Domain.Interfaces;
 
     public abstract class ServiceBase<TModel> : IService<TModel> where TModel : IModel
