@@ -94,6 +94,6 @@ before_test:
  - choco install codecov
 #  - pip install git+git://github.com/codecov/codecov-python.git
 
-# # scripts to run after tests
-# after_test:
-#  - codecov -f "TestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
+# scripts to run after tests
+after_test:
+ - codecov -f "TestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3 -X gcov
