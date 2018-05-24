@@ -48,8 +48,8 @@ before_build:
  - nuget restore
  - appveyor-retry dotnet restore -v Minimal
 
-cache:
-- '%USERPROFILE%\.nuget\packages'
+# cache:
+# - '%USERPROFILE%\.nuget\packages'
 
 #---------------------------------#
 #    environment configuration    #
