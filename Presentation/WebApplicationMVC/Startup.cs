@@ -29,8 +29,8 @@ namespace MyExpenses.WebApplicationMVC
         {
             services.AddMvc();
 
-            string connectionStrings = Configuration.GetConnectionString("SqliteConnectionStrings");
-            services.AddDbContext<MyExpensesContext>(options => options.UseSqlite(connectionStrings));
+            //string connectionStrings = Configuration.GetConnectionString("SqliteConnectionStrings");
+            services.AddDbContext<MyExpensesContext>(options => options.UseSqlite("Data Source=Data/sqlite.db"));
 
             ApplicationModule.ConfigureServices(services);
         }
