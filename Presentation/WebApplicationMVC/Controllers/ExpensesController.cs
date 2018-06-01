@@ -49,8 +49,8 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
             IndexExpenseViewModel viewModel = new IndexExpenseViewModel
             {
-                Incoming = allIncoming.ToList(),
-                Outcoming = allOutComing.ToList(),
+                Incoming = allIncoming.OrderBy(x => x.Data).ToList(),
+                Outcoming = allOutComing.OrderBy(x => x.Data).ToList(),
                 TotalIncoming = allIncoming.Sum(x => x.Value),
                 TotalOutcoming = allOutComing.Sum(x => x.Value),
                 Month = startDateTime.Month,
