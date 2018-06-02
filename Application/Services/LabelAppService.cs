@@ -20,11 +20,15 @@ namespace MyExpenses.Application.Services
 
     public class LabelAppService : AppServiceBase<Label, LabelDto>, ILabelAppService
     {
+        private readonly ILabelService _service;
+        private readonly ILabelAdapter _adapter;
         private readonly IExpenseAppService _expenseAppService;
 
         public LabelAppService(ILabelService service, IExpenseAppService expenseAppService, ILabelAdapter adapter, IUnitOfWork unitOfWork)
             : base(service, adapter, unitOfWork)
         {
+            _service = service;
+            _adapter = adapter;
             _expenseAppService = expenseAppService;
         }
 
@@ -33,7 +37,11 @@ namespace MyExpenses.Application.Services
             DateTime startLastMonth = Util.MyDate.GetStartLastMonth(starDateTime.Month, starDateTime.Year);
             DateTime endLastMonth = Util.MyDate.GetEndLastMonth(endDateTime.Month, endDateTime.Year);
 
-            return GetAll()
+            Func<ExpenseDto, bool> filterDate = (ExpenseDto x) => x.Data >= starDateTime && x.Data <= endDateTime;
+            Func<ExpenseDto, bool> filterLastMonth = (ExpenseDto x) => x.Data >= startLastMonth && x.Data <= endLastMonth;
+            Func<ExpenseDto, bool> filterUntilThisMonth = (ExpenseDto x) => x.Data <= endLastMonth;
+
+            return _service.GetAll()
                 .GroupJoin(
                     _expenseAppService.GetAll(),
                     label => label.Id,
@@ -41,13 +49,12 @@ namespace MyExpenses.Application.Services
                     (label, expenses) => new { label, expenses })
                 .Select(x => new LabelViewModel
                 {
-                    Label = x.label,
-                    QuantityOfExpenses = x.expenses.Count(y => y.Data >= starDateTime && y.Data <= endDateTime),
-                    Value = x.expenses.Where(y => y.Data >= starDateTime && y.Data <= endDateTime).Sum(y => y.Value),
+                    Label = _adapter.ModelToDto(x.label),
+                    QuantityOfExpenses = x.expenses.Count(filterDate),
+                    Value = x.expenses.Where(filterDate).Sum(y => y.Value),
 
-                    LastMonth = x.expenses.Any(y => y.Data >= startLastMonth && y.Data <= endLastMonth) ?
-                        x.expenses.Where(y => y.Data >= startLastMonth && y.Data <= endLastMonth).Average(y => y.Value) : 0,
-                    Average = x.expenses.Any() ? x.expenses.Average(y => y.Value) : 0
+                    LastMonth = x.expenses.Where(filterLastMonth).Sum(y => y.Value),
+                    Average = x.expenses.Any(filterUntilThisMonth) ? x.expenses.Where(filterUntilThisMonth).Average(y => y.Value) : 0
                 });
         }
     }

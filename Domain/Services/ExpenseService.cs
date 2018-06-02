@@ -6,11 +6,14 @@
 
 namespace MyExpenses.Domain.Services
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Interfaces.Services;
     using MyExpenses.Domain.Models;
+    
 
     public class ExpenseService : ServiceBase<Expense>, IExpenseService
     {
@@ -20,6 +23,20 @@ namespace MyExpenses.Domain.Services
             : base(repository)
         {
             _repository = repository;
+        }
+
+        public IEnumerable<Expense> GetAllIncoming(DateTime startTime, DateTime endTime)
+        {
+            return _repository
+                .GetAll(x => x.Label, x => x.Payment)
+                .Where(x => x.IsIncoming && x.Data >= startTime && x.Data < endTime);
+        }
+
+        public IEnumerable<Expense> GetAllOutcoming(DateTime startTime, DateTime endTime)
+        {
+            return _repository
+                .GetAll(x => x.Label, x => x.Payment)
+                .Where(x => !x.IsIncoming && x.Data >= startTime && x.Data < endTime);
         }
 
         public void RemoveLabelFromExpenses(long labelId)

@@ -13,21 +13,7 @@ namespace MyExpenses.Application.Interfaces.Services
 
     public interface IExpenseAppService : IAppService<ExpenseDto>
     {
-        /// <summary>
-        /// Get all incoming expenses
-        /// </summary>
-        /// <param name="startTime">Start time</param>
-        /// <param name="endTime">End time</param>
-        /// <returns>Set of expenses</returns>
-        IEnumerable<ExpenseDto> GetAllIncoming(DateTime startTime, DateTime endTime);
-
-        /// <summary>
-        /// Get all outcoming expenses
-        /// </summary>
-        /// <param name="startTime">Start time</param>
-        /// <param name="endTime">End time</param>
-        /// <returns>Set of expenses</returns>
-        IEnumerable<ExpenseDto> GetAllOutcoming(DateTime startTime, DateTime endTime);
+        IndexExpenseDto GetIndexExpenses(DateTime startTime, DateTime endTime);
 
         /// <summary>
         /// Get all years
