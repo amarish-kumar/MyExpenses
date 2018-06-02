@@ -213,14 +213,13 @@ namespace MyExpenses.ApplicationTest
             var start = Util.MyDate.GetStartDateTime(today.Month, today.Year);
             var end = Util.MyDate.GetEndDateTime(today.Month, today.Year);
 
-            var incoming = _expenseAppService.GetAllIncoming(start, end).ToList();
-            var outcoming = _expenseAppService.GetAllOutcoming(start, end).ToList();
+            var all = _expenseAppService.GetIndexExpenses(start, end);
 
-            Assert.IsTrue(incoming.Any());
-            Assert.IsTrue(incoming.All(x => x.IsIncoming));
+            Assert.IsTrue(all.Incoming.Any());
+            Assert.IsTrue(all.Incoming.All(x => x.IsIncoming));
 
-            Assert.IsTrue(outcoming.Any());
-            Assert.IsTrue(outcoming.All(x => !x.IsIncoming));
+            Assert.IsTrue(all.Outcoming.Any());
+            Assert.IsTrue(all.Outcoming.All(x => !x.IsIncoming));
         }
 
         [TestMethod]
@@ -231,11 +230,10 @@ namespace MyExpenses.ApplicationTest
             var start = Util.MyDate.GetStartDateTime(yesterday);
             var end = Util.MyDate.GetEndDateTime(yesterday);
 
-            var incoming = _expenseAppService.GetAllIncoming(start, end).ToList();
-            var outcoming = _expenseAppService.GetAllOutcoming(start, end).ToList();
+            var all = _expenseAppService.GetIndexExpenses(start, end);
 
-            Assert.IsFalse(incoming.Any());
-            Assert.IsFalse(outcoming.Any());
+            Assert.IsFalse(all.Incoming.Any());
+            Assert.IsFalse(all.Outcoming.Any());
         }
 
         [TestMethod]
@@ -251,7 +249,7 @@ namespace MyExpenses.ApplicationTest
             Assert.IsTrue(labels.Any());
             Assert.IsTrue(labels.All(x => x.QuantityOfExpenses > 0));
             Assert.IsTrue(labels.All(x => x.Value > 0));
-            Assert.IsTrue(labels.All(x => x.Average > 0));
+            Assert.IsTrue(labels.All(x => x.Average == 0));
             Assert.IsTrue(labels.All(x => x.LastMonth.Equals(0)));
         }
 
