@@ -11,26 +11,16 @@ namespace MyExpenses.Application.ViewModels
 
     using MyExpenses.Application.Dtos;
 
-    public class LabelViewModel
+    public class IndexPaymentDto
     {
-        public LabelDto Label { get; set; }
+        public PaymentDto Payment { get; set; }
 
         [DisplayName("#")]
-        public int QuantityOfExpenses { get; set; }
+        public int Amount { get; set; }
 
         [DisplayName("Total")]
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public float Value { get; set; }
-
-        [DisplayName("Last Month")]
-        [DataType(DataType.Currency)]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        public float LastMonth { get; set; }
-
-        [DisplayName("Average")]
-        [DataType(DataType.Currency)]
-        [DisplayFormat(DataFormatString = "{0:C2}")]
-        public float Average { get; set; }
     }
 }

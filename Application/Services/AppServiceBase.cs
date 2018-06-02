@@ -27,9 +27,9 @@ namespace MyExpenses.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public virtual IEnumerable<TDto> GetAll()
+        public virtual IEnumerable<TDto> Get()
         {
-            return _service.GetAll().Select(x => _adapter.ModelToDto(x));
+            return _service.Get().Select(x => _adapter.ModelToDto(x));
         }
 
         public virtual TDto GetById(long id)

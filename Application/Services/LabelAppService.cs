@@ -32,7 +32,7 @@ namespace MyExpenses.Application.Services
             _expenseAppService = expenseAppService;
         }
 
-        public IEnumerable<LabelViewModel> GetAll(DateTime starDateTime, DateTime endDateTime)
+        public IEnumerable<IndexLabelDto> Get(DateTime starDateTime, DateTime endDateTime)
         {
             DateTime startLastMonth = Util.MyDate.GetStartLastMonth(starDateTime.Month, starDateTime.Year);
             DateTime endLastMonth = Util.MyDate.GetEndLastMonth(endDateTime.Month, endDateTime.Year);
@@ -41,16 +41,16 @@ namespace MyExpenses.Application.Services
             Func<ExpenseDto, bool> filterLastMonth = (ExpenseDto x) => x.Data >= startLastMonth && x.Data <= endLastMonth;
             Func<ExpenseDto, bool> filterUntilThisMonth = (ExpenseDto x) => x.Data <= endLastMonth;
 
-            return _service.GetAll()
+            return _service.Get()
                 .GroupJoin(
-                    _expenseAppService.GetAll(),
+                    _expenseAppService.Get(),
                     label => label.Id,
                     expense => expense.LabelId,
                     (label, expenses) => new { label, expenses })
-                .Select(x => new LabelViewModel
+                .Select(x => new IndexLabelDto
                 {
                     Label = _adapter.ModelToDto(x.label),
-                    QuantityOfExpenses = x.expenses.Count(filterDate),
+                    Amount = x.expenses.Count(filterDate),
                     Value = x.expenses.Where(filterDate).Sum(y => y.Value),
 
                     LastMonth = x.expenses.Where(filterLastMonth).Sum(y => y.Value),

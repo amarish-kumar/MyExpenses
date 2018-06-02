@@ -14,6 +14,6 @@ namespace MyExpenses.Application.Interfaces.Services
 
     public interface IPaymentAppService : IAppService<PaymentDto>
     {
-        IEnumerable<PaymentViewModel> GetAll(DateTime starDateTime, DateTime endDateTime);
+        IEnumerable<IndexPaymentDto> Get(DateTime starDateTime, DateTime endDateTime);
     }
 }

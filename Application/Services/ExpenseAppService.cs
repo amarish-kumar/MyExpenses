@@ -40,10 +40,10 @@ namespace MyExpenses.Application.Services
             };
         }
 
-        public override IEnumerable<ExpenseDto> GetAll()
+        public override IEnumerable<ExpenseDto> Get()
         {
             return _service
-                .GetAll(x => x.Label, x => x.Payment)
+                .Get(x => x.Label, x => x.Payment)
                 .Select(x => _adapter.ModelToDto(x));
         }
 
@@ -56,7 +56,7 @@ namespace MyExpenses.Application.Services
         public IEnumerable<int> GetAllYears()
         {
             return _service
-                .GetAll()
+                .Get()
                 .Select(x => x.Data.Year)
                 .Distinct();
         }

@@ -25,20 +25,7 @@ namespace MyExpenses.Infrastructure.Repositories
             _context = context;
         }
 
-        public virtual IEnumerable<TModel> Get(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
-        {
-            IQueryable<TModel> set = _context.Set<TModel>();
-
-            foreach (var include in includes)
-                set = set.Include(include);
-
-            if (filter != null)
-                set = set?.Where(filter);
-
-            return set;
-        }
-
-        public virtual IEnumerable<TModel> GetAll(params Expression<Func<TModel, object>>[] includes)
+        public virtual IEnumerable<TModel> Get(params Expression<Func<TModel, object>>[] includes)
         {
             IQueryable<TModel> set = _context.Set<TModel>();
 

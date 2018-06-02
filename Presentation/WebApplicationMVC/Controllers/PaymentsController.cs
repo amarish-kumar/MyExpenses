@@ -37,7 +37,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
             PaymentIndexViewModel viewModel = new PaymentIndexViewModel
             {
-                Payments = _appService.GetAll(startDateTime, endDateTime).ToList(),
+                Payments = _appService.Get(startDateTime, endDateTime).ToList(),
                 Month = startDateTime.Month,
                 Year = startDateTime.Year
             };

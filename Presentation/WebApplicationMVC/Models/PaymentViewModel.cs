@@ -15,9 +15,9 @@ namespace MyExpenses.WebApplicationMVC.Models
 
     public class PaymentIndexViewModel
     {
-        public List<PaymentViewModel> Payments { get; set; }
+        public List<IndexPaymentDto> Payments { get; set; }
 
-        public PaymentViewModel Payment { get; set; }
+        public IndexPaymentDto Payment { get; set; }
 
         [DisplayName("Month")]
         public int Month { get; set; }

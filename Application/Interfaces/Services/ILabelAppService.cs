@@ -14,6 +14,6 @@ namespace MyExpenses.Application.Interfaces.Services
 
     public interface ILabelAppService : IAppService<LabelDto>
     {
-        IEnumerable<LabelViewModel> GetAll(DateTime starDateTime, DateTime endDateTime);
+        IEnumerable<IndexLabelDto> Get(DateTime starDateTime, DateTime endDateTime);
     }
 }

@@ -180,8 +180,8 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
         private void CreateSelectLists(long? labelId = null, long? paymentId = null)
         {
-            IEnumerable<Label> lables = _labelService.GetAll();
-            IEnumerable<Payment> payments = _paymentService.GetAll();
+            IEnumerable<Label> lables = _labelService.Get();
+            IEnumerable<Payment> payments = _paymentService.Get();
 
             Label[] l = { new Label { Id = -1, Name = string.Empty } };
             lables = lables.Concat(l).OrderBy(x => x.Id);
