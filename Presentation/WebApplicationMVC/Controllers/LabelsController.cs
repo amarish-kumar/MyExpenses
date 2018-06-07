@@ -37,7 +37,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
             LabelIndexViewModel viewModel = new LabelIndexViewModel
             {
-                Labels = _appService.GetAll(startDateTime, endDateTime).ToList(),
+                Labels = _appService.Get(startDateTime, endDateTime).ToList(),
                 Month = startDateTime.Month,
                 Year = startDateTime.Year
             };

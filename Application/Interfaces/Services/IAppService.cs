@@ -17,7 +17,7 @@ namespace MyExpenses.Application.Interfaces.Services
         /// Get all objects <see cref="IService{TModel}"/>
         /// </summary>
         /// <returns>All objects</returns>
-        IEnumerable<TModel> GetAll();
+        IEnumerable<TModel> Get();
 
         /// <summary>
         /// Get object by Id <see cref="IService{TModel}"/>

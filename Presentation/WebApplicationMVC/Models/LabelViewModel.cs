@@ -15,9 +15,9 @@ namespace MyExpenses.WebApplicationMVC.Models
 
     public class LabelIndexViewModel
     {
-        public List<LabelViewModel> Labels { get; set; }
+        public List<IndexLabelDto> Labels { get; set; }
 
-        public LabelViewModel Label { get; set; }
+        public IndexLabelDto Label { get; set; }
 
         [DisplayName("Month")]
         public int Month { get; set; }

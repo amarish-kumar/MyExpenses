@@ -44,23 +44,9 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             DateTime startDateTime = Util.MyDate.GetStartDateTime(month, year);
             DateTime endDateTime = Util.MyDate.GetEndDateTime(month, year);
 
-            var allIncoming = _service.GetAllIncoming(startDateTime, endDateTime);
-            var allOutComing = _service.GetAllOutcoming(startDateTime, endDateTime);
+            CreateDateLists(startDateTime.Month, startDateTime.Year);
 
-            IndexExpenseViewModel viewModel = new IndexExpenseViewModel
-            {
-                Incoming = allIncoming.OrderBy(x => x.Data).ToList(),
-                Outcoming = allOutComing.OrderBy(x => x.Data).ToList(),
-                TotalIncoming = allIncoming.Sum(x => x.Value),
-                TotalOutcoming = allOutComing.Sum(x => x.Value),
-                Month = startDateTime.Month,
-                Year = startDateTime.Year
-            };
-            viewModel.TotalLeft = viewModel.TotalIncoming - viewModel.TotalOutcoming;
-
-            CreateDateLists(viewModel.Month, viewModel.Year);
-
-            return View(viewModel);
+            return View(_service.GetIndexExpenses(startDateTime, endDateTime));
         }
 
         // GET: Expenses/Details/5
@@ -194,8 +180,8 @@ namespace MyExpenses.WebApplicationMVC.Controllers
 
         private void CreateSelectLists(long? labelId = null, long? paymentId = null)
         {
-            IEnumerable<Label> lables = _labelService.GetAll();
-            IEnumerable<Payment> payments = _paymentService.GetAll();
+            IEnumerable<Label> lables = _labelService.Get();
+            IEnumerable<Payment> payments = _paymentService.Get();
 
             Label[] l = { new Label { Id = -1, Name = string.Empty } };
             lables = lables.Concat(l).OrderBy(x => x.Id);

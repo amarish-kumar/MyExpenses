@@ -29,28 +29,21 @@ namespace MyExpenses.Application.Services
             _adapter = adapter;
         }
 
-        public IEnumerable<ExpenseDto> GetAllIncoming(DateTime startTime, DateTime endTime)
+        public IndexExpenseDto GetIndexExpenses(DateTime startTime, DateTime endTime)
         {
-            return _service
-                .Get(
-                    x => x.IsIncoming && x.Data >= startTime && x.Data < endTime,
-                    x => x.Label, x => x.Payment)
-                .Select(x => _adapter.ModelToDto(x));
+            return new IndexExpenseDto
+            {
+                Incoming = _service.GetAllIncoming(startTime, endTime).Select(x => _adapter.ModelToDto(x)).ToList(),
+                Outcoming = _service.GetAllOutcoming(startTime, endTime).Select(x => _adapter.ModelToDto(x)).ToList(),
+                Month = startTime.Month,
+                Year = startTime.Year
+            };
         }
 
-        public IEnumerable<ExpenseDto> GetAllOutcoming(DateTime startTime, DateTime endTime)
+        public override IEnumerable<ExpenseDto> Get()
         {
             return _service
-                .Get(
-                    x => !x.IsIncoming && x.Data >= startTime && x.Data <= endTime,
-                    x => x.Label, x => x.Payment)
-                .Select(x => _adapter.ModelToDto(x));
-        }
-
-        public override IEnumerable<ExpenseDto> GetAll()
-        {
-            return _service
-                .GetAll(x => x.Label, x => x.Payment)
+                .Get(x => x.Label, x => x.Payment)
                 .Select(x => _adapter.ModelToDto(x));
         }
 
@@ -63,7 +56,7 @@ namespace MyExpenses.Application.Services
         public IEnumerable<int> GetAllYears()
         {
             return _service
-                .GetAll()
+                .Get()
                 .Select(x => x.Data.Year)
                 .Distinct();
         }

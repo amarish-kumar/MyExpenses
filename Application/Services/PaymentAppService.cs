@@ -28,19 +28,19 @@ namespace MyExpenses.Application.Services
             _expenseAppService = expenseAppService;
         }
 
-        public IEnumerable<PaymentViewModel> GetAll(DateTime starDateTime, DateTime endDateTime)
+        public IEnumerable<IndexPaymentDto> Get(DateTime starDateTime, DateTime endDateTime)
         {
-            IEnumerable<ExpenseDto> allExpenses = _expenseAppService.GetAll().Where(x => x.Data >= starDateTime && x.Data <= endDateTime);
+            IEnumerable<ExpenseDto> allExpenses = _expenseAppService.Get().Where(x => x.Data >= starDateTime && x.Data <= endDateTime);
 
-            return GetAll().GroupJoin(
+            return Get().GroupJoin(
                     allExpenses,
                     payment => payment.Id,
                     expense => expense.PaymentId,
                     (payment, expenses) => new { payment, expenses })
-                .Select(x => new PaymentViewModel
+                .Select(x => new IndexPaymentDto
                 {
                     Payment = x.payment,
-                    QuantityOfExpenses = x.expenses.Count(),
+                    Amount = x.expenses.Count(),
                     Value = x.expenses.Sum(y => y.Value)
                 });
         }

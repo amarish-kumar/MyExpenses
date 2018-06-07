@@ -26,14 +26,9 @@ namespace MyExpenses.Domain.Services
             return _repository.AddOrUpdate(model);
         }
 
-        public virtual IEnumerable<TModel> GetAll(params Expression<Func<TModel, object>>[] includes)
+        public virtual IEnumerable<TModel> Get(params Expression<Func<TModel, object>>[] includes)
         {
-            return _repository.GetAll(includes);
-        }
-
-        public virtual IEnumerable<TModel> Get(Expression<Func<TModel, bool>> filter, params Expression<Func<TModel, object>>[] includes)
-        {
-            return _repository.Get(filter, includes);
+            return _repository.Get(includes);
         }
 
         public virtual TModel GetById(long id, params Expression<Func<TModel, object>>[] includes)
