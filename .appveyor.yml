@@ -94,7 +94,6 @@ before_test:
  - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
  - choco install opencover.portable
  - choco install codecov
-#  - pip install git+git://github.com/codecov/codecov-python.git
 
 # scripts to run after tests
 after_test:
