@@ -87,7 +87,7 @@ before_test:
 # to run your custom scripts instead of automatic tests
 test_script:
   - dotnet test "Application/Test" -c %CONFIGURATION%
-  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -filter:"+[ApplicationTest]" -output:".\TestResult.xml"
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test Application\Test" -output:"TestResult.xml"
 
 # scripts to run after tests
 after_test:
