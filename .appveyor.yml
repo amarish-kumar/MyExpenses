@@ -28,7 +28,7 @@ init:
 # build Configuration, i.e. Debug, Release, etc.
 configuration:
  - Release
-#  - Debug
+ - Debug
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional
 platform:
@@ -39,14 +39,6 @@ before_build:
  - appveyor-retry dotnet restore -v Minimal
 
 build_script:
-# - dotnet build "Util" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-# - dotnet build "Domain" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-# - dotnet build "Infrastructure" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-# - dotnet build "Application" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-# - dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-
-# - dotnet build "Application/Test" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-
 - dotnet build -c %CONFIGURATION% --version-suffix %LABEL%
 
 #---------------------------------#
@@ -80,7 +72,6 @@ notifications:
 
 # scripts to run before tests
 before_test:
- - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
  - choco install opencover.portable
  - choco install codecov
 
@@ -92,5 +83,3 @@ test_script:
 # scripts to run after tests
 after_test:
  - codecov -f "TestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3
-
-#  OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -filter:"+[UnitTestTargetProject*]* -[MyUnitTests*]*" -output:".\MyProject_coverage.xml" -oldstyle
