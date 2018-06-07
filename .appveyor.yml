@@ -27,8 +27,8 @@ init:
 
 # build Configuration, i.e. Debug, Release, etc.
 configuration:
-#  - Release
- - Debug
+ - Release
+#  - Debug
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional
 platform:
@@ -92,7 +92,7 @@ before_test:
 # to run your custom scripts instead of automatic tests
 test_script:
   - dotnet test "Application/Test" -c %CONFIGURATION%
-  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test Application\Test\bin\x64\Debug\netcoreapp2.0\ApplicationTest.dll" -output:"TestResult.xml"
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test Application\Test\bin\x64\Release\netcoreapp2.0\ApplicationTest.dll" -output:"TestResult.xml"
 
 # scripts to run after tests
 after_test:
