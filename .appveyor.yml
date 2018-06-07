@@ -49,9 +49,6 @@ build_script:
 
 - dotnet build -c %CONFIGURATION% --version-suffix %LABEL%
 
-# cache:
-# - '%USERPROFILE%\.nuget\packages'
-
 #---------------------------------#
 #    environment configuration    #
 #---------------------------------#
@@ -75,8 +72,6 @@ notifications:
 - provider: Email
   to:
   - lfmachadodasilva@gmail.com
-  on_build_success: false
-  on_build_failure: true
   on_build_status_changed: true
 
 #---------------------------------#
@@ -92,8 +87,10 @@ before_test:
 # to run your custom scripts instead of automatic tests
 test_script:
   - dotnet test "Application/Test" -c %CONFIGURATION%
-  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -target:"test" -targetargs:"Application\Test" -output:"TestResult.xml"
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -filter:"-[*Test] +[^*Test]" -output:".\TestResult.xml"
 
 # scripts to run after tests
 after_test:
  - codecov -f "TestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3
+
+#  OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -filter:"+[UnitTestTargetProject*]* -[MyUnitTests*]*" -output:".\MyProject_coverage.xml" -oldstyle
