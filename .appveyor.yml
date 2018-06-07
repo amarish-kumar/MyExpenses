@@ -36,13 +36,15 @@ platform:
 #  - x86
 
 build_script:
-- dotnet build "Util" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "Domain" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "Infrastructure" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "Application" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
-- dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+# - dotnet build "Util" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+# - dotnet build "Domain" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+# - dotnet build "Infrastructure" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+# - dotnet build "Application" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+# - dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
 
-- dotnet build "Application/Test" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+# - dotnet build "Application/Test" -c %CONFIGURATION% --no-dependencies --version-suffix %LABEL%
+
+- dotnet build -c %CONFIGURATION% --version-suffix %LABEL%
 
 before_build:
  - nuget restore
@@ -85,7 +87,7 @@ notifications:
 # to run your custom scripts instead of automatic tests
 test_script:
   - dotnet test "Application/Test" -c %CONFIGURATION%
-  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test Application/Test/ApplicationTest.csproj" -output:"TestResult.xml"
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test Application/Test/bin/x64/$(configuration)/netcoreapp2.0/ApplicationTest.dll" -output:"TestResult.xml"
 
 # scripts to run before tests
 before_test:
