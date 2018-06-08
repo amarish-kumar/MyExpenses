@@ -80,7 +80,7 @@ test_script:
   - dotnet test "Application/Test" -c %CONFIGURATION%
   - dotnet test "Domain/Test" -c %CONFIGURATION%
   - dotnet test "Infrastructure/Test" -c %CONFIGURATION%
-  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test /p:DebugType=full" -output:"TestResult.xml" -oldstyle
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test /p:DebugType=full Application/Test" -output:"TestResult.xml" -oldstyle
 
 # scripts to run after tests
 after_test:
