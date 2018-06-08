@@ -8,7 +8,6 @@ namespace MyExpenses.ApplicationTest
 {
     using System;
     using System.Linq;
-    using System.Reflection;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

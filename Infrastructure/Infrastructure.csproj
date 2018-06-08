@@ -2,9 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <RootNamespace>MyExpenses.Infrastructure</RootNamespace>
-    <Platforms>AnyCPU;x64</Platforms>
+    <RootNamespace>MyExpenses.InfrastructureTest</RootNamespace>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Test\**" />
+    <EmbeddedResource Remove="Test\**" />
+    <None Remove="Test\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.7" />

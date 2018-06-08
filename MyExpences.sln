@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{67AE261B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationTest", "Application\Test\ApplicationTest.csproj", "{BC1BE5F8-C164-48B0-B79F-CC306D0AC885}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainTest", "Domain\Test\DomainTest.csproj", "{E230C20B-29A1-4A3F-A7A7-7A93BA30AD15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfrastructureTest", "Infrastructure\Test\InfrastructureTest.csproj", "{8642DA3A-0F65-498F-A18E-E64FB8D5842A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -47,12 +51,22 @@ Global
 		{BC1BE5F8-C164-48B0-B79F-CC306D0AC885}.Debug|x64.Build.0 = Debug|x64
 		{BC1BE5F8-C164-48B0-B79F-CC306D0AC885}.Release|x64.ActiveCfg = Release|x64
 		{BC1BE5F8-C164-48B0-B79F-CC306D0AC885}.Release|x64.Build.0 = Release|x64
+		{E230C20B-29A1-4A3F-A7A7-7A93BA30AD15}.Debug|x64.ActiveCfg = Debug|x64
+		{E230C20B-29A1-4A3F-A7A7-7A93BA30AD15}.Debug|x64.Build.0 = Debug|x64
+		{E230C20B-29A1-4A3F-A7A7-7A93BA30AD15}.Release|x64.ActiveCfg = Release|x64
+		{E230C20B-29A1-4A3F-A7A7-7A93BA30AD15}.Release|x64.Build.0 = Release|x64
+		{8642DA3A-0F65-498F-A18E-E64FB8D5842A}.Debug|x64.ActiveCfg = Debug|x64
+		{8642DA3A-0F65-498F-A18E-E64FB8D5842A}.Debug|x64.Build.0 = Debug|x64
+		{8642DA3A-0F65-498F-A18E-E64FB8D5842A}.Release|x64.ActiveCfg = Release|x64
+		{8642DA3A-0F65-498F-A18E-E64FB8D5842A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BC1BE5F8-C164-48B0-B79F-CC306D0AC885} = {67AE261B-A318-42D0-BE0C-2D4CED7C3896}
+		{E230C20B-29A1-4A3F-A7A7-7A93BA30AD15} = {67AE261B-A318-42D0-BE0C-2D4CED7C3896}
+		{8642DA3A-0F65-498F-A18E-E64FB8D5842A} = {67AE261B-A318-42D0-BE0C-2D4CED7C3896}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C61858B0-E66A-43A2-BC27-8C1351C344D8}
