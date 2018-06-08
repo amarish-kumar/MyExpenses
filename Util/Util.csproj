@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>MyExpenses.Util</RootNamespace>
     <Platforms>x64</Platforms>
+    <DebugType>Full</DebugType>
   </PropertyGroup>
 
 </Project>
