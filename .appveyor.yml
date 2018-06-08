@@ -39,7 +39,18 @@ before_build:
  - appveyor-retry dotnet restore -v Minimal
 
 build_script:
-- dotnet build -c %CONFIGURATION% --version-suffix %LABEL%
+  - dotnet build "Util" -c %CONFIGURATION% --version-suffix %LABEL%
+  - dotnet build "Infrastructure" -c %CONFIGURATION% --version-suffix %LABEL%
+  - dotnet build "Domain" -c %CONFIGURATION% --version-suffix %LABEL%
+  - dotnet build "Application" -c %CONFIGURATION% --version-suffix %LABEL%
+  - dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --version-suffix %LABEL%
+  - dotnet build "Infrastructure/Test" -c %CONFIGURATION% --version-suffix %LABEL%
+  - dotnet build "Domain/Test" -c %CONFIGURATION% --version-suffix %LABEL%
+  - dotnet build "Application/Test" -c %CONFIGURATION% --version-suffix %LABEL%
+
+after_build:
+  - dotnet build -c %CONFIGURATION% --version-suffix %LABEL%
+
 
 #---------------------------------#
 #    environment configuration    #
