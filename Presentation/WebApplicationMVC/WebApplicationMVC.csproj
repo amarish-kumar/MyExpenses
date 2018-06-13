@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Source\Application.csproj" />
-    <ProjectReference Include="..\..\Util\Util.csproj" />
+    <ProjectReference Include="..\..\Util\Source\Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>
