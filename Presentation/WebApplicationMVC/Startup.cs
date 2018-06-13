@@ -30,7 +30,7 @@ namespace MyExpenses.WebApplicationMVC
             services.AddMvc();
 
             //string connectionStrings = Configuration.GetConnectionString("SqliteConnectionStrings");
-            services.AddDbContext<MyExpensesContext>(options => options.UseSqlite("Data Source=Data/sqlite.db"));
+            services.AddDbContext<MyExpensesContext>(options => options.UseSqlite("Data Source=sqlite.db"));
 
             ApplicationModule.ConfigureServices(services);
         }
