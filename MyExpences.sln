@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Util", "Util\Util.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplicationMVC", "Presentation\WebApplicationMVC\WebApplicationMVC.csproj", "{B0829541-CE1A-4AE4-AD25-80DDE9D79F7E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{DFB1814C-8BBE-4F93-9A1A-D5AAC2E25C8E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{67AE261B-A318-42D0-BE0C-2D4CED7C3896}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationTest", "Application\Test\ApplicationTest.csproj", "{BC1BE5F8-C164-48B0-B79F-CC306D0AC885}"
@@ -22,6 +20,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfrastructureTest", "Infrastructure\Test\InfrastructureTest.csproj", "{8642DA3A-0F65-498F-A18E-E64FB8D5842A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplicationApi", "Presentation\WebApplicationApi\WebApplicationApi.csproj", "{C43CE423-C82D-4113-B903-FBCBE891DE68}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Source\Application.csproj", "{8C1F921E-593A-463C-A0CC-8739CEC0B091}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,6 @@ Global
 		{B0829541-CE1A-4AE4-AD25-80DDE9D79F7E}.Debug|x64.Build.0 = Debug|x64
 		{B0829541-CE1A-4AE4-AD25-80DDE9D79F7E}.Release|x64.ActiveCfg = Release|x64
 		{B0829541-CE1A-4AE4-AD25-80DDE9D79F7E}.Release|x64.Build.0 = Release|x64
-		{DFB1814C-8BBE-4F93-9A1A-D5AAC2E25C8E}.Debug|x64.ActiveCfg = Debug|x64
-		{DFB1814C-8BBE-4F93-9A1A-D5AAC2E25C8E}.Debug|x64.Build.0 = Debug|x64
-		{DFB1814C-8BBE-4F93-9A1A-D5AAC2E25C8E}.Release|x64.ActiveCfg = Release|x64
-		{DFB1814C-8BBE-4F93-9A1A-D5AAC2E25C8E}.Release|x64.Build.0 = Release|x64
 		{BC1BE5F8-C164-48B0-B79F-CC306D0AC885}.Debug|x64.ActiveCfg = Debug|x64
 		{BC1BE5F8-C164-48B0-B79F-CC306D0AC885}.Debug|x64.Build.0 = Debug|x64
 		{BC1BE5F8-C164-48B0-B79F-CC306D0AC885}.Release|x64.ActiveCfg = Release|x64
@@ -65,6 +61,10 @@ Global
 		{C43CE423-C82D-4113-B903-FBCBE891DE68}.Debug|x64.Build.0 = Debug|x64
 		{C43CE423-C82D-4113-B903-FBCBE891DE68}.Release|x64.ActiveCfg = Release|x64
 		{C43CE423-C82D-4113-B903-FBCBE891DE68}.Release|x64.Build.0 = Release|x64
+		{8C1F921E-593A-463C-A0CC-8739CEC0B091}.Debug|x64.ActiveCfg = Debug|x64
+		{8C1F921E-593A-463C-A0CC-8739CEC0B091}.Debug|x64.Build.0 = Debug|x64
+		{8C1F921E-593A-463C-A0CC-8739CEC0B091}.Release|x64.ActiveCfg = Release|x64
+		{8C1F921E-593A-463C-A0CC-8739CEC0B091}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
