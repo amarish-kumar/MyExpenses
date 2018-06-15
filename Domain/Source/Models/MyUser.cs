@@ -8,7 +8,7 @@ namespace MyExpenses.Domain.Models
 {
     using Microsoft.AspNetCore.Identity;
 
-    public class MyUser : IdentityUser<long>
+    public class MyUser : IdentityUser
     {
     }
 }
