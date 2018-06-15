@@ -4,11 +4,11 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Infrastructure.Repositories
+namespace MyExpenses.InfrastructureTest.Repositories
 {
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
-    using MyExpenses.Infrastructure.Context;
+    using MyExpenses.InfrastructureTest.Context;
 
     public class PaymentRepository : RepositoryBase<Payment>, IPaymentRepository
     {

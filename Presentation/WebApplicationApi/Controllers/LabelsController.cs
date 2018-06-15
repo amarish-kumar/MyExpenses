@@ -4,11 +4,13 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace WebApplicationApi.Controllers
+namespace MyExpenses.WebApplicationApi.Controllers
 {
     using System.Collections.Generic;
     using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
+
     using MyExpenses.Application.Interfaces.Services;
 
     [Route("api/[controller]")]

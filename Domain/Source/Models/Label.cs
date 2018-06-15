@@ -20,6 +20,8 @@ namespace MyExpenses.Domain.Models
 
         public override void Copy(IModel obj)
         {
+            base.Copy(obj);
+
             if (obj is Label label)
             {
                 Name = label.Name;

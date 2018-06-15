@@ -11,7 +11,6 @@ namespace MyExpenses.WebApplicationMVC.Models
     using System.ComponentModel;
 
     using MyExpenses.Application.Dtos;
-    using MyExpenses.Application.ViewModels;
 
     public class PaymentIndexViewModel
     {

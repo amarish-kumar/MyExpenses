@@ -4,13 +4,14 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Infrastructure.Context
+namespace MyExpenses.InfrastructureTest.Context
 {
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Models;
 
-    public class MyExpensesContext : DbContext
+    public class MyExpensesContext : IdentityDbContext<MyUser>
     {
         public MyExpensesContext (DbContextOptions<MyExpensesContext> options)
             : base(options)

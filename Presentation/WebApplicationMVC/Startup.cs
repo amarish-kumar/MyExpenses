@@ -13,7 +13,7 @@ namespace MyExpenses.WebApplicationMVC
     using Microsoft.Extensions.DependencyInjection;
 
     using MyExpenses.Application.Modules;
-    using MyExpenses.Infrastructure.Context;
+    using MyExpenses.InfrastructureTest.Context;
 
     public class Startup
     {

@@ -17,6 +17,15 @@ namespace MyExpenses.Domain.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        public abstract void Copy(IModel obj);
+        public MyUser CreatedUser { get; set; }
+
+        public MyUser LastUpdateUser { get; set; }
+
+        public virtual void Copy(IModel obj)
+        {
+            Id = obj.Id;
+            CreatedUser = obj.CreatedUser;
+            LastUpdateUser = obj.LastUpdateUser;
+        }
     }
 }

@@ -16,8 +16,8 @@ namespace MyExpenses.Application.Modules
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Interfaces.Services;
     using MyExpenses.Domain.Services;
-    using MyExpenses.Infrastructure.Repositories;
-    using MyExpenses.Infrastructure.UnitOfWork;
+    using MyExpenses.InfrastructureTest.Repositories;
+    using MyExpenses.InfrastructureTest.UnitOfWork;
 
     public static class ApplicationModule
     {

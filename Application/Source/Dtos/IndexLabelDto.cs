@@ -4,12 +4,10 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.ViewModels
+namespace MyExpenses.Application.Dtos
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-
-    using MyExpenses.Application.Dtos;
 
     public class IndexLabelDto
     {

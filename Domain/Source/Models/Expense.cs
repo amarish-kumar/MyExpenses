@@ -7,8 +7,6 @@
 namespace MyExpenses.Domain.Models
 {
     using System;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using MyExpenses.Domain.Interfaces;
@@ -42,6 +40,8 @@ namespace MyExpenses.Domain.Models
 
         public override void Copy(IModel obj)
         {
+            base.Copy(obj);
+
             if (obj is Expense expense)
             {
                 Name = expense.Name;

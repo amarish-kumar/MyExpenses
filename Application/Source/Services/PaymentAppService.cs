@@ -13,7 +13,6 @@ namespace MyExpenses.Application.Services
     using MyExpenses.Application.Dtos;
     using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Application.Interfaces.Services;
-    using MyExpenses.Application.ViewModels;
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Services;
     using MyExpenses.Domain.Models;
