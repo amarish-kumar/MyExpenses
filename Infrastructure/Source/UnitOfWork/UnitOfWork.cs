@@ -4,14 +4,14 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.InfrastructureTest.UnitOfWork
+namespace MyExpenses.Infrastructure.UnitOfWork
 {
     using System;
 
     using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Interfaces;
-    using MyExpenses.InfrastructureTest.Context;
+    using MyExpenses.Infrastructure.Context;
 
     public class UnitOfWork : IUnitOfWork, IDisposable
     {

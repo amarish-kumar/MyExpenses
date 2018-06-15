@@ -7,7 +7,7 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using MyExpenses.Application.Modules;
-    using MyExpenses.InfrastructureTest.Context;
+    using MyExpenses.Infrastructure.Context;
 
     public class Startup
     {

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <RootNamespace>MyExpenses.InfrastructureTest</RootNamespace>
+    <RootNamespace>MyExpenses.Infrastructure</RootNamespace>
     <Platforms>x64</Platforms>
     <DebugType>Full</DebugType>
   </PropertyGroup>

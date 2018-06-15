@@ -4,11 +4,11 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.InfrastructureTest.Repositories
+namespace MyExpenses.Infrastructure.Repositories
 {
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
-    using MyExpenses.InfrastructureTest.Context;
+    using MyExpenses.Infrastructure.Context;
 
     public class LabelRepository : RepositoryBase<Label>, ILabelRepository
     {

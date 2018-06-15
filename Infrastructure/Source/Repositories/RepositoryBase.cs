@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.InfrastructureTest.Repositories
+namespace MyExpenses.Infrastructure.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace MyExpenses.InfrastructureTest.Repositories
     using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Interfaces;
-    using MyExpenses.InfrastructureTest.Context;
+    using MyExpenses.Infrastructure.Context;
 
     public abstract class RepositoryBase<TModel> : IService<TModel> where TModel : class, IModel
     {
