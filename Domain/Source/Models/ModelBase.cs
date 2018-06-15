@@ -17,15 +17,25 @@ namespace MyExpenses.Domain.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        public MyUser CreatedUser { get; set; }
+        // TODO
+        //[ForeignKey("CreatedUserId")]
+        //public long? CreatedUserId { get; set; }
+        //public User CreatedUser { get; set; }
 
-        public MyUser LastUpdateUser { get; set; }
+        //[ForeignKey("LastUpdateUserId")]
+        //public long? LastUpdateUserId { get; set; }
+        //public User LastUpdateUser { get; set; }
 
         public virtual void Copy(IModel obj)
         {
             Id = obj.Id;
-            CreatedUser = obj.CreatedUser;
-            LastUpdateUser = obj.LastUpdateUser;
+
+            // TODO
+            //CreatedUserId = obj.CreatedUserId;
+            //CreatedUser = obj.CreatedUser;
+
+            //LastUpdateUserId = obj.LastUpdateUserId;
+            //LastUpdateUser = obj.LastUpdateUser;
         }
     }
 }

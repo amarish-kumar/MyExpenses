@@ -24,8 +24,11 @@ namespace MyExpenses.Domain.Interfaces
         /// <param name="obj">Object to copy from</param>
         void Copy(IModel obj);
 
-        MyUser CreatedUser { get; set; }
+        // TODO
+        //long? CreatedUserId { get; set; }
+        //User CreatedUser { get; set; }
 
-        MyUser LastUpdateUser { get; set; }
+        //long? LastUpdateUserId { get; set; }
+        //User LastUpdateUser { get; set; }
     }
 }

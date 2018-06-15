@@ -11,7 +11,7 @@ namespace MyExpenses.Infrastructure.Context
 
     using MyExpenses.Domain.Models;
 
-    public class MyExpensesContext : IdentityDbContext<MyUser>
+    public class MyExpensesContext : IdentityDbContext<User>
     {
         public MyExpensesContext (DbContextOptions<MyExpensesContext> options)
             : base(options)

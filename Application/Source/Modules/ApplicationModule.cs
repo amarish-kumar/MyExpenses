@@ -33,16 +33,19 @@ namespace MyExpenses.Application.Modules
             services.AddScoped<IExpenseRepository, ExpenseRepository>();
             services.AddScoped<ILabelRepository, LabelRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             // Domain Services
             services.AddScoped<IExpenseService, ExpenseService>();
             services.AddScoped<ILabelService, LabelService>();
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IUserService, UserService>();
 
             // Application services
             services.AddScoped<IExpenseAppService, ExpenseAppService>();
             services.AddScoped<ILabelAppService, LabelAppService>();
             services.AddScoped<IPaymentAppService, PaymentAppService>();
+            services.AddScoped<IUserAppService, UserAppService>();
 
             // Adapters
             services.AddScoped<IExpenseAdapter, ExpenseAdapter>();
