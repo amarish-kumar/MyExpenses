@@ -13,6 +13,6 @@ namespace MyExpenses.Application.Interfaces.Services
 
     public interface ILabelAppService : IAppService<LabelDto>
     {
-        IEnumerable<IndexLabelDto> Get(DateTime starDateTime, DateTime endDateTime);
+        IEnumerable<IndexLabelDto> Get(DateTime startDateTime, DateTime endDateTime);
     }
 }

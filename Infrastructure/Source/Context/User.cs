@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Domain.Models
+namespace MyExpenses.Infrastructure.Context
 {
     using Microsoft.AspNetCore.Identity;
 

@@ -14,9 +14,6 @@ namespace MyExpenses.Domain.Models
     [Table("Payment")]
     public class Payment : ModelBase
     {
-        [Required]
-        [StringLength(128, MinimumLength = 2)]
-        [DataType(DataType.Text)]
         public string Name { get; set; }
 
         public override void Copy(IModel obj)

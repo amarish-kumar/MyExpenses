@@ -6,12 +6,17 @@
 
 namespace MyExpenses.Application.Dtos
 {
+    using System.ComponentModel.DataAnnotations;
+
     using MyExpenses.Application.Interfaces.Dtos;
 
     public class LabelDto : IDto
     {
         public long Id { get; set; }
 
+        [Required]
+        [StringLength(128, MinimumLength = 2)]
+        [DataType(DataType.Text)]
         public string Name { get; set; }
     }
 }

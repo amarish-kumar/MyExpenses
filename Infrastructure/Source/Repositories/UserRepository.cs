@@ -13,6 +13,8 @@ namespace MyExpenses.Infrastructure.Repositories
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
 
+    using User = MyExpenses.Infrastructure.Context.User;
+
     public class UserRepository : IUserRepository
     {
         private readonly SignInManager<User> _signInManager;

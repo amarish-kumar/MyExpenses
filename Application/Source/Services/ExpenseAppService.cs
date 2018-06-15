@@ -31,8 +31,6 @@ namespace MyExpenses.Application.Services
 
         public IndexExpenseDto GetIndexExpenses(DateTime startTime, DateTime endTime)
         {
-            var a = _service.Get().ToList();
-
             return new IndexExpenseDto
             {
                 Incoming = _service.GetAllIncoming(startTime, endTime).Select(x => _adapter.ModelToDto(x)).ToList(),
