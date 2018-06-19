@@ -13,9 +13,6 @@ namespace MyExpenses.Application.AutoMapper
 
     internal class PaymentProfile : Profile
     {
-        public PaymentProfile()
-        {
-            CreateMap<Payment, PaymentDto>().ReverseMap();
-        }
+        public PaymentProfile() => CreateMap<Payment, PaymentDto>().ReverseMap();
     }
 }
