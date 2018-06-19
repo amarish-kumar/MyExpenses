@@ -27,6 +27,8 @@ namespace MyExpenses.Application.Modules
         /// <param name="services"></param>
         public static void ConfigureServices(IServiceCollection services)
         {
+            AutoMapperConfiguration.Configure();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Repositories

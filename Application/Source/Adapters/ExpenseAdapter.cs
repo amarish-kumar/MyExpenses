@@ -6,9 +6,24 @@
 
 namespace MyExpenses.Application.Adapters
 {
+    using AutoMapper;
+
     using MyExpenses.Application.Dtos;
     using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Domain.Models;
+
+    internal class ExpenseProfile : Profile
+    {
+        public ExpenseProfile()
+        {
+            CreateMap<Expense, ExpenseDto>()
+                .ForMember(x => x.LabelId, opt => { opt.MapFrom(src => src.LabelId < 1 ? null : src.LabelId); })
+                .ForMember(x => x.PaymentId, opt => { opt.MapFrom(src => src.PaymentId < 1 ? null : src.PaymentId); })
+                .ReverseMap()
+                .ForMember(x => x.LabelId, opt => { opt.MapFrom(src => src.LabelId < 1 ? null : src.LabelId); })
+                .ForMember(x => x.PaymentId, opt => { opt.MapFrom(src => src.PaymentId < 1 ? null : src.PaymentId); });
+        }
+    }
 
     internal class ExpenseAdapter : IExpenseAdapter
     {
@@ -21,42 +36,8 @@ namespace MyExpenses.Application.Adapters
             _paymentAdapter = paymentAdapter;
         }
 
-        public ExpenseDto ModelToDto(Expense model)
-        {
-            if (model == null)
-                return null;
+        public ExpenseDto ModelToDto(Expense model) => Mapper.Map<ExpenseDto>(model);
 
-            return new ExpenseDto
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Value = model.Value,
-                Data = model.Data,
-                IsIncoming = model.IsIncoming,
-                LabelId = model.LabelId < 1 ? null : model.LabelId,
-                Label = _labelAdapter.ModelToDto(model.Label),
-                PaymentId = model.PaymentId < 1 ? null : model.PaymentId,
-                Payment = _paymentAdapter.ModelToDto(model.Payment)
-            };
-        }
-
-        public Expense DtoToModel(ExpenseDto dto)
-        {
-            if (dto == null)
-                return null;
-
-            return new Expense
-            {
-                Id = dto.Id,
-                Name = dto.Name,
-                Value = dto.Value,
-                Data = dto.Data,
-                IsIncoming = dto.IsIncoming,
-                LabelId = dto.LabelId < 1 ? null : dto.LabelId,
-                Label = _labelAdapter.DtoToModel(dto.Label),
-                PaymentId = dto.PaymentId < 1 ? null : dto.PaymentId,
-                Payment = _paymentAdapter.DtoToModel(dto.Payment)
-            };
-        }
+        public Expense DtoToModel(ExpenseDto dto) => Mapper.Map<Expense>(dto);
     }
 }

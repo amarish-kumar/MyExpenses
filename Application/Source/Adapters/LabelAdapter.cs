@@ -6,34 +6,24 @@
 
 namespace MyExpenses.Application.Adapters
 {
+    using AutoMapper;
+
     using MyExpenses.Application.Dtos;
     using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Domain.Models;
 
+    internal class LabelProfile : Profile
+    {
+        public LabelProfile()
+        {
+            CreateMap<Label, LabelDto>().ReverseMap();
+        }
+    }
+
     internal class LabelAdapter : ILabelAdapter
     {
-        public LabelDto ModelToDto(Label model)
-        {
-            if (model == null)
-                return null;
+        public LabelDto ModelToDto(Label model) => Mapper.Map<LabelDto>(model);
 
-            return new LabelDto
-            {
-                Id = model.Id,
-                Name = model.Name
-            };
-        }
-
-        public Label DtoToModel(LabelDto dto)
-        {
-            if (dto == null)
-                return null;
-
-            return new Label
-            {
-                Id = dto.Id,
-                Name = dto.Name
-            };
-        }
+        public Label DtoToModel(LabelDto dto) => Mapper.Map<Label>(dto);
     }
 }

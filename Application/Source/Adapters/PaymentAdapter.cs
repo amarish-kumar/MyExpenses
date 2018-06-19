@@ -6,34 +6,24 @@
 
 namespace MyExpenses.Application.Adapters
 {
+    using AutoMapper;
+
     using MyExpenses.Application.Dtos;
     using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Domain.Models;
 
+    internal class PaymentProfile : Profile
+    {
+        public PaymentProfile()
+        {
+            CreateMap<Payment, PaymentDto>().ReverseMap();
+        }
+    }
+
     internal class PaymentAdapter : IPaymentAdapter
     {
-        public PaymentDto ModelToDto(Payment model)
-        {
-            if (model == null)
-                return null;
+        public PaymentDto ModelToDto(Payment model) => Mapper.Map<PaymentDto>(model);
 
-            return new PaymentDto
-            {
-                Id = model.Id,
-                Name = model.Name
-            };
-        }
-
-        public Payment DtoToModel(PaymentDto dto)
-        {
-            if (dto == null)
-                return null;
-
-            return new Payment
-            {
-                Id = dto.Id,
-                Name = dto.Name
-            };
-        }
+        public Payment DtoToModel(PaymentDto dto) => Mapper.Map<Payment>(dto);
     }
 }
