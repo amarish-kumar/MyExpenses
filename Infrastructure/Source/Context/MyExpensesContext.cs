@@ -6,13 +6,12 @@
 
 namespace MyExpenses.Infrastructure.Context
 {
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Configuration;
 
-    public class MyExpensesContext : IdentityDbContext<User>
+    public class MyExpensesContext : DbContext
     {
         public MyExpensesContext (DbContextOptions<MyExpensesContext> options)
             : base(options)
