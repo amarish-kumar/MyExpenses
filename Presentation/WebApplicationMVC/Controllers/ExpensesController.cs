@@ -84,7 +84,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
         {
             if (ModelState.IsValid)
             { 
-                _service.AddOrUpdate(expense);
+                _service.Add(expense);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -129,7 +129,7 @@ namespace MyExpenses.WebApplicationMVC.Controllers
             {
                 try
                 {
-                    _service.AddOrUpdate(expense);
+                    _service.Update(expense);
                 }
                 catch (DbUpdateConcurrencyException)
                 {

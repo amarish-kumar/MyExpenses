@@ -34,10 +34,17 @@ namespace MyExpenses.Application.Interfaces.Services
         bool Remove(long id);
 
         /// <summary>
-        /// Add or update an object <see cref="IService{TModel}"/>
+        /// Add an object <see cref="IService{TModel}"/>
         /// </summary>
-        /// <param name="model">Object to add or update</param>
-        /// <returns>Object added or updated</returns>
-        TModel AddOrUpdate(TModel model);
+        /// <param name="model">Object to add</param>
+        /// <returns>Object added</returns>
+        TModel Add(TModel model);
+
+        /// <summary>
+        /// Update an object <see cref="IService{TModel}"/>
+        /// </summary>
+        /// <param name="model">Object toupdate</param>
+        /// <returns>Object updated</returns>
+        TModel Update(TModel model);
     }
 }

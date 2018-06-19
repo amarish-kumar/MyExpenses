@@ -13,9 +13,6 @@ namespace MyExpenses.Application.AutoMapper
 
     internal class LabelProfile : Profile
     {
-        public LabelProfile()
-        {
-            CreateMap<Label, LabelDto>().ReverseMap();
-        }
+        public LabelProfile() => CreateMap<Label, LabelDto>().ReverseMap();
     }
 }

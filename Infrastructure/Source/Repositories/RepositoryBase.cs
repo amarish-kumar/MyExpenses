@@ -54,24 +54,25 @@ namespace MyExpenses.Infrastructure.Repositories
             return _context.Set<TModel>().Remove(model) != null;
         }
 
-        public TModel AddOrUpdate(TModel model)
+        public TModel Update(TModel model)
         {
             if (model == null)
                 return null;
 
-            // Update
-            if (model.Id > 0)
-            {
-                TModel existModel = _context.Set<TModel>().Find(model.Id);
-                if (existModel == null)
-                    return null;
+            TModel existModel = _context.Set<TModel>().Find(model.Id);
+            if (existModel == null)
+                return null;
 
-                // copy attributes
-                existModel.Copy(model);
-                return existModel;
-            }
+            // copy attributes
+            existModel.Copy(model);
+            return existModel;
+        }
 
-            // Add
+        public TModel Add(TModel model)
+        {
+            if (model == null)
+                return null;
+
             var newModel = _context.Set<TModel>().Add(model);
             return newModel?.Entity;
         }

@@ -53,7 +53,7 @@ namespace MyExpenses.ApplicationTest
             }
 
             // update database
-            all.ForEach(x => _appService.AddOrUpdate(x));
+            all.ForEach(x => _appService.Update(x));
 
             // get again
             all = _appService.Get().ToList();
@@ -76,13 +76,13 @@ namespace MyExpenses.ApplicationTest
 
             first.Id = id;
 
-            Assert.IsNull(_appService.AddOrUpdate(first));
+            Assert.IsNull(_appService.Update(first));
         }
 
         [TestMethod]
         public void UpdateNullObject()
         {
-            Assert.IsNull(_appService.AddOrUpdate(null));
+            Assert.IsNull(_appService.Update(null));
         }
 
         [TestMethod]
@@ -157,7 +157,7 @@ namespace MyExpenses.ApplicationTest
 
             first.LabelId = last.LabelId;
 
-            _appService.AddOrUpdate(first);
+            _appService.Update(first);
 
             first = _appService.GetById(first.Id);
 
@@ -172,7 +172,7 @@ namespace MyExpenses.ApplicationTest
 
             first.PaymentId = last.PaymentId;
 
-            _appService.AddOrUpdate(first);
+            _appService.Update(first);
 
             first = _appService.GetById(first.Id);
 

@@ -53,7 +53,7 @@ namespace MyExpenses.ApplicationTest
             }
 
             // update database
-            all.ForEach(x => _appService.AddOrUpdate(x));
+            all.ForEach(x => _appService.Update(x));
 
             // get again
             all = _appService.Get().ToList();
@@ -76,13 +76,13 @@ namespace MyExpenses.ApplicationTest
 
             first.Id = id;
 
-            Assert.IsNull(_appService.AddOrUpdate(first));
+            Assert.IsNull(_appService.Update(first));
         }
 
         [TestMethod]
         public void UpdateNullObject()
         {
-            Assert.IsNull(_appService.AddOrUpdate(null));
+            Assert.IsNull(_appService.Update(null));
         }
 
         [TestMethod]

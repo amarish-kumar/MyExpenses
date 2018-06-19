@@ -51,14 +51,17 @@ namespace MyExpenses.Domain.Interfaces
         bool Remove(long id);
 
         /// <summary>
-        /// Add or update an object
-        /// 
-        /// If the key (Id) is positive (greater than zero) will update the object
-        /// If the key (Id) is less than zero will add as a new object
-        /// 
+        /// Add an object
         /// </summary>
-        /// <param name="model">Object to add or update</param>
-        /// <returns>Object added or updated</returns>
-        TModel AddOrUpdate(TModel model);
+        /// <param name="model">Object to add</param>
+        /// <returns>Object added</returns>
+        TModel Add(TModel model);
+
+        /// <summary>
+        /// Update an object
+        /// </summary>
+        /// <param name="model">Object to update</param>
+        /// <returns>Object updated</returns>
+        TModel Update(TModel model);
     }
 }

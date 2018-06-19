@@ -48,7 +48,7 @@ namespace MyExpenses.Domain.Services
                     {
                         expense.Label = null;
                         expense.LabelId = null;
-                        _repository.AddOrUpdate(expense);
+                        _repository.Update(expense);
                     });
         }
 
@@ -61,7 +61,7 @@ namespace MyExpenses.Domain.Services
                     {
                         expense.Payment = null;
                         expense.PaymentId = null;
-                        _repository.AddOrUpdate(expense);
+                        _repository.Update(expense);
                     });
         }
     }

@@ -63,19 +63,19 @@ namespace MyExpenses.ApplicationTest
             ILabelAppService labelAppService = GetAppService<ILabelAppService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                labelsDto.Add(labelAppService.AddOrUpdate(new LabelDto { Name = $"Label{i + 1}" }));
+                labelsDto.Add(labelAppService.Add(new LabelDto { Name = $"Label{i + 1}" }));
             }
 
             IPaymentAppService paymentAppService = GetAppService<IPaymentAppService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                paymentDto.Add(paymentAppService.AddOrUpdate(new PaymentDto { Name = $"Payment{i + 1}" }));
+                paymentDto.Add(paymentAppService.Add(new PaymentDto { Name = $"Payment{i + 1}" }));
             }
 
             IExpenseAppService expenseAppService = GetAppService<IExpenseAppService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                expenseAppService.AddOrUpdate(new ExpenseDto
+                expenseAppService.Add(new ExpenseDto
                 {
                     Name = $"Expense{i + 1}",
                     Data = DateTime.Today,

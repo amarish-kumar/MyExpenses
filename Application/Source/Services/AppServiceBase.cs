@@ -51,11 +51,25 @@ namespace MyExpenses.Application.Services
             return ret;
         }
 
-        public virtual TDto AddOrUpdate(TDto model)
+        public virtual TDto Add(TDto model)
         {
             _unitOfWork.BeginTransaction();
 
-            var ret = _service.AddOrUpdate(_adapter.DtoToModel(model));
+            var ret = _service.Add(_adapter.DtoToModel(model));
+
+            if (ret != null)
+            {
+                _unitOfWork.Commit();
+            }
+
+            return _adapter.ModelToDto(ret);
+        }
+
+        public virtual TDto Update(TDto model)
+        {
+            _unitOfWork.BeginTransaction();
+
+            var ret = _service.Update(_adapter.DtoToModel(model));
 
             if (ret != null)
             {

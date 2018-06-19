@@ -21,9 +21,14 @@ namespace MyExpenses.Domain.Services
             _repository = repository;
         }
 
-        public virtual TModel AddOrUpdate(TModel model)
+        public virtual TModel Add(TModel model)
         {
-            return _repository.AddOrUpdate(model);
+            return _repository.Add(model);
+        }
+
+        public virtual TModel Update(TModel model)
+        {
+            return _repository.Update(model);
         }
 
         public virtual IEnumerable<TModel> Get(params Expression<Func<TModel, object>>[] includes)
