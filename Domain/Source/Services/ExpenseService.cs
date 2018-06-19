@@ -46,8 +46,8 @@ namespace MyExpenses.Domain.Services
                 .ToList()
                 .ForEach(expense =>
                     {
-                        expense.LabelId = null;
                         expense.Label = null;
+                        expense.LabelId = null;
                         _repository.AddOrUpdate(expense);
                     });
         }
@@ -59,8 +59,8 @@ namespace MyExpenses.Domain.Services
                 .ToList()
                 .ForEach(expense =>
                     {
-                        expense.PaymentId = null;
                         expense.Payment = null;
+                        expense.PaymentId = null;
                         _repository.AddOrUpdate(expense);
                     });
         }

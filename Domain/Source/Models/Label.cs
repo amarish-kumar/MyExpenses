@@ -6,14 +6,15 @@
 
 namespace MyExpenses.Domain.Models
 {
-    using MyExpenses.Domain.Interfaces;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Collections.Generic;
 
-    [Table("Label")]
+    using MyExpenses.Domain.Interfaces;
+
     public class Label : ModelBase
     {
         public string Name { get; set; }
+
+        public ICollection<Expense> Expenses { get; set; }
 
         public override void Copy(IModel obj)
         {
@@ -22,6 +23,7 @@ namespace MyExpenses.Domain.Models
             if (obj is Label label)
             {
                 Name = label.Name;
+                Expenses = label.Expenses;
             }
         }
     }

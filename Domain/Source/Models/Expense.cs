@@ -11,7 +11,6 @@ namespace MyExpenses.Domain.Models
 
     using MyExpenses.Domain.Interfaces;
 
-    [Table("Expense")]
     public class Expense : ModelBase
     {
         public string Name { get; set; }
@@ -20,7 +19,6 @@ namespace MyExpenses.Domain.Models
 
         public DateTime Data { get; set; }
 
-        [Column("Incoming")]
         public int Incoming { get; set; }
 
         [NotMapped]
@@ -30,11 +28,9 @@ namespace MyExpenses.Domain.Models
             set => Incoming = value ? 1 : 0;
         }
 
-        [ForeignKey("LabelId")]
         public long? LabelId { get; set; }
         public Label Label { get; set; }
 
-        [ForeignKey("PaymentId")]
         public long? PaymentId { get; set; }
         public Payment Payment { get; set; }
 

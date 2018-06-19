@@ -17,6 +17,8 @@ namespace MyExpenses.ApplicationTest
     [TestClass]
     public class ServicesTest : AppServicesTestBase
     {
+        private const float TOLERANCE = 0.001f;
+
         private IExpenseAppService _expenseAppService;
         private ILabelAppService _labelAppService;
         private IPaymentAppService _paymentAppService;
@@ -247,8 +249,8 @@ namespace MyExpenses.ApplicationTest
 
             Assert.IsTrue(labels.Any());
             Assert.IsTrue(labels.All(x => x.Amount > 0));
-            Assert.IsTrue(labels.All(x => x.Value > 0));
-            Assert.IsTrue(labels.All(x => x.Average == 0));
+            Assert.IsTrue(labels.All(x => x.Value < 0 || x.Value > 0));
+            Assert.IsTrue(labels.All(x => Math.Abs(x.Average) < TOLERANCE));
             Assert.IsTrue(labels.All(x => x.LastMonth.Equals(0)));
         }
 

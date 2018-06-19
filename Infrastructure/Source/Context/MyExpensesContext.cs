@@ -10,6 +10,7 @@ namespace MyExpenses.Infrastructure.Context
     using Microsoft.EntityFrameworkCore;
 
     using MyExpenses.Domain.Models;
+    using MyExpenses.Infrastructure.Configuration;
 
     public class MyExpensesContext : IdentityDbContext<User>
     {
@@ -18,10 +19,21 @@ namespace MyExpenses.Infrastructure.Context
         {
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-        //}
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new ExpenseConfiguration());
+            builder.ApplyConfiguration(new LabelConfiguration());
+            builder.ApplyConfiguration(new PaymentConfiguration());
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
 
         public DbSet<Label> Label { get; set; }
 
