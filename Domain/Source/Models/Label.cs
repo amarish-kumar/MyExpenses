@@ -23,7 +23,7 @@ namespace MyExpenses.Domain.Models
             if (obj is Label label)
             {
                 Name = label.Name;
-                Expenses = label.Expenses;
+                //Expenses = label.Expenses;
             }
         }
     }

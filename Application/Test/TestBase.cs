@@ -11,19 +11,37 @@ namespace MyExpenses.ApplicationTest
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using MyExpenses.Application.Dtos;
     using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Application.Modules;
     using MyExpenses.Infrastructure.Context;
 
-    public abstract class AppServicesTestBase
+    public abstract class TestBase
     {
         private const int NUMBER_OBJ = 10;
 
         private IServiceCollection _servicesCollection;
         private ServiceProvider _serviceProvider;
 
-        protected void Init()
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            Init();
+            Fill();
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            _servicesCollection.Clear();
+            _servicesCollection = null;
+
+            _serviceProvider?.Dispose();
+            _serviceProvider = null;
+        }
+
+        private void Init()
         {
             _servicesCollection = new ServiceCollection();
 
@@ -37,7 +55,7 @@ namespace MyExpenses.ApplicationTest
             _serviceProvider = _servicesCollection.BuildServiceProvider();
         }
 
-        public void Fill()
+        private void Fill()
         {
             var labelsDto = new List<LabelDto>();
             var paymentDto = new List<PaymentDto>();
@@ -69,15 +87,6 @@ namespace MyExpenses.ApplicationTest
                     IsIncoming = i % 2 == 0
                 });
             }
-        }
-
-        public void Clean()
-        {
-            _servicesCollection.Clear();
-            _servicesCollection = null;
-
-            _serviceProvider?.Dispose();
-            _serviceProvider = null;
         }
 
         protected T GetAppService<T>()

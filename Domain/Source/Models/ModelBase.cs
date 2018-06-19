@@ -13,8 +13,8 @@ namespace MyExpenses.Domain.Models
 
     public abstract class ModelBase : IModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         // TODO

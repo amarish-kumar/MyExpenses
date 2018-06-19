@@ -30,20 +30,6 @@ namespace MyExpenses.Application.Modules
         {
             AutoMapperConfiguration.Configure();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            // Repositories
-            services.AddScoped<IExpenseRepository, ExpenseRepository>();
-            services.AddScoped<ILabelRepository, LabelRepository>();
-            services.AddScoped<IPaymentRepository, PaymentRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-
-            // Domain Services
-            services.AddScoped<IExpenseService, ExpenseService>();
-            services.AddScoped<ILabelService, LabelService>();
-            services.AddScoped<IPaymentService, PaymentService>();
-            services.AddScoped<IUserService, UserService>();
-
             // Application services
             services.AddScoped<IExpenseAppService, ExpenseAppService>();
             services.AddScoped<ILabelAppService, LabelAppService>();
@@ -54,6 +40,10 @@ namespace MyExpenses.Application.Modules
             services.AddScoped<IExpenseAdapter, ExpenseAdapter>();
             services.AddScoped<ILabelAdapter, LabelAdapter>();
             services.AddScoped<IPaymentAdapter, PaymentAdapter>();
+
+            DomainModule.ConfigureServices(services);
+
+            InfrastructureModule.ConfigureServices(services);
         }
     }
 }
