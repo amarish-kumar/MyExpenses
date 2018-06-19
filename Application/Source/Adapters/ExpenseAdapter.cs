@@ -27,15 +27,6 @@ namespace MyExpenses.Application.Adapters
 
     internal class ExpenseAdapter : IExpenseAdapter
     {
-        private readonly ILabelAdapter _labelAdapter;
-        private readonly IPaymentAdapter _paymentAdapter;
-
-        public ExpenseAdapter(ILabelAdapter labelAdapter, IPaymentAdapter paymentAdapter)
-        {
-            _labelAdapter = labelAdapter;
-            _paymentAdapter = paymentAdapter;
-        }
-
         public ExpenseDto ModelToDto(Expense model) => Mapper.Map<ExpenseDto>(model);
 
         public Expense DtoToModel(ExpenseDto dto) => Mapper.Map<Expense>(dto);

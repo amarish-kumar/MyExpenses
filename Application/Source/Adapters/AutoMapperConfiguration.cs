@@ -16,9 +16,9 @@ namespace MyExpenses.Application.Adapters
             Mapper.Initialize(
                 cfg =>
                     {
-                        cfg.AddProfile<ExpenseProfile>();
-                        cfg.AddProfile<LabelProfile>();
-                        cfg.AddProfile<PaymentProfile>();
+                        cfg.AddProfile(new ExpenseProfile());
+                        cfg.AddProfile(new LabelProfile());
+                        cfg.AddProfile(new PaymentProfile());
                     });
         }
     }
