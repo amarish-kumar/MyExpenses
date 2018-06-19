@@ -22,7 +22,7 @@ namespace MyExpenses.Infrastructure.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resource {
+    internal class Resource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace MyExpenses.Infrastructure.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Infrastructure.Properties.Resource", typeof(Resource).Assembly);
@@ -51,7 +51,7 @@ namespace MyExpenses.Infrastructure.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MyExpenses.Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Data.
         /// </summary>
-        public static string ColumnDate {
+        internal static string ColumnDate {
             get {
                 return ResourceManager.GetString("ColumnDate", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MyExpenses.Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Incoming.
         /// </summary>
-        public static string ColumnIncoming {
+        internal static string ColumnIncoming {
             get {
                 return ResourceManager.GetString("ColumnIncoming", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace MyExpenses.Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
-        public static string ColumnName {
+        internal static string ColumnName {
             get {
                 return ResourceManager.GetString("ColumnName", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace MyExpenses.Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Value.
         /// </summary>
-        public static string ColumnValue {
+        internal static string ColumnValue {
             get {
                 return ResourceManager.GetString("ColumnValue", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace MyExpenses.Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Expense.
         /// </summary>
-        public static string ExpenseTable {
+        internal static string ExpenseTable {
             get {
                 return ResourceManager.GetString("ExpenseTable", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace MyExpenses.Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Label.
         /// </summary>
-        public static string LabelTable {
+        internal static string LabelTable {
             get {
                 return ResourceManager.GetString("LabelTable", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace MyExpenses.Infrastructure.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Payment.
         /// </summary>
-        public static string PaymentTable {
+        internal static string PaymentTable {
             get {
                 return ResourceManager.GetString("PaymentTable", resourceCulture);
             }
