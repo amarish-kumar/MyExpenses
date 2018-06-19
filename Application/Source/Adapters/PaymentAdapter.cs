@@ -6,19 +6,11 @@
 
 namespace MyExpenses.Application.Adapters
 {
-    using AutoMapper;
+    using global::AutoMapper;
 
     using MyExpenses.Application.Dtos;
     using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Domain.Models;
-
-    internal class PaymentProfile : Profile
-    {
-        public PaymentProfile()
-        {
-            CreateMap<Payment, PaymentDto>().ReverseMap();
-        }
-    }
 
     internal class PaymentAdapter : IPaymentAdapter
     {

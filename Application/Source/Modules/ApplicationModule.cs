@@ -9,6 +9,7 @@ namespace MyExpenses.Application.Modules
     using Microsoft.Extensions.DependencyInjection;
 
     using MyExpenses.Application.Adapters;
+    using MyExpenses.Application.AutoMapper;
     using MyExpenses.Application.Interfaces.Adapters;
     using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Application.Services;

@@ -4,9 +4,9 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.Application.Adapters
+namespace MyExpenses.Application.AutoMapper
 {
-    using AutoMapper;
+    using global::AutoMapper;
 
     public static class AutoMapperConfiguration
     {
