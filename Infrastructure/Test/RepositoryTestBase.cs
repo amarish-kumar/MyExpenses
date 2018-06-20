@@ -30,8 +30,12 @@ namespace MyExpenses.InfrastructureTest
         [TestMethod]
         public void InitAndFill()
         {
+            // arrange
+
+            // act
             var all = Repository.Get();
 
+            // assert
             Assert.IsTrue(all.Any());
         }
 
@@ -42,11 +46,14 @@ namespace MyExpenses.InfrastructureTest
         [DataRow(7)]
         public void RemoveValidObject(long id)
         {
+            // arrange
+
+            // act
             UnitOfWork.BeginTransaction();
             bool removed = Repository.Remove(id);
-            if (removed)
-                UnitOfWork.Commit();
+            UnitOfWork.Commit();
 
+            // assert
             Assert.IsTrue(removed);
             Assert.IsNull(Repository.GetById(id));
         }
@@ -57,11 +64,12 @@ namespace MyExpenses.InfrastructureTest
         [DataRow(10000)]
         public void RemoveInvalidObject(long id)
         {
-            UnitOfWork.BeginTransaction();
-            bool removed = Repository.Remove(id);
-            if (removed)
-                UnitOfWork.Commit();
+            // arrange
 
+            // act
+            bool removed = Repository.Remove(id);
+
+            // assert
             Assert.IsFalse(removed);
             Assert.IsNull(Repository.GetById(id));
         }
@@ -69,13 +77,13 @@ namespace MyExpenses.InfrastructureTest
         [TestMethod]
         public void UpdateNullObject()
         {
-            Assert.IsNull(Repository.Update(null));
-        }
+            // arrage
 
-        [TestMethod]
-        public void AddNullObject()
-        {
-            Assert.IsNull(Repository.Add(null));
+            // act
+            var obj = Repository.Update(null);
+
+            // assert
+            Assert.IsNull(obj);
         }
 
         [TestMethod]
@@ -84,15 +92,47 @@ namespace MyExpenses.InfrastructureTest
         [DataRow(10000)]
         public void UpdateInvalidObject(long id)
         {
+            // act
             ModelBase.Id = id;
 
-            UnitOfWork.BeginTransaction();
+            // arrange
             var obj = Repository.Update(ModelBase);
-            if (obj != null)
-                UnitOfWork.Commit();
 
+            // assert
             Assert.IsNull(obj);
             Assert.IsNull(Repository.GetById(id));
+        }
+
+        [TestMethod]
+        public void AddNullObject()
+        {
+            // act
+
+            // arrange
+            var obj = Repository.Add(null);
+
+            // assert
+            Assert.IsNull(obj);
+        }
+
+        [TestMethod]
+        public void AddValidObject()
+        {
+            // arrange
+            var allObjs = Repository.Get();
+            var first = allObjs.First();
+            var numberOfObjs = allObjs.Count();
+
+            ModelBase.Copy(first);
+            ModelBase.Id = 0;
+            
+            // act
+            UnitOfWork.BeginTransaction();
+            Repository.Add(ModelBase);
+            UnitOfWork.Commit();
+
+            // assert
+            Assert.AreNotEqual(numberOfObjs, Repository.Get().Count());
         }
     }
 }

@@ -6,6 +6,8 @@
 
 namespace MyExpenses.InfrastructureTest
 {
+    using System.Linq;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using MyExpenses.Domain.Interfaces;
@@ -24,10 +26,23 @@ namespace MyExpenses.InfrastructureTest
         }
 
         [TestMethod]
-        public void Dummy()
+        public void ExpenseTestInclude()
         {
-            // just to avoid warning
-            Assert.IsTrue(true);
+            // arrange
+
+            // act
+            var allObjs = Repository.Get(x => x.Label, x => x.Payment).ToList();
+
+            // assert
+            Assert.IsTrue(allObjs.Any());
+            allObjs.ForEach(x => 
+                {
+                    Assert.IsNotNull(x.Label);
+                    Assert.IsTrue(x.Label.Expenses.Any());
+
+                    Assert.IsNotNull(x.Payment);
+                    Assert.IsTrue(x.Payment.Expenses.Any());
+                });
         }
     }
 }
