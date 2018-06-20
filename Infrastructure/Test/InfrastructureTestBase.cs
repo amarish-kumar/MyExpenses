@@ -14,6 +14,7 @@ namespace MyExpenses.InfrastructureTest
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using MyExpenses.Application.Modules;
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
@@ -58,6 +59,9 @@ namespace MyExpenses.InfrastructureTest
 
         private void Fill()
         {
+            var unitOfWork = GetAppService<IUnitOfWork>();
+            unitOfWork.BeginTransaction();
+
             var labels = new List<Label>();
             var payments = new List<Payment>();
 
@@ -88,6 +92,8 @@ namespace MyExpenses.InfrastructureTest
                     IsIncoming = i % 2 == 0
                 });
             }
+
+            unitOfWork.Commit();
         }
 
         protected T GetAppService<T>()
