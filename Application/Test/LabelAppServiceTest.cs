@@ -15,10 +15,8 @@ namespace MyExpenses.ApplicationTest
     using MyExpenses.ApplicationTest.Properties;
 
     [TestClass]
-    public class LabelAppServiceTest : TestBase
+    public class LabelAppServiceTest : ApplicationTestBase
     {
-        private const float TOLERANCE = 0.001f;
-
         private ILabelAppService _appService;
 
         [TestInitialize]
@@ -91,8 +89,6 @@ namespace MyExpenses.ApplicationTest
         [DataRow(10)]
         public void RemoveObject(int id)
         {
-            var obj = _appService.GetById(id);
-
             Assert.IsTrue(_appService.Remove(id));
             Assert.IsNull(_appService.GetById(id));
         }

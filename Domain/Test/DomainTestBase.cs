@@ -4,7 +4,7 @@
 *   Github: http://github.com/lfmachadodasilva/MyExpenses
 */
 
-namespace MyExpenses.ApplicationTest
+namespace MyExpenses.DomainTest
 {
     using System;
     using System.Collections.Generic;
@@ -12,12 +12,13 @@ namespace MyExpenses.ApplicationTest
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using MyExpenses.Application.Dtos;
-    using MyExpenses.Application.Interfaces.Services;
+
     using MyExpenses.Application.Modules;
+    using MyExpenses.Domain.Interfaces.Services;
+    using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
 
-    public abstract class TestBase
+    public abstract class DomainTestBase
     {
         private const int NUMBER_OBJ = 10;
 
@@ -49,7 +50,8 @@ namespace MyExpenses.ApplicationTest
             _servicesCollection.AddDbContext<MyExpensesContext>(options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
             
             // configure all others projects
-            ApplicationModule.ConfigureServices(_servicesCollection);
+            DomainModule.ConfigureServices(_servicesCollection);
+            InfrastructureModule.ConfigureServices(_servicesCollection);
 
             // build
             _serviceProvider = _servicesCollection.BuildServiceProvider();
@@ -57,33 +59,33 @@ namespace MyExpenses.ApplicationTest
 
         private void Fill()
         {
-            var labelsDto = new List<LabelDto>();
-            var paymentDto = new List<PaymentDto>();
+            var labels = new List<Label>();
+            var payments = new List<Payment>();
 
-            ILabelAppService labelAppService = GetAppService<ILabelAppService>();
+            ILabelService labelService = GetAppService<ILabelService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                labelsDto.Add(labelAppService.Add(new LabelDto { Name = $"Label{i + 1}" }));
+                labels.Add(labelService.Add(new Label { Name = $"Label{i + 1}" }));
             }
 
-            IPaymentAppService paymentAppService = GetAppService<IPaymentAppService>();
+            IPaymentService paymentService = GetAppService<IPaymentService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                paymentDto.Add(paymentAppService.Add(new PaymentDto { Name = $"Payment{i + 1}" }));
+                payments.Add(paymentService.Add(new Payment { Name = $"Payment{i + 1}" }));
             }
 
-            IExpenseAppService expenseAppService = GetAppService<IExpenseAppService>();
+            IExpenseService expenseService = GetAppService<IExpenseService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                expenseAppService.Add(new ExpenseDto
+                expenseService.Add(new Expense
                 {
                     Name = $"Expense{i + 1}",
                     Data = DateTime.Today,
                     Value = i + 1,
-                    Label = labelsDto[i],
-                    LabelId = labelsDto[i].Id,
-                    Payment = paymentDto[i],
-                    PaymentId = paymentDto[i].Id,
+                    Label = labels[i],
+                    LabelId = labels[i].Id,
+                    Payment = payments[i],
+                    PaymentId = payments[i].Id,
                     IsIncoming = i % 2 == 0
                 });
             }
