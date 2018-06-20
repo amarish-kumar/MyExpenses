@@ -20,6 +20,7 @@ namespace MyExpenses.InfrastructureTest
         {
             Repository = GetAppService<ILabelRepository>();
             UnitOfWork = GetAppService<IUnitOfWork>();
+            ModelBase = new Label();
         }
 
         [TestMethod]

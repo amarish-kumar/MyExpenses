@@ -20,6 +20,7 @@ namespace MyExpenses.InfrastructureTest
         {
             Repository = GetAppService<IPaymentRepository>();
             UnitOfWork = GetAppService<IUnitOfWork>();
+            ModelBase = new Payment();
         }
 
         [TestMethod]
