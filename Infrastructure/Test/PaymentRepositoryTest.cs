@@ -6,35 +6,27 @@
 
 namespace MyExpenses.InfrastructureTest
 {
-    using System.Linq;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    
+
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
+    using MyExpenses.Domain.Models;
 
     [TestClass]
-    public class PaymentRepositoryTest : InfrastructureTestBase
+    public class PaymentRepositoryTest : RepositoryTestBase<Payment, IPaymentRepository>
     {
-        private IPaymentRepository _repository;
-
         [TestInitialize]
         public void Initialize()
         {
-            _repository = GetAppService<IPaymentRepository>();
-        }
-
-        [TestCleanup]
-        public void CleanUp()
-        {
-            _repository = null;
+            Repository = GetAppService<IPaymentRepository>();
+            UnitOfWork = GetAppService<IUnitOfWork>();
         }
 
         [TestMethod]
-        public void InitAndFill()
+        public void Dummy()
         {
-            var all = _repository.Get();
-
-            Assert.IsTrue(all.Any());
+            // just to avoid warning
+            Assert.IsTrue(true);
         }
     }
 }

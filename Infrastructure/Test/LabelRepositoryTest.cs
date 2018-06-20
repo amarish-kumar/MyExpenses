@@ -6,35 +6,27 @@
 
 namespace MyExpenses.InfrastructureTest
 {
-    using System.Linq;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    
+
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
+    using MyExpenses.Domain.Models;
 
     [TestClass]
-    public class LabelRepositoryTest : InfrastructureTestBase
+    public class LabelRepositoryTest : RepositoryTestBase<Label, ILabelRepository>
     {
-        private ILabelRepository _repository;
-
         [TestInitialize]
         public void Initialize()
         {
-            _repository = GetAppService<ILabelRepository>();
-        }
-
-        [TestCleanup]
-        public void CleanUp()
-        {
-            _repository = null;
+            Repository = GetAppService<ILabelRepository>();
+            UnitOfWork = GetAppService<IUnitOfWork>();
         }
 
         [TestMethod]
-        public void InitAndFill()
+        public void Dummy()
         {
-            var all = _repository.Get();
-
-            Assert.IsTrue(all.Any());
+            // just to avoid warning
+            Assert.IsTrue(true);
         }
     }
 }

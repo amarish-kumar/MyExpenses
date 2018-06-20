@@ -12,11 +12,18 @@ namespace MyExpenses.InfrastructureTest
 
     using MyExpenses.Domain.Interfaces;
 
-    public abstract class RepositoryTestBase<TModel, TRepository> : InfrastructureTestBase where TModel : IModel where TRepository : IService<TModel>
+    public abstract class RepositoryTestBase<TModel, TRepository> :
+        InfrastructureTestBase where TModel : IModel where TRepository : IService<TModel>
     {
         protected TRepository Repository;
-
         protected IUnitOfWork UnitOfWork;
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            Repository = default(TRepository);
+            UnitOfWork = null;
+        }
 
         [TestMethod]
         public void InitAndFill()

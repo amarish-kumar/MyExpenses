@@ -6,8 +6,6 @@
 
 namespace MyExpenses.InfrastructureTest
 {
-    using System.Linq;
-
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using MyExpenses.Domain.Interfaces;
@@ -24,11 +22,11 @@ namespace MyExpenses.InfrastructureTest
             UnitOfWork = GetAppService<IUnitOfWork>();
         }
 
-        [TestCleanup]
-        public void CleanUp()
+        [TestMethod]
+        public void Dummy()
         {
-            Repository = null;
-            UnitOfWork = null;
+            // just to avoid warning
+            Assert.IsTrue(true);
         }
     }
 }
