@@ -94,8 +94,13 @@ test_script:
   - dotnet test "Application/Test" -c %CONFIGURATION%
   - dotnet test "Domain/Test" -c %CONFIGURATION%
   - dotnet test "Infrastructure/Test" -c %CONFIGURATION%
-  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test /p:DebugType=full */*/Test" -output:"TestResult.xml" -oldstyle
 
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test /p:DebugType=full Domain/Test" -output:"DomainTestResult.xml" -oldstyle
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test /p:DebugType=full Infrastructure/Test" -output:"InfrastructureTestResult.xml" -oldstyle
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test /p:DebugType=full Application/Test" -output:"ApplicationTestResult.xml" -oldstyle
+  
 # scripts to run after tests
 after_test:
- - codecov -f "TestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3
+ - codecov -f "DomainTestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3
+ - codecov -f "InfrastructureTestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3
+ - codecov -f "ApplicationTestResult.xml" -t 81c4ac46-b5bc-4d0d-8c4f-4de04812e6e3
