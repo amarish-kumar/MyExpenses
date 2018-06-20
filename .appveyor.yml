@@ -40,8 +40,8 @@ before_build:
 
 build_script:
   - dotnet build "Util/Source" -c %CONFIGURATION% --version-suffix %LABEL%
-  - dotnet build "Infrastructure/Source" -c %CONFIGURATION% --version-suffix %LABEL%
   - dotnet build "Domain/Source" -c %CONFIGURATION% --version-suffix %LABEL%
+  - dotnet build "Infrastructure/Source" -c %CONFIGURATION% --version-suffix %LABEL%
   - dotnet build "Application/Source" -c %CONFIGURATION% --version-suffix %LABEL%
   
   - dotnet build "Presentation/WebApplicationMVC" -c %CONFIGURATION% --version-suffix %LABEL%
@@ -94,7 +94,7 @@ test_script:
   - dotnet test "Application/Test" -c %CONFIGURATION%
   - dotnet test "Domain/Test" -c %CONFIGURATION%
   - dotnet test "Infrastructure/Test" -c %CONFIGURATION%
-  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test /p:DebugType=full Application/Test" -output:"TestResult.xml" -oldstyle
+  - OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test /p:DebugType=full **/Test" -output:"TestResult.xml" -oldstyle
 
 # scripts to run after tests
 after_test:
