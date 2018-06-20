@@ -9,32 +9,26 @@ namespace MyExpenses.InfrastructureTest
     using System.Linq;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    
+
+    using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
+    using MyExpenses.Domain.Models;
 
     [TestClass]
-    public class ExpenseRepositoryTest : InfrastructureTestBase
+    public class ExpenseRepositoryTest : RepositoryTestBase<Expense, IExpenseRepository>
     {
-        private IExpenseRepository _repository;
-
         [TestInitialize]
         public void Initialize()
         {
-            _repository = GetAppService<IExpenseRepository>();
+            Repository = GetAppService<IExpenseRepository>();
+            UnitOfWork = GetAppService<IUnitOfWork>();
         }
 
         [TestCleanup]
         public void CleanUp()
         {
-            _repository = null;
-        }
-
-        [TestMethod]
-        public void InitAndFill()
-        {
-            var all = _repository.Get();
-
-            Assert.IsTrue(all.Any());
+            Repository = null;
+            UnitOfWork = null;
         }
     }
 }
