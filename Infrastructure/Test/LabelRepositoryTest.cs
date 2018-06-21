@@ -6,6 +6,8 @@
 
 namespace MyExpenses.InfrastructureTest
 {
+    using System.Linq;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using MyExpenses.Domain.Interfaces;
@@ -20,13 +22,20 @@ namespace MyExpenses.InfrastructureTest
         {
             Repository = GetAppService<ILabelRepository>();
             UnitOfWork = GetAppService<IUnitOfWork>();
+            ModelBase = new Label();
         }
 
         [TestMethod]
-        public void Dummy()
+        public void LabelTestInclude()
         {
-            // just to avoid warning
-            Assert.IsTrue(true);
+            // arrange
+
+            // act
+            var allObjs = Repository.Get(x => x.Expenses).ToList();
+
+            // assert
+            Assert.IsTrue(allObjs.Any());
+            allObjs.ForEach(x => { Assert.IsTrue(x.Expenses.Any()); });
         }
     }
 }
