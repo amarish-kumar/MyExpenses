@@ -26,7 +26,7 @@ namespace MyExpenses.InfrastructureTest
         }
 
         [TestMethod]
-        public void PaymentTestInclude()
+        public void LabelTestGetWithInclude()
         {
             // arrange
 
@@ -39,7 +39,7 @@ namespace MyExpenses.InfrastructureTest
         }
 
         [TestMethod]
-        public void PaymentTestGetByIdWithInclude()
+        public void LabelTestGetByIdWithInclude()
         {
             // arrange
 
