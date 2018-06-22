@@ -22,7 +22,7 @@ namespace MyExpenses.InfrastructureTest
         {
             Repository = GetAppService<IPaymentRepository>();
             UnitOfWork = GetAppService<IUnitOfWork>();
-            ModelBase = new Payment();
+            ModelBase = new Payment { Name = "Test" };
         }
 
         [TestMethod]
@@ -36,6 +36,20 @@ namespace MyExpenses.InfrastructureTest
             // assert
             Assert.IsTrue(allObjs.Any());
             allObjs.ForEach(x => { Assert.IsTrue(x.Expenses.Any()); });
+        }
+
+        [TestMethod]
+        public void PaymentTestGetByIdWithInclude()
+        {
+            // arrange
+
+            // act
+            var obj = Repository.GetById(1, x => x.Expenses);
+
+            // assert
+            Assert.IsNotNull(obj);
+            Assert.IsNotNull(obj.Expenses);
+            Assert.IsTrue(obj.Expenses.Any());
         }
     }
 }

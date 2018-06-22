@@ -22,11 +22,11 @@ namespace MyExpenses.InfrastructureTest
         {
             Repository = GetAppService<ILabelRepository>();
             UnitOfWork = GetAppService<IUnitOfWork>();
-            ModelBase = new Label();
+            ModelBase = new Label { Name = "Test" };
         }
 
         [TestMethod]
-        public void LabelTestInclude()
+        public void LabelTestGetWithInclude()
         {
             // arrange
 
@@ -36,6 +36,20 @@ namespace MyExpenses.InfrastructureTest
             // assert
             Assert.IsTrue(allObjs.Any());
             allObjs.ForEach(x => { Assert.IsTrue(x.Expenses.Any()); });
+        }
+
+        [TestMethod]
+        public void LabelTestGetByIdWithInclude()
+        {
+            // arrange
+
+            // act
+            var obj = Repository.GetById(1, x => x.Expenses);
+
+            // assert
+            Assert.IsNotNull(obj);
+            Assert.IsNotNull(obj.Expenses);
+            Assert.IsTrue(obj.Expenses.Any());
         }
     }
 }

@@ -11,7 +11,6 @@ namespace MyExpenses.Infrastructure.Repositories
     using Microsoft.AspNetCore.Identity;
 
     using MyExpenses.Domain.Interfaces.Repositories;
-    using MyExpenses.Domain.Models;
 
     using User = MyExpenses.Infrastructure.Context.User;
 

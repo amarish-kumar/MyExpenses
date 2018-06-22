@@ -22,11 +22,11 @@ namespace MyExpenses.InfrastructureTest
         {
             Repository = GetAppService<IExpenseRepository>();
             UnitOfWork = GetAppService<IUnitOfWork>();
-            ModelBase = new Expense();
+            ModelBase = new Expense { Name = "Test" };
         }
 
         [TestMethod]
-        public void ExpenseTestInclude()
+        public void ExpenseTestGetWithInclude()
         {
             // arrange
 
@@ -43,6 +43,22 @@ namespace MyExpenses.InfrastructureTest
                     Assert.IsNotNull(x.Payment);
                     Assert.IsTrue(x.Payment.Expenses.Any());
                 });
+        }
+
+        [TestMethod]
+        public void ExpenseTestGetByIdWithInclude()
+        {
+            // arrange
+
+            // act
+            var obj = Repository.GetById(1, x => x.Label, x => x.Payment);
+
+            // assert
+            Assert.IsNotNull(obj);
+            Assert.IsNotNull(obj.Label);
+            Assert.IsTrue(obj.Label.Expenses.Any());
+            Assert.IsNotNull(obj.Payment);
+            Assert.IsTrue(obj.Payment.Expenses.Any());
         }
     }
 }

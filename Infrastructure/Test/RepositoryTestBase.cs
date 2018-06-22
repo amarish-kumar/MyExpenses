@@ -44,6 +44,7 @@ namespace MyExpenses.InfrastructureTest
         [DataRow(3)]
         [DataRow(5)]
         [DataRow(7)]
+        [DataRow(9)]
         public void RemoveValidObject(long id)
         {
             // arrange
@@ -101,6 +102,27 @@ namespace MyExpenses.InfrastructureTest
             // assert
             Assert.IsNull(obj);
             Assert.IsNull(Repository.GetById(id));
+        }
+
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(3)]
+        [DataRow(5)]
+        [DataRow(7)]
+        [DataRow(9)]
+        public void UpdateValidObject(long id)
+        {
+            // act
+            ModelBase.Id = id;
+
+            // arrange
+            UnitOfWork.BeginTransaction();
+            var obj = Repository.Update(ModelBase);
+            UnitOfWork.Commit();
+
+            // assert
+            Assert.IsNotNull(obj);
+            Assert.IsNotNull(Repository.GetById(id));
         }
 
         [TestMethod]
