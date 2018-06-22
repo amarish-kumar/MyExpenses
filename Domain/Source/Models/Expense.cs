@@ -46,10 +46,7 @@ namespace MyExpenses.Domain.Models
                 IsIncoming = expense.IsIncoming;
 
                 LabelId = expense.LabelId;
-                //Label = expense.Label;
-
                 PaymentId = expense.PaymentId;
-                //Payment = expense.Payment;
             }
         }
     }

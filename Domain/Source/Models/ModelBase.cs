@@ -6,9 +6,6 @@
 
 namespace MyExpenses.Domain.Models
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     using MyExpenses.Domain.Interfaces;
 
     public abstract class ModelBase : IModel

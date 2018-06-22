@@ -21,7 +21,6 @@ namespace MyExpenses.Domain.Models
             if (obj is Payment payment)
             {
                 Name = payment.Name;
-                //Expenses = payment.Expenses;
             }
         }
     }

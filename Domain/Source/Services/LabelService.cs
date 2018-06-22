@@ -12,13 +12,11 @@ namespace MyExpenses.Domain.Services
 
     public class LabelService : ServiceBase<Label>, ILabelService
     {
-        private readonly ILabelRepository _repository;
         private readonly IExpenseService _expenseService;
 
         public LabelService(ILabelRepository repository, IExpenseService expenseService)
             : base(repository)
         {
-            _repository = repository;
             _expenseService = expenseService;
         }
 
