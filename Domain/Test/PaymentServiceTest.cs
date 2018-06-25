@@ -13,6 +13,7 @@ namespace MyExpenses.DomainTest
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Services;
     using MyExpenses.Domain.Models;
+    using MyExpenses.DomainTest.Properties;
 
     [TestClass]
     public class PaymentServiceTest : ServiceTestBase<Payment, IPaymentService>
@@ -22,7 +23,7 @@ namespace MyExpenses.DomainTest
         {
             Service = GetAppService<IPaymentService>();
             UnitOfWork = GetAppService<IUnitOfWork>();
-            ModelBase = new Payment { Name = "Test" };
+            ModelBase = new Payment { Name = Resource.NewPaymentName };
         }
 
         [TestMethod]

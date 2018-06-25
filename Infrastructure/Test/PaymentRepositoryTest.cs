@@ -13,6 +13,7 @@ namespace MyExpenses.InfrastructureTest
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
+    using MyExpenses.InfrastructureTest.Properties;
 
     [TestClass]
     public class PaymentRepositoryTest : RepositoryTestBase<Payment, IPaymentRepository>
@@ -22,7 +23,7 @@ namespace MyExpenses.InfrastructureTest
         {
             Repository = GetAppService<IPaymentRepository>();
             UnitOfWork = GetAppService<IUnitOfWork>();
-            ModelBase = new Payment { Name = "Test" };
+            ModelBase = new Payment { Name = Resource.NewPaymentName };
         }
 
         [TestMethod]

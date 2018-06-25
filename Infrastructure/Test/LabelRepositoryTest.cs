@@ -13,6 +13,7 @@ namespace MyExpenses.InfrastructureTest
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
+    using MyExpenses.InfrastructureTest.Properties;
 
     [TestClass]
     public class LabelRepositoryTest : RepositoryTestBase<Label, ILabelRepository>
@@ -22,7 +23,7 @@ namespace MyExpenses.InfrastructureTest
         {
             Repository = GetAppService<ILabelRepository>();
             UnitOfWork = GetAppService<IUnitOfWork>();
-            ModelBase = new Label { Name = "Test" };
+            ModelBase = new Label { Name = Resource.NewLabelName };
         }
 
         [TestMethod]

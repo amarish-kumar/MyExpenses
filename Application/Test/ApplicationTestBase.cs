@@ -15,6 +15,7 @@ namespace MyExpenses.ApplicationTest
     using MyExpenses.Application.Dtos;
     using MyExpenses.Application.Interfaces.Services;
     using MyExpenses.Application.Modules;
+    using MyExpenses.ApplicationTest.Properties;
     using MyExpenses.Infrastructure.Context;
 
     public abstract class ApplicationTestBase
@@ -63,13 +64,13 @@ namespace MyExpenses.ApplicationTest
             ILabelAppService labelAppService = GetAppService<ILabelAppService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                labelsDto.Add(labelAppService.Add(new LabelDto { Name = $"Label{i + 1}" }));
+                labelsDto.Add(labelAppService.Add(new LabelDto { Name = string.Format(Resource.LabelName, 1 + 1) }));
             }
 
             IPaymentAppService paymentAppService = GetAppService<IPaymentAppService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                paymentDto.Add(paymentAppService.Add(new PaymentDto { Name = $"Payment{i + 1}" }));
+                paymentDto.Add(paymentAppService.Add(new PaymentDto { Name = string.Format(Resource.PaymentName, 1 + 1) }));
             }
 
             IExpenseAppService expenseAppService = GetAppService<IExpenseAppService>();
@@ -77,7 +78,7 @@ namespace MyExpenses.ApplicationTest
             {
                 expenseAppService.Add(new ExpenseDto
                 {
-                    Name = $"Expense{i + 1}",
+                    Name = string.Format(Resource.ExpenseName, 1 + 1),
                     Data = DateTime.Today,
                     Value = i + 1,
                     Label = labelsDto[i],

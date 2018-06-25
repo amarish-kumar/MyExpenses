@@ -129,9 +129,6 @@
   <data name="NewLabelName" xml:space="preserve">
     <value>NewLabel</value>
   </data>
-  <data name="NewName" xml:space="preserve">
-    <value>NewName{0}</value>
-  </data>
   <data name="NewPaymentName" xml:space="preserve">
     <value>NewPayment</value>
   </data>

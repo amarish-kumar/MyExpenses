@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.ApplicationTest.Properties {
+namespace MyExpenses.InfrastructureTest.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MyExpenses.ApplicationTest.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.ApplicationTest.Properties.Resource", typeof(Resource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.InfrastructureTest.Properties.Resource", typeof(Resource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -93,15 +93,6 @@ namespace MyExpenses.ApplicationTest.Properties {
         internal static string NewLabelName {
             get {
                 return ResourceManager.GetString("NewLabelName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NewName{0}.
-        /// </summary>
-        internal static string NewName {
-            get {
-                return ResourceManager.GetString("NewName", resourceCulture);
             }
         }
         

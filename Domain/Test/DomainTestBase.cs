@@ -17,6 +17,7 @@ namespace MyExpenses.DomainTest
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Services;
     using MyExpenses.Domain.Models;
+    using MyExpenses.DomainTest.Properties;
     using MyExpenses.Infrastructure.Context;
 
     public abstract class DomainTestBase
@@ -69,13 +70,13 @@ namespace MyExpenses.DomainTest
             ILabelService labelService = GetAppService<ILabelService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                labels.Add(labelService.Add(new Label { Name = $"Label{i + 1}" }));
+                labels.Add(labelService.Add(new Label { Name = string.Format(Resource.LabelName, i + 1) }));
             }
 
             IPaymentService paymentService = GetAppService<IPaymentService>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                payments.Add(paymentService.Add(new Payment { Name = $"Payment{i + 1}" }));
+                payments.Add(paymentService.Add(new Payment { Name = string.Format(Resource.PaymentName, i + 1) }));
             }
 
             IExpenseService expenseService = GetAppService<IExpenseService>();
@@ -83,7 +84,7 @@ namespace MyExpenses.DomainTest
             {
                 expenseService.Add(new Expense
                 {
-                    Name = $"Expense{i + 1}",
+                    Name = string.Format(Resource.PaymentName, i + 1),
                     Data = DateTime.Today,
                     Value = i + 1,
                     Label = labels[i],

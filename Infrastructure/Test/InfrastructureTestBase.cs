@@ -18,6 +18,7 @@ namespace MyExpenses.InfrastructureTest
     using MyExpenses.Domain.Interfaces.Repositories;
     using MyExpenses.Domain.Models;
     using MyExpenses.Infrastructure.Context;
+    using MyExpenses.InfrastructureTest.Properties;
 
     public abstract class InfrastructureTestBase
     {
@@ -68,13 +69,13 @@ namespace MyExpenses.InfrastructureTest
             var labelRepository = GetAppService<ILabelRepository>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                labels.Add(labelRepository.Add(new Label { Name = $"Label{i + 1}" }));
+                labels.Add(labelRepository.Add(new Label { Name = string.Format(Resource.LabelName, i + 1) }));
             }
 
             var paymentRepository = GetAppService<IPaymentRepository>();
             for (int i = 0; i < NUMBER_OBJ; i++)
             {
-                payments.Add(paymentRepository.Add(new Payment { Name = $"Payment{i + 1}" }));
+                payments.Add(paymentRepository.Add(new Payment { Name = string.Format(Resource.PaymentName, i + 1) }));
             }
 
             var expenseRepository = GetAppService<IExpenseRepository>();
@@ -82,7 +83,7 @@ namespace MyExpenses.InfrastructureTest
             {
                 expenseRepository.Add(new Expense
                 {
-                    Name = $"Expense{i + 1}",
+                    Name = string.Format(Resource.PaymentName, i + 1),
                     Data = DateTime.Today,
                     Value = i + 1,
                     Label = labels[i],

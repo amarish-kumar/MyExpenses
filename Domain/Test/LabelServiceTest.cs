@@ -13,6 +13,7 @@ namespace MyExpenses.DomainTest
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Services;
     using MyExpenses.Domain.Models;
+    using MyExpenses.DomainTest.Properties;
 
     [TestClass]
     public class LabelServiceTest : ServiceTestBase<Label, ILabelService>
@@ -22,7 +23,7 @@ namespace MyExpenses.DomainTest
         {
             Service = GetAppService<ILabelService>();
             UnitOfWork = GetAppService<IUnitOfWork>();
-            ModelBase = new Label { Name = "Test" };
+            ModelBase = new Label { Name = Resource.NewLabelName };
         }
 
         [TestMethod]

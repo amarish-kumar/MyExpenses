@@ -14,6 +14,7 @@ namespace MyExpenses.DomainTest
     using MyExpenses.Domain.Interfaces;
     using MyExpenses.Domain.Interfaces.Services;
     using MyExpenses.Domain.Models;
+    using MyExpenses.DomainTest.Properties;
 
     [TestClass]
     public class ExpenseServiceTest : ServiceTestBase<Expense, IExpenseService>
@@ -23,7 +24,7 @@ namespace MyExpenses.DomainTest
         {
             Service = GetAppService<IExpenseService>();
             UnitOfWork = GetAppService<IUnitOfWork>();
-            ModelBase = new Expense { Name = "Test" };
+            ModelBase = new Expense { Name = Resource.NewExpenseName };
         }
 
         [TestMethod]

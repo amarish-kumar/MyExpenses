@@ -131,7 +131,7 @@ namespace MyExpenses.ApplicationTest
             // arrange
 
             // act
-            var allYears = _appService.GetAllYears();
+            var allYears = _appService.GetAllYears().ToList();
 
             // assert
             Assert.IsTrue(allYears.Any());
